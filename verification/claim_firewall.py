@@ -98,7 +98,7 @@ class LegalVerificationFirewall:
         authoritative_facts = evidence_pack.get("authoritative_facts", [])
 
         # Priority 1: Adversarial Probes & False Assertions (Query-Level Interception)
-        if ("crpc" in query_lower or "code of criminal procedure" in query_lower) and ("bns" in query_lower or "bharatiya nyaya" in query_lower) and any(w in query_lower for w in ["replace", "repeal", "since bns"]):
+        if ("crpc" in query_lower or "code of criminal procedure" in query_lower) and (re.search(r'\bbns\b', query_lower) or "bharatiya nyaya" in query_lower) and any(w in query_lower for w in ["replace", "repeal", "since bns"]) and not any(w in query_lower for w in ["what replaced", "which section replaced", "corresponds to", "equivalent of"]):
             return False, "False. The Bharatiya Nyaya Sanhita (BNS) replaced the Indian Penal Code (IPC). The Bharatiya Nagarik Suraksha Sanhita (BNSS) replaced the Code of Criminal Procedure (CrPC).", claims
 
         if "pocso" in query_lower and any(w in query_lower for w in ["repeal", "replace", "subsum"]):
@@ -153,7 +153,7 @@ class LegalVerificationFirewall:
                     return False, corrected_ans, claims
 
         # Priority 5: Procedural Rule Enforcement
-        if any(term in query_lower for term in ["procedural #", "timeline", "remand", "custody period", "undertrial", "zero fir", "e-fir", "notice of appearance"]) and not any(term in query_lower for term in ["confession", "admissible", "statement made by an accused", "electronic record"]):
+        if any(term in query_lower for term in ["procedural #", "timeline", "remand", "custody period", "undertrial", "zero fir", "e-fir", "notice of appearance"]) and not any(term in query_lower for term in ["confession", "admissible", "statement made by an accused", "electronic record", "pocso", "child victim", "child sexual"]):
             for fact in authoritative_facts:
                 if fact.get("type") == "PROCEDURAL_RULE":
                     p = fact["proc_data"]

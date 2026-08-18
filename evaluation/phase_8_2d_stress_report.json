@@ -1,0 +1,83 @@
+{
+  "total": 300,
+  "raw_correct": 287,
+  "final_correct": 288,
+  "retrieval_pass": 251,
+  "retrieval_partial": 42,
+  "retrieval_fail": 7,
+  "false_claims": 0,
+  "firewall_pass": 262,
+  "firewall_correct_corrections": 1,
+  "firewall_false_corrections": 0,
+  "firewall_blocks": 37,
+  "categories": {
+    "BNS_NARRATIVE": {
+      "total": 50,
+      "raw_pass": 50,
+      "final_pass": 50,
+      "ret_pass": 48
+    },
+    "BNSS_PROCEDURE": {
+      "total": 50,
+      "raw_pass": 48,
+      "final_pass": 48,
+      "ret_pass": 34
+    },
+    "BSA_DIGITAL_EVIDENCE": {
+      "total": 40,
+      "raw_pass": 39,
+      "final_pass": 39,
+      "ret_pass": 39
+    },
+    "POCSO_BNS_INTERACTION": {
+      "total": 30,
+      "raw_pass": 26,
+      "final_pass": 26,
+      "ret_pass": 23
+    },
+    "BNS_BNSS_INTERACTION": {
+      "total": 30,
+      "raw_pass": 30,
+      "final_pass": 30,
+      "ret_pass": 29
+    },
+    "BNS_BNSS_BSA_THREE_TIER": {
+      "total": 30,
+      "raw_pass": 29,
+      "final_pass": 29,
+      "ret_pass": 28
+    },
+    "SPECIAL_STATUTE_BOUNDARIES": {
+      "total": 20,
+      "raw_pass": 17,
+      "final_pass": 17,
+      "ret_pass": 15
+    },
+    "PRECEDENT_CURRENT_LAW": {
+      "total": 20,
+      "raw_pass": 19,
+      "final_pass": 19,
+      "ret_pass": 17
+    },
+    "AMBIGUITY_AND_NEAR_MISS": {
+      "total": 20,
+      "raw_pass": 20,
+      "final_pass": 20,
+      "ret_pass": 14
+    },
+    "DELIBERATE_ADVERSARIAL_TRAPS": {
+      "total": 10,
+      "raw_pass": 9,
+      "final_pass": 10,
+      "ret_pass": 4
+    }
+  },
+  "failure_taxonomy": {
+    "R1": 3,
+    "R2": 9
+  },
+  "total_time_seconds": 2.22,
+  "accuracy_raw_pct": 95.67,
+  "accuracy_final_pct": 96.0,
+  "retrieval_pass_pct": 83.67
+}

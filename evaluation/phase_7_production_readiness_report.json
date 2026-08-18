@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-18T14:25:21Z",
+  "timestamp": "2026-08-18T17:23:57Z",
   "production_status": "PRODUCTION_READINESS_APPROVED",
   "benchmark_v3_accuracy": "96.36% (1060 / 1100 Records)",
   "test_results": {
@@ -13,28 +13,28 @@
         {
           "query": "Convert legacy IPC Section 302 to BNS equivalent.",
           "status": "PASS",
-          "latency_ms": 4.23,
+          "latency_ms": 5.3,
           "grounding_status": "AUTO_CORRECTED_BY_FIREWALL",
           "sections_count": 4
         },
         {
           "query": "What is the judgment timeline under BNSS Section 392?",
           "status": "PASS",
-          "latency_ms": 5.53,
+          "latency_ms": 3.55,
           "grounding_status": "AUTO_CORRECTED_BY_FIREWALL",
           "sections_count": 4
         },
         {
           "query": "How did Satender Kumar Antil affect BNSS Section 479?",
           "status": "PASS",
-          "latency_ms": 15.87,
+          "latency_ms": 16.42,
           "grounding_status": "GROUNDED_AND_VERIFIED",
           "sections_count": 4
         },
         {
           "query": "Can BNS 2023 replace CrPC 1973?",
           "status": "PASS",
-          "latency_ms": 9.53,
+          "latency_ms": 9.79,
           "grounding_status": "AUTO_CORRECTED_BY_FIREWALL",
           "sections_count": 4
         }
@@ -58,13 +58,13 @@
     },
     "Latency_Benchmark": {
       "status": "PASS",
-      "p50_ms": 13.5,
-      "p95_ms": 15.9,
-      "p99_ms": 17.58
+      "p50_ms": 10.09,
+      "p95_ms": 12.73,
+      "p99_ms": 13.96
     },
     "Audit_Logging": {
       "status": "PASS",
-      "events_count": 177
+      "events_count": 233
     }
   },
   "security_matrix": {
@@ -75,9 +75,9 @@
     "audit_logging": "Active (Structured JSONL)"
   },
   "performance_matrix": {
-    "p50_latency_ms": 13.5,
-    "p95_latency_ms": 15.9,
-    "p99_latency_ms": 17.58,
+    "p50_latency_ms": 10.09,
+    "p95_latency_ms": 12.73,
+    "p99_latency_ms": 13.96,
     "target_sla_ms": 50.0,
     "sla_compliance": "100% within SLA"
   }
