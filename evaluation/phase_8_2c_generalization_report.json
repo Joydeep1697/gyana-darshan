@@ -1,0 +1,121 @@
+{
+  "baseline": {
+    "total_records": 125,
+    "raw_accuracy": 51.2,
+    "raw_correct": 64,
+    "final_accuracy": 49.6,
+    "final_correct": 62,
+    "retrieval_accuracy": 43.2,
+    "retrieval_correct": 54,
+    "evidence_support": 43.2,
+    "multi_statute_accuracy": 0.0,
+    "multi_statute_correct": 0,
+    "multi_statute_total": 10,
+    "pocso_accuracy": 0.0,
+    "pocso_correct": 0,
+    "pocso_total": 10,
+    "prohibited_false_claims": 3,
+    "false_corrections": 2,
+    "r2_failures": 58,
+    "g1_failures": 2,
+    "r1_failures": 1,
+    "f3_failures": 2
+  },
+  "phase_8_2c": {
+    "total_records": 125,
+    "raw_accuracy": 88.8,
+    "raw_correct": 111,
+    "final_accuracy": 90.4,
+    "final_correct": 113,
+    "retrieval_accuracy": 0.0,
+    "retrieval_correct": 0,
+    "retrieval_partial": 0,
+    "evidence_support": 0.0,
+    "multi_statute_accuracy": 100.0,
+    "multi_statute_correct": 10,
+    "multi_statute_total": 10,
+    "pocso_accuracy": 100.0,
+    "pocso_correct": 10,
+    "pocso_total": 10,
+    "prohibited_false_claims": 5,
+    "false_corrections": 0,
+    "correct_corrections": 21,
+    "failure_taxonomy": {
+      "null": 113,
+      "G1": 4,
+      "R2": 8
+    },
+    "category_breakdown": {
+      "ADVERSARIAL_TRAPS": {
+        "total": 10,
+        "passed": 9,
+        "accuracy": 90.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "AMBIGUITY_AND_NEAR_MISS": {
+        "total": 10,
+        "passed": 10,
+        "accuracy": 100.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "BSA_EVIDENCE": {
+        "total": 15,
+        "passed": 9,
+        "accuracy": 60.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "CRPC_TO_BNSS": {
+        "total": 15,
+        "passed": 13,
+        "accuracy": 86.7,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "IPC_TO_BNS": {
+        "total": 15,
+        "passed": 15,
+        "accuracy": 100.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "MULTI_STATUTE": {
+        "total": 10,
+        "passed": 10,
+        "accuracy": 100.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "OFFENCE_PENALTY": {
+        "total": 15,
+        "passed": 15,
+        "accuracy": 100.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "POCSO_SPECIAL_STATUTE": {
+        "total": 10,
+        "passed": 10,
+        "accuracy": 100.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "PRECEDENT_CURRENT_LAW": {
+        "total": 10,
+        "passed": 8,
+        "accuracy": 80.0,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      },
+      "PROCEDURE_BAIL": {
+        "total": 15,
+        "passed": 14,
+        "accuracy": 93.3,
+        "retrieval_pass": 0,
+        "retrieval_accuracy": 0.0
+      }
+    }
+  }
+}

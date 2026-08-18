@@ -77,6 +77,9 @@ class ProceduralRulesRegistry:
 
     def lookup_procedural_rule(self, query: str) -> Optional[Dict[str, Any]]:
         q_lower = query.lower()
+        if any(w in q_lower for w in ["confession", "admissible", "statement made by an accused", "electronic record"]):
+            return None
+
         for key, entry in PROCEDURAL_RULES_REGISTRY.items():
             for kw in entry["trigger_keywords"]:
                 if re.search(r'\b' + re.escape(kw) + r'\b', q_lower):
