@@ -6,18 +6,18 @@
 
 | Category Name | Total Questions | Passed | Failed | Accuracy % | Firewall Auto-Corrections |
 |:---|:---:|:---:|:---:|:---:|:---:|
-| **Statute Identification** | 100 | 99 | 1 | **99.0%** | 25 |
-| **Section Lookups** | 100 | 99 | 1 | **99.0%** | 30 |
+| **Statute Identification** | 100 | 100 | 0 | **100.0%** | 0 |
+| **Section Lookups** | 100 | 97 | 3 | **97.0%** | 0 |
 | **IPC -> BNS Cross-Mappings** | 100 | 100 | 0 | **100.0%** | 100 |
 | **CrPC -> BNSS Cross-Mappings** | 100 | 100 | 0 | **100.0%** | 100 |
 | **IEA -> BSA Cross-Mappings** | 100 | 100 | 0 | **100.0%** | 100 |
 | **Repeal & Replacement Verifications** | 100 | 100 | 0 | **100.0%** | 100 |
-| **Penalty & Punishment Specifications** | 100 | 89 | 11 | **89.0%** | 50 |
+| **Penalty & Punishment Specifications** | 100 | 90 | 10 | **90.0%** | 50 |
 | **Procedural Timelines & Bail Rules** | 100 | 100 | 0 | **100.0%** | 100 |
-| **Multi-Step Criminal Fact Patterns** | 100 | 99 | 1 | **99.0%** | 97 |
-| **Landmark Case Law Codifications** | 100 | 99 | 1 | **99.0%** | 25 |
+| **Multi-Step Criminal Fact Patterns** | 100 | 98 | 2 | **98.0%** | 98 |
+| **Landmark Case Law Codifications** | 100 | 100 | 0 | **100.0%** | 0 |
 | **Adversarial Traps & False Propositions** | 100 | 75 | 25 | **75.0%** | 75 |
-| **TOTAL / OVERALL SYSTEM** | **1100** | **1060** | **40** | **96.36%** | **802** |
+| **TOTAL / OVERALL SYSTEM** | **1100** | **1060** | **40** | **96.36%** | **723** |
 
 ---
 

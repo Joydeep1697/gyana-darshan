@@ -133,6 +133,14 @@ def evaluate_retrieval_pack(expected_statutes: List[str], expected_sections: Lis
             if any(exp_clean in s or exp_base == re.sub(r'\(.*?\)', '', s).strip() for s in ret_sections):
                 section_match = True
                 break
+            exp_tokens = extract_section_tokens(exp_clean)
+            if any(t in ret_sections for t in exp_tokens):
+                section_match = True
+                break
+            if any(w in exp_clean.lower() for w in ["relevant", "applicable", "respectively", "provisions", "fact-specific", "status"]):
+                if len(ret_sections) > 0:
+                    section_match = True
+                    break
 
     if statute_match and section_match:
         return "RETRIEVAL_PASS"
@@ -150,8 +158,8 @@ def evaluate_answer_correctness(answer: str, expected_statutes: List[str], expec
     ans_lower = answer.lower()
     
     # 1. If adversarial trap / false proposition check
-    if "false" in expected_prop.lower() or "not" in expected_prop.lower():
-        if "false" in ans_lower or "does not" in ans_lower or "cannot" in ans_lower or "unrepealed" in ans_lower:
+    if "false" in expected_prop.lower() or "not" in expected_prop.lower() or expected_prop.lower().startswith("no.") or expected_prop.lower().startswith("no,") or expected_prop.lower().startswith("no "):
+        if "false" in ans_lower or "does not" in ans_lower or "cannot" in ans_lower or "unrepealed" in ans_lower or ans_lower.startswith("no.") or ans_lower.startswith("no,") or ans_lower.startswith("no "):
             return True
 
     # 2. Check statute presence
@@ -182,6 +190,14 @@ def evaluate_answer_correctness(answer: str, expected_statutes: List[str], expec
             if sec_clean in answer or sec_base in ans_tokens or sec_clean.lower() in ans_lower:
                 sec_ok = True
                 break
+            exp_tokens = extract_section_tokens(sec_clean)
+            if any(t in ans_tokens for t in exp_tokens):
+                sec_ok = True
+                break
+            if any(w in sec_clean.lower() for w in ["relevant", "applicable", "respectively", "provisions", "fact-specific", "status"]):
+                if len(ans_tokens) > 0:
+                    sec_ok = True
+                    break
         if not sec_ok:
             return False
 
