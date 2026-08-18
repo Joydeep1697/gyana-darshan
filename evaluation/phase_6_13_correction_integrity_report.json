@@ -1,0 +1,1175 @@
+{
+  "timestamp": "2026-08-18T18:00:00Z",
+  "total_evaluated_records": 163,
+  "total_firewall_interventions": 116,
+  "safety_gate_zero_false_corrections": "PASSED",
+  "correction_verdict_breakdown": {
+    "CORRECT_CORRECTION": 93,
+    "FALSE_CORRECTION": 0,
+    "UNSUPPORTED_CORRECTION": 0,
+    "PARTIAL_CORRECTION": 23
+  },
+  "correction_integrity_pct": 80.17,
+  "detailed_correction_traces": [
+    {
+      "id": "crpc_bnss_0008",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "In Scenario #1, the judgment pronouncement should take place within 30-45 days after the trial concludes. The key elemen",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0017",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "To convert legacy CrPC Section 353 (Pronouncement of judgment) into its Bharatiya Nagarik Suraksha Sanhita, 2023 equival",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0026",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "The conversion from CrPC Section 353 (Pronouncement of judgment) to the Bharatiya Nagarik Suraksha Sanhita, 2023 equival",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0044",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "The conversion from CrPC Section 353 (Pronouncement of judgment) to the Bharatiya Nagarik Suraksha Sanhita, 2023 equival",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0062",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "The conversion from CrPC Section 353 (Pronouncement of judgment) to the Bharatiya Nagarik Suraksha Sanhita, 2023 equival",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0098",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "Scenario #11: The judgment pronouncement must be made within 30-45 days from the conclusion of the trial. This rule appl",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0116",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "To convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalen",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0125",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "Scenario #14 refers to the conversion from CrPC Section 353 (Pronouncement of judgment) to BNSS Section 391 (Judgment of",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0134",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "To convert legacy CrPC Section 353 (Pronouncement of judgment) into its Bharatiya Nagarik Suraksha Sanhita, 2023 equival",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0143",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+      "raw_answer": "To convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalen",
+      "final_answer": "CrPC, 1973 Section 353 (Pronouncement of judgment) has been replaced by Section 354/392 of the Bharatiya Nagarik Suraksh",
+      "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "case_law_0005",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0010",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0015",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0020",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0025",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0030",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0035",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0040",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0045",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0050",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0055",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0060",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0065",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0070",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0075",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0080",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0085",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0090",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0095",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0100",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0105",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0110",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0115",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0120",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0125",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0130",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0135",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0140",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0145",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0150",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0155",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0160",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0165",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0170",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0175",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0180",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0185",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0190",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0195",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "case_law_0200",
+      "category": "Case-law reasoning",
+      "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+      "raw_answer": "The core ration decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 is strict guidelines on bail classification, a",
+      "final_answer": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "bns_sec_id_0123",
+      "category": "BNS section identification",
+      "question": "Specify the statutory provision, chapter classification, and penalty for 'Cheating and dishonestly inducing delivery of ",
+      "raw_answer": "According to the Bharatiya Nyaya Sanhita, 2023, the statutory provision governing the offence of 'Cheating and dishonest",
+      "final_answer": "Under Section 318(4) of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Cheating and dishonestly inducing deliv",
+      "expected_target": "Under Section 318(4) of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Cheating and dishonestly inducing deliv",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0002",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #1):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0007",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #2):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0012",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #3):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0017",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #4):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0022",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #5):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0027",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #6):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0032",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #7):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to Section 38 of the Bharatiy",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0037",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #8):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to Section 38 of the Bharatiy",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0042",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #9):\nFact Pattern: An accused inflicts gra",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0047",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #10):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0052",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #11):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0057",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #12):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0062",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #13):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0067",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #14):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0072",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #15):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0077",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #16):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0082",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #17):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0087",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #18):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', punishable by death under Section 38 of the Bhara",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0092",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #19):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0097",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #20):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0102",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #21):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to Section 38 of the Bharatiy",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0107",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #22):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0112",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #23):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0117",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #24):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0122",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #25):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0127",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #26):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to Section 38 of the Bharatiy",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0132",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #27):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0137",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #28):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0142",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #29):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to Section 38 of the Bharatiy",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0147",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #30):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0152",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #31):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0157",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #32):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0162",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #33):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0167",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #34):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0172",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #35):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0177",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #36):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0182",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #37):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', punishable by death under Section 38 of the Bhara",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0187",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #38):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0192",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #39):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0197",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #40):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0202",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #41):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0207",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #42):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', punishable by death under Section 38 of the Bhara",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0212",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #43):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0217",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #44):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0222",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #45):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0227",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #46):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0232",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #47):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0237",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #48):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0242",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #49):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section ",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "legal_reas_0247",
+      "category": "Legal reasoning",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #50):\nFact Pattern: An accused inflicts gr",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who ha",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Se",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "crpc_bnss_0003",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #1)",
+      "raw_answer": "Scenario #1: Incriminate the accused to the Court of Session within 15 days of the police report or other formal notific",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0012",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #2)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent, we need t",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0021",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #3)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0030",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #4)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0039",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #5)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0048",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #6)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0057",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #7)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0066",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #8)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0075",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #9)",
+      "raw_answer": "To convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent, we need t",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0084",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #10",
+      "raw_answer": "Scenario #10: When an accused is detained for more than 40 or 60 days under Police Remand, the police shall be entitled ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0093",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #11",
+      "raw_answer": "Scenario #11: When an accused is detained for more than 40 days under Police Remand, the court shall issue a warrant for",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0102",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #12",
+      "raw_answer": "Scenario #12 would be CrPC Section 167 (Police remand) being replaced by BNSS Section 187 (Police remand), which allows ",
+      "final_answer": "The Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS) replaced the Code of Criminal Procedure, 1973 (CrPC). The Bharatiya ",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "crpc_bnss_0111",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #13",
+      "raw_answer": "Scenario #13: When an accused is detained for more than 40 days under Police Remand, the court shall issue a warrant for",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    },
+    {
+      "id": "crpc_bnss_0138",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #16",
+      "raw_answer": "Scenario #16 would correspond to Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS). This section replac",
+      "final_answer": "The Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS) replaced the Code of Criminal Procedure, 1973 (CrPC). The Bharatiya ",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "CORRECT_CORRECTION",
+      "audit_rationale": "Correction successfully aligned raw output with authoritative statutory ground truth."
+    },
+    {
+      "id": "crpc_bnss_0147",
+      "category": "CrPC -> BNSS",
+      "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #17",
+      "raw_answer": "Scenario #17: When an accused is detained for more than 40 or 60 days under Police Remand, they can be committed to the ",
+      "final_answer": "CrPC, 1973 Section 167 (Police remand / custody) has been replaced by Section 187 of the Bharatiya Nagarik Suraksha Sanh",
+      "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+      "audit_verdict": "PARTIAL_CORRECTION",
+      "audit_rationale": "Correction omitted required BNS statute reference."
+    }
+  ]
+}

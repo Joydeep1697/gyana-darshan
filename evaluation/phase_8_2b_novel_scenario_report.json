@@ -1,0 +1,131 @@
+{
+  "timestamp": "2026-08-18T14:04:34Z",
+  "phase": "PHASE_8_2B_NOVEL_SCENARIO_STRESS_TEST",
+  "overall_metrics": {
+    "total_scenarios": 125,
+    "raw_passed": 64,
+    "raw_accuracy": "51.2%",
+    "final_passed": 62,
+    "final_accuracy": "49.6%",
+    "retrieval_passed": 54,
+    "retrieval_accuracy": "43.2%",
+    "evidence_supported": 54,
+    "evidence_support_rate": "43.2%",
+    "false_claims_detected": 3,
+    "firewall_interventions": 34,
+    "correct_corrections": 18,
+    "partial_corrections": 14,
+    "false_corrections": 2,
+    "p50_latency_ms": 21.8,
+    "p95_latency_ms": 28.4,
+    "avg_latency_ms": 22.2,
+    "safety_gate_passed": false,
+    "final_verdict": "FAIL"
+  },
+  "category_performance": {
+    "IPC_TO_BNS": {
+      "total": 15,
+      "raw_passed": 10,
+      "final_passed": 9,
+      "retrieval_passed": 10,
+      "false_claims": 0,
+      "firewall_interventions": 2,
+      "false_corrections": 1
+    },
+    "CRPC_TO_BNSS": {
+      "total": 15,
+      "raw_passed": 11,
+      "final_passed": 11,
+      "retrieval_passed": 12,
+      "false_claims": 1,
+      "firewall_interventions": 3,
+      "false_corrections": 0
+    },
+    "BSA_EVIDENCE": {
+      "total": 15,
+      "raw_passed": 9,
+      "final_passed": 9,
+      "retrieval_passed": 8,
+      "false_claims": 2,
+      "firewall_interventions": 1,
+      "false_corrections": 0
+    },
+    "PROCEDURE_BAIL": {
+      "total": 15,
+      "raw_passed": 11,
+      "final_passed": 11,
+      "retrieval_passed": 10,
+      "false_claims": 0,
+      "firewall_interventions": 6,
+      "false_corrections": 0
+    },
+    "OFFENCE_PENALTY": {
+      "total": 15,
+      "raw_passed": 7,
+      "final_passed": 7,
+      "retrieval_passed": 7,
+      "false_claims": 0,
+      "firewall_interventions": 0,
+      "false_corrections": 0
+    },
+    "POCSO_SPECIAL_STATUTE": {
+      "total": 10,
+      "raw_passed": 4,
+      "final_passed": 4,
+      "retrieval_passed": 0,
+      "false_claims": 0,
+      "firewall_interventions": 6,
+      "false_corrections": 0
+    },
+    "MULTI_STATUTE": {
+      "total": 10,
+      "raw_passed": 0,
+      "final_passed": 0,
+      "retrieval_passed": 0,
+      "false_claims": 0,
+      "firewall_interventions": 2,
+      "false_corrections": 0
+    },
+    "PRECEDENT_CURRENT_LAW": {
+      "total": 10,
+      "raw_passed": 3,
+      "final_passed": 3,
+      "retrieval_passed": 2,
+      "false_claims": 0,
+      "firewall_interventions": 4,
+      "false_corrections": 0
+    },
+    "ADVERSARIAL_TRAPS": {
+      "total": 10,
+      "raw_passed": 4,
+      "final_passed": 3,
+      "retrieval_passed": 1,
+      "false_claims": 0,
+      "firewall_interventions": 5,
+      "false_corrections": 1
+    },
+    "AMBIGUITY_AND_NEAR_MISS": {
+      "total": 10,
+      "raw_passed": 5,
+      "final_passed": 5,
+      "retrieval_passed": 4,
+      "false_claims": 0,
+      "firewall_interventions": 5,
+      "false_corrections": 0
+    }
+  },
+  "failure_taxonomy": {
+    "R1": 1,
+    "R2": 58,
+    "G1": 2,
+    "G2": 0,
+    "F1": 0,
+    "F2": 0,
+    "F3": 2,
+    "E1": 0
+  },
+  "comparison_benchmark_v3": {
+    "internal_frozen_benchmark_v3": "1060 / 1100 = 96.36%",
+    "novel_scenario_generalization_benchmark": "62 / 125 = 49.6%"
+  }
+}

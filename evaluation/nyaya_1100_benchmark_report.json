@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-08-18T18:12:28Z",
+  "total_benchmark_records": 1100,
+  "total_passed": 1060,
+  "total_failed": 40,
+  "overall_accuracy_pct": 96.36,
+  "total_firewall_corrections": 802,
+  "total_clean_passes": 258,
+  "category_performance_breakdown": {
+    "Statute Identification": {
+      "total": 100,
+      "passed": 99,
+      "failed": 1,
+      "corrections": 25
+    },
+    "Section Lookups": {
+      "total": 100,
+      "passed": 99,
+      "failed": 1,
+      "corrections": 30
+    },
+    "IPC -> BNS Cross-Mappings": {
+      "total": 100,
+      "passed": 100,
+      "failed": 0,
+      "corrections": 100
+    },
+    "CrPC -> BNSS Cross-Mappings": {
+      "total": 100,
+      "passed": 100,
+      "failed": 0,
+      "corrections": 100
+    },
+    "IEA -> BSA Cross-Mappings": {
+      "total": 100,
+      "passed": 100,
+      "failed": 0,
+      "corrections": 100
+    },
+    "Repeal & Replacement Verifications": {
+      "total": 100,
+      "passed": 100,
+      "failed": 0,
+      "corrections": 100
+    },
+    "Penalty & Punishment Specifications": {
+      "total": 100,
+      "passed": 89,
+      "failed": 11,
+      "corrections": 50
+    },
+    "Procedural Timelines & Bail Rules": {
+      "total": 100,
+      "passed": 100,
+      "failed": 0,
+      "corrections": 100
+    },
+    "Multi-Step Criminal Fact Patterns": {
+      "total": 100,
+      "passed": 99,
+      "failed": 1,
+      "corrections": 97
+    },
+    "Landmark Case Law Codifications": {
+      "total": 100,
+      "passed": 99,
+      "failed": 1,
+      "corrections": 25
+    },
+    "Adversarial Traps & False Propositions": {
+      "total": 100,
+      "passed": 75,
+      "failed": 25,
+      "corrections": 75
+    }
+  }
+}

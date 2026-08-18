@@ -1,0 +1,10 @@
+{"id":"sanity_001","query":"Which statute replaced the Indian Penal Code, 1860?","expected":"Bharatiya Nyaya Sanhita, 2023 (BNS)","category":"Statutory Replacement"}
+{"id":"sanity_002","query":"Which statute replaced the Code of Criminal Procedure, 1973?","expected":"Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)","category":"Statutory Replacement"}
+{"id":"sanity_003","query":"Which statute replaced the Indian Evidence Act, 1872?","expected":"Bharatiya Sakshya Adhiniyam, 2023 (BSA)","category":"Statutory Replacement"}
+{"id":"sanity_004","query":"Did the Bharatiya Nyaya Sanhita, 2023 repeal or replace the POCSO Act, 2012?","expected":"No, POCSO Act 2012 remains an un-repealed special statute. BNS does not replace POCSO.","category":"Special Law Scope"}
+{"id":"sanity_005","query":"What is the maximum section number in the Bharatiya Nyaya Sanhita, 2023?","expected":"358 Sections","category":"Statutory Bounds"}
+{"id":"sanity_006","query":"What is the maximum section number in the Bharatiya Nagarik Suraksha Sanhita, 2023?","expected":"531 Sections","category":"Statutory Bounds"}
+{"id":"sanity_007","query":"What is the maximum section number in the Bharatiya Sakshya Adhiniyam, 2023?","expected":"170 Sections","category":"Statutory Bounds"}
+{"id":"sanity_008","query":"Which section of BNSS 2023 codifies Zero FIR registration?","expected":"BNSS Section 173(1)","category":"Procedural Codification"}
+{"id":"sanity_009","query":"Which section of BNSS 2023 governs Notice of Appearance prior to arrest?","expected":"BNSS Section 35(3)","category":"Procedural Codification"}
+{"id":"sanity_010","query":"Which section of BSA 2023 governs Primary Electronic Evidence?","expected":"BSA Section 57","category":"Evidence Codification"}

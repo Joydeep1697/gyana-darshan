@@ -1,0 +1,44 @@
+{
+  "dataset_name": "Nyaya Darshana Legal Instruction Dataset v3 (Phase 6.6 Expanded)",
+  "version": "3.0",
+  "benchmark_protection": {
+    "evaluation_queries_checked": 22,
+    "leaked_examples_filtered": 120,
+    "zero_leakage_status": true
+  },
+  "quality_audit": {
+    "total_raw_examples": 2100,
+    "duplicates_removed": 0,
+    "total_clean_unique": 1980
+  },
+  "group_aware_splits": {
+    "train_count": 1611,
+    "validation_count": 206,
+    "test_count": 163,
+    "total_count": 1980
+  },
+  "category_distribution": {
+    "BNS section identification": 250,
+    "BNSS procedure": 250,
+    "BSA evidence": 250,
+    "IPC -> BNS": 150,
+    "CrPC -> BNSS": 150,
+    "IEA -> BSA": 150,
+    "Legal reasoning": 250,
+    "Case-law reasoning": 200,
+    "Current vs historical law": 150,
+    "Hallucination/false-premise": 30,
+    "Multi-statute scenarios": 150
+  },
+  "metadata_schema": {
+    "id": "string (Unique identifier e.g. bns_sec_id_0001)",
+    "category": "string (1 of 11 legal categories)",
+    "difficulty": "string (easy, medium, hard)",
+    "source_type": "string (official_statute, judicial_precedent, fact_pattern_reasoning, etc.)",
+    "source": "string (BNS, BNSS, BSA, IT_Act, etc.)",
+    "sections": "array of strings (Relevant section numbers)",
+    "instruction": "string (User query / Legal instruction)",
+    "input": "string (Optional context / fact pattern)",
+    "output": "string (Structured Nyaya Darshana legal response)"
+  }
+}

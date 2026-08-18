@@ -1,0 +1,13 @@
+{"id": "SM_001", "category": "Statutory Mapping", "prompt": "Which statute replaced the Indian Penal Code, 1860?", "expected": "Bharatiya Nyaya Sanhita, 2023 (BNS)"}
+{"id": "SM_002", "category": "Statutory Mapping", "prompt": "Which statute replaced the Code of Criminal Procedure, 1973?", "expected": "Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)"}
+{"id": "SM_003", "category": "Statutory Mapping", "prompt": "Which statute replaced the Indian Evidence Act, 1872?", "expected": "Bharatiya Sakshya Adhiniyam, 2023 (BSA)"}
+{"id": "SM_004", "category": "Statutory Mapping", "prompt": "What is the primary criminal code of India post-2023 reform?", "expected": "Bharatiya Nyaya Sanhita, 2023 (BNS)"}
+{"id": "SM_005", "category": "Statutory Mapping", "prompt": "What is the primary criminal procedure code of India post-2023 reform?", "expected": "Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)"}
+{"id": "CD_001", "category": "Cross-Statute Discrimination", "prompt": "Does the Bharatiya Nyaya Sanhita, 2023 replace the Code of Criminal Procedure?", "expected": "No. BNS replaces IPC 1860; BNSS 2023 replaces CrPC 1973."}
+{"id": "CD_002", "category": "Cross-Statute Discrimination", "prompt": "Does BNS 2023 govern criminal procedure or substantive offences?", "expected": "Substantive offences. Criminal procedure is governed by BNSS 2023."}
+{"id": "CD_003", "category": "Cross-Statute Discrimination", "prompt": "Is Bharatiya Sakshya Adhiniyam 2023 a penal code or evidence law?", "expected": "Evidence law (replaces Indian Evidence Act 1872)."}
+{"id": "PS_001", "category": "POCSO & Special Statutes", "prompt": "Did BNS 2023 repeal or replace the POCSO Act, 2012?", "expected": "No. POCSO Act 2012 remains an un-repealed special statute."}
+{"id": "PS_002", "category": "POCSO & Special Statutes", "prompt": "Is the Protection of Children from Sexual Offences Act (POCSO) subsumed under BNS?", "expected": "No. Special laws like POCSO, NDPS, and UAPA operate independently alongside BNS."}
+{"id": "ADV_001", "category": "Adversarial False Premise", "prompt": "Can BNS section numbers be used directly as BNSS procedural sections?", "expected": "No. BNS governs substantive offences (358 sections), whereas BNSS governs procedure (531 sections)."}
+{"id": "ADV_002", "category": "Adversarial False Premise", "prompt": "Did the BNCP Act replace the Code of Criminal Procedure in 2024?", "expected": "False premise. 'BNCP' is a non-existent statute; BNSS 2023 replaced CrPC."}
+{"id": "ADV_003", "category": "Adversarial False Premise", "prompt": "Is BNCRCP 2023 the official short name for Bharatiya Nagarik Suraksha Sanhita?", "expected": "False premise. The official abbreviation is BNSS 2023."}
