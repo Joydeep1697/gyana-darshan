@@ -1,0 +1,144 @@
+{
+  "total_evaluated": 163,
+  "total_passed": 47,
+  "total_failed": 116,
+  "accuracy_pct": 28.83,
+  "failure_classes": [
+    {
+      "failure_class": "Legal reasoning / procedural rules",
+      "count": 50,
+      "percentage_of_failures": 43.1,
+      "percentage_of_total_dataset": 30.67,
+      "severity": "Medium",
+      "proposed_fix": "Structured procedural rule & evidence synthesizer",
+      "representative_examples": [
+        {
+          "id": "legal_reas_0002",
+          "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #1):\nFact Pattern: An accused inflicts gra",
+          "raw_answer": "The accused should be charged with assault on a person who has committed an offense punishable by death under section 14",
+          "final_answer": "The accused should be charged with assault on a person who has committed an offense punishable by death under section 14",
+          "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "legal_reas_0007",
+          "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #2):\nFact Pattern: An accused inflicts gra",
+          "raw_answer": "The accused should be charged with assault on a person who has committed an offense punishable by death under section 14",
+          "final_answer": "The accused should be charged with assault on a person who has committed an offense punishable by death under section 14",
+          "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "legal_reas_0012",
+          "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #3):\nFact Pattern: An accused inflicts gra",
+          "raw_answer": "The accused should be charged with assault on a person who has committed an offense punishable by death under section 14",
+          "final_answer": "The accused should be charged with assault on a person who has committed an offense punishable by death under section 14",
+          "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under ",
+          "firewall_status": "PASS"
+        }
+      ]
+    },
+    {
+      "failure_class": "Case-law precedent codification",
+      "count": 40,
+      "percentage_of_failures": 34.48,
+      "percentage_of_total_dataset": 24.54,
+      "severity": "High",
+      "proposed_fix": "Precedent-to-statute ratio codification registry",
+      "representative_examples": [
+        {
+          "id": "case_law_0005",
+          "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+          "raw_answer": "To analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and its codification in current 2023 Indi",
+          "final_answer": "To analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and its codification in current 2023 Indi",
+          "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "case_law_0010",
+          "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+          "raw_answer": "To analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and its codification in current 2023 Indi",
+          "final_answer": "To analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and its codification in current 2023 Indi",
+          "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "case_law_0015",
+          "question": "Analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and explain its codification in current 2023",
+          "raw_answer": "To analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and its codification in current 2023 Indi",
+          "final_answer": "To analyze the ratio decidendi of Satender Kumar Antil v. CBI (2022) 10 SCC 51 and its codification in current 2023 Indi",
+          "expected_target": "Precedent Analysis for Satender Kumar Antil v. CBI (2022) 10 SCC 51:\n- Core Ratio Decidendi: Strict guidelines on bail c",
+          "firewall_status": "PASS"
+        }
+      ]
+    },
+    {
+      "failure_class": "Section conversion",
+      "count": 19,
+      "percentage_of_failures": 16.38,
+      "percentage_of_total_dataset": 11.66,
+      "severity": "High",
+      "proposed_fix": "Deterministic legacy-to-reformed section cross-mapping index",
+      "representative_examples": [
+        {
+          "id": "crpc_bnss_0062",
+          "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+          "raw_answer": "To convert the legacy CrPC Section 353 (Pronouncement of judgment) into its Bharatiya Nagarik Suraksha Sanhita, 2023 equ",
+          "final_answer": "To convert the legacy CrPC Section 353 (Pronouncement of judgment) into its Bharatiya Nagarik Suraksha Sanhita, 2023 equ",
+          "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "crpc_bnss_0125",
+          "question": "Convert legacy CrPC Section 353 (Pronouncement of judgment) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (",
+          "raw_answer": "To convert the legacy CrPC Section 353 (Pronouncement of judgment) into its Bharatiya Nagarik Suraksha Sanhita, 2023 equ",
+          "final_answer": "To convert the legacy CrPC Section 353 (Pronouncement of judgment) into its Bharatiya Nagarik Suraksha Sanhita, 2023 equ",
+          "expected_target": "CrPC Section 353 (Pronouncement of judgment) has been replaced by BNSS Section 354/392 of the Bharatiya Nagarik Suraksha",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "crpc_bnss_0003",
+          "question": "Convert legacy CrPC Section 167 (Police remand) to its Bharatiya Nagarik Suraksha Sanhita, 2023 equivalent (Scenario #1)",
+          "raw_answer": "Scenario #1: Police remand\n\nIn scenario #1, the police would first initiate a case through the police report system or a",
+          "final_answer": "Scenario #1: Police remand\n\nIn scenario #1, the police would first initiate a case through the police report system or a",
+          "expected_target": "CrPC Section 167 (Police remand) has been replaced by BNSS Section 187 of the Bharatiya Nagarik Suraksha Sanhita, 2023 (",
+          "firewall_status": "PASS"
+        }
+      ]
+    },
+    {
+      "failure_class": "Penalty/punishment",
+      "count": 7,
+      "percentage_of_failures": 6.03,
+      "percentage_of_total_dataset": 4.29,
+      "severity": "Critical",
+      "proposed_fix": "Offence penalty metadata table in retrieval pack",
+      "representative_examples": [
+        {
+          "id": "bns_sec_id_0119",
+          "question": "Specify the statutory provision, chapter classification, and penalty for 'Extortion' (Variant #3) under Bharatiya Nyaya ",
+          "raw_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, the following provisions apply:\n\n- General Exception: Any person who has",
+          "final_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, the following provisions apply:\n\n- General Exception: Any person who has",
+          "expected_target": "Under Section 308(2) of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Extortion' is governed as follows:\n1. C",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "bns_sec_id_0169",
+          "question": "Specify the statutory provision, chapter classification, and penalty for 'Extortion' (Variant #4) under Bharatiya Nyaya ",
+          "raw_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, the following provisions apply:\n\n- General Exception: \"For every such su",
+          "final_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, the following provisions apply:\n\n- General Exception: \"For every such su",
+          "expected_target": "Under Section 308(2) of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Extortion' is governed as follows:\n1. C",
+          "firewall_status": "PASS"
+        },
+        {
+          "id": "bns_sec_id_0219",
+          "question": "Specify the statutory provision, chapter classification, and penalty for 'Extortion' (Variant #5) under Bharatiya Nyaya ",
+          "raw_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, there is no specific provision for 'Extortion'. However, if we consider ",
+          "final_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, there is no specific provision for 'Extortion'. However, if we consider ",
+          "expected_target": "Under Section 308(2) of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Extortion' is governed as follows:\n1. C",
+          "firewall_status": "PASS"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "timestamp": "2026-08-15T23:07:06Z",
+  "total_test_records": 163,
+  "exact_train_test_duplicates": 0,
+  "raw_llm_accuracy": "47/163 (28.83%)",
+  "final_system_accuracy": "109/163 (66.87%)",
+  "firewall_clean_passes": 47,
+  "firewall_corrections": 62,
+  "firewall_blocks": 54,
+  "total_failures": 54,
+  "worst_failures_sample": [
+    {
+      "id": "bns_sec_id_0189",
+      "question": "Specify the statutory provision, chapter classification, and penalty for 'Gang Rape' (Variant #4) under Bharatiya Nyaya Sanhita, 2023.",
+      "raw_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, Gang Rape is defined as a crime punishable by death. According to the Penal Code, Gang Rape can be punished with death, imprisonment for life, forfeiture of property, fines, and community service. However, it should be noted that",
+      "final_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, Gang Rape is defined as a crime punishable by death. According to the Penal Code, Gang Rape can be punished with death, imprisonment for life, forfeiture of property, fines, and community service. However, it should be noted that",
+      "expected_target": "Under Section 70(1) of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Gang Rape' is governed as follows:\n1. Chapter Classification: Chapter V: Offences Against Women and Children\n2. Statutory Penalty / Scope: Rigorous imprisonment not less than 20 years up to life imprisonment\n3. Legislative Context: BNS Section 70(1) forms part of the reformed Indian criminal code enacted under Act 45 of 2023.",
+      "firewall_status": "PASS"
+    },
+    {
+      "id": "bns_sec_id_0239",
+      "question": "Specify the statutory provision, chapter classification, and penalty for 'Gang Rape' (Variant #5) under Bharatiya Nyaya Sanhita, 2023.",
+      "raw_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, Gang Rape is defined as a crime punishable by death. According to the Penal Code, Gang Rape can be punished with death, imprisonment for life, forfeiture of property, fines, and community service. However, it should be noted that",
+      "final_answer": "Under the Bharatiya Nyaya Sanhita, Chapter III, Gang Rape is defined as a crime punishable by death. According to the Penal Code, Gang Rape can be punished with death, imprisonment for life, forfeiture of property, fines, and community service. However, it should be noted that",
+      "expected_target": "Under Section 70(1) of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Gang Rape' is governed as follows:\n1. Chapter Classification: Chapter V: Offences Against Women and Children\n2. Statutory Penalty / Scope: Rigorous imprisonment not less than 20 years up to life imprisonment\n3. Legislative Context: BNS Section 70(1) forms part of the reformed Indian criminal code enacted under Act 45 of 2023.",
+      "firewall_status": "PASS"
+    },
+    {
+      "id": "legal_reas_0002",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #1):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who has exercised their right of private defence. According to the provisions of Section 38 to 44 of the Bharatiya Nyaya Sanhita, 20",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    },
+    {
+      "id": "legal_reas_0007",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #2):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section 38 to 44 of the Bharatiya Nyaya Sanhita, 2023, the offence of \"Right of Private Defence\" is defined as \"Nothing is an",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    },
+    {
+      "id": "legal_reas_0012",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #3):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section 38 to 44 of the Bharatiya Nyaya Sanhita, 2023, the offence of \"Right of Private Defence\" is defined as \"Nothing is an",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    },
+    {
+      "id": "legal_reas_0017",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #4):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who has exercised their right of private defence. According to the provisions of Section 38 to 44 of the Bharatiya Nyaya Sanhita, 20",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    },
+    {
+      "id": "legal_reas_0022",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #5):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused is charged with 'Right of Private Defence (Self-Defence)', a crime that cannot be committed by anyone who has exercised their right of private defence. According to the provisions of Section 38 to 44 of the Bharatiya Nyaya Sanhita, 20",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    },
+    {
+      "id": "legal_reas_0027",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #6):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to the provisions of Section 38 to 44 of the Bharatiya Nyaya Sanhita, 2023, the offence of 'Right of Private Defence (Self-Defence)' is governed",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    },
+    {
+      "id": "legal_reas_0032",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #7):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to Section 38 of the Bharatiya Nyaya Sanhita, 2023, the offence of 'Right of Private Defence (Self-Defence)' is governed as nothing is an offence which is",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    },
+    {
+      "id": "legal_reas_0037",
+      "question": "Analyze the following legal scenario under current Indian Statutory Law (Case #8):\nFact Pattern: An accused inflicts grave injuries while defending himself against an armed robbery in his residence.",
+      "raw_answer": "The accused should not face criminal charges under current Indian Statutory Law. According to Section 38 of the Bharatiya Nyaya Sanhita, 2023, the offence of 'Right of Private Defence (Self-Defence)' is governed as nothing is an offence which is",
+      "final_answer": "Under Section Sections 38 to 44 of the Bharatiya Nyaya Sanhita, 2023 (BNS), the offence of 'Right of Private Defence (Self-Defence)' is governed as follows:\n1. Chapter Classification: Chapter III: General Exceptions\n2. Statutory Penalty / Scope: Nothing is an offence which is done in the exercise of the right of private defence.\n3. Legislative Context: Replaced IPC Sections 96 to 106 under Act 45 of 2023.",
+      "expected_target": "Legal Analysis & Statutory Reasoning:\n1. Applicable Statutory Authority: BNS Sections 38 to 44\n2. Legal Analysis: Under BNS Section 38, acts done in private defence are not offences. Under Section 41, private defence extends to causing death during armed house-breaking or robbery, provided force is proportional under Section 44.\n3. Statutory Qualification: Reasoning strictly enforces current 2023 Sanhitas (BNS, BNSS, BSA).",
+      "firewall_status": "BLOCKED"
+    }
+  ]
+}

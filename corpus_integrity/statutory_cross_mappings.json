@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "title": "Nyaya Legal OS — Official Statutory Replacement & Relationship Registry",
+    "version": "1.0",
+    "status": "AUTHORITATIVE"
+  },
+  "statute_replacements": [
+    {
+      "repealed_statute": "Indian Penal Code, 1860 (IPC)",
+      "replacement_statute": "Bharatiya Nyaya Sanhita, 2023 (BNS)",
+      "effective_date": "July 1, 2024",
+      "act_number": "Act 45 of 2023",
+      "relationship": "REPLACED_AND_REPEALED"
+    },
+    {
+      "repealed_statute": "Code of Criminal Procedure, 1973 (CrPC)",
+      "replacement_statute": "Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)",
+      "effective_date": "July 1, 2024",
+      "act_number": "Act 46 of 2023",
+      "relationship": "REPLACED_AND_REPEALED"
+    },
+    {
+      "repealed_statute": "Indian Evidence Act, 1872 (IEA)",
+      "replacement_statute": "Bharatiya Sakshya Adhiniyam, 2023 (BSA)",
+      "effective_date": "July 1, 2024",
+      "act_number": "Act 47 of 2023",
+      "relationship": "REPLACED_AND_REPEALED"
+    },
+    {
+      "special_statute": "Protection of Children from Sexual Offences Act, 2012 (POCSO)",
+      "relationship": "UNREPEALED_SPECIAL_STATUTE",
+      "status": "ACTIVE_INDEPENDENT_LAW",
+      "notes": "Operates independently alongside BNS 2023. Not repealed or subsumed."
+    }
+  ],
+  "key_section_mappings": {
+    "IPC_to_BNS": {
+      "IPC 302 (Murder)": "BNS Section 103(1)",
+      "IPC 307 (Attempt to murder)": "BNS Section 109",
+      "IPC 376 (Rape)": "BNS Section 64",
+      "IPC 420 (Cheating)": "BNS Section 318(4)",
+      "IPC 124A (Sedition)": "BNS Section 152 (Acts endangering sovereignty, unity and integrity of India)",
+      "IPC 506 (Criminal intimidation)": "BNS Section 351"
+    },
+    "CrPC_to_BNSS": {
+      "CrPC 154 (FIR registration)": "BNSS Section 173 (Includes Zero FIR & E-FIR)",
+      "CrPC 167 (Custody & Remand)": "BNSS Section 187",
+      "CrPC 437/439 (Bail in non-bailable offences)": "BNSS Section 480/483",
+      "CrPC 144 (Unlawful assembly/order)": "BNSS Section 163"
+    },
+    "IEA_to_BSA": {
+      "IEA Section 45 (Expert opinion)": "BSA Section 39",
+      "IEA Section 65B (Electronic evidence)": "BSA Section 61 (Includes digital certificate requirement)",
+      "IEA Section 114A (Presumption as to absence of consent)": "BSA Section 119"
+    }
+  }
+}

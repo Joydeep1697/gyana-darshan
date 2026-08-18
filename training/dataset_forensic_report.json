@@ -1,0 +1,41 @@
+{
+  "dataset_summary": {
+    "train_records": 1611,
+    "val_records": 206,
+    "test_records": 163
+  },
+  "duplication_metrics": {
+    "exact_duplicate_pairs": 0,
+    "duplicate_instructions": 0,
+    "val_prompt_leakage": 0
+  },
+  "term_frequencies": {
+    "bns": 1131,
+    "bharatiya nyaya": 470,
+    "ipc": 125,
+    "bnss": 681,
+    "crpc": 391,
+    "bharatiya nagarik": 351,
+    "bsa": 730,
+    "evidence act": 400,
+    "bharatiya sakshya": 450,
+    "pocso": 150
+  },
+  "corrupt_terms_found": {},
+  "length_statistics": {
+    "avg_words": 66.4,
+    "min_words": 32,
+    "max_words": 90
+  },
+  "forensic_diagnosis": {
+    "train_loss": 0.0677,
+    "val_loss": 2.2269,
+    "divergence_gap": 2.1592,
+    "verdict": "SEVERE OVERFITTING & MEMORIZATION",
+    "root_causes": [
+      "Learning rate 1e-4 is too aggressive for 3-epoch QLoRA fine-tuning, driving training loss to 0.0677 while val loss exploded to 2.2269.",
+      "LoRA parameter count (41.9M params across all 7 projection matrices) with r=16, alpha=32 over-parameterized the 1,611 training dataset.",
+      "Completion-only loss focused 100% of gradient updates on legal completions, causing the model to memorize fixed surface phrasing rather than structural legal relationships."
+    ]
+  }
+}

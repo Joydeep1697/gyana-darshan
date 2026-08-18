@@ -1,0 +1,33 @@
+{
+  "benchmark_sample_size": 22,
+  "benchmark_note": "Internal 22-case adversarial legal benchmark",
+  "models": {
+    "Model A (Base LLM)": {
+      "status": "EVALUATED",
+      "legal_accuracy": "54.55%",
+      "citation_accuracy": "45.45%",
+      "hallucination_resistance": "31.82%",
+      "current_law_accuracy": "50.00%",
+      "case_law_accuracy": "60.00%",
+      "response_quality_score": "52.0/100"
+    },
+    "Model B (Base LLM + RAG)": {
+      "status": "EVALUATED",
+      "legal_accuracy": "95.45%",
+      "citation_accuracy": "100.00%",
+      "hallucination_resistance": "100.00%",
+      "current_law_accuracy": "95.45%",
+      "case_law_accuracy": "90.91%",
+      "response_quality_score": "96.5/100"
+    },
+    "Model C (QLoRA + RAG)": {
+      "status": "NOT TRAINED",
+      "legal_accuracy": "N/A",
+      "citation_accuracy": "N/A",
+      "hallucination_resistance": "N/A",
+      "current_law_accuracy": "N/A",
+      "case_law_accuracy": "N/A",
+      "response_quality_score": "N/A"
+    }
+  }
+}

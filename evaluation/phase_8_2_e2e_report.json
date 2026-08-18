@@ -1,0 +1,134 @@
+{
+  "timestamp": "2026-08-18T13:56:32Z",
+  "phase": "PHASE_8_2_E2E_SIMULATION",
+  "groups": {
+    "Group_A_Basic_Consultation": [
+      {
+        "scenario": "A1_Basic_Statute_Query",
+        "query": "Which statute replaced the Indian Penal Code?",
+        "answer_verified": true,
+        "evidence_panel_verified": true,
+        "grounding_badge_verified": true,
+        "status": "PASS",
+        "screenshot": "group_a_basic_consultation.png"
+      }
+    ],
+    "Group_B_Statutory_Conversions": [
+      {
+        "scenario": "B1_IPC_to_BNS",
+        "query": "Convert legacy IPC Section 302 to BNS 2023.",
+        "expected_keyword": "103(1)",
+        "keyword_found": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      },
+      {
+        "scenario": "B2_CrPC_to_BNSS",
+        "query": "Which Act replaced the Code of Criminal Procedure, 1973?",
+        "expected_keyword": "Bharatiya Nagarik Suraksha Sanhita",
+        "keyword_found": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      },
+      {
+        "scenario": "B3_IEA_to_BSA",
+        "query": "Which Act replaced the Indian Evidence Act, 1872?",
+        "expected_keyword": "Bharatiya Sakshya Adhiniyam",
+        "keyword_found": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      }
+    ],
+    "Group_C_Adversarial_Questions": [
+      {
+        "scenario": "C1_BNS_replaces_CrPC",
+        "query": "Does BNS replace CrPC?",
+        "tokens_matched": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      },
+      {
+        "scenario": "C2_BNS_repeals_POCSO",
+        "query": "Did BNS repeal POCSO?",
+        "tokens_matched": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      },
+      {
+        "scenario": "C3_BNS_procedure",
+        "query": "Does BNS govern criminal procedure?",
+        "tokens_matched": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      },
+      {
+        "scenario": "C4_Extortion_Death_Penalty",
+        "query": "Does extortion carry the death penalty under BNS?",
+        "tokens_matched": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      },
+      {
+        "scenario": "C5_IEA_replaced_by_IEC",
+        "query": "Was the Indian Evidence Act replaced by the IEC?",
+        "tokens_matched": true,
+        "evidence_verified": true,
+        "status": "PASS"
+      }
+    ],
+    "Group_D_Failure_And_Security": [
+      {
+        "scenario": "D1_Empty_Query_Rejection",
+        "status": "PASS",
+        "details": "Handled cleanly without sending empty payload."
+      },
+      {
+        "scenario": "D2_Whitespace_Query_Rejection",
+        "status": "PASS",
+        "details": "Handled cleanly without crash."
+      },
+      {
+        "scenario": "D3_DOM_Path_Leakage_Isolation",
+        "leaks_found": [],
+        "status": "PASS"
+      }
+    ],
+    "Group_E_Conversation_Continuity": [
+      {
+        "turn": 1,
+        "query": "What replaced IPC?",
+        "status": "PASS"
+      },
+      {
+        "turn": 2,
+        "query": "What is its section for murder?",
+        "status": "PASS"
+      },
+      {
+        "turn": 3,
+        "query": "What was the equivalent IPC section?",
+        "status": "PASS"
+      }
+    ],
+    "Group_F_Mobile_Interaction": [
+      {
+        "scenario": "F1_Mobile_Query_Submission",
+        "viewport": "390x844",
+        "query": "BNSS Section 392 judgment timeline",
+        "result_rendered": true,
+        "status": "PASS",
+        "screenshot": "group_f_mobile_interaction.png"
+      }
+    ]
+  },
+  "summary": {
+    "total_scenarios": 16,
+    "passed": 16,
+    "failed": 0,
+    "critical_failures": 0,
+    "high_failures": 0,
+    "medium_failures": 0,
+    "low_failures": 0
+  },
+  "verdict": "PASS"
+}

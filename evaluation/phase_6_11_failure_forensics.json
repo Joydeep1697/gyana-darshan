@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-08-15T18:04:52Z",
+  "total_held_out_records": 163,
+  "evaluated_records": 163,
+  "passed_records": 163,
+  "failed_records": 0,
+  "held_out_accuracy_pct": 100.0,
+  "failure_taxonomy_distribution": {
+    "R1": 0,
+    "R2": 0,
+    "G1": 0,
+    "G2": 0,
+    "F1": 0,
+    "F2": 0,
+    "F3": 0,
+    "E1": 0
+  },
+  "forensic_failure_details": []
+}
