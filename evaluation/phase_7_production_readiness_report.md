@@ -1,6 +1,6 @@
 # Nyaya Legal OS — Phase 7 Production-Readiness Report
 
-**Timestamp**: `2026-08-18T14:25:21Z` | **Overall Status**: **`PRODUCTION_READINESS_APPROVED`**
+**Timestamp**: `2026-08-18T17:23:57Z` | **Overall Status**: **`PRODUCTION_READINESS_APPROVED`**
 
 ## 1. Production API & Security Verification Matrix
 
@@ -13,7 +13,7 @@
 | **Filesystem Isolation** | Zero leakage of internal drive paths / traces | 0 Leaks Detected | **PASS ✅** |
 | **Rate Limiting Middleware** | 60 RPM sliding window + `X-RateLimit-*` headers | Headers Active | **PASS ✅** |
 | **Structured Audit Logging** | Log every query, evidence count, latency in JSONL | `nyaya_api_audit.jsonl` Active | **PASS ✅** |
-| **Latency Benchmark** | Sub-50ms p95 SLA for statutory reasoning | p50: `13.5ms`, p95: `15.9ms` | **PASS ✅** |
+| **Latency Benchmark** | Sub-50ms p95 SLA for statutory reasoning | p50: `10.09ms`, p95: `12.73ms` | **PASS ✅** |
 
 ---
 
@@ -42,7 +42,7 @@ Every API response adheres to the strict Nyaya Darshan statutory schema:
     "interventions_count": 0,
     "provenance_verified": true
   },
-  "latency_ms": 13.5
+  "latency_ms": 10.09
 }
 ```
 
