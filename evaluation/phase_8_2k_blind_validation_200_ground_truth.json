@@ -1,0 +1,4910 @@
+[
+  {
+    "scenario_id": "BLIND-82K-001",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-002",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-003",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-004",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-005",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-006",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-007",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-008",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-009",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-010",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-011",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-012",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-013",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-014",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-015",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-016",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-017",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-018",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-019",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-020",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-021",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-022",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-023",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-024",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-025",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-026",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-027",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-028",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-029",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-030",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-031",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-032",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-033",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-034",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-035",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-036",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-037",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "fraud_forgery",
+      "search_videography_attachment",
+      "electronic_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-038",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "child_sexual_assault",
+      "mandatory_reporting",
+      "arrest_procedure"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-039",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "negligence_homicide",
+      "police_remand",
+      "expert_testimony"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-040",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "dacoity_armed",
+      "private_defence",
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-041",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "simple_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-042",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      }
+    ],
+    "required_issues": [
+      "snatching"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-043",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "required_issues": [
+      "extortion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-044",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-045",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "311"
+      }
+    ],
+    "required_issues": [
+      "dacoity"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-046",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      }
+    ],
+    "required_issues": [
+      "misappropriation"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-047",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "simple_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-048",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      }
+    ],
+    "required_issues": [
+      "snatching"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-049",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "required_issues": [
+      "extortion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-050",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-051",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "311"
+      }
+    ],
+    "required_issues": [
+      "dacoity"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-052",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      }
+    ],
+    "required_issues": [
+      "misappropriation"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-053",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "simple_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-054",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      }
+    ],
+    "required_issues": [
+      "snatching"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-055",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "required_issues": [
+      "extortion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-056",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-057",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "311"
+      }
+    ],
+    "required_issues": [
+      "dacoity"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-058",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      }
+    ],
+    "required_issues": [
+      "misappropriation"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-059",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "simple_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-060",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      }
+    ],
+    "required_issues": [
+      "snatching"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-061",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "required_issues": [
+      "extortion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-062",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-063",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "311"
+      }
+    ],
+    "required_issues": [
+      "dacoity"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-064",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      }
+    ],
+    "required_issues": [
+      "misappropriation"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-065",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "simple_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-066",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      }
+    ],
+    "required_issues": [
+      "snatching"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-067",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "required_issues": [
+      "extortion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-068",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-069",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "311"
+      }
+    ],
+    "required_issues": [
+      "dacoity"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-070",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      }
+    ],
+    "required_issues": [
+      "misappropriation"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-071",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-072",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-073",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "338"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "required_issues": [
+      "forgery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-074",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "required_issues": [
+      "private_defence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-075",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-076",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-077",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "338"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "required_issues": [
+      "forgery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-078",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "required_issues": [
+      "private_defence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-079",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-080",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-081",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "338"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "required_issues": [
+      "forgery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-082",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "required_issues": [
+      "private_defence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-083",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-084",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-085",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "338"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "required_issues": [
+      "forgery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-086",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "required_issues": [
+      "private_defence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-087",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-088",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-089",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "338"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "required_issues": [
+      "forgery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-090",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "required_issues": [
+      "private_defence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-091",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-092",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-093",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "338"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "required_issues": [
+      "forgery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-094",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "required_issues": [
+      "private_defence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-095",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-096",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-097",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "338"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "required_issues": [
+      "forgery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-098",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "required_issues": [
+      "private_defence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-099",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "required_issues": [
+      "breach_of_trust"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-100",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      }
+    ],
+    "required_issues": [
+      "cheating"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-101",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      }
+    ],
+    "required_issues": [
+      "pocso_harassment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-102",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "pocso_aggravated_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-103",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      },
+      {
+        "statute": "POCSO",
+        "section": "8"
+      },
+      {
+        "statute": "POCSO",
+        "section": "9"
+      }
+    ],
+    "required_issues": [
+      "pocso_sexual_assault"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-104",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      }
+    ],
+    "required_issues": [
+      "mandatory_reporting"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-105",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2(1)(d)"
+      },
+      {
+        "statute": "POCSO",
+        "section": "2"
+      }
+    ],
+    "required_issues": [
+      "child_age_definition"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-106",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      }
+    ],
+    "required_issues": [
+      "pocso_harassment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-107",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "pocso_aggravated_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-108",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      },
+      {
+        "statute": "POCSO",
+        "section": "8"
+      },
+      {
+        "statute": "POCSO",
+        "section": "9"
+      }
+    ],
+    "required_issues": [
+      "pocso_sexual_assault"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-109",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      }
+    ],
+    "required_issues": [
+      "mandatory_reporting"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-110",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2(1)(d)"
+      },
+      {
+        "statute": "POCSO",
+        "section": "2"
+      }
+    ],
+    "required_issues": [
+      "child_age_definition"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-111",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      }
+    ],
+    "required_issues": [
+      "pocso_harassment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-112",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "pocso_aggravated_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-113",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      },
+      {
+        "statute": "POCSO",
+        "section": "8"
+      },
+      {
+        "statute": "POCSO",
+        "section": "9"
+      }
+    ],
+    "required_issues": [
+      "pocso_sexual_assault"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-114",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      }
+    ],
+    "required_issues": [
+      "mandatory_reporting"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-115",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2(1)(d)"
+      },
+      {
+        "statute": "POCSO",
+        "section": "2"
+      }
+    ],
+    "required_issues": [
+      "child_age_definition"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-116",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      }
+    ],
+    "required_issues": [
+      "pocso_harassment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-117",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "pocso_aggravated_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-118",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      },
+      {
+        "statute": "POCSO",
+        "section": "8"
+      },
+      {
+        "statute": "POCSO",
+        "section": "9"
+      }
+    ],
+    "required_issues": [
+      "pocso_sexual_assault"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-119",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      }
+    ],
+    "required_issues": [
+      "mandatory_reporting"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-120",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2(1)(d)"
+      },
+      {
+        "statute": "POCSO",
+        "section": "2"
+      }
+    ],
+    "required_issues": [
+      "child_age_definition"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-121",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      }
+    ],
+    "required_issues": [
+      "pocso_harassment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-122",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "pocso_aggravated_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-123",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      },
+      {
+        "statute": "POCSO",
+        "section": "8"
+      },
+      {
+        "statute": "POCSO",
+        "section": "9"
+      }
+    ],
+    "required_issues": [
+      "pocso_sexual_assault"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-124",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      }
+    ],
+    "required_issues": [
+      "mandatory_reporting"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-125",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2(1)(d)"
+      },
+      {
+        "statute": "POCSO",
+        "section": "2"
+      }
+    ],
+    "required_issues": [
+      "child_age_definition"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-126",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "electronic_record_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-127",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-128",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ],
+    "required_issues": [
+      "dying_declaration"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-129",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "expert_opinion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-130",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "118"
+      }
+    ],
+    "required_issues": [
+      "dowry_death_presumption"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-131",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "electronic_record_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-132",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-133",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ],
+    "required_issues": [
+      "dying_declaration"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-134",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "expert_opinion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-135",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "118"
+      }
+    ],
+    "required_issues": [
+      "dowry_death_presumption"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-136",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "electronic_record_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-137",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-138",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ],
+    "required_issues": [
+      "dying_declaration"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-139",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "expert_opinion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-140",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "118"
+      }
+    ],
+    "required_issues": [
+      "dowry_death_presumption"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-141",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "electronic_record_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-142",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-143",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ],
+    "required_issues": [
+      "dying_declaration"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-144",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "expert_opinion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-145",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "118"
+      }
+    ],
+    "required_issues": [
+      "dowry_death_presumption"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-146",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "electronic_record_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-147",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "required_issues": [
+      "custody_discovery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-148",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ],
+    "required_issues": [
+      "dying_declaration"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-149",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "required_issues": [
+      "expert_opinion"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-150",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "118"
+      }
+    ],
+    "required_issues": [
+      "dowry_death_presumption"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-151",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "required_issues": [
+      "notice_of_appearance"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-152",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "required_issues": [
+      "search_videography"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-153",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "107"
+      }
+    ],
+    "required_issues": [
+      "proceeds_attachment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-154",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "required_issues": [
+      "police_remand"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-155",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ],
+    "required_issues": [
+      "undertrial_bail"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-156",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "required_issues": [
+      "notice_of_appearance"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-157",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "required_issues": [
+      "search_videography"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-158",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "107"
+      }
+    ],
+    "required_issues": [
+      "proceeds_attachment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-159",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "required_issues": [
+      "police_remand"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-160",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ],
+    "required_issues": [
+      "undertrial_bail"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-161",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "required_issues": [
+      "notice_of_appearance"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-162",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "required_issues": [
+      "search_videography"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-163",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "107"
+      }
+    ],
+    "required_issues": [
+      "proceeds_attachment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-164",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "required_issues": [
+      "police_remand"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-165",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ],
+    "required_issues": [
+      "undertrial_bail"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-166",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "required_issues": [
+      "notice_of_appearance"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-167",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "required_issues": [
+      "search_videography"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-168",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "107"
+      }
+    ],
+    "required_issues": [
+      "proceeds_attachment"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-169",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "required_issues": [
+      "police_remand"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-170",
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ],
+    "required_issues": [
+      "undertrial_bail"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-171",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "negative_theft_robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-172",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      }
+    ],
+    "required_issues": [
+      "negative_murder_negligence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-173",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "negative_harassment_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-174",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "negative_extortion_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-175",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "negative_discovery_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-176",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "negative_theft_robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-177",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      }
+    ],
+    "required_issues": [
+      "negative_murder_negligence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-178",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "negative_harassment_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-179",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "negative_extortion_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-180",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "negative_discovery_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-181",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "required_issues": [
+      "negative_theft_robbery"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-182",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      }
+    ],
+    "required_issues": [
+      "negative_murder_negligence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-183",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "required_issues": [
+      "negative_harassment_penetrative"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-184",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "required_issues": [
+      "negative_extortion_theft"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-185",
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "negative_discovery_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-186",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-187",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_pocso_procedure_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-188",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-189",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_pocso_procedure_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-190",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-191",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_pocso_procedure_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-192",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-193",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_pocso_procedure_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-194",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-195",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_pocso_procedure_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-196",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-197",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_pocso_procedure_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-198",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-199",
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_pocso_procedure_evidence"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      }
+    ]
+  },
+  {
+    "scenario_id": "BLIND-82K-200",
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "required_issues": [
+      "multihop_fraud_search_cert"
+    ],
+    "prohibited_propositions": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      }
+    ]
+  }
+]

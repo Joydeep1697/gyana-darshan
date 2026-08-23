@@ -1,0 +1,32 @@
+{
+  "config_a_baseline_82i": {
+    "config": "Config A: Phase 8.2I Baseline",
+    "Recall@1": 28.51,
+    "Recall@3": 53.48,
+    "Recall@5": 61.53,
+    "Recall@10": 68.25,
+    "Precision@5": 34.6,
+    "MRR": 0.8178,
+    "NDCG@10": 0.6624
+  },
+  "config_b_global_expansion": {
+    "config": "Config B: Global Top-K Expansion (Unconstrained top_k=20)",
+    "Recall@1": 28.03,
+    "Recall@3": 53.06,
+    "Recall@5": 62.56,
+    "Recall@10": 68.08,
+    "Precision@5": 35.4,
+    "MRR": 0.8048,
+    "NDCG@10": 0.661
+  },
+  "config_c_issue_aware_budget_82j": {
+    "config": "Config C: Issue-Aware Candidate Budget (Phase 8.2J)",
+    "Recall@1": 28.03,
+    "Recall@3": 53.06,
+    "Recall@5": 62.56,
+    "Recall@10": 68.08,
+    "Precision@5": 35.4,
+    "MRR": 0.8037,
+    "NDCG@10": 0.661
+  }
+}

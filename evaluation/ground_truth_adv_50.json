@@ -1,0 +1,2516 @@
+{
+  "ADV-001": {
+    "scenario_id": "ADV-001",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Public Contract Forgery & Electronic Records",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Obtaining a public contract through forged electronic records constitutes forgery under BNS",
+      "Admissibility of electronic records and extraction reports requires certification under BSA Section 63",
+      "Police custody and remand are governed under BNSS Section 187 with maximum 15-day custody"
+    ],
+    "prohibited_false_propositions": [
+      "BNS governs police custody and remand",
+      "Electronic records are inadmissible unless original hardware is permanently produced in court"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of digital alterations requires examination of device metadata"
+  },
+  "ADV-002": {
+    "scenario_id": "ADV-002",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "POCSO & Extortion Threat",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "POCSO Act applies to victims under 18 years of age and remains an unrepealed independent statute",
+      "Threatening to publish private intimate photos to induce property or compliance constitutes extortion and criminal intimidation under BNS",
+      "Screenshots and chat messages must satisfy electronic record admissibility standards under BSA"
+    ],
+    "prohibited_false_propositions": [
+      "POCSO was repealed or subsumed into BNS",
+      "Extortion carries the death penalty"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Exact ages of parties on date of alleged incident"
+  },
+  "ADV-003": {
+    "scenario_id": "ADV-003",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Homicide vs Private Defence",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNS",
+        "section": "105"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "39"
+      },
+      {
+        "statute": "BNS",
+        "section": "40"
+      },
+      {
+        "statute": "BNS",
+        "section": "44"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Homicide is classified under BNS Section 103 (Murder) or Section 105 (Culpable homicide not amounting to murder)",
+      "Right of private defence is governed under BNS Sections 38 to 44 and does not extend to inflicting more harm than necessary",
+      "Recovery of weapon upon disclosure statement is governed under BSA discovery principles"
+    ],
+    "prohibited_false_propositions": [
+      "Private defence allows unlimited retaliation after threat has ceased",
+      "Remand is governed under BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Immediacy and proportionality of apprehension of death or grievous hurt"
+  },
+  "ADV-004": {
+    "scenario_id": "ADV-004",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Commercial Deception & Forgery",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "353"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "347"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Altering regulatory notices to induce investment transfers constitutes Cheating under BNS Section 318 and Forgery under BNS Section 336",
+      "Lack of guilty knowledge by an account holder negates common intention or conspiracy under BNS",
+      "Cloud ledger copies and electronic records require BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "Civil contractual dispute precludes all criminal fraud liability if fraudulent inducement existed at inception"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether inducement was fraudulent at the inception or subsequent commercial failure"
+  },
+  "ADV-005": {
+    "scenario_id": "ADV-005",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Stalking & Electronic Attribution",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "78"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Repeatedly following or monitoring a woman online despite disinterest constitutes Stalking under BNS Section 78",
+      "GPS tracker data and electronic logs require provenance attribution under BSA"
+    ],
+    "prohibited_false_propositions": [
+      "Stalking is only an offence if physical contact occurs"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of SIM card or device to the specific accused"
+  },
+  "ADV-006": {
+    "scenario_id": "ADV-006",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Extortion vs Lawful Debt Demand",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Extortion under BNS Section 308 requires intentionally putting a person in fear of injury to deliver property",
+      "Demanding repayment of lawful debt accompanied by unlawful threats of injury may constitute criminal intimidation under BNS Section 351 or extortion under Section 308",
+      "Edited screenshots require proof of context and completeness under BSA"
+    ],
+    "prohibited_false_propositions": [
+      "Extortion carries mandatory death penalty",
+      "Lawful debt completely immunizes against criminal intimidation charges"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of chat logs and whether threats were extortionate or debt assertions"
+  },
+  "ADV-007": {
+    "scenario_id": "ADV-007",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Undertrial Bail & Custody Limits",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "480"
+      },
+      {
+        "statute": "BNSS",
+        "section": "482"
+      }
+    ],
+    "expected_legal_propositions": [
+      "First-time undertrial offender who has never been previously convicted is eligible for release on bail after undergoing detention for one-third of the maximum imprisonment period under BNSS Section 479",
+      "Pending separate cases must be evaluated under statutory exceptions to undertrial bail"
+    ],
+    "prohibited_false_propositions": [
+      "Undertrial detention can exceed the maximum prescribed imprisonment period"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether the accused is legally a first-time offender without previous convictions"
+  },
+  "ADV-008": {
+    "scenario_id": "ADV-008",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Notice of Appearance & Arrest Preconditions",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35(3)"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Under BNSS Section 35(3), police are mandated to issue a notice of appearance for offences punishable with up to 7 years imprisonment where arrest is not immediately required",
+      "Non-compliance with notice does not give arbitrary arrest power without recording reasons"
+    ],
+    "prohibited_false_propositions": [
+      "Police have unfettered discretion to arrest without notice for offences under 7 years"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether investigating officer recorded specific statutory reasons for arrest"
+  },
+  "ADV-009": {
+    "scenario_id": "ADV-009",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Statutory Transition & Savings Framework",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "170"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "72"
+      },
+      {
+        "statute": "BNSS",
+        "section": "420"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by the law in force on date of offence (Article 20(1) Constitution & BNS Section 358)",
+      "Pending proceedings instituted under CrPC continue under CrPC 1973 per BNSS Section 531(2)(a)",
+      "BNS replaced IPC, BNSS replaced CrPC, and BSA replaced IEA on 1 July 2024"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "Substantive offences committed in 2022 can be retrospectively punished under BNS"
+    ],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": "Exact date of offence and date of institution of proceedings"
+  },
+  "ADV-010": {
+    "scenario_id": "ADV-010",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Warehouse Theft & Forensic Proof",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Dishonest removal of movable property from warehouse constitutes Theft under BNS Section 303",
+      "Fingerprint evidence on authorized objects must be corroborated and CCTV gaps require contextual proof"
+    ],
+    "prohibited_false_propositions": [
+      "Presence of fingerprint on an authorized workspace object constitutes conclusive proof of theft without corroboration"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether accused had lawful access to the object during ordinary work hours"
+  },
+  "ADV-011": {
+    "scenario_id": "ADV-011",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-011",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-012": {
+    "scenario_id": "ADV-012",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-012",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-013": {
+    "scenario_id": "ADV-013",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-013",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-014": {
+    "scenario_id": "ADV-014",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-014",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-015": {
+    "scenario_id": "ADV-015",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-015",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-016": {
+    "scenario_id": "ADV-016",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-016",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-017": {
+    "scenario_id": "ADV-017",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-017",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-018": {
+    "scenario_id": "ADV-018",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-018",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-019": {
+    "scenario_id": "ADV-019",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-019",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-020": {
+    "scenario_id": "ADV-020",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-020",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-021": {
+    "scenario_id": "ADV-021",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-021",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-022": {
+    "scenario_id": "ADV-022",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-022",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-023": {
+    "scenario_id": "ADV-023",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-023",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-024": {
+    "scenario_id": "ADV-024",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-024",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-025": {
+    "scenario_id": "ADV-025",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-025",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-026": {
+    "scenario_id": "ADV-026",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-026",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-027": {
+    "scenario_id": "ADV-027",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-027",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-028": {
+    "scenario_id": "ADV-028",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-028",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-029": {
+    "scenario_id": "ADV-029",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-029",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-030": {
+    "scenario_id": "ADV-030",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-030",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-031": {
+    "scenario_id": "ADV-031",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-031",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-032": {
+    "scenario_id": "ADV-032",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-032",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-033": {
+    "scenario_id": "ADV-033",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-033",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-034": {
+    "scenario_id": "ADV-034",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-034",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-035": {
+    "scenario_id": "ADV-035",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-035",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-036": {
+    "scenario_id": "ADV-036",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-036",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-037": {
+    "scenario_id": "ADV-037",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-037",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-038": {
+    "scenario_id": "ADV-038",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-038",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-039": {
+    "scenario_id": "ADV-039",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-039",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-040": {
+    "scenario_id": "ADV-040",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-040",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-041": {
+    "scenario_id": "ADV-041",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-041",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-042": {
+    "scenario_id": "ADV-042",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-042",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-043": {
+    "scenario_id": "ADV-043",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-043",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-044": {
+    "scenario_id": "ADV-044",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-044",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-045": {
+    "scenario_id": "ADV-045",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-045",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-046": {
+    "scenario_id": "ADV-046",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-046",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-047": {
+    "scenario_id": "ADV-047",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-047",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-048": {
+    "scenario_id": "ADV-048",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-048",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-049": {
+    "scenario_id": "ADV-049",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-049",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  },
+  "ADV-050": {
+    "scenario_id": "ADV-050",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Advanced Hybrid Scenario ADV-050",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by BNS/POCSO",
+      "Procedural powers of arrest, remand, and trial are governed under BNSS",
+      "Electronic and forensic evidence must comply with BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed by BNS"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of factual chain and electronic certificate compliance"
+  }
+}

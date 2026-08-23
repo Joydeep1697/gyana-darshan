@@ -1,0 +1,107 @@
+{
+  "phase": "PHASE 8.2H — RETRIEVAL RECALL RECOVERY",
+  "benchmark_summary": {
+    "total_cases": 100,
+    "valid_ground_truth_cases": 80,
+    "invalid_placeholder_cases": 20
+  },
+  "overall_100_cases_metrics": {
+    "Recall@1": 27.75,
+    "Recall@3": 49.31,
+    "Recall@5": 58.08,
+    "Recall@10": 66.35,
+    "Precision@5": 32.6,
+    "MRR": 0.7835,
+    "NDCG@10": 0.6317
+  },
+  "valid_80_cases_metrics": {
+    "total_cases": 80,
+    "Recall@1": 26.15,
+    "Recall@3": 45.8,
+    "Recall@5": 54.89,
+    "Recall@10": 63.77,
+    "Precision@5": 33.25,
+    "MRR": 0.7877,
+    "NDCG@10": 0.6107
+  },
+  "invalid_20_placeholder_metrics": {
+    "total_cases": 20,
+    "Recall@1": 34.17,
+    "Recall@3": 63.33,
+    "Recall@5": 70.83,
+    "Recall@10": 76.67,
+    "Precision@5": 30.0,
+    "MRR": 0.7667,
+    "NDCG@10": 0.7158
+  },
+  "category_breakdown": {
+    "BNS": {
+      "total_cases": 82,
+      "Recall@5": 58.22,
+      "Recall@10": 67.29,
+      "MRR": 0.8148
+    },
+    "BNSS": {
+      "total_cases": 40,
+      "Recall@5": 51.15,
+      "Recall@10": 62.28,
+      "MRR": 0.8133
+    },
+    "BSA": {
+      "total_cases": 57,
+      "Recall@5": 49.26,
+      "Recall@10": 58.21,
+      "MRR": 0.8155
+    },
+    "POCSO": {
+      "total_cases": 16,
+      "Recall@5": 44.02,
+      "Recall@10": 56.53,
+      "MRR": 0.5802
+    },
+    "MULTI_STATUTE": {
+      "total_cases": 61,
+      "Recall@5": 48.76,
+      "Recall@10": 58.22,
+      "MRR": 0.8071
+    },
+    "NARRATIVE_BLIND": {
+      "total_cases": 50,
+      "Recall@5": 67.33,
+      "Recall@10": 73.0,
+      "MRR": 0.7623
+    },
+    "SECTION_CONVERSION": {
+      "total_cases": 2,
+      "Recall@5": 40.48,
+      "Recall@10": 54.76,
+      "MRR": 0.4167
+    },
+    "PROCEDURAL": {
+      "total_cases": 22,
+      "Recall@5": 49.89,
+      "Recall@10": 62.25,
+      "MRR": 0.75
+    },
+    "PRECEDENT": {
+      "total_cases": 0,
+      "Recall@5": 0.0,
+      "Recall@10": 0.0,
+      "MRR": 0.0
+    }
+  },
+  "failure_taxonomy": {
+    "R1": 0,
+    "R2": 50,
+    "R3": 0,
+    "R4": 3,
+    "R5": 16,
+    "R6": 0
+  },
+  "safety_gate": {
+    "false_corrections": 0,
+    "unsupported_corrections": 0,
+    "hallucinations": 0,
+    "regression_suites_pass_rate": "100% (29/29 tests)"
+  }
+}

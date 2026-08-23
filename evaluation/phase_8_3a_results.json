@@ -1,0 +1,5868 @@
+{
+  "evaluation_scope": "Phase 8.3A Statute-Aware Candidate Preservation Calibration Benchmark",
+  "benchmark_date": "2026-08-21",
+  "total_evaluated_cases": 100,
+  "verified_authentic_cases": 59,
+  "quarantined_cases": 41,
+  "quarantine_breakdown": {
+    "placeholder_contaminated": 40,
+    "invalid_bare_act_section": 1
+  },
+  "configurations": {
+    "baseline": {
+      "name": "Production Baseline",
+      "total_verified_cases": 59,
+      "composite_accuracy": 86.44,
+      "section_recall_top1": 44.07,
+      "section_recall_top3": 91.53,
+      "section_recall_top5": 91.53,
+      "statute_recall": 100.0,
+      "multi_statute_coverage": 81.92,
+      "evidence_citation_support": 94.92,
+      "false_corrections": 0,
+      "hallucinations": 0,
+      "avg_latency_ms": 36.44,
+      "p50_latency_ms": 30.23,
+      "p95_latency_ms": 66.64
+    },
+    "phase_8_2g": {
+      "name": "Phase 8.2G Baseline",
+      "total_verified_cases": 59,
+      "composite_accuracy": 83.05,
+      "section_recall_top1": 50.85,
+      "section_recall_top3": 67.8,
+      "section_recall_top5": 83.05,
+      "statute_recall": 100.0,
+      "multi_statute_coverage": 90.4,
+      "evidence_citation_support": 100.0,
+      "false_corrections": 0,
+      "hallucinations": 0,
+      "avg_latency_ms": 110.31,
+      "p50_latency_ms": 110.44,
+      "p95_latency_ms": 147.19
+    },
+    "config_a": {
+      "name": "Phase 8.3A Config A",
+      "total_verified_cases": 59,
+      "composite_accuracy": 79.66,
+      "section_recall_top1": 50.85,
+      "section_recall_top3": 67.8,
+      "section_recall_top5": 79.66,
+      "statute_recall": 100.0,
+      "multi_statute_coverage": 83.05,
+      "evidence_citation_support": 100.0,
+      "false_corrections": 0,
+      "hallucinations": 0,
+      "avg_latency_ms": 111.38,
+      "p50_latency_ms": 110.09,
+      "p95_latency_ms": 155.5
+    },
+    "config_b": {
+      "name": "Phase 8.3A Config B",
+      "total_verified_cases": 59,
+      "composite_accuracy": 77.97,
+      "section_recall_top1": 50.85,
+      "section_recall_top3": 66.1,
+      "section_recall_top5": 77.97,
+      "statute_recall": 100.0,
+      "multi_statute_coverage": 90.4,
+      "evidence_citation_support": 100.0,
+      "false_corrections": 0,
+      "hallucinations": 0,
+      "avg_latency_ms": 108.93,
+      "p50_latency_ms": 112.36,
+      "p95_latency_ms": 148.28
+    },
+    "config_c": {
+      "name": "Phase 8.3A Config C",
+      "total_verified_cases": 59,
+      "composite_accuracy": 83.05,
+      "section_recall_top1": 50.85,
+      "section_recall_top3": 69.49,
+      "section_recall_top5": 83.05,
+      "statute_recall": 100.0,
+      "multi_statute_coverage": 85.88,
+      "evidence_citation_support": 100.0,
+      "false_corrections": 0,
+      "hallucinations": 0,
+      "avg_latency_ms": 108.96,
+      "p50_latency_ms": 112.6,
+      "p95_latency_ms": 149.02
+    },
+    "config_d": {
+      "name": "Phase 8.3A Config D",
+      "total_verified_cases": 59,
+      "composite_accuracy": 76.27,
+      "section_recall_top1": 47.46,
+      "section_recall_top3": 64.41,
+      "section_recall_top5": 76.27,
+      "statute_recall": 100.0,
+      "multi_statute_coverage": 81.92,
+      "evidence_citation_support": 100.0,
+      "false_corrections": 0,
+      "hallucinations": 0,
+      "avg_latency_ms": 111.48,
+      "p50_latency_ms": 112.29,
+      "p95_latency_ms": 157.6
+    }
+  },
+  "per_case_results": [
+    {
+      "case_id": "ADV-001",
+      "category": "Public Contract Forgery & Electronic Records",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BSA 63",
+        "BNSS 187",
+        "BNSS 35",
+        "BNS 340",
+        "BSA 61",
+        "BNS 336"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 131.45
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 210.62,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 105",
+            "BSA 61",
+            "BSA 63",
+            "BNSS 336",
+            "BNSS 49"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 196.58,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 105",
+            "BSA 61",
+            "BSA 63",
+            "BNSS 336",
+            "BNSS 49"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 179.21,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 61",
+            "BSA 63",
+            "BNSS 105",
+            "BNSS 336",
+            "BNSS 49"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 185.44,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 61",
+            "BNSS 105",
+            "BSA 63",
+            "BNSS 336",
+            "BNSS 49"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 171.22,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 105",
+            "BSA 61",
+            "BSA 63",
+            "BNSS 336",
+            "BNSS 49"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-002",
+      "category": "POCSO & Extortion Threat",
+      "expected_statutes": [
+        "POCSO",
+        "BNS",
+        "BSA"
+      ],
+      "expected_sections": [
+        "POCSO 11",
+        "BSA 63",
+        "POCSO 12",
+        "BNS 308",
+        "BNS 351"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 17.96
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 141.48,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BNSS 105",
+            "BNS 187",
+            "BNSS 187",
+            "BNS 11"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 139.18,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 105",
+            "BSA 61",
+            "BNSS 105",
+            "BNS 187"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 144.6,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 105",
+            "BSA 61",
+            "BNS 187",
+            "BNSS 105"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 138.16,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 105",
+            "BSA 61",
+            "BNSS 105",
+            "BNS 187"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 141.31,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 105",
+            "BSA 61",
+            "POCSO 42A",
+            "BNSS 105"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-003",
+      "category": "Homicide vs Private Defence",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BSA 23",
+        "BNS 103",
+        "BNSS 187",
+        "BNS 38",
+        "BNS 105",
+        "BNS 41"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 33.59
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 138.61,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BNSS 187",
+            "BSA 136",
+            "BNS 41"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 137.51,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BNSS 187",
+            "BSA 136",
+            "BNS 41"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 137.14,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BNS 41",
+            "BNS 38"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 135.75,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 62",
+            "BSA 63",
+            "BSA 136",
+            "BNSS 187",
+            "BNS 41"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 156.09,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BNSS 187",
+            "BSA 136",
+            "BNS 41"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-004",
+      "category": "Commercial Deception & Forgery",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 353",
+        "BSA 63",
+        "BNS 318",
+        "BSA 62",
+        "BNS 336"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 32.75
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 125.73,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNS 19",
+            "BSA 63",
+            "BSA 61",
+            "BNS 34",
+            "BNS 39"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 123.75,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNS 19",
+            "BSA 63",
+            "BSA 61",
+            "BNS 34",
+            "BNS 39"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 134.26,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNS 19",
+            "BSA 63",
+            "BSA 61",
+            "BNS 34",
+            "BNS 39"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 129.49,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNS 19",
+            "BNS 62",
+            "BSA 63",
+            "BSA 61",
+            "BNS 34"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 127.89,
+          "retrieved_sections": [
+            "BNS 19",
+            "BSA 62",
+            "BNS 34",
+            "BNS 39",
+            "BNS 62",
+            "BNS 61"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-005",
+      "category": "Stalking & Electronic Attribution",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 78",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 30.18
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 124.01,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNSS 185",
+            "BNS 77",
+            "BNSS 77",
+            "BNSS 78",
+            "BNS 34"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 122.15,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNSS 185",
+            "BNS 77",
+            "BNSS 77",
+            "BNSS 78",
+            "BNS 34"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 120.68,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNS 77",
+            "BNSS 77",
+            "BNSS 78",
+            "BNS 34",
+            "BNSS 185"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 119.28,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNS 77",
+            "BNSS 77",
+            "BNSS 78",
+            "BNS 34",
+            "BNS 40"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 120.73,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNSS 185",
+            "BNS 77",
+            "BNSS 77",
+            "BNSS 78",
+            "BNS 34"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-006",
+      "category": "Extortion vs Lawful Debt Demand",
+      "expected_statutes": [
+        "BNS",
+        "BSA"
+      ],
+      "expected_sections": [
+        "BNS 351",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 28.88
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 89.13,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 321",
+            "BSA 23",
+            "BNS 111",
+            "BNS 23",
+            "BSA 63"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 85.48,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 321",
+            "BSA 23",
+            "BNS 111",
+            "BNS 23",
+            "BSA 63"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 85.31,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 321",
+            "BSA 23",
+            "BNS 111",
+            "BNS 23",
+            "BSA 63"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 87.12,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 321",
+            "BSA 23",
+            "BNS 111",
+            "BNS 23",
+            "BSA 63"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 85.73,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 321",
+            "BNS 111",
+            "BNS 23",
+            "BSA 23",
+            "BNS 61"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-007",
+      "category": "Undertrial Bail & Custody Limits",
+      "expected_statutes": [
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 187",
+        "BNSS 479"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 58.02
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 123.83,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 478",
+            "BNS 269",
+            "BNSS 105",
+            "BSA 99"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 121.47,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 478",
+            "BNS 269",
+            "BNSS 105",
+            "BSA 99"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 122.63,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 478",
+            "BNSS 105",
+            "BNS 269",
+            "BSA 99"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 119.27,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 478",
+            "BNS 269",
+            "BNSS 105",
+            "BSA 99"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 142.16,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 478",
+            "BNSS 105",
+            "BNS 269",
+            "BSA 99"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-008",
+      "category": "Notice of Appearance & Arrest Preconditions",
+      "expected_statutes": [
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 39.13
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 97.72,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 478",
+            "BNSS 43",
+            "BNS 43",
+            "BNSS 85",
+            "BNS 40"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 110.72,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 478",
+            "BNSS 43",
+            "BNS 43",
+            "BNSS 85",
+            "BNS 40"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 100.15,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 478",
+            "BNS 43",
+            "BNSS 43",
+            "BNSS 85",
+            "BNS 40"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 99.24,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 478",
+            "BNSS 43",
+            "BNS 43",
+            "BNSS 85",
+            "BNS 40"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 101.63,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 478",
+            "BNSS 43",
+            "BNSS 85",
+            "BNS 43",
+            "BNS 40"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-009",
+      "category": "Statutory Transition & Savings Framework",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BSA 170",
+        "BNSS 531",
+        "BNS 358"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 59.97
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 110.44,
+          "retrieved_sections": [
+            "BSA 170",
+            "BNSS 531",
+            "BNS 358",
+            "BNSS 238",
+            "BSA 2",
+            "BNSS 358"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 121.51,
+          "retrieved_sections": [
+            "BSA 170",
+            "BNSS 531",
+            "BNS 358",
+            "BNSS 238",
+            "BSA 2",
+            "BNSS 358"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 112.36,
+          "retrieved_sections": [
+            "BSA 170",
+            "BNSS 238",
+            "BSA 2",
+            "BNSS 358",
+            "BNSS 170",
+            "BSA 27"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 111.41,
+          "retrieved_sections": [
+            "BSA 170",
+            "BNSS 531",
+            "BNSS 238",
+            "BSA 2",
+            "BNSS 358",
+            "BNSS 170"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 112.29,
+          "retrieved_sections": [
+            "BSA 170",
+            "BNSS 531",
+            "BNS 358",
+            "BNSS 238",
+            "BSA 2",
+            "BNSS 358"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-010",
+      "category": "Warehouse Theft & Forensic Proof",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNS 303",
+        "BNSS 105",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 30.23
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 129.61,
+          "retrieved_sections": [
+            "BNS 303",
+            "BNSS 105",
+            "BSA 63",
+            "BSA 62",
+            "BSA 105",
+            "BSA 136"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 129.95,
+          "retrieved_sections": [
+            "BNS 303",
+            "BNSS 105",
+            "BSA 63",
+            "BSA 62",
+            "BSA 105",
+            "BSA 136"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 130.05,
+          "retrieved_sections": [
+            "BNS 303",
+            "BSA 62",
+            "BSA 105",
+            "BNSS 105",
+            "BSA 136",
+            "BSA 63"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 129.89,
+          "retrieved_sections": [
+            "BNS 303",
+            "BNSS 105",
+            "BSA 62",
+            "BSA 105",
+            "BSA 63",
+            "BSA 136"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 129.89,
+          "retrieved_sections": [
+            "BNS 303",
+            "BNSS 105",
+            "BSA 63",
+            "BSA 62",
+            "BSA 105",
+            "BSA 136"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-011",
+      "category": "Advanced Hybrid Scenario ADV-011",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 19.27
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 147.53,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "POCSO 11",
+            "POCSO 12",
+            "BNSS 19",
+            "BNSS 187"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 145.13,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "POCSO 11",
+            "POCSO 12",
+            "BNSS 19",
+            "POCSO 19"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 147.51,
+          "retrieved_sections": [
+            "BSA 63",
+            "POCSO 11",
+            "BSA 62",
+            "POCSO 12",
+            "POCSO 19",
+            "BNSS 187"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 148.94,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "POCSO 12",
+            "POCSO 19",
+            "BNSS 187",
+            "BNSS 11"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 152.71,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "POCSO 11",
+            "POCSO 12",
+            "BNSS 19",
+            "POCSO 19"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-012",
+      "category": "Advanced Hybrid Scenario ADV-012",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 23.12
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 116.02,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 105",
+            "BNS 34",
+            "BNS 39"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 113.55,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 105",
+            "BNS 34",
+            "BNS 39"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 114.93,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 105",
+            "BNS 34",
+            "BNS 61"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 114.86,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 105",
+            "BNS 34",
+            "BNS 39"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 113.39,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 105",
+            "BNS 34",
+            "BNS 39"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-013",
+      "category": "Advanced Hybrid Scenario ADV-013",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 28.38
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 136.16,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 23",
+            "BNS 187",
+            "BNSS 35",
+            "BSA 62"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 140.08,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 23",
+            "BNS 187",
+            "BNSS 35",
+            "BSA 62"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 140.94,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 23",
+            "BNSS 35",
+            "BSA 62",
+            "BNSS 187"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 136.88,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 23",
+            "BNSS 35",
+            "BNSS 187",
+            "BNSS 479"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 138.57,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 23",
+            "BNS 187",
+            "BNSS 35",
+            "BSA 62"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-014",
+      "category": "Advanced Hybrid Scenario ADV-014",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 25.64
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 77.49,
+          "retrieved_sections": [
+            "BNS 340",
+            "BNS 338",
+            "BNS 336",
+            "BNS 317",
+            "BNS 318",
+            "BSA 47"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 78.18,
+          "retrieved_sections": [
+            "BNS 340",
+            "BNS 338",
+            "BNS 336",
+            "BNS 317",
+            "BNS 318",
+            "BSA 47"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 8,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 79.64,
+          "retrieved_sections": [
+            "BNS 340",
+            "BNS 338",
+            "BNS 336",
+            "BNS 317",
+            "BNS 318",
+            "BSA 47"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 80.75,
+          "retrieved_sections": [
+            "BNS 340",
+            "BNS 338",
+            "BNS 336",
+            "BNS 317",
+            "BNS 318",
+            "BSA 47"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 141.33,
+          "retrieved_sections": [
+            "BNS 340",
+            "BNS 338",
+            "BNS 336",
+            "BNS 317",
+            "BNS 318",
+            "BSA 47"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-015",
+      "category": "Advanced Hybrid Scenario ADV-015",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 47.23
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 147.15,
+          "retrieved_sections": [
+            "BNS 39",
+            "BNSS 117",
+            "BSA 105",
+            "BNS 185",
+            "BNSS 185",
+            "BNS 78"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 200.75,
+          "retrieved_sections": [
+            "BNS 39",
+            "BNSS 117",
+            "BSA 105",
+            "BNS 185",
+            "BNSS 185",
+            "BNS 78"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 155.28,
+          "retrieved_sections": [
+            "BNS 39",
+            "BNSS 117",
+            "BSA 105",
+            "BNS 185",
+            "BNS 78",
+            "BNSS 105"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 118.25,
+          "retrieved_sections": [
+            "BNS 39",
+            "BNSS 185",
+            "BNSS 117",
+            "BSA 105",
+            "BNS 185",
+            "BNS 78"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 107.84,
+          "retrieved_sections": [
+            "BNS 39",
+            "BNSS 117",
+            "BNS 185",
+            "BSA 105",
+            "BNSS 185",
+            "BNS 78"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-016",
+      "category": "Advanced Hybrid Scenario ADV-016",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 103",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 29.36
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 139.61,
+          "retrieved_sections": [
+            "BNS 44",
+            "BNS 41",
+            "BNS 39",
+            "BNS 38",
+            "BSA 41",
+            "BSA 40"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 129.31,
+          "retrieved_sections": [
+            "BNS 44",
+            "BNS 41",
+            "BNS 39",
+            "BNS 38",
+            "BNS 40",
+            "BSA 41"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 122.68,
+          "retrieved_sections": [
+            "BNS 44",
+            "BNS 41",
+            "BNS 39",
+            "BNS 38",
+            "BNS 40",
+            "BSA 40"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 121.53,
+          "retrieved_sections": [
+            "BNS 44",
+            "BNS 41",
+            "BNS 39",
+            "BNS 38",
+            "BNS 40",
+            "BSA 40"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 126.37,
+          "retrieved_sections": [
+            "BNS 44",
+            "BNS 41",
+            "BNS 39",
+            "BNS 38",
+            "BSA 41",
+            "BSA 40"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-017",
+      "category": "Advanced Hybrid Scenario ADV-017",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 0.333,
+          "is_accurate": true,
+          "latency_ms": 16.75
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 118.23,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "BSA 12",
+            "BNSS 33",
+            "BNS 24",
+            "BSA 24"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 116.29,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "POCSO 11",
+            "POCSO 34",
+            "POCSO 35",
+            "BSA 12"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 114.75,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "POCSO 34",
+            "POCSO 35",
+            "BSA 24",
+            "BNS 24"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 118.62,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "POCSO 34",
+            "POCSO 35",
+            "BSA 12",
+            "BNSS 33"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 118.2,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "POCSO 34",
+            "POCSO 35",
+            "BSA 12",
+            "BNSS 33"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-018",
+      "category": "Advanced Hybrid Scenario ADV-018",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 29.74
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 121.11,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BNS 319",
+            "BNS 318"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 124.08,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BNS 319",
+            "BNS 318"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 124.43,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BNS 319",
+            "BNS 318"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 125.71,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BNS 319",
+            "BNS 318"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 122.36,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BNS 319",
+            "BNS 318",
+            "BNS 61"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-019",
+      "category": "Advanced Hybrid Scenario ADV-019",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 318",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 51.68
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 142.68,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 61",
+            "BSA 62",
+            "BSA 26",
+            "BNSS 35",
+            "BNSS 202"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 130.91,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 61",
+            "BSA 62",
+            "BSA 26",
+            "BNSS 35",
+            "BNSS 202"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 121.78,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 61",
+            "BSA 62",
+            "BSA 26",
+            "BNSS 35",
+            "BNSS 202"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 122.07,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 61",
+            "BSA 62",
+            "BSA 26",
+            "BNSS 35",
+            "BNSS 202"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 117.16,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 61",
+            "BSA 62",
+            "BSA 26",
+            "BNSS 35",
+            "BNSS 202"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-020",
+      "category": "Advanced Hybrid Scenario ADV-020",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 18.75
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 125.83,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "BNS 39",
+            "BSA 105",
+            "BSA 61",
+            "BNSS 39"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 8,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 125.99,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "POCSO 4",
+            "POCSO 11",
+            "BNS 39",
+            "POCSO 4"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 127.35,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "BNS 39",
+            "POCSO 4",
+            "BSA 105",
+            "BSA 12"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 6,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 126.38,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "POCSO 4",
+            "BNS 39",
+            "BSA 105",
+            "BSA 61"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 130.87,
+          "retrieved_sections": [
+            "POCSO 11",
+            "POCSO 12",
+            "POCSO 4",
+            "BNSS 39",
+            "BNS 39",
+            "BNSS 12"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-021",
+      "category": "Advanced Hybrid Scenario ADV-021",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 63.29
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 113.79,
+          "retrieved_sections": [
+            "BSA 62",
+            "POCSO 42A",
+            "BSA 63",
+            "POCSO 4",
+            "BNSS 42",
+            "BNS 358"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 115.65,
+          "retrieved_sections": [
+            "BSA 62",
+            "POCSO 42A",
+            "BSA 63",
+            "BSA 61",
+            "POCSO 4",
+            "BSA 42"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 114.07,
+          "retrieved_sections": [
+            "BSA 62",
+            "POCSO 42A",
+            "BSA 63",
+            "BSA 61",
+            "POCSO 4",
+            "BSA 42"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 119.59,
+          "retrieved_sections": [
+            "BSA 62",
+            "POCSO 42A",
+            "BSA 63",
+            "BSA 61",
+            "POCSO 4",
+            "BSA 42"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 121.83,
+          "retrieved_sections": [
+            "BSA 62",
+            "POCSO 42A",
+            "BSA 63",
+            "BSA 61",
+            "POCSO 4",
+            "BSA 42"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-022",
+      "category": "Advanced Hybrid Scenario ADV-022",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 318",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 29.2
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 77.33,
+          "retrieved_sections": [
+            "BSA 61",
+            "BNS 336",
+            "BNS 340",
+            "BNS 62",
+            "BSA 62",
+            "BSA 3"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 103.41,
+          "retrieved_sections": [
+            "BSA 61",
+            "BNS 336",
+            "BNS 340",
+            "BNS 62",
+            "BSA 62",
+            "BSA 3"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 78.58,
+          "retrieved_sections": [
+            "BSA 61",
+            "BNS 336",
+            "BNS 340",
+            "BNS 62",
+            "BSA 62",
+            "BSA 3"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 82.97,
+          "retrieved_sections": [
+            "BSA 61",
+            "BNS 336",
+            "BNS 340",
+            "BNS 62",
+            "BSA 62",
+            "BSA 3"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 86.08,
+          "retrieved_sections": [
+            "BNS 336",
+            "BNS 340",
+            "BNS 62",
+            "BSA 61",
+            "BNS 338",
+            "BNS 63"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-023",
+      "category": "Advanced Hybrid Scenario ADV-023",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 70.94
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 117.96,
+          "retrieved_sections": [
+            "BNS 40",
+            "BSA 63",
+            "BSA 62",
+            "BNS 63",
+            "BNS 38",
+            "BNS 39"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 107.95,
+          "retrieved_sections": [
+            "BNS 40",
+            "BSA 63",
+            "BSA 62",
+            "BNS 63",
+            "BNS 38",
+            "BNS 39"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 6,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 107.65,
+          "retrieved_sections": [
+            "BNS 40",
+            "BSA 62",
+            "BNS 38",
+            "BNS 39",
+            "BNS 63",
+            "BSA 63"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 112.6,
+          "retrieved_sections": [
+            "BNS 40",
+            "BNS 63",
+            "BSA 63",
+            "BSA 62",
+            "BNS 38",
+            "BNS 39"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 6,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 109.83,
+          "retrieved_sections": [
+            "BNS 40",
+            "BNS 63",
+            "BNS 38",
+            "BNS 39",
+            "BNS 61",
+            "BSA 63"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-024",
+      "category": "Advanced Hybrid Scenario ADV-024",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 103",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 24.24
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 84.31,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 105",
+            "BSA 62",
+            "BNS 105",
+            "BSA 63",
+            "BNS 103"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 83.58,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 105",
+            "BSA 62",
+            "BNS 105",
+            "BSA 63",
+            "BNS 103"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 81.17,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 105",
+            "BSA 62",
+            "BNS 105",
+            "BSA 63",
+            "BNS 103"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 82.98,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 105",
+            "BSA 62",
+            "BNS 105",
+            "BSA 63",
+            "BNS 103"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 84.77,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 105",
+            "BSA 62",
+            "BNS 105",
+            "BSA 63",
+            "BNS 103"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-025",
+      "category": "Advanced Hybrid Scenario ADV-025",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 25.58
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 84.07,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 263",
+            "BNS 41",
+            "BNS 317",
+            "BSA 23",
+            "BNS 23"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 84.65,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 263",
+            "BNS 41",
+            "BNS 317",
+            "BSA 23",
+            "BNS 23"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 87.1,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 263",
+            "BNS 41",
+            "BNS 317",
+            "BSA 23",
+            "BNS 23"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 86.49,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 263",
+            "BNS 41",
+            "BNS 317",
+            "BSA 23",
+            "BNS 23"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 86.98,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 263",
+            "BNS 41",
+            "BNS 317",
+            "BNS 23",
+            "BSA 23"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-026",
+      "category": "Advanced Hybrid Scenario ADV-026",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 27.42
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 106.68,
+          "retrieved_sections": [
+            "BNSS 78",
+            "BNSS 35",
+            "BNSS 77",
+            "BNS 78",
+            "BNS 77",
+            "BNS 223"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 107.87,
+          "retrieved_sections": [
+            "BNSS 78",
+            "BNSS 35",
+            "BNSS 77",
+            "BNS 78",
+            "BNS 77",
+            "BNS 223"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 110.13,
+          "retrieved_sections": [
+            "BNSS 78",
+            "BNSS 35",
+            "BNSS 77",
+            "BNS 77",
+            "BNS 223",
+            "BNS 78"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 107.1,
+          "retrieved_sections": [
+            "BNSS 78",
+            "BNSS 35",
+            "BNSS 77",
+            "BNS 77",
+            "BNS 78",
+            "BNS 223"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 110.18,
+          "retrieved_sections": [
+            "BNSS 78",
+            "BNSS 35",
+            "BNSS 77",
+            "BNS 78",
+            "BNS 77",
+            "BNS 223"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-027",
+      "category": "Advanced Hybrid Scenario ADV-027",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 318",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 33.71
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 79.47,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 99",
+            "BNS 318",
+            "BNS 319"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 79.89,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 99",
+            "BNS 318",
+            "BNS 319"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 81.65,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 99",
+            "BNS 319",
+            "BNS 318"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 80.68,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 99",
+            "BNS 319",
+            "BNS 318"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 84.79,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BSA 99",
+            "BNS 318",
+            "BNS 319"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-028",
+      "category": "Advanced Hybrid Scenario ADV-028",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 187",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 66.16
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 108.5,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 105",
+            "BNSS 185",
+            "BSA 105",
+            "BSA 27",
+            "BSA 3"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 115.35,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 105",
+            "BNSS 185",
+            "BSA 105",
+            "BSA 27",
+            "BSA 3"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 118.18,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 105",
+            "BNSS 185",
+            "BSA 27",
+            "BSA 3",
+            "BSA 11"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 115.8,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 105",
+            "BNSS 185",
+            "BSA 27",
+            "BSA 3",
+            "BSA 11"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 121.91,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 105",
+            "BNSS 185",
+            "BSA 105",
+            "BSA 27",
+            "BSA 3"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-029",
+      "category": "Advanced Hybrid Scenario ADV-029",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 62.59
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 117.82,
+          "retrieved_sections": [
+            "BSA 118",
+            "BSA 62",
+            "BSA 63",
+            "BSA 86",
+            "BNS 86",
+            "BNS 85"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 119.72,
+          "retrieved_sections": [
+            "BSA 118",
+            "BSA 62",
+            "BSA 63",
+            "BSA 86",
+            "BNS 86",
+            "BNS 85"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 117.48,
+          "retrieved_sections": [
+            "BSA 118",
+            "BSA 62",
+            "BSA 63",
+            "BSA 86",
+            "BNS 86",
+            "BNS 85"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 118.93,
+          "retrieved_sections": [
+            "BSA 118",
+            "BSA 62",
+            "BSA 63",
+            "BSA 86",
+            "BNS 86",
+            "BNS 85"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 118.18,
+          "retrieved_sections": [
+            "BSA 118",
+            "BSA 62",
+            "BSA 63",
+            "BSA 86",
+            "BNS 86",
+            "BNS 85"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-030",
+      "category": "Advanced Hybrid Scenario ADV-030",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 21.58
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 74.85,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 23",
+            "BSA 54",
+            "BSA 122",
+            "BNS 317",
+            "BSA 107"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 76.8,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 23",
+            "BSA 54",
+            "BSA 122",
+            "BNS 317",
+            "BSA 107"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 80.33,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 54",
+            "BSA 122",
+            "BNS 317",
+            "BSA 107",
+            "BSA 23"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 76.32,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 54",
+            "BSA 122",
+            "BNS 317",
+            "BSA 23",
+            "BSA 107"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 78.78,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 23",
+            "BSA 54",
+            "BSA 122",
+            "BNS 317",
+            "BSA 107"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-031",
+      "category": "Advanced Hybrid Scenario ADV-031",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 17.4
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 114.39,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BNSS 105",
+            "BNSS 12",
+            "POCSO 11",
+            "BNS 241"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 115.25,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 61",
+            "BSA 105",
+            "BNSS 105",
+            "BNSS 12"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 134.28,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 61",
+            "BSA 105",
+            "BNSS 105",
+            "BNS 11"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 113.05,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 61",
+            "BSA 105",
+            "BNSS 105",
+            "BNSS 12"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 114.42,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 61",
+            "BSA 105",
+            "BNSS 105",
+            "POCSO 11"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-032",
+      "category": "Advanced Hybrid Scenario ADV-032",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 303",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 33.08
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 119.19,
+          "retrieved_sections": [
+            "BNS 309",
+            "BSA 61",
+            "BSA 62",
+            "BSA 21",
+            "BNS 317",
+            "BSA 63"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 109.76,
+          "retrieved_sections": [
+            "BNS 309",
+            "BSA 61",
+            "BSA 62",
+            "BSA 21",
+            "BNS 317",
+            "BSA 63"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 106.68,
+          "retrieved_sections": [
+            "BNS 309",
+            "BSA 62",
+            "BSA 21",
+            "BSA 61",
+            "BNS 317",
+            "BSA 63"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 109.22,
+          "retrieved_sections": [
+            "BNS 309",
+            "BSA 61",
+            "BSA 62",
+            "BSA 21",
+            "BNS 317",
+            "BSA 63"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 181.08,
+          "retrieved_sections": [
+            "BNS 309",
+            "BSA 61",
+            "BSA 62",
+            "BSA 21",
+            "BNS 317",
+            "BSA 63"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-033",
+      "category": "Advanced Hybrid Scenario ADV-033",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNS 318",
+        "BNSS 531",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 75.32
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 145.77,
+          "retrieved_sections": [
+            "BNSS 531",
+            "BNS 358",
+            "BNSS 216",
+            "BNSS 420",
+            "BSA 47",
+            "BNSS 85"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 71.11,
+          "retrieved_sections": [
+            "BNSS 531",
+            "BNS 358",
+            "BNSS 216",
+            "BNSS 420",
+            "BSA 47",
+            "BNSS 85"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 120.67,
+          "retrieved_sections": [
+            "BNSS 531",
+            "BNSS 216",
+            "BNSS 420",
+            "BNS 358",
+            "BNSS 85",
+            "BNSS 358"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 59.11,
+          "retrieved_sections": [
+            "BNSS 531",
+            "BNSS 216",
+            "BNS 358",
+            "BSA 47",
+            "BNSS 420",
+            "BNSS 85"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 119.01,
+          "retrieved_sections": [
+            "BNSS 531",
+            "BSA 47",
+            "BNS 358",
+            "BNSS 216",
+            "BSA 26",
+            "BSA 22"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-034",
+      "category": "Advanced Hybrid Scenario ADV-034",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 31.25
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 110.27,
+          "retrieved_sections": [
+            "BNS 40",
+            "BNS 44",
+            "BNS 38",
+            "BNS 41",
+            "BNS 39",
+            "BSA 62"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 106.38,
+          "retrieved_sections": [
+            "BNS 40",
+            "BNS 44",
+            "BNS 38",
+            "BNS 41",
+            "BNS 39",
+            "BSA 62"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 6,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 108.48,
+          "retrieved_sections": [
+            "BNS 40",
+            "BNS 44",
+            "BNS 38",
+            "BNS 41",
+            "BNS 39",
+            "BSA 61"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 6,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 106.95,
+          "retrieved_sections": [
+            "BNS 40",
+            "BNS 44",
+            "BNS 38",
+            "BNS 41",
+            "BNS 39",
+            "BSA 61"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 106.66,
+          "retrieved_sections": [
+            "BNS 40",
+            "BNS 44",
+            "BNS 38",
+            "BNS 41",
+            "BNS 39",
+            "BSA 62"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-035",
+      "category": "Advanced Hybrid Scenario ADV-035",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 303",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 31.64
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 74.87,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BSA 61",
+            "BNS 303",
+            "BSA 93"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 74.61,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BSA 61",
+            "BNS 303",
+            "BSA 93"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 76.28,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BSA 61",
+            "BNS 303",
+            "BSA 93"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 78.44,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BSA 61",
+            "BNS 303",
+            "BSA 93"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 76.49,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 136",
+            "BSA 61",
+            "BSA 93",
+            "BNS 303"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-036",
+      "category": "Advanced Hybrid Scenario ADV-036",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 34.51
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 102.67,
+          "retrieved_sections": [
+            "BNSS 107",
+            "BNSS 185",
+            "BNSS 105",
+            "BSA 63",
+            "BNS 39",
+            "BSA 105"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 111.13,
+          "retrieved_sections": [
+            "BNSS 107",
+            "BNSS 185",
+            "BNSS 105",
+            "BSA 63",
+            "BNS 39",
+            "BSA 105"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 6,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 112.77,
+          "retrieved_sections": [
+            "BNSS 107",
+            "BNS 39",
+            "BNSS 185",
+            "BNSS 105",
+            "BSA 105",
+            "BNSS 35"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 104.88,
+          "retrieved_sections": [
+            "BNSS 107",
+            "BNSS 185",
+            "BNSS 105",
+            "BSA 63",
+            "BNS 39",
+            "BSA 105"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 103.28,
+          "retrieved_sections": [
+            "BNSS 107",
+            "BNSS 185",
+            "BNSS 105",
+            "BNSS 35",
+            "BNSS 39",
+            "BSA 63"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-037",
+      "category": "Advanced Hybrid Scenario ADV-037",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 31.42
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 124.56,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 62",
+            "BSA 63",
+            "POCSO 4",
+            "POCSO 4",
+            "BNS 61"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 150.93,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 62",
+            "BSA 63",
+            "BSA 33",
+            "BSA 61",
+            "POCSO 4"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 139.23,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BSA 61",
+            "POCSO 4"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 149.72,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BSA 61",
+            "POCSO 4"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 127.05,
+          "retrieved_sections": [
+            "BNS 308",
+            "BSA 62",
+            "BSA 63",
+            "BSA 33",
+            "BSA 61",
+            "POCSO 4"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-038",
+      "category": "Advanced Hybrid Scenario ADV-038",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 187",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 50.18
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 111.26,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 482",
+            "BNSS 105",
+            "BNS 269",
+            "BNS 201"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 108.38,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 482",
+            "BNSS 105",
+            "BNS 269",
+            "BNS 201"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 108.79,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 482",
+            "BNSS 105",
+            "BNS 201",
+            "BNS 269"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 126.1,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 482",
+            "BNSS 105",
+            "BNS 269",
+            "BNS 201"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 113.86,
+          "retrieved_sections": [
+            "BNSS 480",
+            "BNSS 479",
+            "BNSS 482",
+            "BNSS 105",
+            "BNS 269",
+            "BNS 201"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-039",
+      "category": "Advanced Hybrid Scenario ADV-039",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNS 103",
+        "BNSS 531",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 58.78
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 119.48,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 63",
+            "BNSS 105",
+            "BNSS 479"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 72.2,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 63",
+            "BNSS 105",
+            "BNSS 479"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 72.23,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 478",
+            "BNSS 480",
+            "BSA 63",
+            "BNSS 105",
+            "BNSS 479"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 93.88,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 478",
+            "BNSS 480",
+            "BSA 63",
+            "BNSS 105",
+            "BNSS 479"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 73.36,
+          "retrieved_sections": [
+            "BSA 62",
+            "BNSS 480",
+            "BNSS 478",
+            "BSA 63",
+            "BNSS 105",
+            "BNSS 479"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-040",
+      "category": "Advanced Hybrid Scenario ADV-040",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 16.98
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 113.57,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BNSS 35",
+            "BNSS 63",
+            "POCSO 35",
+            "POCSO 35"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 134.93,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 33",
+            "BSA 61",
+            "BNSS 35",
+            "BNSS 63"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 119.89,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 33",
+            "BSA 61",
+            "BNSS 63",
+            "BNSS 35"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 118.46,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 33",
+            "BSA 61",
+            "BNSS 63",
+            "BNSS 35"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 115.92,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 63",
+            "BSA 33",
+            "BSA 61",
+            "BNSS 35",
+            "BNSS 63"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-041",
+      "category": "Advanced Hybrid Scenario ADV-041",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 55.39
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 109.45,
+          "retrieved_sections": [
+            "BSA 105",
+            "BNS 62",
+            "BNS 185",
+            "BSA 63",
+            "BSA 62",
+            "BSA 61"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 106.29,
+          "retrieved_sections": [
+            "BSA 105",
+            "BNS 62",
+            "BNS 185",
+            "BSA 63",
+            "BSA 62",
+            "BSA 61"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 113.42,
+          "retrieved_sections": [
+            "BSA 105",
+            "BNS 62",
+            "BNSS 62",
+            "BNS 185",
+            "BSA 63",
+            "BSA 62"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 108.49,
+          "retrieved_sections": [
+            "BSA 105",
+            "BNS 62",
+            "BNS 185",
+            "BSA 63",
+            "BSA 62",
+            "BSA 61"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 108.33,
+          "retrieved_sections": [
+            "BNS 62",
+            "BNS 185",
+            "BSA 105",
+            "BNS 61",
+            "BNS 105",
+            "BNS 63"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-042",
+      "category": "Advanced Hybrid Scenario ADV-042",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.333,
+          "is_accurate": true,
+          "latency_ms": 20.96
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.333,
+          "is_accurate": true,
+          "latency_ms": 67.38,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 34",
+            "BNS 111",
+            "BNS 263",
+            "BNS 189"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.333,
+          "is_accurate": true,
+          "latency_ms": 70.38,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 34",
+            "BNS 111",
+            "BNS 263",
+            "BNS 189"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.333,
+          "is_accurate": true,
+          "latency_ms": 71.98,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 34",
+            "BNS 111",
+            "BNS 263",
+            "BNS 189"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.333,
+          "is_accurate": true,
+          "latency_ms": 68.9,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 34",
+            "BNS 111",
+            "BNS 263",
+            "BNS 189"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.333,
+          "is_accurate": true,
+          "latency_ms": 68.79,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 34",
+            "BNS 111",
+            "BNS 263",
+            "BNS 189"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-043",
+      "category": "Advanced Hybrid Scenario ADV-043",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 58.8
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 106.26,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 33",
+            "BSA 105",
+            "BSA 63",
+            "BNS 241",
+            "BNSS 105"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 106.27,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 33",
+            "BSA 105",
+            "BSA 63",
+            "BNS 241",
+            "BNSS 105"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 108.95,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 33",
+            "BSA 105",
+            "BSA 63",
+            "BNS 241",
+            "BNSS 105"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 112.57,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 33",
+            "BSA 105",
+            "BSA 63",
+            "BNS 241",
+            "BNSS 105"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 4,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 109.77,
+          "retrieved_sections": [
+            "BSA 62",
+            "BSA 33",
+            "BSA 105",
+            "BSA 63",
+            "BNS 241",
+            "BNSS 105"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-044",
+      "category": "Advanced Hybrid Scenario ADV-044",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 187",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 46.69
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 98.75,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 51",
+            "BNSS 478",
+            "BNSS 43",
+            "BNS 43",
+            "BNS 34"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 95.17,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 51",
+            "BNSS 478",
+            "BNSS 43",
+            "BNS 43",
+            "BNS 34"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 94.02,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 51",
+            "BNSS 478",
+            "BNS 43",
+            "BNSS 43",
+            "BNS 34"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 123.23,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 51",
+            "BNSS 478",
+            "BNSS 43",
+            "BNS 43",
+            "BNS 34"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 94.02,
+          "retrieved_sections": [
+            "BNSS 35",
+            "BNSS 51",
+            "BNSS 478",
+            "BNSS 43",
+            "BNS 43",
+            "BNS 34"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-045",
+      "category": "Advanced Hybrid Scenario ADV-045",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 56.17
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 108.34,
+          "retrieved_sections": [
+            "BNS 46",
+            "BSA 99",
+            "BNS 19",
+            "BNS 61",
+            "BSA 61",
+            "BNSS 189"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 108.73,
+          "retrieved_sections": [
+            "BNS 46",
+            "BSA 99",
+            "BNS 19",
+            "BNS 61",
+            "BSA 61",
+            "BNSS 189"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 111.2,
+          "retrieved_sections": [
+            "BNS 46",
+            "BSA 99",
+            "BNS 19",
+            "BNS 61",
+            "BNS 49",
+            "BNSS 188"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 113.94,
+          "retrieved_sections": [
+            "BNS 46",
+            "BSA 99",
+            "BNS 19",
+            "BNS 61",
+            "BSA 61",
+            "BNS 49"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 102.94,
+          "retrieved_sections": [
+            "BNS 46",
+            "BNS 19",
+            "BNS 61",
+            "BNS 49",
+            "BNSS 189",
+            "BNS 111"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-046",
+      "category": "Advanced Hybrid Scenario ADV-046",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 26.14
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 73.87,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BNS 241",
+            "BNS 61"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 74.97,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BNS 241",
+            "BNS 61"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 74.56,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BNS 61",
+            "BNS 241"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 78.4,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BNS 61",
+            "BNS 241"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 76.8,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BNS 241",
+            "BSA 33",
+            "BNS 61"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-047",
+      "category": "Advanced Hybrid Scenario ADV-047",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 17.29
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 122.3,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BNSS 63",
+            "BNSS 33",
+            "POCSO 33",
+            "POCSO 34"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 116.27,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BNSS 63",
+            "BNSS 33"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 123.36,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "BNSS 63",
+            "BNSS 33"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 147.49,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 62",
+            "BSA 63",
+            "BSA 33",
+            "BNSS 63",
+            "BNSS 33"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 118.73,
+          "retrieved_sections": [
+            "BSA 61",
+            "BSA 63",
+            "BSA 62",
+            "BSA 33",
+            "POCSO 33",
+            "POCSO 34"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-048",
+      "category": "Advanced Hybrid Scenario ADV-048",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 187",
+        "BNS 308",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 20.65
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 125.57,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BNSS 480",
+            "BNSS 482",
+            "BNSS 479"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 127.28,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BNSS 480",
+            "BNSS 482",
+            "BNSS 479"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 124.12,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BNSS 482",
+            "BNSS 479",
+            "BNSS 187"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 135.53,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BNSS 482",
+            "BNSS 480",
+            "BNSS 479"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 137.8,
+          "retrieved_sections": [
+            "BSA 63",
+            "BSA 62",
+            "BSA 61",
+            "BNSS 480",
+            "BNSS 482",
+            "BNSS 479"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-049",
+      "category": "Advanced Hybrid Scenario ADV-049",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 318",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 34.25
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 99.9,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 340",
+            "BNS 317",
+            "BSA 62",
+            "BNS 336",
+            "POCSO 4"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 96.72,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 340",
+            "BNS 317",
+            "BSA 62",
+            "BNS 336",
+            "POCSO 4"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 99.28,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 340",
+            "BNS 317",
+            "BNS 336",
+            "BSA 63",
+            "BSA 62"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 96.39,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 340",
+            "BNS 317",
+            "BNS 336",
+            "BSA 63",
+            "BSA 29"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 7,
+          "coverage": 0.667,
+          "is_accurate": false,
+          "latency_ms": 95.49,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 340",
+            "BNS 317",
+            "BSA 62",
+            "BNS 336",
+            "POCSO 4"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "ADV-050",
+      "category": "Advanced Hybrid Scenario ADV-050",
+      "expected_statutes": [
+        "POCSO",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "POCSO 5",
+        "BNSS 35",
+        "POCSO 3",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 26.84
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 224.69,
+          "retrieved_sections": [
+            "POCSO 4",
+            "POCSO 4",
+            "BNSS 480",
+            "BSA 62",
+            "BSA 63",
+            "BNSS 187"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 6,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 225.07,
+          "retrieved_sections": [
+            "POCSO 4",
+            "POCSO 4",
+            "POCSO 6",
+            "BNSS 480",
+            "BSA 62",
+            "BSA 63"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 213.9,
+          "retrieved_sections": [
+            "POCSO 4",
+            "POCSO 6",
+            "BSA 63",
+            "BNSS 187",
+            "POCSO 5",
+            "BNSS 480"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 232.12,
+          "retrieved_sections": [
+            "POCSO 4",
+            "POCSO 6",
+            "BSA 63",
+            "BNSS 187",
+            "POCSO 5",
+            "BSA 33"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 5,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 231.04,
+          "retrieved_sections": [
+            "POCSO 4",
+            "POCSO 6",
+            "BNSS 480",
+            "BSA 62",
+            "BSA 63",
+            "BNSS 187"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-001",
+      "category": "Retail Cash Theft",
+      "expected_statutes": [
+        "BNS",
+        "BSA"
+      ],
+      "expected_sections": [
+        "BNS 303",
+        "BNS 316",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 32.21
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 75.25,
+          "retrieved_sections": [
+            "BNS 303",
+            "BSA 62",
+            "BNS 316",
+            "BNS 62",
+            "BSA 61",
+            "BSA 95"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 75.76,
+          "retrieved_sections": [
+            "BNS 303",
+            "BSA 62",
+            "BNS 316",
+            "BNS 62",
+            "BSA 61",
+            "BSA 95"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 89.74,
+          "retrieved_sections": [
+            "BNS 303",
+            "BSA 62",
+            "BNS 316",
+            "BNS 62",
+            "BSA 61",
+            "BSA 95"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 91.46,
+          "retrieved_sections": [
+            "BNS 303",
+            "BSA 62",
+            "BNS 316",
+            "BNS 62",
+            "BSA 61",
+            "BSA 95"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 88.12,
+          "retrieved_sections": [
+            "BNS 303",
+            "BNS 316",
+            "BNS 62",
+            "BSA 62",
+            "BNS 61",
+            "BNS 63"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-002",
+      "category": "Commercial Extortion Threat",
+      "expected_statutes": [
+        "BNS"
+      ],
+      "expected_sections": [
+        "BNS 351",
+        "BNS 308"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 17.31
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 67.98,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 351",
+            "BNS 317",
+            "BNS 318",
+            "BNS 28"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 128.62,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 351",
+            "BNS 317",
+            "BNS 318",
+            "BNS 28"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 71.34,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 351",
+            "BNS 317",
+            "BNS 318",
+            "BNS 28"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 64.49,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 351",
+            "BNS 317",
+            "BNS 318",
+            "BNS 28"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 64.0,
+          "retrieved_sections": [
+            "BNS 308",
+            "BNS 351",
+            "BNS 317",
+            "BNS 318",
+            "BNS 28"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-004",
+      "category": "Corporate Embezzlement & Cheating",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNS 316",
+        "BSA 63",
+        "BNS 318",
+        "BNS 336",
+        "BNSS 105"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 37.94
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 108.24,
+          "retrieved_sections": [
+            "BNS 316",
+            "BNS 107",
+            "BNSS 105",
+            "BNSS 107",
+            "BNS 317",
+            "BNSS 117"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 93.73,
+          "retrieved_sections": [
+            "BNS 316",
+            "BNS 107",
+            "BNSS 105",
+            "BNSS 107",
+            "BNS 317",
+            "BNSS 117"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 93.58,
+          "retrieved_sections": [
+            "BNS 316",
+            "BNSS 316",
+            "BNS 107",
+            "BNSS 105",
+            "BNSS 107",
+            "BNS 317"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 114.22,
+          "retrieved_sections": [
+            "BNS 316",
+            "BNS 107",
+            "BNSS 105",
+            "BNSS 107",
+            "BNS 317",
+            "BNSS 117"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 101.54,
+          "retrieved_sections": [
+            "BNS 316",
+            "BNS 107",
+            "BNS 317",
+            "BNS 105",
+            "BNS 220",
+            "BNSS 105"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-005",
+      "category": "Fatal Rash Driving",
+      "expected_statutes": [
+        "BNS",
+        "BSA"
+      ],
+      "expected_sections": [
+        "BSA 39",
+        "BNS 106",
+        "BNS 281"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 18.82
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 59.11,
+          "retrieved_sections": [
+            "BNS 106",
+            "BNS 281",
+            "BNS 105",
+            "BNS 103",
+            "BNS 38"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 62.06,
+          "retrieved_sections": [
+            "BNS 106",
+            "BNS 281",
+            "BNS 105",
+            "BNS 103",
+            "BNS 38"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 69.7,
+          "retrieved_sections": [
+            "BNS 106",
+            "BNS 281",
+            "BNS 105",
+            "BNS 103",
+            "BNS 38"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 79.26,
+          "retrieved_sections": [
+            "BNS 106",
+            "BNS 281",
+            "BNS 105",
+            "BNS 103",
+            "BNS 38"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 77.91,
+          "retrieved_sections": [
+            "BNS 106",
+            "BNS 281",
+            "BNS 105",
+            "BNS 103",
+            "BNS 38"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-006",
+      "category": "Homeowner Private Defence",
+      "expected_statutes": [
+        "BNS"
+      ],
+      "expected_sections": [
+        "BNS 105",
+        "BNS 103",
+        "BNS 41",
+        "BNS 38"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 19.02
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 65.19,
+          "retrieved_sections": [
+            "BNS 38",
+            "BNS 41",
+            "BNS 44",
+            "BNS 39",
+            "BNS 40"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 83.94,
+          "retrieved_sections": [
+            "BNS 38",
+            "BNS 41",
+            "BNS 44",
+            "BNS 39",
+            "BNS 40"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 65.01,
+          "retrieved_sections": [
+            "BNS 38",
+            "BNS 41",
+            "BNS 44",
+            "BNS 39",
+            "BNS 40"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 60.29,
+          "retrieved_sections": [
+            "BNS 38",
+            "BNS 41",
+            "BNS 44",
+            "BNS 39",
+            "BNS 40"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 69.26,
+          "retrieved_sections": [
+            "BNS 38",
+            "BNS 41",
+            "BNS 44",
+            "BNS 39",
+            "BNS 40"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-007",
+      "category": "Mischief and Wrongful Restraint",
+      "expected_statutes": [
+        "BNS"
+      ],
+      "expected_sections": [
+        "BNS 126",
+        "BNS 324"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 16.7
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 76.96,
+          "retrieved_sections": [
+            "BNS 134",
+            "BNS 135",
+            "BNS 132",
+            "BNS 195",
+            "BNS 74"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 92.66,
+          "retrieved_sections": [
+            "BNS 134",
+            "BNS 135",
+            "BNS 132",
+            "BNS 195",
+            "BNS 74"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 59.15,
+          "retrieved_sections": [
+            "BNS 134",
+            "BNS 135",
+            "BNS 132",
+            "BNS 195",
+            "BNS 74"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 59.67,
+          "retrieved_sections": [
+            "BNS 134",
+            "BNS 135",
+            "BNS 132",
+            "BNS 195",
+            "BNS 74"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": null,
+          "coverage": 1.0,
+          "is_accurate": false,
+          "latency_ms": 59.44,
+          "retrieved_sections": [
+            "BNS 134",
+            "BNS 135",
+            "BNS 132",
+            "BNS 195",
+            "BNS 74"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-008",
+      "category": "Pedigree Document Forgery & Fraud",
+      "expected_statutes": [
+        "BNS",
+        "BSA"
+      ],
+      "expected_sections": [
+        "BNS 318",
+        "BSA 58",
+        "BNS 336"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 22.76
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 73.04,
+          "retrieved_sections": [
+            "BNS 318",
+            "BNS 61",
+            "BNS 319",
+            "BSA 61",
+            "BSA 63",
+            "BNS 62"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 96.42,
+          "retrieved_sections": [
+            "BNS 318",
+            "BNS 61",
+            "BNS 319",
+            "BSA 61",
+            "BSA 63",
+            "BNS 62"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 75.33,
+          "retrieved_sections": [
+            "BNS 318",
+            "BNS 61",
+            "BNS 319",
+            "BSA 61",
+            "BSA 63",
+            "BNS 62"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 65.98,
+          "retrieved_sections": [
+            "BNS 318",
+            "BNS 61",
+            "BNS 319",
+            "BSA 61",
+            "BSA 63",
+            "BNS 62"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 67.3,
+          "retrieved_sections": [
+            "BNS 318",
+            "BNS 61",
+            "BNS 319",
+            "BNS 62",
+            "BNS 63",
+            "BSA 61"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-009",
+      "category": "Physical Stalking",
+      "expected_statutes": [
+        "BNS",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNSS 35",
+        "BNS 78"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 11.59
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 72.08,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNS 77",
+            "BNS 52",
+            "BNS 59",
+            "BNS 3",
+            "POCSO 29"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 59.03,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNS 77",
+            "BNS 52",
+            "BNS 59",
+            "BNS 3",
+            "POCSO 29"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 58.6,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNS 77",
+            "BNS 52",
+            "BNS 59",
+            "BNS 3",
+            "POCSO 19"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 59.54,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNS 77",
+            "BNS 52",
+            "BNS 59",
+            "BNS 3",
+            "POCSO 29"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 1,
+          "coverage": 0.5,
+          "is_accurate": true,
+          "latency_ms": 79.78,
+          "retrieved_sections": [
+            "BNS 78",
+            "BNS 77",
+            "BNS 52",
+            "BNS 59",
+            "BNS 3",
+            "POCSO 29"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "BLIND-010",
+      "category": "Voyeurism & Video Seizure",
+      "expected_statutes": [
+        "BNS",
+        "BSA",
+        "BNSS"
+      ],
+      "expected_sections": [
+        "BNS 77",
+        "BNSS 105",
+        "BSA 63"
+      ],
+      "runs": {
+        "baseline": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 0.667,
+          "is_accurate": true,
+          "latency_ms": 52.85
+        },
+        "phase_8_2g": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 110.42,
+          "retrieved_sections": [
+            "BSA 77",
+            "BSA 78",
+            "BNSS 105",
+            "BNS 77",
+            "BSA 107",
+            "BSA 105"
+          ]
+        },
+        "config_a": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 110.09,
+          "retrieved_sections": [
+            "BSA 77",
+            "BSA 78",
+            "BNSS 105",
+            "BNS 77",
+            "BSA 107",
+            "BSA 105"
+          ]
+        },
+        "config_b": {
+          "statute_hit": true,
+          "best_rank": 2,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 118.33,
+          "retrieved_sections": [
+            "BSA 77",
+            "BNS 77",
+            "BSA 78",
+            "BNSS 105",
+            "BNSS 78",
+            "BSA 107"
+          ]
+        },
+        "config_c": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 104.46,
+          "retrieved_sections": [
+            "BSA 77",
+            "BSA 78",
+            "BNSS 105",
+            "BNS 77",
+            "BNSS 78",
+            "BSA 107"
+          ]
+        },
+        "config_d": {
+          "statute_hit": true,
+          "best_rank": 3,
+          "coverage": 1.0,
+          "is_accurate": true,
+          "latency_ms": 134.25,
+          "retrieved_sections": [
+            "BSA 77",
+            "BSA 78",
+            "BNSS 105",
+            "BSA 107",
+            "BSA 105",
+            "BNSS 78"
+          ]
+        }
+      }
+    }
+  ]
+}

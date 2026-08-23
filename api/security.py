@@ -33,23 +33,35 @@ api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 http_bearer = HTTPBearer(auto_error=False)
 
 # Configurable master key (empty or 'dev' means open access for dev/testing)
-MASTER_API_KEY = os.environ.get("NYAYA_API_KEY", "")
+def get_master_api_key() -> str:
+    return os.environ.get("NYAYA_API_KEY", "").strip()
 
 def verify_api_key(
     api_key: Optional[str] = Security(api_key_header),
     bearer_token: Optional[HTTPAuthorizationCredentials] = Security(http_bearer)
 ) -> bool:
-    """Validate API key or Bearer token if MASTER_API_KEY is configured."""
-    if not MASTER_API_KEY or MASTER_API_KEY.strip() == "":
+    """Validate API key or Bearer token if configured; fail-closed in production."""
+    master_key = get_master_api_key()
+    env = os.environ.get("ENVIRONMENT", os.environ.get("ENV", "development")).lower()
+    is_prod = env in ["production", "prod"]
+
+    if is_prod and not master_key:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Server security error: NYAYA_API_KEY is not configured in production mode."
+        )
+
+    if not master_key:
         return True  # Open in dev/local mode
 
     token = api_key or (bearer_token.credentials if bearer_token else None)
-    if not token or token.strip() != MASTER_API_KEY.strip():
+    if not token or token.strip() != master_key:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or missing API key. Provide via X-API-Key header or Authorization Bearer token."
         )
     return True
+
 
 # -------------------------------------------------------------
 # 2. IN-MEMORY SLIDING-WINDOW RATE LIMITER
@@ -77,7 +89,7 @@ class InMemoryRateLimiter:
         self.clients[client_ip] = timestamps
         return True, remaining - 1, reset_time
 
-rate_limiter = InMemoryRateLimiter(requests_per_minute=60)
+rate_limiter = InMemoryRateLimiter(requests_per_minute=300)
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
@@ -93,7 +105,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
                 status_code=429,
                 content={
                     "error": "Too Many Requests",
-                    "detail": "Rate limit exceeded. Maximum 60 requests per minute allowed.",
+                    "detail": f"Rate limit exceeded. Maximum {rate_limiter.rpm} requests per minute allowed.",
                     "retry_after_seconds": reset_time
                 },
                 headers={

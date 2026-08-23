@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-08-18T22:53:39Z",
+  "timestamp": "2026-08-18T23:29:27Z",
   "total_benchmark_records": 1100,
-  "total_passed": 1060,
-  "total_failed": 40,
-  "overall_accuracy_pct": 96.36,
-  "total_firewall_corrections": 723,
-  "total_clean_passes": 337,
+  "total_passed": 1065,
+  "total_failed": 35,
+  "overall_accuracy_pct": 96.82,
+  "total_firewall_corrections": 756,
+  "total_clean_passes": 309,
   "category_performance_breakdown": {
     "Statute Identification": {
       "total": 100,
@@ -33,9 +33,9 @@
     },
     "IEA -> BSA Cross-Mappings": {
       "total": 100,
-      "passed": 100,
-      "failed": 0,
-      "corrections": 100
+      "passed": 99,
+      "failed": 1,
+      "corrections": 99
     },
     "Repeal & Replacement Verifications": {
       "total": 100,
@@ -45,9 +45,9 @@
     },
     "Penalty & Punishment Specifications": {
       "total": 100,
-      "passed": 90,
-      "failed": 10,
-      "corrections": 50
+      "passed": 99,
+      "failed": 1,
+      "corrections": 87
     },
     "Procedural Timelines & Bail Rules": {
       "total": 100,
@@ -57,9 +57,9 @@
     },
     "Multi-Step Criminal Fact Patterns": {
       "total": 100,
-      "passed": 98,
-      "failed": 2,
-      "corrections": 98
+      "passed": 95,
+      "failed": 5,
+      "corrections": 95
     },
     "Landmark Case Law Codifications": {
       "total": 100,

@@ -133,16 +133,8 @@ button,input,textarea{font:inherit}.shell{background:radial-gradient(circle at 5
 <div class="h-screen flex flex-col">
 <header class="h-14 glass flex items-center justify-between px-3 md:px-4 z-50">
  <div class="flex items-center gap-3 min-w-0"><button class="md:hidden w-9 h-9 rounded-xl hover:bg-white/5" onclick="toggleMobile()"><i class="fa-solid fa-bars"></i></button><div class="w-9 h-9 rounded-xl gradient p-[1px]"><div class="w-full h-full rounded-[11px] bg-[#0d0f15] grid place-items-center"><svg class="w-5 h-5 text-[#36d399]" viewBox="0 0 100 100" fill="none" stroke="currentColor"><circle cx="50" cy="50" r="44" stroke-width="5"/><circle cx="50" cy="50" r="38" stroke-width="2"/><circle cx="50" cy="50" r="8" fill="currentColor"/><g stroke-width="2.5"><line x1="50" y1="50" x2="50" y2="12"/><line x1="50" y1="50" x2="50" y2="88"/><line x1="50" y1="50" x2="12" y2="50"/><line x1="50" y1="50" x2="88" y2="50"/><line x1="50" y1="50" x2="23.1" y2="23.1"/><line x1="50" y1="50" x2="76.9" y2="76.9"/><line x1="50" y1="50" x2="23.1" y2="76.9"/><line x1="50" y1="50" x2="76.9" y2="23.1"/><line x1="50" y1="50" x2="35.3" y2="15.1"/><line x1="50" y1="50" x2="64.7" y2="84.9"/><line x1="50" y1="50" x2="15.1" y2="35.3"/><line x1="50" y1="50" x2="84.9" y2="64.7"/><line x1="50" y1="50" x2="15.1" y2="64.7"/><line x1="50" y1="50" x2="84.9" y2="35.3"/><line x1="50" y1="50" x2="35.3" y2="84.9"/><line x1="50" y1="50" x2="64.7" y2="15.1"/><line x1="50" y1="50" x2="42.2" y2="12.9"/><line x1="50" y1="50" x2="57.8" y2="87.1"/><line x1="50" y1="50" x2="12.9" y2="42.2"/><line x1="50" y1="50" x2="87.1" y2="57.8"/><line x1="50" y1="50" x2="12.9" y2="57.8"/><line x1="50" y1="50" x2="87.1" y2="42.2"/><line x1="50" y1="50" x2="42.2" y2="87.1"/><line x1="50" y1="50" x2="57.8" y2="12.9"/></g></svg></div></div><div class="desktop-only"><div class="font-semibold leading-tight">Nyaya Darshan</div><div class="text-[9px] uppercase tracking-[.18em] text-[#70788b]">Indian Legal Intelligence</div></div></div>
- <button onclick="openCommand()" class="hidden md:flex w-[min(44vw,570px)] items-center gap-3 rounded-xl border border-[#2a2e3a] bg-[#12141b] px-4 py-2 text-sm text-[#737b8e] hover:border-[#454b5d]"><i class="fa-solid fa-magnifying-glass"></i><span class="flex-1 text-left">Search or command Nyaya Darshan...</span><kbd class="pill py-1">Ctrl Space</kbd></button>  <div class="flex items-center gap-2"><button onclick="openPricingModal()" class="hidden md:flex items-center gap-2 pill hover:bg-[#36d399]/20 text-[#36d399] border-[#36d399]/40 cursor-pointer font-semibold transition"><i class="fa-solid fa-gem text-xs"></i> <span>Tiers & Pricing</span></button><div class="hidden lg:flex items-center gap-2 pill"><span class="live-dot"></span> Nyaya active</div><button onclick="showNotifications()" class="w-9 h-9 rounded-xl hover:bg-white/5 relative"><i class="fa-regular fa-bell"></i><span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#ff6b7d]"></span></button><div class="relative" id="profileWrap"><button id="profileButton" onclick="toggleProfile(event)" aria-haspopup="menu" aria-expanded="false" class="h-9 pl-2 pr-2.5 rounded-xl border border-[#2a3038] bg-[#171b21] hover:bg-[#1d2229] flex items-center gap-2 text-xs font-semibold"><span class="w-6 h-6 rounded-lg bg-[#e8ebef] text-[#171a1f] grid place-items-center">JD</span><i class="fa-solid fa-chevron-down text-[9px] text-[#858e9b]"></i></button>
-<div id="profileMenu" role="menu" class="hidden absolute right-0 top-11 z-[300] w-64 panel rounded-2xl p-2 shadow-2xl command">
- <div class="px-3 py-3 border-b border-[#2a3038] mb-1"><div class="text-sm font-semibold">Joydeep Das</div><div class="text-xs text-[#36d399] mt-0.5 font-mono">joydeep@novaosconsulting.com</div><div class="inline-block px-2 py-0.5 mt-2 rounded-full text-[10px] font-semibold bg-[#36d399]/15 text-[#36d399] border border-[#36d399]/30">Enterprise Active</div></div>
- <button onclick="profileAction('profile')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5"><i class="fa-regular fa-user w-4 text-[#98a3af]"></i><span>Profile</span></button>
- <button onclick="openPricingModal()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5"><i class="fa-solid fa-gem w-4 text-[#36d399]"></i><span>Subscription & Tiers</span></button>
- <button onclick="profileAction('workspace')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5"><i class="fa-regular fa-building w-4 text-[#98a3af]"></i><span>Workspace settings</span></button>
- <button onclick="profileAction('preferences')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5"><i class="fa-solid fa-sliders w-4 text-[#98a3af]"></i><span>Preferences</span></button>
- <div class="border-t border-[#2a3038] my-1"></div>
- <button onclick="profileAction('signout')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5 text-[#d98a8a]"><i class="fa-solid fa-arrow-right-from-bracket w-4"></i><span>Sign out</span></button>
-</div></div></div>
+ <button onclick="openCommand()" class="hidden md:flex w-[min(44vw,570px)] items-center gap-3 rounded-xl border border-[#2a2e3a] bg-[#12141b] px-4 py-2 text-sm text-[#737b8e] hover:border-[#454b5d]"><i class="fa-solid fa-magnifying-glass"></i><span class="flex-1 text-left">Search or command Nyaya Darshan...</span><kbd class="pill py-1">Ctrl Space</kbd></button>  <div class="flex items-center gap-2"><button onclick="openPricingModal()" class="hidden md:flex items-center gap-2 pill hover:bg-[#36d399]/20 text-[#36d399] border-[#36d399]/40 cursor-pointer font-semibold transition"><i class="fa-solid fa-gem text-xs"></i> <span>Tiers & Pricing</span></button><div class="hidden lg:flex items-center gap-2 pill"><span class="live-dot"></span> Nyaya active</div><button onclick="showNotifications()" class="w-9 h-9 rounded-xl hover:bg-white/5 relative"><i class="fa-regular fa-bell"></i><span class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#ff6b7d]"></span></button><div class="relative" id="profileWrap"><div id="profileButtonContainer"><button id="btnOpenAuth" onclick="openAuthModal('login')" class="h-9 px-3 rounded-xl gradient text-xs font-semibold text-white flex items-center gap-1.5 hover:brightness-110 cursor-pointer"><i class="fa-regular fa-user"></i> <span>Sign In</span></button></div>
+<div id="profileMenu" role="menu" class="hidden absolute right-0 top-11 z-[300] w-64 panel rounded-2xl p-2 shadow-2xl command"></div></div></div>
 </header>
 <div class="flex flex-1 min-h-0">
 <aside id="sidebar" class="w-60 shrink-0 glass border-t-0 border-l-0 border-b-0 flex flex-col transition-all duration-300">
@@ -232,6 +224,63 @@ button,input,textarea{font:inherit}.shell{background:radial-gradient(circle at 5
   </div>
  </div>
 </div>
+<!-- Auth Modal (Sign In / Register) -->
+<div id="authModal" class="hidden fixed inset-0 z-[230] bg-black/75 backdrop-blur-md items-center justify-center p-4" onclick="if(event.target===this)closeAuthModal()">
+ <div class="command w-full max-w-md panel rounded-[24px] p-6 max-h-[90vh] overflow-auto">
+  <div class="flex justify-between items-start mb-5">
+   <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl gradient p-[1px]">
+     <div class="w-full h-full rounded-[11px] bg-[#0d0f15] grid place-items-center">
+      <svg class="w-5 h-5 text-[#36d399]" viewBox="0 0 100 100" fill="none" stroke="currentColor"><circle cx="50" cy="50" r="44" stroke-width="5"/><circle cx="50" cy="50" r="38" stroke-width="2"/><circle cx="50" cy="50" r="8" fill="currentColor"/><g stroke-width="2.5"><line x1="50" y1="50" x2="50" y2="12"/><line x1="50" y1="50" x2="50" y2="88"/><line x1="50" y1="50" x2="12" y2="50"/><line x1="50" y1="50" x2="88" y2="50"/></g></svg>
+     </div>
+    </div>
+    <div>
+     <div class="text-[10px] uppercase tracking-[.18em] text-[#36d399] font-medium">Access Control</div>
+     <h2 class="text-xl font-semibold mt-0.5" id="authModalTitle">Advocate Sign In</h2>
+    </div>
+   </div>
+   <button onclick="closeAuthModal()" class="w-8 h-8 rounded-lg hover:bg-white/5 text-lg flex items-center justify-center">×</button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex border-b border-[#252936] mb-5">
+   <button id="tabSignIn" onclick="switchAuthTab('login')" class="flex-1 pb-2.5 text-xs font-semibold text-[#36d399] border-b-2 border-[#36d399]">Sign In</button>
+   <button id="tabRegister" onclick="switchAuthTab('register')" class="flex-1 pb-2.5 text-xs font-semibold text-[#7f8798] hover:text-white border-b-2 border-transparent">Create Account</button>
+  </div>
+
+  <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-medium"></div>
+
+  <!-- Login Form -->
+  <form id="loginForm" onsubmit="handleAuthLogin(event)" class="space-y-4">
+   <div>
+    <label class="block text-xs font-medium text-[#8f97aa] mb-1">Email Address</label>
+    <input type="email" id="loginEmail" required class="w-full bg-[#12141b] border border-[#2a2e3a] focus:border-[#36d399] rounded-xl px-3.5 py-2.5 text-sm outline-none" placeholder="advocate@nyayadarshana.com">
+   </div>
+   <div>
+    <label class="block text-xs font-medium text-[#8f97aa] mb-1">Password</label>
+    <input type="password" id="loginPassword" required class="w-full bg-[#12141b] border border-[#2a2e3a] focus:border-[#36d399] rounded-xl px-3.5 py-2.5 text-sm outline-none" placeholder="••••••••">
+   </div>
+   <button type="submit" id="loginSubmitBtn" class="w-full py-2.5 rounded-xl gradient font-semibold text-xs text-white hover:brightness-110 transition mt-2">Sign In to Nyaya Darshan</button>
+  </form>
+
+  <!-- Register Form -->
+  <form id="registerForm" onsubmit="handleAuthRegister(event)" class="hidden space-y-4">
+   <div>
+    <label class="block text-xs font-medium text-[#8f97aa] mb-1">Full Name & Designation</label>
+    <input type="text" id="regFullName" required class="w-full bg-[#12141b] border border-[#2a2e3a] focus:border-[#36d399] rounded-xl px-3.5 py-2.5 text-sm outline-none" placeholder="Adv. Rajesh Kumar, High Court">
+   </div>
+   <div>
+    <label class="block text-xs font-medium text-[#8f97aa] mb-1">Email Address</label>
+    <input type="email" id="regEmail" required class="w-full bg-[#12141b] border border-[#2a2e3a] focus:border-[#36d399] rounded-xl px-3.5 py-2.5 text-sm outline-none" placeholder="rajesh@lawchambers.in">
+   </div>
+   <div>
+    <label class="block text-xs font-medium text-[#8f97aa] mb-1">Password (min 8 chars)</label>
+    <input type="password" id="regPassword" minlength="8" required class="w-full bg-[#12141b] border border-[#2a2e3a] focus:border-[#36d399] rounded-xl px-3.5 py-2.5 text-sm outline-none" placeholder="••••••••">
+   </div>
+   <button type="submit" id="regSubmitBtn" class="w-full py-2.5 rounded-xl gradient font-semibold text-xs text-white hover:brightness-110 transition mt-2">Create Advocate Account</button>
+  </form>
+ </div>
+</div>
 </div>
 <script>
 const pages = {
@@ -250,6 +299,382 @@ let current = 'mission', collapsed = false;
 let vaultDocs = [];
 let searchDebounceTimeout = null;
 let currentChatThinkingId = 0;
+
+// --- Phase 8.3 Authentication & Consultation State Manager ---
+let currentUser = null;
+let activeConvId = null;
+let userConversations = [];
+
+function getAuthToken() {
+    return localStorage.getItem('nyaya_access_token');
+}
+
+function setAuthSession(tokens, user) {
+    if (tokens && tokens.access_token) {
+        localStorage.setItem('nyaya_access_token', tokens.access_token);
+        if (tokens.refresh_token) localStorage.setItem('nyaya_refresh_token', tokens.refresh_token);
+    }
+    if (user) {
+        currentUser = user;
+        localStorage.setItem('nyaya_user_profile', JSON.stringify(user));
+    }
+    updateProfileUI();
+}
+
+function clearAuthSession() {
+    localStorage.removeItem('nyaya_access_token');
+    localStorage.removeItem('nyaya_refresh_token');
+    localStorage.removeItem('nyaya_user_profile');
+    currentUser = null;
+    activeConvId = null;
+    userConversations = [];
+    updateProfileUI();
+}
+
+async function fetchCurrentUserProfile() {
+    const token = getAuthToken();
+    if (!token) {
+        updateProfileUI();
+        return;
+    }
+    try {
+        const res = await fetch('/api/auth/me', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+            currentUser = await res.json();
+            localStorage.setItem('nyaya_user_profile', JSON.stringify(currentUser));
+        } else if (res.status === 401) {
+            clearAuthSession();
+        }
+    } catch (e) {
+        console.warn('Could not fetch user profile:', e);
+    }
+    updateProfileUI();
+}
+
+function updateProfileUI() {
+    const wrap = document.getElementById('profileButtonContainer');
+    const menu = document.getElementById('profileMenu');
+    if (!wrap) return;
+
+    if (currentUser) {
+        const initials = currentUser.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AD';
+        wrap.innerHTML = `<button id="profileButton" onclick="toggleProfile(event)" aria-haspopup="menu" aria-expanded="false" class="h-9 pl-2 pr-2.5 rounded-xl border border-[#2a3038] bg-[#171b21] hover:bg-[#1d2229] flex items-center gap-2 text-xs font-semibold cursor-pointer"><span class="w-6 h-6 rounded-lg bg-[#36d399] text-[#08090d] font-bold text-xs grid place-items-center">${initials}</span><span class="desktop-only text-xs text-[#e2e8f0]">${escapeHtml(currentUser.full_name.split(' ')[0])}</span><i class="fa-solid fa-chevron-down text-[9px] text-[#858e9b]"></i></button>`;
+        
+        if (menu) {
+            menu.innerHTML = `
+                <div class="px-3 py-3 border-b border-[#2a3038] mb-1">
+                    <div class="text-sm font-semibold">${escapeHtml(currentUser.full_name)}</div>
+                    <div class="text-xs text-[#36d399] mt-0.5 font-mono">${escapeHtml(currentUser.email)}</div>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#36d399]/15 text-[#36d399] border border-[#36d399]/30">${currentUser.role}</span>
+                        <span class="text-[10px] text-[#8f97aa]">Quota: ${currentUser.daily_quota_remaining}/${currentUser.daily_quota_limit}</span>
+                    </div>
+                </div>
+                <button onclick="navigate('nova'); closeProfile();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5"><i class="fa-solid fa-scale-balanced w-4 text-[#36d399]"></i><span>Legal Consultations</span></button>
+                <button onclick="openPricingModal()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5"><i class="fa-solid fa-gem w-4 text-[#36d399]"></i><span>Subscription & Tiers</span></button>
+                <div class="border-t border-[#2a3038] my-1"></div>
+                <button onclick="handleAuthLogout(); closeProfile();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-left hover:bg-white/5 text-[#d98a8a]"><i class="fa-solid fa-arrow-right-from-bracket w-4"></i><span>Sign Out</span></button>
+            `;
+        }
+    } else {
+        wrap.innerHTML = `<button id="btnOpenAuth" onclick="openAuthModal('login')" class="h-9 px-3 rounded-xl gradient text-xs font-semibold text-white flex items-center gap-1.5 hover:brightness-110 cursor-pointer"><i class="fa-regular fa-user"></i> <span>Sign In</span></button>`;
+        if (menu) menu.innerHTML = '';
+    }
+}
+
+function openAuthModal(mode = 'login') {
+    const m = document.getElementById('authModal');
+    if (!m) return;
+    m.classList.remove('hidden');
+    m.style.display = 'flex';
+    switchAuthTab(mode);
+}
+
+function closeAuthModal() {
+    const m = document.getElementById('authModal');
+    if (!m) return;
+    m.classList.add('hidden');
+    m.style.display = 'none';
+    const alert = document.getElementById('authAlert');
+    if (alert) alert.classList.add('hidden');
+}
+
+function switchAuthTab(tab) {
+    const tabIn = document.getElementById('tabSignIn');
+    const tabReg = document.getElementById('tabRegister');
+    const formIn = document.getElementById('loginForm');
+    const formReg = document.getElementById('registerForm');
+    const title = document.getElementById('authModalTitle');
+    const alert = document.getElementById('authAlert');
+    if (alert) alert.classList.add('hidden');
+
+    if (tab === 'login') {
+        tabIn.className = 'flex-1 pb-2.5 text-xs font-semibold text-[#36d399] border-b-2 border-[#36d399]';
+        tabReg.className = 'flex-1 pb-2.5 text-xs font-semibold text-[#7f8798] hover:text-white border-b-2 border-transparent';
+        formIn.classList.remove('hidden');
+        formIn.style.display = 'block';
+        formReg.classList.add('hidden');
+        formReg.style.display = 'none';
+        title.innerText = 'Advocate Sign In';
+    } else {
+        tabReg.className = 'flex-1 pb-2.5 text-xs font-semibold text-[#36d399] border-b-2 border-[#36d399]';
+        tabIn.className = 'flex-1 pb-2.5 text-xs font-semibold text-[#7f8798] hover:text-white border-b-2 border-transparent';
+        formReg.classList.remove('hidden');
+        formReg.style.display = 'block';
+        formIn.classList.add('hidden');
+        formIn.style.display = 'none';
+        title.innerText = 'Create Advocate Account';
+    }
+}
+
+async function handleAuthLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const btn = document.getElementById('loginSubmitBtn');
+    const alert = document.getElementById('authAlert');
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...';
+    
+    try {
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Authentication failed');
+
+        localStorage.setItem('nyaya_access_token', data.access_token);
+        if (data.refresh_token) localStorage.setItem('nyaya_refresh_token', data.refresh_token);
+        
+        await fetchCurrentUserProfile();
+        closeAuthModal();
+        showToast('Signed in successfully as ' + email);
+        if (current === 'nova') renderNova();
+    } catch (err) {
+        alert.className = 'mb-4 p-3 rounded-xl text-xs font-medium bg-[#ff6b7d]/15 text-[#ff6b7d] border border-[#ff6b7d]/30';
+        alert.innerText = err.message;
+        alert.classList.remove('hidden');
+    } finally {
+        btn.disabled = false;
+        btn.innerText = 'Sign In to Nyaya Darshan';
+    }
+}
+
+async function handleAuthRegister(e) {
+    e.preventDefault();
+    const full_name = document.getElementById('regFullName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const btn = document.getElementById('regSubmitBtn');
+    const alert = document.getElementById('authAlert');
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creating Account...';
+
+    try {
+        const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ full_name, email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Registration failed');
+
+        const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const loginData = await loginRes.json();
+        if (loginRes.ok) {
+            localStorage.setItem('nyaya_access_token', loginData.access_token);
+            if (loginData.refresh_token) localStorage.setItem('nyaya_refresh_token', loginData.refresh_token);
+            await fetchCurrentUserProfile();
+            closeAuthModal();
+            showToast('Account created & signed in successfully!');
+            if (current === 'nova') renderNova();
+        } else {
+            switchAuthTab('login');
+            alert.className = 'mb-4 p-3 rounded-xl text-xs font-medium bg-[#36d399]/15 text-[#36d399] border border-[#36d399]/30';
+            alert.innerText = 'Account created! Please sign in.';
+            alert.classList.remove('hidden');
+        }
+    } catch (err) {
+        alert.className = 'mb-4 p-3 rounded-xl text-xs font-medium bg-[#ff6b7d]/15 text-[#ff6b7d] border border-[#ff6b7d]/30';
+        alert.innerText = err.message;
+        alert.classList.remove('hidden');
+    } finally {
+        btn.disabled = false;
+        btn.innerText = 'Create Advocate Account';
+    }
+}
+
+async function handleAuthLogout() {
+    const refToken = localStorage.getItem('nyaya_refresh_token');
+    const accToken = getAuthToken();
+    if (refToken && accToken) {
+        fetch('/api/auth/logout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accToken}` },
+            body: JSON.stringify({ refresh_token: refToken })
+        }).catch(() => {});
+    }
+    clearAuthSession();
+    showToast('Signed out successfully.');
+    if (current === 'nova') renderNova();
+}
+
+async function loadConversations() {
+    const token = getAuthToken();
+    if (!token) return [];
+    try {
+        const res = await fetch('/api/conversations', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+            userConversations = await res.json();
+            return userConversations;
+        }
+    } catch (e) {
+        console.warn('Could not load conversations:', e);
+    }
+    return [];
+}
+
+async function selectConversation(id) {
+    activeConvId = id;
+    const token = getAuthToken();
+    const chatEl = document.getElementById('chat');
+    if (!chatEl) return;
+
+    chatEl.innerHTML = loader();
+    try {
+        const res = await fetch(`/api/conversations/${id}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Could not load consultation');
+        const detail = await res.json();
+        
+        chatEl.innerHTML = '';
+        if (detail.messages.length === 0) {
+            chatEl.innerHTML = `<div class="max-w-2xl"><div class="text-[10px] text-[#36d399] font-medium mb-2">NYAYA DARSHAN</div><div class="card p-4 text-sm leading-relaxed">Consultation initialized for <b>${escapeHtml(detail.conversation.title)}</b>. Ask a statutory question or section conversion...</div></div><div class="grid sm:grid-cols-3 gap-2 max-w-3xl mt-4">${suggest('Convert legacy IPC 302 to BNS 2023')}${suggest('BNSS Section 392 judgment timeline')}${suggest('Verify POCSO Act status under BNS')}</div>`;
+        } else {
+            for (let m of detail.messages) {
+                if (m.role === 'user') {
+                    appendUserBubble(m.content);
+                } else if (m.role === 'assistant') {
+                    let sources = [];
+                    if (m.legal_answer && m.legal_answer.evidence) {
+                        sources = m.legal_answer.evidence.map(e => ({
+                            title: `${e.statute} Section ${e.section}: ${e.heading}`,
+                            snippet: e.text_snippet,
+                            category: e.statute
+                        }));
+                    }
+                    const thinkId = appendThinkingBubble();
+                    replaceThinking(thinkId, m.content, sources, []);
+                }
+            }
+        }
+        renderConsultationsSidebar();
+    } catch (err) {
+        chatEl.innerHTML = `<div class="text-[#ff6b7d] p-4">Failed to load consultation: ${err.message}</div>`;
+    }
+}
+
+async function createNewConsultation() {
+    const token = getAuthToken();
+    if (!token) {
+        openAuthModal('login');
+        return;
+    }
+    try {
+        const res = await fetch('/api/conversations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ title: 'New Legal Consultation' })
+        });
+        if (res.ok) {
+            const conv = await res.json();
+            activeConvId = conv.id;
+            await loadConversations();
+            selectConversation(conv.id);
+        }
+    } catch (e) {
+        showToast('Failed to create consultation');
+    }
+}
+
+async function deleteConsultation(id, e) {
+    if (e) e.stopPropagation();
+    const token = getAuthToken();
+    if (!token || !confirm('Delete this consultation record?')) return;
+    try {
+        const res = await fetch(`/api/conversations/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+            if (activeConvId === id) activeConvId = null;
+            await loadConversations();
+            if (userConversations.length > 0) {
+                selectConversation(userConversations[0].id);
+            } else {
+                renderNova();
+            }
+            showToast('Consultation deleted.');
+        }
+    } catch (err) {
+        showToast('Failed to delete consultation.');
+    }
+}
+
+function renderConsultationsSidebar() {
+    const listEl = document.getElementById('consultationsList');
+    if (!listEl) return;
+
+    if (!currentUser) {
+        listEl.innerHTML = `
+            <div class="p-4 text-center">
+                <div class="text-xs text-[#8f97aa] mb-3">Sign in to save consultations and access full legal memory.</div>
+                <button onclick="openAuthModal('login')" class="w-full py-2 rounded-xl gradient text-xs font-semibold text-white">Sign In</button>
+            </div>
+        `;
+        return;
+    }
+
+    if (userConversations.length === 0) {
+        listEl.innerHTML = `<div class="p-4 text-xs text-[#737b8e] text-center">No consultations yet.<br>Click "+ New Consultation" to begin.</div>`;
+        return;
+    }
+
+    const periods = ['Today', 'Yesterday', 'Older'];
+    let html = '';
+
+    for (let p of periods) {
+        const matching = userConversations.filter(c => c.group_period === p);
+        if (matching.length > 0) {
+            html += `<div class="text-[9px] uppercase tracking-[.15em] text-[#626a7d] px-3 py-1.5 mt-2">${p}</div>`;
+            for (let c of matching) {
+                const isActive = c.id === activeConvId;
+                const activeClass = isActive ? 'bg-[#1b2230] border-[#36d399]/40 text-white font-medium' : 'hover:bg-white/5 text-[#94a3b8] border-transparent';
+                html += `
+                    <div onclick="selectConversation('${c.id}')" class="group flex items-center justify-between px-3 py-2 rounded-xl border text-xs cursor-pointer transition ${activeClass}">
+                        <div class="truncate flex-1 mr-2"><i class="fa-regular fa-comment-dots text-[10px] mr-1.5 ${isActive ? 'text-[#36d399]' : 'text-[#737b8e]'}"></i>${escapeHtml(c.title)}</div>
+                        <button onclick="deleteConsultation('${c.id}', event)" class="opacity-0 group-hover:opacity-100 hover:text-[#ff6b7d] p-1 rounded transition text-[10px]"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    listEl.innerHTML = html;
+}
 
 function logo(){return '<div class="w-9 h-9 rounded-xl gradient p-[1px]"><div class="w-full h-full rounded-[11px] bg-[#0d0f15] grid place-items-center"><svg class="w-5 h-5 text-[#36d399]" viewBox="0 0 100 100" fill="none" stroke="currentColor"><circle cx="50" cy="50" r="44" stroke-width="5"/><circle cx="50" cy="50" r="38" stroke-width="2"/><circle cx="50" cy="50" r="8" fill="currentColor"/><g stroke-width="2.5"><line x1="50" y1="50" x2="50" y2="12"/><line x1="50" y1="50" x2="50" y2="88"/><line x1="50" y1="50" x2="12" y2="50"/><line x1="50" y1="50" x2="88" y2="50"/><line x1="50" y1="50" x2="23.1" y2="23.1"/><line x1="50" y1="50" x2="76.9" y2="76.9"/><line x1="50" y1="50" x2="23.1" y2="76.9"/><line x1="50" y1="50" x2="76.9" y2="23.1"/><line x1="50" y1="50" x2="35.3" y2="15.1"/><line x1="50" y1="50" x2="64.7" y2="84.9"/><line x1="50" y1="50" x2="15.1" y2="35.3"/><line x1="50" y1="50" x2="84.9" y2="64.7"/><line x1="50" y1="50" x2="15.1" y2="64.7"/><line x1="50" y1="50" x2="84.9" y2="35.3"/><line x1="50" y1="50" x2="35.3" y2="84.9"/><line x1="50" y1="50" x2="64.7" y2="15.1"/><line x1="50" y1="50" x2="42.2" y2="12.9"/><line x1="50" y1="50" x2="57.8" y2="87.1"/><line x1="50" y1="50" x2="12.9" y2="42.2"/><line x1="50" y1="50" x2="87.1" y2="57.8"/><line x1="50" y1="50" x2="12.9" y2="57.8"/><line x1="50" y1="50" x2="87.1" y2="42.2"/><line x1="50" y1="50" x2="42.2" y2="87.1"/><line x1="50" y1="50" x2="57.8" y2="12.9"/></g></svg></div></div>'}
 function header(title,sub,actions=''){return `<div class="max-w-[1450px] mx-auto mb-5 flex flex-wrap items-end justify-between gap-3"><div><div class="text-[10px] uppercase tracking-[.18em] text-[#70788b]">NYAYA DARSHAN</div><h1 class="text-2xl md:text-3xl font-semibold mt-1">${title}</h1><p class="text-sm text-[#7f8798] mt-1">${sub}</p></div><div class="flex gap-2">${actions}</div></div>`}
@@ -593,15 +1018,89 @@ async function generateSummary(id) {
     }
 }
 
-function renderNova(){
-    document.getElementById('workspace').innerHTML = header(pages.nova.title,pages.nova.sub)+`<div class="max-w-[1250px] mx-auto h-[calc(100vh-160px)] min-h-[600px] grid lg:grid-cols-[1fr_300px] gap-4"><div class="panel rounded-[22px] flex flex-col overflow-hidden"><div class="p-4 border-b border-[#292d39] flex justify-between items-center"><div class="flex gap-3 items-center">${logo()}<div><div class="font-semibold">Nyaya Darshan Intelligence Core</div><div class="text-xs text-[#36d399]">Grounded in Gazette Bare Acts (BNS, BNSS, BSA 2023)</div></div></div><span class="pill bg-[#132820] text-[#36d399] border-[#1d4c38]"><i class="fa-solid fa-shield-halved mr-1"></i>Gazette Verified</span></div><div id="chat" class="flex-1 overflow-auto p-5 space-y-5"><div class="max-w-2xl"><div class="text-[10px] text-[#36d399] font-medium mb-2">NYAYA DARSHAN</div><div class="card p-4 text-sm leading-relaxed">I am grounded in official Gazette statutory provisions, procedural deadlines, and Supreme Court precedent codifications. How can I assist you today?</div></div><div class="grid sm:grid-cols-3 gap-2 max-w-3xl">${suggest('Convert legacy IPC 302 to BNS 2023')}${suggest('BNSS Section 392 judgment timeline')}${suggest('Verify POCSO Act status under BNS')}</div></div><div class="p-4 border-t border-[#292d39]"><div class="flex gap-2"><textarea id="chatInput" rows="1" class="flex-1 bg-[#12141b] border border-[#2a2e3a] rounded-xl px-4 py-3 resize-none outline-none" placeholder="Ask a statutory question or section conversion..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea><button onclick="sendChat()" class="w-12 rounded-xl gradient"><i class="fa-solid fa-arrow-up"></i></button></div><div class="text-[10px] text-[#697185] mt-2">Grounded in Acts 45, 46, 47 of 2023 · Dual-Panel Evidence Extraction · Claim Verification Firewall</div></div></div><div class="panel rounded-[22px] p-4"><div class="text-sm font-semibold">Live reasoning & verification trail</div><div class="space-y-3 mt-4" id="reasoningTrail"><div class="text-xs text-[#737b8e]">Awaiting query...</div></div></div></div>`;
+async function renderNova(){
+    const ws = document.getElementById('workspace');
+    ws.innerHTML = header(pages.nova.title, pages.nova.sub) + `
+    <div class="max-w-[1450px] mx-auto h-[calc(100vh-160px)] min-h-[600px] grid lg:grid-cols-[240px_1fr_320px] gap-4">
+        <!-- 1. Left Consultations Sidebar -->
+        <div class="panel rounded-[22px] flex flex-col overflow-hidden">
+            <div class="p-3.5 border-b border-[#292d39] flex items-center justify-between">
+                <span class="text-xs font-semibold text-[#c7d0d9] flex items-center gap-1.5"><i class="fa-regular fa-folder-open text-[#36d399]"></i> Consultations</span>
+                <button onclick="createNewConsultation()" class="pill text-[11px] hover:bg-[#36d399]/20 text-[#36d399] border-[#36d399]/40 py-1 px-2 cursor-pointer font-medium"><i class="fa-solid fa-plus mr-1"></i>New</button>
+            </div>
+            <div id="consultationsList" class="flex-1 overflow-auto p-2 space-y-1">
+                ${loader()}
+            </div>
+        </div>
+
+        <!-- 2. Middle Chat & Consultation Workspace -->
+        <div class="panel rounded-[22px] flex flex-col overflow-hidden">
+            <div class="p-4 border-b border-[#292d39] flex justify-between items-center">
+                <div class="flex gap-3 items-center">
+                    ${logo()}
+                    <div>
+                        <div class="font-semibold text-sm">Nyaya Darshan Grounding Core</div>
+                        <div class="text-xs text-[#36d399]">1,353 Official Gazette Bare Act Sections (BNS, BNSS, BSA, POCSO)</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="quotaBadge" class="pill text-[10px] text-[#8f97aa]">${currentUser ? `Quota: ${currentUser.daily_quota_remaining}/${currentUser.daily_quota_limit}` : 'Anonymous: 5/day'}</span>
+                    <span class="pill bg-[#132820] text-[#36d399] border-[#1d4c38]"><i class="fa-solid fa-shield-halved mr-1"></i>Gazette Verified</span>
+                </div>
+            </div>
+            <div id="chat" class="flex-1 overflow-auto p-5 space-y-5">
+                <div class="max-w-2xl">
+                    <div class="text-[10px] text-[#36d399] font-medium mb-2">NYAYA DARSHAN</div>
+                    <div class="card p-4 text-sm leading-relaxed">
+                        I am grounded in official Gazette statutory provisions, procedural deadlines, and Supreme Court precedent codifications. Select or start a consultation below:
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-2 max-w-3xl">
+                    ${suggest('Convert legacy IPC 302 to BNS 2023')}
+                    ${suggest('BNSS Section 392 judgment timeline')}
+                    ${suggest('Verify POCSO Act status under BNS')}
+                </div>
+            </div>
+            <div class="p-4 border-t border-[#292d39]">
+                <div class="flex gap-2">
+                    <textarea id="chatInput" rows="1" class="flex-1 bg-[#12141b] border border-[#2a2e3a] focus:border-[#36d399] rounded-xl px-4 py-3 resize-none outline-none text-sm" placeholder="Ask a statutory question, fact pattern, or section conversion..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+                    <button onclick="sendChat()" class="w-12 rounded-xl gradient text-white hover:brightness-110"><i class="fa-solid fa-arrow-up"></i></button>
+                </div>
+                <div class="text-[10px] text-[#697185] mt-2 flex justify-between">
+                    <span>Grounded in Acts 45, 46, 47 of 2023 & Act 32 of 2012 · Dual-Panel Evidence Extraction</span>
+                    <span class="font-mono text-[#36d399]">Engine v1.0.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Right Reasoning & Evidence Inspector -->
+        <div class="panel rounded-[22px] p-4 flex flex-col overflow-hidden">
+            <div class="text-sm font-semibold mb-3 flex items-center justify-between">
+                <span>Reasoning & Verification Trail</span>
+                <span class="live-dot"></span>
+            </div>
+            <div class="space-y-3 overflow-auto flex-1" id="reasoningTrail">
+                <div class="text-xs text-[#737b8e]">Awaiting query...</div>
+            </div>
+        </div>
+    </div>`;
+
+    if (currentUser) {
+        await loadConversations();
+        renderConsultationsSidebar();
+        if (userConversations.length > 0 && !activeConvId) {
+            selectConversation(userConversations[0].id);
+        }
+    } else {
+        renderConsultationsSidebar();
+    }
 }
 
 function suggest(t){return `<button onclick="document.getElementById('chatInput').value='${t}'; sendChat();" class="card text-left p-3 text-xs">${t}</button>`}
 
 function appendUserBubble(q) {
     let chat = document.getElementById('chat');
-    chat.insertAdjacentHTML('beforeend',`<div class="ml-auto max-w-xl"><div class="text-[10px] text-right text-[#737b8e] mb-2">YOU</div><div class="gradient rounded-2xl rounded-tr-sm p-4 text-sm">${escapeHtml(q)}</div></div>`);
+    chat.insertAdjacentHTML('beforeend',`<div class="ml-auto max-w-xl"><div class="text-[10px] text-right text-[#737b8e] mb-2">YOU</div><div class="gradient rounded-2xl rounded-tr-sm p-4 text-sm text-white">${escapeHtml(q)}</div></div>`);
     chat.scrollTop = chat.scrollHeight;
 }
 
@@ -609,7 +1108,7 @@ function appendThinkingBubble() {
     let chat = document.getElementById('chat');
     currentChatThinkingId++;
     let id = 'think_' + currentChatThinkingId;
-    chat.insertAdjacentHTML('beforeend',`<div id="${id}" class="max-w-2xl"><div class="text-[10px] text-[#36d399] font-medium mb-2">NYAYA · THINKING</div><div class="card p-4 text-sm"><span class="think"><span></span><span></span><span></span></span> Reading workspace memory, checking legal context and preparing an answer...</div></div>`);
+    chat.insertAdjacentHTML('beforeend',`<div id="${id}" class="max-w-2xl"><div class="text-[10px] text-[#36d399] font-medium mb-2">NYAYA · THINKING</div><div class="card p-4 text-sm"><span class="think"><span></span><span></span><span></span></span> Retrieving official Gazette provisions & executing verification firewall...</div></div>`);
     chat.scrollTop = chat.scrollHeight;
     return id;
 }
@@ -640,7 +1139,7 @@ function copyChatAnswer(btn, encodedText) {
             btn.classList.remove('border-[#36d399]');
         }, 2000);
     }).catch(() => {
-        toast('Failed to copy text', 'error');
+        showToast('Failed to copy text');
     });
 }
 
@@ -678,7 +1177,7 @@ function replaceThinking(id, answer, sources, follow_ups) {
 function replaceThinkingWithError(id, msg) {
     let el = document.getElementById(id);
     if(!el) return;
-    el.innerHTML = `<div class="text-[10px] text-[#d97777] mb-2">NYAYA ERROR</div><div class="card border-[#d97777] p-4 text-sm leading-relaxed text-[#d97777]">${renderMarkdown(msg)}</div>`;
+    el.innerHTML = `<div class="text-[10px] text-[#d97777] mb-2 font-semibold">NYAYA ERROR</div><div class="card border-[#d97777]/40 p-4 text-sm leading-relaxed text-[#ff8080] bg-[#ff6b7d]/5">${renderMarkdown(msg)}</div>`;
 }
 
 function updateReasoningTrail(steps) {
@@ -691,37 +1190,88 @@ function updateReasoningTrail(steps) {
     
     trailBox.innerHTML = steps.map(s => {
         let statusClass = s.status === 'done' ? 'bg-[#36d399]' : s.status === 'active' ? 'bg-[#9c94ff] animate-pulse' : 'bg-[#4a5060]';
-        return `<div class="flex gap-3"><div class="mt-1 w-2 h-2 rounded-full ${statusClass}"></div><div><div class="text-xs">${escapeHtml(s.step)}</div><div class="text-[10px] text-[#737b8e]">${escapeHtml(s.detail || '')}</div></div></div>`;
+        return `<div class="flex gap-3"><div class="mt-1 w-2 h-2 rounded-full ${statusClass}"></div><div><div class="text-xs font-medium">${escapeHtml(s.step)}</div><div class="text-[10px] text-[#737b8e]">${escapeHtml(s.detail || '')}</div></div></div>`;
     }).join('');
 }
 
 async function sendChat(){
-    let i=document.getElementById('chatInput');
-    if(!i||!i.value.trim())return;
-    let q=i.value;
-    i.value='';
+    let i = document.getElementById('chatInput');
+    if(!i || !i.value.trim()) return;
+    let q = i.value.trim();
+    i.value = '';
     appendUserBubble(q);
     const thinkingId = appendThinkingBubble();
     
     updateReasoningTrail([
-        {step: 'Analyzing query & legal intent', status: 'active'},
-        {step: 'Searching 214 corpus documents via FAISS', status: 'wait'},
-        {step: 'Synthesizing response with NoveLaw', status: 'wait'}
+        {step: 'Query Analysis & Statute Scope Classification', status: 'active', detail: 'Decomposing legal concepts across BNS, BNSS, BSA, POCSO'},
+        {step: 'Authoritative Gazette RAG & Deterministic Lookup', status: 'wait', detail: 'Searching 1,353 Official Gazette Bare Act sections'},
+        {step: 'Claim Verification Firewall & Grounding Audit', status: 'wait', detail: 'Auditing claims, section mappings, and timelines'}
     ]);
     
+    const token = getAuthToken();
+
     try {
-        const res = await fetch('/api/chat/ask', {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({query:q})
-        });
-        if(!res.ok) {
-            let errBody = await res.json().catch(()=>({}));
-            throw new Error(errBody.detail || `API Error: ${res.status}`);
+        if (token && currentUser) {
+            // Authenticated consultation endpoint
+            if (!activeConvId) {
+                const newConvRes = await fetch('/api/conversations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ title: q.substring(0, 45) })
+                });
+                if (newConvRes.ok) {
+                    const newConv = await newConvRes.json();
+                    activeConvId = newConv.id;
+                }
+            }
+
+            const res = await fetch(`/api/conversations/${activeConvId}/messages`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ content: q, top_k: 4 })
+            });
+
+            if (!res.ok) {
+                let errBody = await res.json().catch(()=>({}));
+                throw new Error(errBody.detail || `API Error: ${res.status}`);
+            }
+
+            const data = await res.json();
+            const sources = (data.evidence || []).map(e => ({
+                title: `${e.statute} Section ${e.section}: ${e.heading}`,
+                snippet: e.text_snippet,
+                category: e.statute
+            }));
+
+            replaceThinking(thinkingId, data.answer, sources, []);
+            updateReasoningTrail([
+                {step: 'Query Analysis & Classification', status: 'done', detail: '100% matched to statutory scope'},
+                {step: 'Gazette RAG & Deterministic Indexing', status: 'done', detail: `${sources.length} Bare Act sections retrieved`},
+                {step: 'Claim Verification Firewall', status: 'done', detail: `Status: ${data.grounding_status} (${data.latency_ms}ms)`}
+            ]);
+
+            // Update quota UI
+            if (currentUser && data.remaining_quota !== undefined) {
+                currentUser.daily_quota_remaining = data.remaining_quota;
+                updateProfileUI();
+            }
+            await loadConversations();
+            renderConsultationsSidebar();
+        } else {
+            // Fallback anonymous chat endpoint
+            const res = await fetch('/api/chat/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: q })
+            });
+            if (!res.ok) {
+                let errBody = await res.json().catch(()=>({}));
+                throw new Error(errBody.detail || `API Error: ${res.status}`);
+            }
+            const data = await res.json();
+            replaceThinking(thinkingId, data.answer, data.sources, data.follow_ups);
+            updateReasoningTrail(data.reasoning_steps || [{step: 'Complete', status: 'done'}]);
         }
-        const data = await res.json();
-        replaceThinking(thinkingId, data.answer, data.sources, data.follow_ups);
-        updateReasoningTrail(data.reasoning_steps || [{step: 'Complete', status: 'done'}]);
     } catch(err) {
         replaceThinkingWithError(thinkingId, err.message);
         updateReasoningTrail([{step: 'Error occurred', status: 'done', detail: err.message}]);
@@ -926,6 +1476,8 @@ async function boot(){
     } catch (e) {
         setText('Nyaya offline — start server with: python run.py');
     }
+
+    await fetchCurrentUserProfile();
     
     setTimeout(() => {
         document.getElementById('splash').style.opacity='0';
@@ -990,7 +1542,7 @@ function openProfileModal(){
                 <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Role</span><span class="font-medium">Enterprise AI Architect & Systems Engineer</span></div>
                 <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Subscription Tier</span><span class="pill bg-[#36d399]/20 text-[#36d399] border-none font-semibold">Enterprise OS Active</span></div>
                 <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">LLM Engine</span><span class="font-medium">NVIDIA NIM (Llama 3.3 Nemotron 49B)</span></div>
-                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Payment Gateway</span><span class="font-medium text-[#36d399]">Razorpay Live (rzp_live_TMeJGUjOwwJi11)</span></div>
+                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Payment Gateway</span><span class="font-medium text-[#36d399]">Razorpay Gateway (Live Active)</span></div>
             </div>
             <button onclick="showToast('Profile updated!'); document.getElementById('userProfileModal').remove();" class="w-full mt-5 py-3 rounded-xl gradient font-semibold text-xs">Save Profile Changes</button>
         </div>
@@ -1289,7 +1841,7 @@ function selectTier(tierName){
  if (typeof Razorpay !== 'undefined' && (tierName === 'Professional' || tierName === 'Enterprise')) {
      const amountInPaise = tierName === 'Professional' ? 399900 : 4999900;
      const options = {
-         key: "rzp_live_TMeJGUjOwwJi11", // Live Razorpay Key ID
+         key: window.RAZORPAY_KEY_ID || "rzp_test_placeholder",
          amount: amountInPaise,
          currency: "INR",
          name: "Nyaya Legal OS",

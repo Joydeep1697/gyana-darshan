@@ -1,0 +1,1102 @@
+{
+  "EXP-001": {
+    "scenario_id": "EXP-001",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Murder replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 103"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-002": {
+    "scenario_id": "EXP-002",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Cheating replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-003": {
+    "scenario_id": "EXP-003",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Rape replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "64"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 64"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-004": {
+    "scenario_id": "EXP-004",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Theft replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 303"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-005": {
+    "scenario_id": "EXP-005",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Attempt to murder replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "109"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 109"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-006": {
+    "scenario_id": "EXP-006",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Death by negligence replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 106"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-007": {
+    "scenario_id": "EXP-007",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Extortion replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 308"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-008": {
+    "scenario_id": "EXP-008",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Robbery replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 309"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-009": {
+    "scenario_id": "EXP-009",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Dacoity replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 310"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-010": {
+    "scenario_id": "EXP-010",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Criminal breach of trust replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 316"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-011": {
+    "scenario_id": "EXP-011",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Forgery replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 336"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-012": {
+    "scenario_id": "EXP-012",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Defamation replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "356"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 356"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-013": {
+    "scenario_id": "EXP-013",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Criminal intimidation replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 351"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-014": {
+    "scenario_id": "EXP-014",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Criminal conspiracy replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "61"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 61"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-015": {
+    "scenario_id": "EXP-015",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Stalking replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "78"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 78"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-016": {
+    "scenario_id": "EXP-016",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Police remand replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 187"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-017": {
+    "scenario_id": "EXP-017",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Notice of appearance replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 35"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-018": {
+    "scenario_id": "EXP-018",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Undertrial bail replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 479"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-019": {
+    "scenario_id": "EXP-019",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "FIR registration replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "173"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 173"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-020": {
+    "scenario_id": "EXP-020",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Proclamation replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "84"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 84"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-021": {
+    "scenario_id": "EXP-021",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Electronic record certificate replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-022": {
+    "scenario_id": "EXP-022",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Discovery statement replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 23"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-023": {
+    "scenario_id": "EXP-023",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Dying declaration replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "26"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 26"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-024": {
+    "scenario_id": "EXP-024",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Expert opinion replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 39"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-025": {
+    "scenario_id": "EXP-025",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Dowry death presumption replacement",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "118"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 118"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-026": {
+    "scenario_id": "EXP-026",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Snatching penalty",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "304"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 304"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-027": {
+    "scenario_id": "EXP-027",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Organised crime penalty",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "111"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 111"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-028": {
+    "scenario_id": "EXP-028",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Mob lynching penalty",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 103"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-029": {
+    "scenario_id": "EXP-029",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Police custody period rule",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 187"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-030": {
+    "scenario_id": "EXP-030",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Judgment delivery timeline",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "392"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 392"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-031": {
+    "scenario_id": "EXP-031",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Rape trial timeline",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "346"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 346"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-032": {
+    "scenario_id": "EXP-032",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Witness protection rule",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "398"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 398"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-033": {
+    "scenario_id": "EXP-033",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Child age definition",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under POCSO Section 2"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-034": {
+    "scenario_id": "EXP-034",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Aggravated assault penalty",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "6"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under POCSO Section 6"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-035": {
+    "scenario_id": "EXP-035",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Mandatory reporting rule",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under POCSO Section 19"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-036": {
+    "scenario_id": "EXP-036",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Overriding effect rule",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "42A"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under POCSO Section 42A"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-037": {
+    "scenario_id": "EXP-037",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Presumption of guilt rule",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "29"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under POCSO Section 29"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-038": {
+    "scenario_id": "EXP-038",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "POCSO trial timeline",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under POCSO Section 35"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-039": {
+    "scenario_id": "EXP-039",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "BNS repeal savings",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 358"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-040": {
+    "scenario_id": "EXP-040",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "BNSS repeal savings",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "531"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 531"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-041": {
+    "scenario_id": "EXP-041",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "BSA repeal savings",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "170"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 170"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-042": {
+    "scenario_id": "EXP-042",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Arnesh Kumar codification",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 35"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-043": {
+    "scenario_id": "EXP-043",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Satender Antil codification",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 479"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-044": {
+    "scenario_id": "EXP-044",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Lalita Kumari codification",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "173"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 173"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-045": {
+    "scenario_id": "EXP-045",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Arjun Panditrao codification",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-046": {
+    "scenario_id": "EXP-046",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "False promise of marriage",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "69"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 69"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-047": {
+    "scenario_id": "EXP-047",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Terrorist act scope",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "113"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 113"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-048": {
+    "scenario_id": "EXP-048",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Endangering sovereignty scope",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "152"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNS Section 152"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-049": {
+    "scenario_id": "EXP-049",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Mandatory videography rule",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BNSS Section 105"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  },
+  "EXP-050": {
+    "scenario_id": "EXP-050",
+    "benchmark_class": "EXPLICIT_SECTION",
+    "category": "Electronic records primary status",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "acceptable_alternative_sections": [],
+    "expected_legal_propositions": [
+      "Governed under BSA Section 61"
+    ],
+    "prohibited_false_propositions": [],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": ""
+  }
+}

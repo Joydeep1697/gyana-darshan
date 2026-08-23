@@ -1,0 +1,9680 @@
+{
+  "metrics": {
+    "Recall@1": 26.92,
+    "Recall@3": 56.17,
+    "Recall@5": 71.5,
+    "Recall@10": 85.5,
+    "Precision@5": 37.8,
+    "MRR": 0.7258,
+    "NDCG@10": 0.7817,
+    "Distractor_Avoidance_Rate": 85.0
+  },
+  "category_breakdown": {
+    "MULTI_STATUTE_3_PLUS_ISSUES": {
+      "total_cases": 30,
+      "Recall@5": 63.33,
+      "Recall@10": 81.67,
+      "Precision@5": 60.0,
+      "MRR": 0.9833,
+      "Distractor_Avoidance": 100.0
+    },
+    "BNS_NEAR_NEIGHBOUR": {
+      "total_cases": 20,
+      "Recall@5": 60.0,
+      "Recall@10": 70.0,
+      "Precision@5": 26.0,
+      "MRR": 0.5875,
+      "Distractor_Avoidance": 90.0
+    },
+    "POCSO_DISCRIMINATION": {
+      "total_cases": 15,
+      "Recall@5": 90.0,
+      "Recall@10": 100.0,
+      "Precision@5": 48.0,
+      "MRR": 0.9,
+      "Distractor_Avoidance": 60.0
+    },
+    "BSA_EVIDENCE": {
+      "total_cases": 15,
+      "Recall@5": 80.0,
+      "Recall@10": 100.0,
+      "Precision@5": 24.0,
+      "MRR": 0.4417,
+      "Distractor_Avoidance": 80.0
+    },
+    "BNSS_PROCEDURE": {
+      "total_cases": 10,
+      "Recall@5": 100.0,
+      "Recall@10": 100.0,
+      "Precision@5": 20.0,
+      "MRR": 0.75,
+      "Distractor_Avoidance": 80.0
+    },
+    "NEGATIVE_PROPOSITION": {
+      "total_cases": 10,
+      "Recall@5": 50.0,
+      "Recall@10": 70.0,
+      "Precision@5": 18.0,
+      "MRR": 0.37,
+      "Distractor_Avoidance": 80.0
+    }
+  },
+  "records": [
+    {
+      "scenario_id": "BLIND-82J-001",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "316"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNSS",
+          "44"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BNSS",
+          "49"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.4,
+      "recall@10": 0.6,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.5912,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-002",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.6,
+      "recall@10": 0.8,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8738,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-003",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "288"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BSA",
+          "40"
+        ],
+        [
+          "BNS",
+          "286"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-004",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "39"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "34"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.8,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 0.9609,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-005",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "24"
+        ],
+        [
+          "POCSO",
+          "33"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "recall@1": 0.1667,
+      "recall@5": 0.5,
+      "recall@10": 0.5,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8461,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-006",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BSA",
+          "33"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.8773,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-007",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "316"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNSS",
+          "44"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BNSS",
+          "49"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.4,
+      "recall@10": 0.6,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.5912,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-008",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.6,
+      "recall@10": 0.8,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8738,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-009",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "288"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BSA",
+          "40"
+        ],
+        [
+          "BNS",
+          "286"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-010",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "39"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "34"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.8,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 0.9609,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-011",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "24"
+        ],
+        [
+          "POCSO",
+          "33"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "recall@1": 0.1667,
+      "recall@5": 0.5,
+      "recall@10": 0.5,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8461,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-012",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BSA",
+          "33"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.8773,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-013",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "316"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNSS",
+          "44"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BNSS",
+          "49"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.4,
+      "recall@10": 0.6,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.5912,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-014",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.6,
+      "recall@10": 0.8,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8738,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-015",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "288"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BSA",
+          "40"
+        ],
+        [
+          "BNS",
+          "286"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-016",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "39"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "34"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.8,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 0.9609,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-017",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "24"
+        ],
+        [
+          "POCSO",
+          "33"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "recall@1": 0.1667,
+      "recall@5": 0.5,
+      "recall@10": 0.5,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8461,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-018",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BSA",
+          "33"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.8773,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-019",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "316"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNSS",
+          "44"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BNSS",
+          "49"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.4,
+      "recall@10": 0.6,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.5912,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-020",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.6,
+      "recall@10": 0.8,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8738,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-021",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "288"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BSA",
+          "40"
+        ],
+        [
+          "BNS",
+          "286"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-022",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "39"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "34"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.8,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 0.9609,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-023",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "24"
+        ],
+        [
+          "POCSO",
+          "33"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "recall@1": 0.1667,
+      "recall@5": 0.5,
+      "recall@10": 0.5,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8461,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-024",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BSA",
+          "33"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.8773,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-025",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "316"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNSS",
+          "44"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BNSS",
+          "49"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.4,
+      "recall@10": 0.6,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.5912,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-026",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "BSA",
+          "33"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.6,
+      "recall@10": 0.8,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8738,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-027",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "281"
+        ],
+        [
+          "BNSS",
+          "336"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "288"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BSA",
+          "40"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 0.5,
+      "ndcg@10": 0.7606,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-028",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "39"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "34"
+        ]
+      ],
+      "recall@1": 0.2,
+      "recall@5": 0.8,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 0.9609,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-029",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "24"
+        ],
+        [
+          "POCSO",
+          "33"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "19"
+        ]
+      ],
+      "recall@1": 0.1667,
+      "recall@5": 0.5,
+      "recall@10": 0.5,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.8461,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-030",
+      "category": "MULTI_STATUTE_3_PLUS_ISSUES",
+      "expected_sections": [
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "231"
+        ],
+        [
+          "BSA",
+          "33"
+        ]
+      ],
+      "recall@1": 0.25,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.8773,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-031",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "304"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "46"
+        ],
+        [
+          "BNS",
+          "49"
+        ],
+        [
+          "BNS",
+          "55"
+        ],
+        [
+          "BNS",
+          "238"
+        ],
+        [
+          "BNS",
+          "240"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "46"
+        ],
+        [
+          "BNS",
+          "49"
+        ],
+        [
+          "BNS",
+          "55"
+        ],
+        [
+          "BNS",
+          "238"
+        ],
+        [
+          "BNS",
+          "240"
+        ],
+        [
+          "BNS",
+          "52"
+        ],
+        [
+          "BNS",
+          "56"
+        ],
+        [
+          "BNS",
+          "190"
+        ],
+        [
+          "BNS",
+          "239"
+        ],
+        [
+          "BNS",
+          "249"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-032",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "304"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "309"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "304"
+        ],
+        [
+          "BNS",
+          "36"
+        ],
+        [
+          "BNS",
+          "13"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BNS",
+          "10"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "304"
+        ],
+        [
+          "BNS",
+          "36"
+        ],
+        [
+          "BNS",
+          "13"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "11"
+        ],
+        [
+          "BNS",
+          "20"
+        ],
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "52"
+        ],
+        [
+          "BNS",
+          "66"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-033",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "308"
+        ],
+        [
+          "BNS",
+          "351"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "19"
+        ],
+        [
+          "BNS",
+          "17"
+        ],
+        [
+          "BNS",
+          "29"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "19"
+        ],
+        [
+          "BNS",
+          "17"
+        ],
+        [
+          "BNS",
+          "29"
+        ],
+        [
+          "BNS",
+          "62"
+        ],
+        [
+          "BNS",
+          "3"
+        ],
+        [
+          "BNS",
+          "9"
+        ],
+        [
+          "BNS",
+          "13"
+        ],
+        [
+          "BNS",
+          "14"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-034",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "310"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "55"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "55"
+        ],
+        [
+          "BNS",
+          "254"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "249"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "111"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-035",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "111"
+        ],
+        [
+          "BNS",
+          "254"
+        ],
+        [
+          "BNS",
+          "313"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "80"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 0.9197,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-036",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "314"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "316"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "155"
+        ],
+        [
+          "BNS",
+          "349"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "24"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "155"
+        ],
+        [
+          "BNS",
+          "349"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "19"
+        ],
+        [
+          "BNS",
+          "62"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "17"
+        ],
+        [
+          "BNS",
+          "34"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-037",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "316"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "318"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "314"
+        ],
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "315"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "97"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "314"
+        ],
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "315"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "97"
+        ],
+        [
+          "BNS",
+          "349"
+        ],
+        [
+          "BNS",
+          "252"
+        ],
+        [
+          "BNS",
+          "316"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "318"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0,
+      "mrr": 0.125,
+      "ndcg@10": 0.3155,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-038",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "319"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "316"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "319"
+        ],
+        [
+          "BNS",
+          "112"
+        ],
+        [
+          "BNS",
+          "185"
+        ],
+        [
+          "BNS",
+          "50"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "319"
+        ],
+        [
+          "BNS",
+          "112"
+        ],
+        [
+          "BNS",
+          "185"
+        ],
+        [
+          "BNS",
+          "50"
+        ],
+        [
+          "BNS",
+          "97"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "183"
+        ],
+        [
+          "BNS",
+          "96"
+        ],
+        [
+          "BNS",
+          "253"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-039",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNS",
+          "340"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BNS",
+          "335"
+        ],
+        [
+          "BNS",
+          "210"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BNS",
+          "335"
+        ],
+        [
+          "BNS",
+          "210"
+        ],
+        [
+          "BNS",
+          "241"
+        ],
+        [
+          "BNS",
+          "337"
+        ],
+        [
+          "BNS",
+          "339"
+        ],
+        [
+          "BNS",
+          "201"
+        ],
+        [
+          "BNS",
+          "228"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-040",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ],
+        [
+          "BNS",
+          "106"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "309"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "39"
+        ],
+        [
+          "BNS",
+          "43"
+        ],
+        [
+          "BNS",
+          "34"
+        ],
+        [
+          "BNS",
+          "37"
+        ],
+        [
+          "BNS",
+          "307"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.906,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-041",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "304"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "46"
+        ],
+        [
+          "BNS",
+          "49"
+        ],
+        [
+          "BNS",
+          "55"
+        ],
+        [
+          "BNS",
+          "238"
+        ],
+        [
+          "BNS",
+          "240"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "46"
+        ],
+        [
+          "BNS",
+          "49"
+        ],
+        [
+          "BNS",
+          "55"
+        ],
+        [
+          "BNS",
+          "238"
+        ],
+        [
+          "BNS",
+          "240"
+        ],
+        [
+          "BNS",
+          "52"
+        ],
+        [
+          "BNS",
+          "56"
+        ],
+        [
+          "BNS",
+          "190"
+        ],
+        [
+          "BNS",
+          "239"
+        ],
+        [
+          "BNS",
+          "249"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-042",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "304"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "309"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "304"
+        ],
+        [
+          "BNS",
+          "36"
+        ],
+        [
+          "BNS",
+          "13"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BNS",
+          "10"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "304"
+        ],
+        [
+          "BNS",
+          "36"
+        ],
+        [
+          "BNS",
+          "13"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "11"
+        ],
+        [
+          "BNS",
+          "20"
+        ],
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "52"
+        ],
+        [
+          "BNS",
+          "66"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-043",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "308"
+        ],
+        [
+          "BNS",
+          "351"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "19"
+        ],
+        [
+          "BNS",
+          "17"
+        ],
+        [
+          "BNS",
+          "29"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "19"
+        ],
+        [
+          "BNS",
+          "17"
+        ],
+        [
+          "BNS",
+          "29"
+        ],
+        [
+          "BNS",
+          "62"
+        ],
+        [
+          "BNS",
+          "3"
+        ],
+        [
+          "BNS",
+          "9"
+        ],
+        [
+          "BNS",
+          "13"
+        ],
+        [
+          "BNS",
+          "14"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-044",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "310"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "55"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "55"
+        ],
+        [
+          "BNS",
+          "254"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "249"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "111"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-045",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "310"
+        ],
+        [
+          "BNS",
+          "311"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "111"
+        ],
+        [
+          "BNS",
+          "254"
+        ],
+        [
+          "BNS",
+          "313"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "80"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 0.5,
+      "ndcg@10": 0.6934,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-046",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "314"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "316"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "155"
+        ],
+        [
+          "BNS",
+          "349"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "24"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "155"
+        ],
+        [
+          "BNS",
+          "349"
+        ],
+        [
+          "BNS",
+          "10"
+        ],
+        [
+          "BNS",
+          "24"
+        ],
+        [
+          "BNS",
+          "19"
+        ],
+        [
+          "BNS",
+          "62"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "17"
+        ],
+        [
+          "BNS",
+          "34"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-047",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "316"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "318"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "314"
+        ],
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "315"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "97"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "314"
+        ],
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "315"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "97"
+        ],
+        [
+          "BNS",
+          "349"
+        ],
+        [
+          "BNS",
+          "252"
+        ],
+        [
+          "BNS",
+          "316"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "318"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0,
+      "mrr": 0.125,
+      "ndcg@10": 0.3155,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-048",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "319"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ],
+        [
+          "BNS",
+          "316"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "319"
+        ],
+        [
+          "BNS",
+          "112"
+        ],
+        [
+          "BNS",
+          "185"
+        ],
+        [
+          "BNS",
+          "50"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "319"
+        ],
+        [
+          "BNS",
+          "112"
+        ],
+        [
+          "BNS",
+          "185"
+        ],
+        [
+          "BNS",
+          "50"
+        ],
+        [
+          "BNS",
+          "97"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "183"
+        ],
+        [
+          "BNS",
+          "96"
+        ],
+        [
+          "BNS",
+          "253"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-049",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNS",
+          "340"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BNS",
+          "335"
+        ],
+        [
+          "BNS",
+          "210"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "336"
+        ],
+        [
+          "BNS",
+          "338"
+        ],
+        [
+          "BNS",
+          "340"
+        ],
+        [
+          "BNS",
+          "335"
+        ],
+        [
+          "BNS",
+          "210"
+        ],
+        [
+          "BNS",
+          "241"
+        ],
+        [
+          "BNS",
+          "337"
+        ],
+        [
+          "BNS",
+          "339"
+        ],
+        [
+          "BNS",
+          "201"
+        ],
+        [
+          "BNS",
+          "228"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-050",
+      "category": "BNS_NEAR_NEIGHBOUR",
+      "expected_sections": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ],
+        [
+          "BNS",
+          "106"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "309"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "38"
+        ],
+        [
+          "BNS",
+          "40"
+        ],
+        [
+          "BNS",
+          "41"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "39"
+        ],
+        [
+          "BNS",
+          "43"
+        ],
+        [
+          "BNS",
+          "34"
+        ],
+        [
+          "BNS",
+          "37"
+        ],
+        [
+          "BNS",
+          "307"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 0.906,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-051",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.3066,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-052",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "7"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.3,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-053",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "41"
+        ],
+        [
+          "POCSO",
+          "35"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 1.2021,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-054",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "7"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.7847,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-055",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.6309,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-056",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.3066,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-057",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "7"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.3,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-058",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "41"
+        ],
+        [
+          "POCSO",
+          "35"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 1.2021,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-059",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "7"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.7847,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-060",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.6309,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-061",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.3066,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-062",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "7"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.3,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-063",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "12"
+        ],
+        [
+          "POCSO",
+          "41"
+        ],
+        [
+          "POCSO",
+          "35"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.8,
+      "mrr": 1.0,
+      "ndcg@10": 1.2021,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-064",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "3"
+        ],
+        [
+          "POCSO",
+          "7"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "7"
+        ],
+        [
+          "POCSO",
+          "8"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "10"
+        ],
+        [
+          "POCSO",
+          "19"
+        ],
+        [
+          "POCSO",
+          "21"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.7847,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-065",
+      "category": "POCSO_DISCRIMINATION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "2"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "5"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.6309,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-066",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ],
+        [
+          "BSA",
+          "29"
+        ],
+        [
+          "BSA",
+          "136"
+        ],
+        [
+          "BSA",
+          "28"
+        ],
+        [
+          "BSA",
+          "84"
+        ],
+        [
+          "BSA",
+          "87"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-067",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "234"
+        ],
+        [
+          "BNSS",
+          "117"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "234"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BSA",
+          "107"
+        ],
+        [
+          "BNS",
+          "350"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.3333,
+      "ndcg@10": 0.5,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-068",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "37"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "37"
+        ],
+        [
+          "BNS",
+          "102"
+        ],
+        [
+          "BSA",
+          "17"
+        ],
+        [
+          "BNS",
+          "25"
+        ],
+        [
+          "BSA",
+          "18"
+        ],
+        [
+          "BNS",
+          "26"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.25,
+      "ndcg@10": 0.4307,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-069",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "73"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "73"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "118"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "241"
+        ],
+        [
+          "BNS",
+          "11"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0,
+      "mrr": 0.125,
+      "ndcg@10": 0.3155,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-070",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "118"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "272"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "274"
+        ],
+        [
+          "BNS",
+          "276"
+        ],
+        [
+          "BNS",
+          "277"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "272"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "274"
+        ],
+        [
+          "BNS",
+          "276"
+        ],
+        [
+          "BNS",
+          "277"
+        ],
+        [
+          "BNS",
+          "86"
+        ],
+        [
+          "BNS",
+          "85"
+        ],
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BNS",
+          "80"
+        ],
+        [
+          "BNS",
+          "65"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.6309,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-071",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ],
+        [
+          "BSA",
+          "29"
+        ],
+        [
+          "BSA",
+          "136"
+        ],
+        [
+          "BSA",
+          "28"
+        ],
+        [
+          "BSA",
+          "84"
+        ],
+        [
+          "BSA",
+          "87"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-072",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "234"
+        ],
+        [
+          "BNSS",
+          "117"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "234"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BSA",
+          "107"
+        ],
+        [
+          "BNS",
+          "350"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.3333,
+      "ndcg@10": 0.5,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-073",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "37"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "37"
+        ],
+        [
+          "BNS",
+          "102"
+        ],
+        [
+          "BSA",
+          "17"
+        ],
+        [
+          "BNS",
+          "25"
+        ],
+        [
+          "BSA",
+          "18"
+        ],
+        [
+          "BNS",
+          "26"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.25,
+      "ndcg@10": 0.4307,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-074",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "73"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "73"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "118"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "241"
+        ],
+        [
+          "BNS",
+          "11"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0,
+      "mrr": 0.125,
+      "ndcg@10": 0.3155,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-075",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "118"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "272"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "274"
+        ],
+        [
+          "BNS",
+          "276"
+        ],
+        [
+          "BNS",
+          "277"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "272"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "274"
+        ],
+        [
+          "BNS",
+          "276"
+        ],
+        [
+          "BNS",
+          "277"
+        ],
+        [
+          "BNS",
+          "86"
+        ],
+        [
+          "BNS",
+          "85"
+        ],
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BNS",
+          "80"
+        ],
+        [
+          "BNS",
+          "65"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.6309,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-076",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ],
+        [
+          "BSA",
+          "29"
+        ],
+        [
+          "BSA",
+          "136"
+        ],
+        [
+          "BSA",
+          "28"
+        ],
+        [
+          "BSA",
+          "84"
+        ],
+        [
+          "BSA",
+          "87"
+        ]
+      ],
+      "recall@1": 0.3333,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-077",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "234"
+        ],
+        [
+          "BNSS",
+          "117"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BNS",
+          "234"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BSA",
+          "107"
+        ],
+        [
+          "BNS",
+          "350"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.3333,
+      "ndcg@10": 0.5,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-078",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "37"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "44"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BNS",
+          "37"
+        ],
+        [
+          "BNS",
+          "102"
+        ],
+        [
+          "BSA",
+          "17"
+        ],
+        [
+          "BNS",
+          "25"
+        ],
+        [
+          "BSA",
+          "18"
+        ],
+        [
+          "BNS",
+          "26"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.25,
+      "ndcg@10": 0.4307,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-079",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "39"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "73"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNS",
+          "72"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNS",
+          "73"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNS",
+          "118"
+        ],
+        [
+          "BSA",
+          "39"
+        ],
+        [
+          "BNS",
+          "241"
+        ],
+        [
+          "BNS",
+          "11"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0,
+      "mrr": 0.125,
+      "ndcg@10": 0.3155,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-080",
+      "category": "BSA_EVIDENCE",
+      "expected_sections": [
+        [
+          "BSA",
+          "118"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "272"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "274"
+        ],
+        [
+          "BNS",
+          "276"
+        ],
+        [
+          "BNS",
+          "277"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "272"
+        ],
+        [
+          "BSA",
+          "118"
+        ],
+        [
+          "BNS",
+          "274"
+        ],
+        [
+          "BNS",
+          "276"
+        ],
+        [
+          "BNS",
+          "277"
+        ],
+        [
+          "BNS",
+          "86"
+        ],
+        [
+          "BNS",
+          "85"
+        ],
+        [
+          "BNS",
+          "82"
+        ],
+        [
+          "BNS",
+          "80"
+        ],
+        [
+          "BNS",
+          "65"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.6309,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-081",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "35"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "43"
+        ],
+        [
+          "BNSS",
+          "55"
+        ],
+        [
+          "BNSS",
+          "47"
+        ],
+        [
+          "BNSS",
+          "175"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "43"
+        ],
+        [
+          "BNSS",
+          "55"
+        ],
+        [
+          "BNSS",
+          "47"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "478"
+        ],
+        [
+          "BNSS",
+          "78"
+        ],
+        [
+          "BNSS",
+          "170"
+        ],
+        [
+          "BNSS",
+          "338"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-082",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "105"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BNSS",
+          "85"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.6309,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-083",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "105"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "117"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "449"
+        ],
+        [
+          "BNSS",
+          "86"
+        ],
+        [
+          "BNSS",
+          "450"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "502"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.5,
+      "ndcg@10": 0.6309,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-084",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "479"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BNSS",
+          "450"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "85"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BNSS",
+          "450"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "86"
+        ],
+        [
+          "BNSS",
+          "261"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "11"
+        ],
+        [
+          "BNSS",
+          "41"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-085",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "479"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "65"
+        ],
+        [
+          "BNSS",
+          "482"
+        ],
+        [
+          "BNS",
+          "269"
+        ],
+        [
+          "BNSS",
+          "479"
+        ],
+        [
+          "BNS",
+          "347"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "65"
+        ],
+        [
+          "BNSS",
+          "482"
+        ],
+        [
+          "BNS",
+          "269"
+        ],
+        [
+          "BNSS",
+          "479"
+        ],
+        [
+          "BNS",
+          "347"
+        ],
+        [
+          "BNSS",
+          "480"
+        ],
+        [
+          "BNS",
+          "265"
+        ],
+        [
+          "BNSS",
+          "430"
+        ],
+        [
+          "BNS",
+          "64"
+        ],
+        [
+          "BNS",
+          "173"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.25,
+      "ndcg@10": 0.4307,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-086",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "35"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "43"
+        ],
+        [
+          "BNSS",
+          "55"
+        ],
+        [
+          "BNSS",
+          "47"
+        ],
+        [
+          "BNSS",
+          "175"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "43"
+        ],
+        [
+          "BNSS",
+          "55"
+        ],
+        [
+          "BNSS",
+          "47"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "478"
+        ],
+        [
+          "BNSS",
+          "78"
+        ],
+        [
+          "BNSS",
+          "170"
+        ],
+        [
+          "BNSS",
+          "338"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-087",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "105"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "185"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BNSS",
+          "85"
+        ],
+        [
+          "BSA",
+          "29"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-088",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "107"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "105"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "449"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "107"
+        ],
+        [
+          "BNSS",
+          "105"
+        ],
+        [
+          "BNSS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "449"
+        ],
+        [
+          "BNSS",
+          "86"
+        ],
+        [
+          "BNSS",
+          "450"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "502"
+        ],
+        [
+          "BNSS",
+          "261"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-089",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "479"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BNSS",
+          "450"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "85"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BNSS",
+          "450"
+        ],
+        [
+          "BNSS",
+          "117"
+        ],
+        [
+          "BNSS",
+          "84"
+        ],
+        [
+          "BNSS",
+          "85"
+        ],
+        [
+          "BNSS",
+          "86"
+        ],
+        [
+          "BNSS",
+          "261"
+        ],
+        [
+          "BNSS",
+          "175"
+        ],
+        [
+          "BNSS",
+          "11"
+        ],
+        [
+          "BNSS",
+          "41"
+        ]
+      ],
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-090",
+      "category": "BNSS_PROCEDURE",
+      "expected_sections": [
+        [
+          "BNSS",
+          "479"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNSS",
+          "35"
+        ],
+        [
+          "BNSS",
+          "187"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "65"
+        ],
+        [
+          "BNSS",
+          "482"
+        ],
+        [
+          "BNS",
+          "269"
+        ],
+        [
+          "BNSS",
+          "479"
+        ],
+        [
+          "BNS",
+          "347"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "65"
+        ],
+        [
+          "BNSS",
+          "482"
+        ],
+        [
+          "BNS",
+          "269"
+        ],
+        [
+          "BNSS",
+          "479"
+        ],
+        [
+          "BNS",
+          "347"
+        ],
+        [
+          "BNSS",
+          "480"
+        ],
+        [
+          "BNS",
+          "265"
+        ],
+        [
+          "BNSS",
+          "430"
+        ],
+        [
+          "BNS",
+          "64"
+        ],
+        [
+          "BNS",
+          "173"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.25,
+      "ndcg@10": 0.4307,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-091",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "254"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "254"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "97"
+        ],
+        [
+          "BNS",
+          "252"
+        ],
+        [
+          "BNS",
+          "111"
+        ],
+        [
+          "BNS",
+          "310"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-092",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "281"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "105"
+        ],
+        [
+          "BNS",
+          "190"
+        ],
+        [
+          "BNS",
+          "92"
+        ],
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BNS",
+          "102"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "105"
+        ],
+        [
+          "BNS",
+          "190"
+        ],
+        [
+          "BNS",
+          "92"
+        ],
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BNS",
+          "102"
+        ],
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "265"
+        ],
+        [
+          "BNS",
+          "100"
+        ],
+        [
+          "BNS",
+          "109"
+        ],
+        [
+          "BNS",
+          "110"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.5,
+      "precision@5": 0.0,
+      "mrr": 0.1667,
+      "ndcg@10": 0.2184,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-093",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "11"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "11"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 0.5,
+      "ndcg@10": 1.0021,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-094",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "308"
+        ],
+        [
+          "BNS",
+          "351"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "28"
+        ],
+        [
+          "BNS",
+          "315"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "308"
+        ],
+        [
+          "BNS",
+          "351"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "28"
+        ],
+        [
+          "BNS",
+          "315"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "111"
+        ],
+        [
+          "BNS",
+          "232"
+        ],
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "252"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-095",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "23"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "23"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ],
+        [
+          "BSA",
+          "93"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2,
+      "mrr": 0.2,
+      "ndcg@10": 0.3869,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-096",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "254"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "329"
+        ],
+        [
+          "BNS",
+          "307"
+        ],
+        [
+          "BNS",
+          "312"
+        ],
+        [
+          "BNS",
+          "254"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "97"
+        ],
+        [
+          "BNS",
+          "252"
+        ],
+        [
+          "BNS",
+          "111"
+        ],
+        [
+          "BNS",
+          "310"
+        ]
+      ],
+      "recall@1": 0.5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 1.0,
+      "ndcg@10": 1.0,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-097",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "281"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "103"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "105"
+        ],
+        [
+          "BNS",
+          "190"
+        ],
+        [
+          "BNS",
+          "92"
+        ],
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BNS",
+          "102"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "105"
+        ],
+        [
+          "BNS",
+          "190"
+        ],
+        [
+          "BNS",
+          "92"
+        ],
+        [
+          "BNS",
+          "101"
+        ],
+        [
+          "BNS",
+          "102"
+        ],
+        [
+          "BNS",
+          "106"
+        ],
+        [
+          "BNS",
+          "265"
+        ],
+        [
+          "BNS",
+          "100"
+        ],
+        [
+          "BNS",
+          "109"
+        ],
+        [
+          "BNS",
+          "110"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.5,
+      "precision@5": 0.0,
+      "mrr": 0.1667,
+      "ndcg@10": 0.2184,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-098",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "POCSO",
+          "11"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "11"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "11"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "4"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "9"
+        ],
+        [
+          "POCSO",
+          "11"
+        ],
+        [
+          "POCSO",
+          "5"
+        ],
+        [
+          "POCSO",
+          "6"
+        ],
+        [
+          "POCSO",
+          "3"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4,
+      "mrr": 0.5,
+      "ndcg@10": 1.0021,
+      "distractor_avoided": true
+    },
+    {
+      "scenario_id": "BLIND-82J-099",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BNS",
+          "303"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BNS",
+          "308"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "308"
+        ],
+        [
+          "BNS",
+          "351"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "28"
+        ],
+        [
+          "BNS",
+          "315"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "308"
+        ],
+        [
+          "BNS",
+          "351"
+        ],
+        [
+          "BNS",
+          "318"
+        ],
+        [
+          "BNS",
+          "28"
+        ],
+        [
+          "BNS",
+          "315"
+        ],
+        [
+          "BNS",
+          "317"
+        ],
+        [
+          "BNS",
+          "111"
+        ],
+        [
+          "BNS",
+          "232"
+        ],
+        [
+          "BNS",
+          "309"
+        ],
+        [
+          "BNS",
+          "252"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0,
+      "mrr": 0.0,
+      "ndcg@10": 0.0,
+      "distractor_avoided": false
+    },
+    {
+      "scenario_id": "BLIND-82J-100",
+      "category": "NEGATIVE_PROPOSITION",
+      "expected_sections": [
+        [
+          "BSA",
+          "63"
+        ]
+      ],
+      "distractor_sections": [
+        [
+          "BSA",
+          "23"
+        ]
+      ],
+      "retrieved_top_5": [
+        [
+          "BNS",
+          "103"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "23"
+        ],
+        [
+          "BSA",
+          "62"
+        ]
+      ],
+      "retrieved_top_10": [
+        [
+          "BNS",
+          "103"
+        ],
+        [
+          "BNSS",
+          "187"
+        ],
+        [
+          "BSA",
+          "61"
+        ],
+        [
+          "BNSS",
+          "23"
+        ],
+        [
+          "BSA",
+          "62"
+        ],
+        [
+          "BSA",
+          "63"
+        ],
+        [
+          "BSA",
+          "23"
+        ],
+        [
+          "BSA",
+          "26"
+        ],
+        [
+          "BSA",
+          "33"
+        ],
+        [
+          "BSA",
+          "86"
+        ]
+      ],
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0,
+      "mrr": 0.1667,
+      "ndcg@10": 0.3562,
+      "distractor_avoided": true
+    }
+  ]
+}

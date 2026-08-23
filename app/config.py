@@ -21,6 +21,39 @@ if _ENV_FILE.exists():
 os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 
+# ── Environment & Production Guard ────────────────────────────────
+ENV = os.getenv("ENVIRONMENT", os.getenv("ENV", "development")).lower()
+IS_PRODUCTION = ENV in ["production", "prod"]
+
+
+def validate_production_config():
+    """Fail-closed validation when running in production mode."""
+    if not IS_PRODUCTION:
+        return
+
+    # 1. NYAYA_API_KEY must be configured
+    api_key = os.getenv("NYAYA_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError(
+            "FAIL-CLOSED: NYAYA_API_KEY is required in production mode. Refusing startup."
+        )
+
+    # 2. ALLOWED_ORIGINS must be explicitly configured and cannot be wildcard
+    raw_origins = os.getenv("ALLOWED_ORIGINS", "").strip()
+    if not raw_origins or raw_origins == "*":
+        raise RuntimeError(
+            "FAIL-CLOSED: Explicit non-wildcard ALLOWED_ORIGINS is required in production mode. Refusing startup."
+        )
+
+    # 3. If LLM_PROVIDER is nvidia, NVIDIA_API_KEY must be configured
+    if LLM_PROVIDER == "nvidia":
+        nv_key = os.getenv("NVIDIA_API_KEY", "").strip()
+        if not nv_key:
+            raise RuntimeError(
+                "FAIL-CLOSED: NVIDIA_API_KEY is required when LLM_PROVIDER=nvidia in production mode."
+            )
+
+
 # ── Base directories ──────────────────────────────────────────────
 
 ROOT_DIR = Path(__file__).resolve().parent.parent  # d:\Nova Legal
