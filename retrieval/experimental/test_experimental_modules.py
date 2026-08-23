@@ -3,7 +3,7 @@
 import sys
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Gyana Darshan")
+BASE_DIR = Path(__file__).resolve().parents[2]
 sys.path.append(str(BASE_DIR))
 
 from retrieval.experimental.issue_decomposer import LegalIssueDecomposer
