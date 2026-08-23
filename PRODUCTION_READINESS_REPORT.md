@@ -1,18 +1,18 @@
-# NYAYA DARSHANA / GYANA — PRODUCTION READINESS REPORT
+# NYAYA DARSHAN — PRODUCTION READINESS REPORT
 
-**System**: Nyaya Darshan (Indian Legal OS / Gyana Statutory Grounding Engine)  
+**System**: Nyaya Darshan (Indian Legal Intelligence and Statutory Grounding Engine)  
 **Release Target**: Production v2.0.0  
 **Verification Date**: 2026-08-21  
 **Architecture Candidate**: Phase 8.2G LegalReranker + Phase 8.3A Config C Preservation  
-**Overall Verdict**: **PRODUCTION READY — ALL CRITICAL GATES PASSED (CONDITIONAL RELEASE WITH DOCUMENTED LIMITATIONS)**  
+**Overall Verdict**: **NOT RELEASE-APPROVED UNTIL LIVE PROVIDER, DEPLOYMENT, PAYMENT, AND END-TO-END CHECKS PASS**  
 
 ---
 
 ## 1. Executive Summary
 
-Nyaya Darshan is hardened and verified for production deployment. The statutory reasoning engine guarantees zero false corrections, zero hallucinations, zero internal path exposure, and 100% pass on all mandatory and adversarial safety suites.
+Nyaya Darshan includes application security controls and statutory-retrieval tests, but a production release requires a fresh, reproducible verification against its configured deployment and live model provider. Historical benchmark results are limited to their documented datasets and do not guarantee zero hallucinations, zero errors, or production readiness.
 
-All P0 security blockers and P1 deployment defects identified in the pre-release audit have been remediated, verified by unit/integration/clean environment tests, and committed.
+Do not treat historical test results as current release approval. Independently verify credentials, persistent storage, authentication, uploads, legal citations, live NVIDIA inference, and payment signature verification before launch.
 
 ---
 
