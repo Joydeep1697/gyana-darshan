@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Any
 
-BASE_DIR = Path(r"d:\Gyana Darshan")
+BASE_DIR = Path(__file__).resolve().parents[2]
 sys.path.append(str(BASE_DIR))
 
 from retrieval.experimental_phase_8_3a.statute_aware_preserver import StatuteAwarePreserver, StatuteCandidate
