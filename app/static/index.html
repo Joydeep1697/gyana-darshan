@@ -309,6 +309,15 @@ function getAuthToken() {
     return localStorage.getItem('nyaya_access_token');
 }
 
+function authenticatedHeaders(extra = {}) {
+    const token = getAuthToken();
+    return token ? { ...extra, 'Authorization': `Bearer ${token}` } : extra;
+}
+
+function authenticatedFetch(url, options = {}) {
+    return fetch(url, {...options, headers: authenticatedHeaders(options.headers || {})});
+}
+
 function setAuthSession(tokens, user) {
     if (tokens && tokens.access_token) {
         localStorage.setItem('nyaya_access_token', tokens.access_token);
@@ -343,6 +352,13 @@ async function fetchCurrentUserProfile() {
         });
         if (res.ok) {
             currentUser = await res.json();
+            try {
+                const subscriptionResponse = await authenticatedFetch('/api/billing/subscription');
+                if (subscriptionResponse.ok) {
+                    const subscription = await subscriptionResponse.json();
+                    currentUser.subscription_tier = subscription.plan;
+                }
+            } catch (_) { /* Profile remains usable while billing is unavailable. */ }
             localStorage.setItem('nyaya_user_profile', JSON.stringify(currentUser));
         } else if (res.status === 401) {
             clearAuthSession();
@@ -686,13 +702,13 @@ function loader(){return '<div class="p-10 text-center"><i class="fa-solid fa-ci
 
 async function getStats() {
     try {
-        const r = await fetch('/api/dashboard/stats');
+        const r = await authenticatedFetch('/api/dashboard/stats');
         return r.ok ? await r.json() : {};
     } catch { return {}; }
 }
 async function getBriefing() {
     try {
-        const r = await fetch('/api/dashboard/briefing');
+        const r = await authenticatedFetch('/api/dashboard/briefing');
         return r.ok ? await r.json() : null;
     } catch { return null; }
 }
@@ -795,7 +811,7 @@ function openMatterDetails(name){
 
 async function fetchVaultDocs() {
     try {
-        const res = await fetch('/api/vault/documents');
+        const res = await fetch('/api/vault/documents', {headers: authenticatedHeaders()});
         if(res.ok) vaultDocs = await res.json();
     } catch (e) {
         showToast('Failed to fetch vault docs: ' + e.message, true);
@@ -865,7 +881,7 @@ async function performVaultSearch(q) {
     try {
         const res = await fetch('/api/vault/search', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: authenticatedHeaders({'Content-Type': 'application/json'}),
             body: JSON.stringify({query: q})
         });
         const results = await res.json();
@@ -906,7 +922,7 @@ async function processFile(file) {
     try {
         const formData = new FormData();
         formData.append('file', file);
-        const res = await fetch('/api/vault/upload', {method:'POST', body:formData});
+        const res = await fetch('/api/vault/upload', {method:'POST', headers: authenticatedHeaders(), body:formData});
         if(!res.ok) throw new Error('Upload failed');
         const data = await res.json();
         const id = data.id || data.doc_id;
@@ -918,7 +934,7 @@ async function processFile(file) {
         
         // Connect WS
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const ws = new WebSocket(`${protocol}//${window.location.host}/ws/vault/processing?doc_id=${id}`);
+        const ws = new WebSocket(`${protocol}//${window.location.host}/api/vault/ws/processing?doc_id=${encodeURIComponent(id)}&token=${encodeURIComponent(getAuthToken() || '')}`);
         
         ws.onmessage = (e) => {
             const update = JSON.parse(e.data);
@@ -979,7 +995,7 @@ async function openDocument(id){
     document.body.appendChild(el);
     
     try {
-        const res = await fetch(`/api/vault/documents/${id}`);
+        const res = await fetch(`/api/vault/documents/${id}`, {headers: authenticatedHeaders()});
         if(!res.ok) throw new Error('API Error');
         const docDetails = await res.json();
         
@@ -1010,7 +1026,7 @@ async function generateSummary(id) {
     if(!box) return;
     box.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Generating...';
     try {
-        const res = await fetch(`/api/vault/documents/${id}/summary`);
+        const res = await fetch(`/api/vault/documents/${id}/summary`, {headers: authenticatedHeaders()});
         const data = await res.json();
         box.innerHTML = escapeHtml(data.summary);
     } catch (e) {
@@ -1258,19 +1274,8 @@ async function sendChat(){
             await loadConversations();
             renderConsultationsSidebar();
         } else {
-            // Fallback anonymous chat endpoint
-            const res = await fetch('/api/chat/ask', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query: q })
-            });
-            if (!res.ok) {
-                let errBody = await res.json().catch(()=>({}));
-                throw new Error(errBody.detail || `API Error: ${res.status}`);
-            }
-            const data = await res.json();
-            replaceThinking(thinkingId, data.answer, data.sources, data.follow_ups);
-            updateReasoningTrail(data.reasoning_steps || [{step: 'Complete', status: 'done'}]);
+            openAuthModal();
+            throw new Error('Please sign in to start a private legal consultation.');
         }
     } catch(err) {
         replaceThinkingWithError(thinkingId, err.message);
@@ -1288,7 +1293,7 @@ async function doResearch(q) {
     resBox.innerHTML = loader();
     try {
         const res = await fetch('/api/vault/search', {
-            method:'POST', headers:{'Content-Type':'application/json'},
+            method:'POST', headers:authenticatedHeaders({'Content-Type':'application/json'}),
             body: JSON.stringify({query:q})
         });
         const data = await res.json();
@@ -1305,7 +1310,7 @@ async function doResearch(q) {
 async function renderRadar(){
     document.getElementById('workspace').innerHTML = header(pages.radar.title,pages.radar.sub) + loader();
     try {
-        const r = await fetch('/api/proactive/compliance-gaps');
+        const r = await authenticatedFetch('/api/proactive/compliance-gaps');
         const resData = r.ok ? await r.json() : {};
         let gaps = resData.gaps || [];
         if (gaps.length === 0) {
@@ -1341,7 +1346,7 @@ let userDeadlines = [];
 async function renderTimeline(){
     document.getElementById('workspace').innerHTML = header(pages.timeline.title,pages.timeline.sub, btn('Add Deadline', "openAddDeadlineModal()", 'fa-plus')) + loader();
     try {
-        const r = await fetch('/api/proactive/deadlines');
+        const r = await authenticatedFetch('/api/proactive/deadlines');
         const resData = r.ok ? await r.json() : {};
         let dbDeadlines = resData.deadlines || [];
         let items = [...dbDeadlines, ...userDeadlines];
@@ -1441,7 +1446,7 @@ function toggleSidebar(){collapsed=!collapsed;document.getElementById('sidebar')
 
 async function refreshActivityFeed() {
     try {
-        const res = await fetch('/api/dashboard/activity');
+        const res = await authenticatedFetch('/api/dashboard/activity');
         if(res.ok) {
             const acts = await res.json();
             document.getElementById('activityFeed').innerHTML = acts.map((x,i)=>`<div class="flex items-center gap-3"><span class="${i<3?'live-dot':'w-[7px] h-[7px] rounded-full bg-[#8fa3b8]'}"></span><div><div class="text-xs">${escapeHtml(x.action || x.title)}</div><div class="text-[10px] text-[#737b8e]">${escapeHtml(x.detail || x.time)}</div></div></div>`).join('');
@@ -1840,7 +1845,7 @@ function closePricingModal(){
  const modal=document.getElementById('pricingModal');
  if(modal){modal.classList.add('hidden');modal.classList.remove('flex');}
 }
-function selectTier(tierName){
+async function selectTier(tierName){
  closePricingModal();
  if (tierName !== 'Professional' && tierName !== 'Enterprise') {
      showToast(`Selected ${tierName}.`);
@@ -1851,21 +1856,44 @@ function selectTier(tierName){
      openAuthModal();
      return;
  }
- if (typeof Razorpay === 'undefined' || !window.RAZORPAY_KEY_ID) {
+ if (typeof Razorpay === 'undefined') {
      showToast('Payments are not configured. No subscription was purchased.', true);
      return;
  }
- {
-     const amountInPaise = tierName === 'Professional' ? 399900 : 4999900;
+ try {
+     const orderResponse = await fetch('/api/billing/orders', {
+         method: 'POST',
+         headers: authenticatedHeaders({'Content-Type': 'application/json'}),
+         body: JSON.stringify({plan: tierName})
+     });
+     const order = await orderResponse.json().catch(() => ({}));
+     if (!orderResponse.ok) throw new Error(order.detail || 'Unable to create a secure payment order.');
      const options = {
-         key: window.RAZORPAY_KEY_ID,
-         amount: amountInPaise,
-         currency: "INR",
+         key: order.key_id,
+         amount: order.amount,
+         currency: order.currency,
+         order_id: order.order_id,
          name: "Nyaya Darshan",
          description: `${tierName} Subscription Plan`,
          image: "1.png",
-         handler: function (response) {
-             showToast(`Payment received. Verification is required before ${tierName} can be activated. Ref: ${response.razorpay_payment_id}`);
+         handler: async function (response) {
+             try {
+                 const verificationResponse = await fetch('/api/billing/verify', {
+                     method: 'POST',
+                     headers: authenticatedHeaders({'Content-Type': 'application/json'}),
+                     body: JSON.stringify(response)
+                 });
+                 const verification = await verificationResponse.json().catch(() => ({}));
+                 if (!verificationResponse.ok || !verification.verified) {
+                     throw new Error(verification.detail || 'Payment verification failed. Contact support.');
+                 }
+                 currentUser.subscription_tier = verification.plan;
+                 localStorage.setItem('nyaya_user_profile', JSON.stringify(currentUser));
+                 updateProfileUI();
+                 showToast(`${verification.plan} subscription activated. Payment verified: ${verification.payment_id}`);
+             } catch (error) {
+                 showToast(error.message || 'Payment could not be verified. Contact support.', true);
+             }
          },
          prefill: {
              name: currentUser.full_name || '',
@@ -1875,14 +1903,12 @@ function selectTier(tierName){
              color: "#36d399"
          }
      };
-     try {
-         const rzp = new Razorpay(options);
-         rzp.open();
-         return;
-     } catch (e) {
-         console.warn("Razorpay popup launch:", e);
-         showToast('Unable to start checkout. No subscription was purchased.', true);
-     }
+     const rzp = new Razorpay(options);
+     rzp.on('payment.failed', () => showToast('Payment failed. Your subscription was not changed.', true));
+     rzp.open();
+ } catch (e) {
+     console.warn("Razorpay checkout launch failed");
+     showToast(e.message || 'Unable to start checkout. No subscription was purchased.', true);
  }
 }
 

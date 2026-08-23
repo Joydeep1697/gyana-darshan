@@ -2,6 +2,7 @@
 
 import sys
 import unittest
+import uuid
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,9 +37,15 @@ class TestAppEndpoints(unittest.TestCase):
         self.assertIn("retrieved_sections", data)
 
     def test_03_chat_router(self):
-        """POST /api/chat/ask -> Status 200 OK with sources and reasoning."""
+        """Chat rejects anonymous clients and supports authenticated legal queries."""
         payload = {"query": "What is the penalty for murder under BNS Section 103?"}
-        res = self.client.post("/api/chat/ask", json=payload)
+        self.assertEqual(self.client.post("/api/chat/ask", json=payload).status_code, 401)
+        credentials = {"email": f"chat-{uuid.uuid4().hex[:12]}@example.com", "password": "StrongPassword2026!"}
+        registration = self.client.post("/api/auth/register", json={**credentials, "full_name": "Chat Security Test"})
+        self.assertEqual(registration.status_code, 201, registration.text)
+        login = self.client.post("/api/auth/login", json=credentials)
+        self.assertEqual(login.status_code, 200, login.text)
+        res = self.client.post("/api/chat/ask", json=payload, headers={"Authorization": f"Bearer {login.json()['access_token']}"})
         self.assertEqual(res.status_code, 200)
         data = res.json()
         self.assertIn("answer", data)

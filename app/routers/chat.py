@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from app.database import get_db, Database
 from app.models import ChatResponse, ChatRequest
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from api.auth.dependencies import get_current_user
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
@@ -24,7 +25,7 @@ retriever = AuthoritativeLegalRetriever()
 firewall = LegalVerificationFirewall()
 
 @router.post("/ask", response_model=ChatResponse)
-async def ask(req: ChatRequest, db: Database = Depends(get_db)):
+async def ask(req: ChatRequest, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
     """Authoritative legal Q&A with Gazette RAG and field-level verification firewall."""
     t0 = time.perf_counter()
     query = req.query.strip()

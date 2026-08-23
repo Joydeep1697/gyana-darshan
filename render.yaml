@@ -1,15 +1,19 @@
 services:
   - type: web
     name: nyaya-darshan
-    env: python
-    buildCommand: "pip install -r requirements.txt"
+    runtime: python
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt && python scripts/release_preflight.py --repository-only"
     # Use uvicorn directly — never python run.py in production (run.py enables reload=True
     # only when RELOAD_ON_CHANGE=1, but uvicorn direct is cleaner for platform deployments).
-    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2"
+    startCommand: "python scripts/release_preflight.py --environment-only && uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers ${WEB_CONCURRENCY:-1} --proxy-headers --forwarded-allow-ips=127.0.0.1"
     healthCheckPath: /health
     envVars:
       - key: ENVIRONMENT
         value: production
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: WEB_CONCURRENCY
+        value: "1"
       - key: LLM_PROVIDER
         value: nvidia
       - key: NVIDIA_LLM_MODEL
@@ -17,7 +21,7 @@ services:
       - key: NVIDIA_API_KEY
         sync: false
       - key: NYAYA_API_KEY
-        sync: false
+        generateValue: true
       - key: NYAYA_JWT_SECRET
         generateValue: true
       - key: NYAYA_DATA_DIR
@@ -26,6 +30,8 @@ services:
         value: /var/data/uploads
       - key: NYAYA_LOG_DIR
         value: /var/data/logs
+      - key: NYAYA_LOG_QUERY_TEXT
+        value: "false"
       - key: RAZORPAY_KEY_ID
         sync: false
       - key: RAZORPAY_KEY_SECRET
