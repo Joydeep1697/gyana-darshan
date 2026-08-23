@@ -1,4 +1,4 @@
-"""Gyana Darshan — Pydantic Request / Response Models."""
+"""Nyaya Darshan — Pydantic Request / Response Models."""
 
 from __future__ import annotations
 

@@ -8,7 +8,7 @@ import openai
 from app.database import get_db, Database
 from app.config import get_llm_client_kwargs, LLM_MODEL, INDEX_DIR
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 # Simple cache for daily briefing

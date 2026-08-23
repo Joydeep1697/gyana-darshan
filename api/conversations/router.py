@@ -27,6 +27,7 @@ from database.repository import (
 )
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
+from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
 
 router = APIRouter(prefix="/api/conversations", tags=["Conversations & Consultations"])
 
@@ -213,12 +214,12 @@ async def send_message(
     evidence_pack = retriever.retrieve_evidence_pack(query, top_k=req.top_k)
     evidence_ctx = retriever.format_evidence_context(evidence_pack)
 
-    simulated_raw = (
-        f"According to current Indian Statutory Law:\n{evidence_ctx}\n"
-        f"In response to '{query}', the authoritative legal position is established under statute."
-    )
+    try:
+        generated_answer = await generate_grounded_legal_answer(query, evidence_ctx)
+    except LegalGenerationError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
 
-    passed_fw, enforced_answer, claims = firewall.verify_and_enforce(simulated_raw, evidence_pack)
+    passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
     latency = round((time.perf_counter() - t0) * 1000, 2)
     grounding_status = "GROUNDED_AND_VERIFIED" if passed_fw else "AUTO_CORRECTED_BY_FIREWALL"
 

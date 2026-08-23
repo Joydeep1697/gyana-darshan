@@ -16,14 +16,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
-BASE_DIR = Path(r"d:\Gyana Darshan")
-sys.path.append(str(BASE_DIR))
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
 from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
+from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
 from api.security import (
     RateLimitMiddleware, verify_api_key, sanitize_response_data,
     log_audit_event
@@ -76,7 +78,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
     allow_credentials=_allow_credentials,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -197,14 +199,11 @@ async def process_legal_query(
             evidence_pack = retriever.retrieve_evidence_pack(query, top_k=req.top_k)
             evidence_ctx = retriever.format_evidence_context(evidence_pack)
 
-            # 2. Candidate Legal Generation (Grounded RAG Payload)
-            simulated_raw = (
-                f"According to current Indian Statutory Law:\n{evidence_ctx}\n"
-                f"In response to '{query}', the authoritative legal position is established under statute."
-            )
+            # 2. Candidate legal generation through the configured cloud model.
+            generated_answer = await generate_grounded_legal_answer(query, evidence_ctx)
 
             # 3. Field-Level Verification & Firewall Enforcement
-            passed_fw, enforced_answer, claims = firewall.verify_and_enforce(simulated_raw, evidence_pack)
+            passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
 
             # Format Retrieved Sections
             formatted_sections = []
@@ -228,6 +227,8 @@ async def process_legal_query(
             status_code=status.HTTP_504_GATEWAY_TIMEOUT,
             detail="The legal reasoning pipeline timed out. Please retry with a more specific query."
         )
+    except LegalGenerationError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
 
     latency = round((time.perf_counter() - t0) * 1000, 2)
     grounding_status = "GROUNDED_AND_VERIFIED" if passed_fw else "AUTO_CORRECTED_BY_FIREWALL"

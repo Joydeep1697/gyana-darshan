@@ -3,7 +3,7 @@ import asyncio
 from fastapi import APIRouter, Depends, BackgroundTasks
 from app.database import get_db, Database
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 @router.get("/compliance-gaps")

@@ -1,1 +1,1 @@
-# Gyana Darshan — FastAPI Application
+# Nyaya Darshan — FastAPI Application

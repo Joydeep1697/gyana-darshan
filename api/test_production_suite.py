@@ -19,8 +19,9 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-BASE_DIR = Path(r"d:\Gyana Darshan")
-sys.path.append(str(BASE_DIR))
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
 from fastapi.testclient import TestClient
 from api.main import app as api_app

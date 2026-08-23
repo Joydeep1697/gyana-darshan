@@ -6,7 +6,9 @@ import unittest
 from pathlib import Path
 from fastapi.testclient import TestClient
 
-sys.path.append(r"d:\Gyana Darshan")
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 from api.main import app
 from database.connection import init_db
 from database.repository import UserRepository, UsageRepository

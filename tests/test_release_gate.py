@@ -95,11 +95,15 @@ class TestFinalReleaseGate(unittest.TestCase):
         orig_env = os.environ.get("ENVIRONMENT")
         orig_origins = os.environ.get("ALLOWED_ORIGINS")
         orig_key = os.environ.get("NYAYA_API_KEY")
+        orig_jwt_secret = os.environ.get("NYAYA_JWT_SECRET")
+        orig_nvidia_key = os.environ.get("NVIDIA_API_KEY")
         try:
             os.environ["ENVIRONMENT"] = "production"
             cfg.ENV = "production"
             cfg.IS_PRODUCTION = True
             os.environ["NYAYA_API_KEY"] = "test-key"
+            os.environ["NYAYA_JWT_SECRET"] = "release-gate-test-secret-with-more-than-32-characters"
+            os.environ["NVIDIA_API_KEY"] = "release-gate-nvidia-test-key"
 
             # Missing ALLOWED_ORIGINS
             if "ALLOWED_ORIGINS" in os.environ:
@@ -134,6 +138,14 @@ class TestFinalReleaseGate(unittest.TestCase):
                 os.environ["NYAYA_API_KEY"] = orig_key
             else:
                 os.environ.pop("NYAYA_API_KEY", None)
+            if orig_jwt_secret is not None:
+                os.environ["NYAYA_JWT_SECRET"] = orig_jwt_secret
+            else:
+                os.environ.pop("NYAYA_JWT_SECRET", None)
+            if orig_nvidia_key is not None:
+                os.environ["NVIDIA_API_KEY"] = orig_nvidia_key
+            else:
+                os.environ.pop("NVIDIA_API_KEY", None)
 
     def test_04_render_port_contract(self):
         """Verify that server port configuration dynamically obeys $PORT."""
@@ -152,6 +164,31 @@ class TestFinalReleaseGate(unittest.TestCase):
             import importlib
             import app.config as cfg
             importlib.reload(cfg)
+
+    def test_05_production_requires_strong_jwt_secret(self):
+        """Production startup must reject missing or short JWT signing secrets."""
+        import app.config as cfg
+        original_values = {
+            name: os.environ.get(name)
+            for name in ("ENVIRONMENT", "NYAYA_API_KEY", "ALLOWED_ORIGINS", "NYAYA_JWT_SECRET")
+        }
+        original_env, original_is_production = cfg.ENV, cfg.IS_PRODUCTION
+        try:
+            os.environ["ENVIRONMENT"] = "production"
+            os.environ["NYAYA_API_KEY"] = "release-gate-api-key"
+            os.environ["ALLOWED_ORIGINS"] = "https://nyayadarshana.com"
+            os.environ["NYAYA_JWT_SECRET"] = "too-short"
+            cfg.ENV, cfg.IS_PRODUCTION = "production", True
+
+            with self.assertRaisesRegex(RuntimeError, "NYAYA_JWT_SECRET"):
+                cfg.validate_production_config()
+        finally:
+            cfg.ENV, cfg.IS_PRODUCTION = original_env, original_is_production
+            for name, value in original_values.items():
+                if value is None:
+                    os.environ.pop(name, None)
+                else:
+                    os.environ[name] = value
 
 
 if __name__ == "__main__":

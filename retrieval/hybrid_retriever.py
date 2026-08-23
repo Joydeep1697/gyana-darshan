@@ -15,8 +15,9 @@ import re
 from pathlib import Path
 from typing import Dict, List, Any, Set, Optional
 
-BASE_DIR = Path(r"d:\Gyana Darshan")
-sys.path.append(str(BASE_DIR))
+BASE_DIR = Path(__file__).resolve().parent.parent
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 CORPUS_DIR = BASE_DIR / "corpus_integrity"
 
 from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer

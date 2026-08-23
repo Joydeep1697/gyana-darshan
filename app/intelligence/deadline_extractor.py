@@ -2,7 +2,7 @@ import logging
 import re
 from datetime import datetime, timedelta
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 
 def extract_deadlines(text: str, metadata: dict) -> list[dict]:
     """

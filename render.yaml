@@ -1,20 +1,24 @@
 services:
   - type: web
-    name: gyana-darshan
+    name: nyaya-darshan
     env: python
     buildCommand: "pip install -r requirements.txt"
     # Use uvicorn directly — never python run.py in production (run.py enables reload=True
     # only when RELOAD_ON_CHANGE=1, but uvicorn direct is cleaner for platform deployments).
-    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2"
     envVars:
-      - key: PORT
-        value: 8000
+      - key: ENVIRONMENT
+        value: production
       - key: LLM_PROVIDER
         value: nvidia
+      - key: NVIDIA_LLM_MODEL
+        value: nvidia/llama-3.3-nemotron-super-49b-v1
       - key: NVIDIA_API_KEY
         sync: false
       - key: NYAYA_API_KEY
         sync: false
+      - key: NYAYA_JWT_SECRET
+        generateValue: true
       - key: RAZORPAY_KEY_ID
         sync: false
       - key: RAZORPAY_KEY_SECRET

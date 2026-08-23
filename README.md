@@ -1,8 +1,8 @@
-# Gyana Darshan
+# Nyaya Darshan
 
 **AI-powered Legal Intelligence Operating System for Indian Law**
 
-Powered by **Gyana Darshan** — a fine-tuned Indian Legal LLM trained on 252+ Indian legal documents spanning 36 categories and 22 legal domains.
+**Nyaya Darshan** combines authoritative Indian statutory retrieval, evidence-grounded legal answers, verification safeguards, and a configurable NVIDIA-hosted language model. The repository also includes an experimental legal-model training pipeline; a production-ready fine-tuned model should not be assumed until its weights and evaluation results have been verified.
 
 ---
 
@@ -11,13 +11,13 @@ Powered by **Gyana Darshan** — a fine-tuned Indian Legal LLM trained on 252+ I
 ### Prerequisites
 
 - **Python 3.11+** (recommended)
-- **Ollama** — [download here](https://ollama.com/download) (for local LLM inference)
+- **NVIDIA API key** for live AI-generated legal responses
 - **Tesseract OCR** — [download here](https://github.com/UB-Mannheim/tesseract/wiki) (optional, for scanned PDFs)
 
 ### 1. Install Dependencies
 
 ```powershell
-cd "D:\Gyana Darshan"
+cd "D:\Nyaya Darshan"
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
@@ -30,18 +30,12 @@ copy .env.example .env
 # Edit .env with your settings
 ```
 
-**For local Gyana Darshan model (recommended):**
-```
-LLM_PROVIDER=ollama
-OLLAMA_BASE_URL=http://localhost:11434/v1
-OLLAMA_MODEL=gyana-darshan
-```
-
 **For NVIDIA NIM (cloud API):**
 ```
 LLM_PROVIDER=nvidia
 NVIDIA_API_KEY=nvapi-your-key
 NVIDIA_LLM_MODEL=nvidia/llama-3.3-nemotron-super-49b-v1
+NYAYA_JWT_SECRET=replace-with-a-random-secret-of-at-least-32-characters
 ```
 
 ### 3. Start the Server
@@ -50,7 +44,7 @@ NVIDIA_LLM_MODEL=nvidia/llama-3.3-nemotron-super-49b-v1
 python run.py
 ```
 
-### 4. Open Gyana Darshan
+### 4. Open Nyaya Darshan
 
 Navigate to **http://localhost:8000** in your browser.
 
@@ -59,7 +53,7 @@ Navigate to **http://localhost:8000** in your browser.
 ## 🏗️ Architecture
 
 ```
-Gyana Darshan
+Nyaya Darshan
 ├── app/                          # FastAPI web application
 │   ├── main.py                   # App entry point + lifespan
 │   ├── config.py                 # Environment & path config
@@ -80,7 +74,7 @@ Gyana Darshan
 │   │   ├── deadline_extractor.py # Date/deadline extraction
 │   │   └── search_engine.py      # Enhanced semantic search
 │   └── static/
-│       └── index.html            # Gyana Darshan v6 frontend
+│       └── index.html            # Nyaya Darshan frontend
 │
 ├── Indian Legal/                 # Backend engines (existing, unmodified)
 │   ├── gyana_darshan_rag_nvidia.py  # FAISS + BM25 hybrid RAG
@@ -91,12 +85,10 @@ Gyana Darshan
 │   ├── Category/                 # Classified documents
 │   └── nova_rag_index/           # FAISS vector index
 │
-├── training/                     # Gyana Darshan LLM training pipeline
+├── training/                     # Experimental Nyaya Darshan training pipeline
 │   ├── generate_dataset.py       # Generate training data from corpus
 │   ├── finetune_colab.py         # QLoRA fine-tuning (Google Colab)
 │   ├── evaluate.py               # Indian Legal Benchmark
-│   ├── deploy_ollama.py          # Local Ollama deployment
-│   ├── Modelfile                 # Ollama model configuration
 │   └── README.md                 # Training documentation
 │
 ├── requirements.txt
@@ -117,13 +109,15 @@ Gyana Darshan
 | **Proactive Alerts** | Compliance gaps, outdated references, and deadline tracking |
 | **AI Daily Briefing** | Dashboard shows AI-generated summary of your corpus state |
 
-## 🎓 Training Gyana Darshan (Your Own LLM)
+## 🎓 Experimental Model Training
 
 See [training/README.md](training/README.md) for complete instructions on:
 1. Generating training data from your legal corpus
 2. Fine-tuning Phi-3.5-mini on Google Colab (free)
 3. Evaluating on the Indian Legal Benchmark
-4. Deploying locally with Ollama
+4. Comparing adapter quality against the existing grounded retrieval baseline
+
+The training pipeline is experimental. Do not advertise a proprietary fine-tuned production model unless the model weights, evaluation results, and deployment are independently verified.
 
 ## 📡 API Reference
 
@@ -145,7 +139,7 @@ Once running, visit **http://localhost:8000/docs** for the interactive Swagger A
 
 ## 📄 License
 
-Gyana Darshan is fine-tuned from [Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct) (MIT License). The fine-tuned weights and all application code are proprietary to Gyana Darshan.
+Nyaya Darshan application code and project-specific legal datasets are proprietary. Any future fine-tuned model remains subject to the selected base model's license and independently verified training results.
 
 ---
 

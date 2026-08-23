@@ -17,8 +17,23 @@ from typing import Dict, Any, Optional, Tuple
 
 from database.repository import UserRepository, SessionRepository
 
-# Cryptographic Keys (can be overridden via environment variable)
-JWT_SECRET_KEY = os.environ.get("NYAYA_JWT_SECRET", "nyaya-darshana-production-jwt-hmac-secret-key-2026-secure-vault")
+# Development uses a random process-local signing key. Production requires a
+# persistent deployment secret so tokens remain valid across worker processes.
+_DEVELOPMENT_JWT_SECRET = secrets.token_urlsafe(48)
+
+
+def get_jwt_secret_key() -> str:
+    configured_secret = os.environ.get("NYAYA_JWT_SECRET", "").strip()
+    environment = os.environ.get("ENVIRONMENT", os.environ.get("ENV", "development")).lower()
+    if environment in {"production", "prod"}:
+        if len(configured_secret) < 32:
+            raise RuntimeError(
+                "NYAYA_JWT_SECRET must contain at least 32 characters in production mode."
+            )
+        return configured_secret
+    return configured_secret or _DEVELOPMENT_JWT_SECRET
+
+
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 # 24 hours
 REFRESH_TOKEN_EXPIRE_DAYS = 30
 
@@ -67,7 +82,7 @@ def create_jwt_token(payload: Dict[str, Any], expires_delta: timedelta) -> str:
 
     segments = [_b64_url_encode(header_bytes), _b64_url_encode(payload_bytes)]
     signing_input = ".".join(segments).encode('ascii')
-    signature = hmac.new(JWT_SECRET_KEY.encode('utf-8'), signing_input, hashlib.sha256).digest()
+    signature = hmac.new(get_jwt_secret_key().encode('utf-8'), signing_input, hashlib.sha256).digest()
     segments.append(_b64_url_encode(signature))
     return ".".join(segments)
 
@@ -79,7 +94,7 @@ def decode_jwt_token(token: str) -> Optional[Dict[str, Any]]:
             return None
         
         signing_input = f"{parts[0]}.{parts[1]}".encode('ascii')
-        expected_sig = hmac.new(JWT_SECRET_KEY.encode('utf-8'), signing_input, hashlib.sha256).digest()
+        expected_sig = hmac.new(get_jwt_secret_key().encode('utf-8'), signing_input, hashlib.sha256).digest()
         provided_sig = _b64_url_decode(parts[2])
 
         if not hmac.compare_digest(expected_sig, provided_sig):
@@ -111,9 +126,9 @@ class AuthService:
             return None, "An account with this email already exists."
 
         pwd_hash = hash_password(password)
-        # If this is the very first user, automatically grant SUPERADMIN role
-        assigned_role = "SUPERADMIN" if UserRepository.count_users() == 0 else role
-        user = UserRepository.create_user(clean_email, pwd_hash, full_name, assigned_role)
+        # Public registration must never grant administrative privileges based
+        # on timing; administrator provisioning requires a separate trusted flow.
+        user = UserRepository.create_user(clean_email, pwd_hash, full_name, role)
         return user, None
 
     @staticmethod
