@@ -175,7 +175,7 @@ def log_audit_event(
         "client_ip": client_ip,
         "session_id": session_id or "anonymous",
         "query_length": len(query),
-        "query_snippet": query[:120],
+        "query_snippet": query[:120] if os.getenv("NYAYA_LOG_QUERY_TEXT", "").lower() == "true" else "[REDACTED]",
         "grounding_status": grounding_status,
         "interventions_count": interventions_count,
         "evidence_records_retrieved": evidence_count,
