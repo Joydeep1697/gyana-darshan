@@ -73,6 +73,6 @@ def evaluate_model(model_name):
         
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", default="novelaw", help="Model name in Ollama")
+    parser.add_argument("--model", default="gyana-darshan", help="Model name in Ollama")
     args = parser.parse_args()
     evaluate_model(args.model)
