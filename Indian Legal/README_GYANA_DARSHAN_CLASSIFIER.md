@@ -1,4 +1,4 @@
-# Gyana Darshan Classifier v2
+# Nyaya Darshan Classifier v2
 
 ## What this version adds
 
@@ -163,7 +163,7 @@ Create the scheduled task from Administrator PowerShell:
 
 ```powershell
 schtasks /Create `
-  /TN "Gyana Darshan Classifier v2" `
+  /TN "Nyaya Darshan Classifier v2" `
   /TR '"D:\Gyana Darshan\Indian Legal\run_gyana_darshan_classifier_v2.bat"' `
   /SC HOURLY `
   /MO 2 `
@@ -173,13 +173,13 @@ schtasks /Create `
 Run now:
 
 ```powershell
-schtasks /Run /TN "Gyana Darshan Classifier v2"
+schtasks /Run /TN "Nyaya Darshan Classifier v2"
 ```
 
 Inspect:
 
 ```powershell
-schtasks /Query /TN "Gyana Darshan Classifier v2" /V /FO LIST
+schtasks /Query /TN "Nyaya Darshan Classifier v2" /V /FO LIST
 ```
 
 ## Important limitations
