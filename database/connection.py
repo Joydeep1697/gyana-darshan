@@ -8,7 +8,7 @@ from pathlib import Path
 from contextlib import contextmanager
 from typing import Generator
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 

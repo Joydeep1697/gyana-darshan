@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Nova Legal Classifier
+Gyana Darshan Classifier
 ========================
 
 A safe, incremental legal-document organizer and metadata generator.
@@ -58,7 +58,7 @@ except ImportError:
 # Defaults
 # ---------------------------------------------------------------------------
 
-ROOT = Path(r"D:\Nova Legal\Indian Legal")
+ROOT = Path(r"D:\Gyana Darshan\Indian Legal")
 DEFAULT_RAW = ROOT / "raw"
 DEFAULT_CATEGORY = ROOT / "Category"
 DEFAULT_DB = ROOT / "category_registry.sqlite3"
@@ -74,7 +74,7 @@ MAX_OCR_PAGES = 10
 MAX_TEXT_CHARS = 100_000
 DEFAULT_THRESHOLD = 0.62
 
-LOG = logging.getLogger("nova-legal-classifier")
+LOG = logging.getLogger("gyana-darshan-classifier")
 
 
 # ---------------------------------------------------------------------------
@@ -1426,7 +1426,7 @@ class Classifier:
 # ---------------------------------------------------------------------------
 
 def parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Nova Legal Classifier")
+    p = argparse.ArgumentParser(description="Gyana Darshan Classifier")
     p.add_argument("--raw", default=str(DEFAULT_RAW))
     p.add_argument("--category", default=str(DEFAULT_CATEGORY))
     p.add_argument("--database", default=str(DEFAULT_DB))
@@ -1458,7 +1458,7 @@ def main() -> int:
             return 0
 
         summary = app.run()
-        print("\nNOVA LEGAL CLASSIFIER")
+        print("\nGYANA DARSHAN CLASSIFIER")
         print(json.dumps(summary, indent=2))
         return 0 if summary["error"] == 0 else 1
     except Exception:

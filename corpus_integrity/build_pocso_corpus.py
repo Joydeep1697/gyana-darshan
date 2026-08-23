@@ -5,8 +5,8 @@ import json
 import pymupdf as fitz
 from pathlib import Path
 
-PDF_PATH = Path(r"d:\Nova Legal\Indian Legal\raw\AA2012-32.pdf")
-OUT_JSONL = Path(r"d:\Nova Legal\corpus_integrity\pocso_2012_corpus.jsonl")
+PDF_PATH = Path(r"d:\Gyana Darshan\Indian Legal\raw\AA2012-32.pdf")
+OUT_JSONL = Path(r"d:\Gyana Darshan\corpus_integrity\pocso_2012_corpus.jsonl")
 
 CHAPTERS = {
     (1, 2): "Chapter I: Preliminary",

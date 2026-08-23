@@ -3,7 +3,7 @@
 legal_crawler.py
 
 Crawl configured seed pages (IndiaCode, Supreme Court, High Courts...) and download discovered PDF files
-to a local folder (Windows example target: D:/Nova Legal/Indian Legal/raw).
+to a local folder (Windows example target: D:/Gyana Darshan/Indian Legal/raw).
 
 Usage:
   1) Create a venv and install dependencies:
@@ -12,7 +12,7 @@ Usage:
      pip install requests beautifulsoup4 tqdm
 
   2) Run:
-     python "D:/Nova Legal/Indian Legal/legal_crawler.py"
+     python "D:/Gyana Darshan/Indian Legal/legal_crawler.py"
 
 Notes:
 - This script checks robots.txt and sleeps between requests.
@@ -33,7 +33,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 # ------------------- CONFIG -------------------
-OUT_ROOT = r"D:/Nova Legal/Indian Legal"            # top-level output directory
+OUT_ROOT = r"D:/Gyana Darshan/Indian Legal"            # top-level output directory
 RAW_DIR = os.path.join(OUT_ROOT, "raw")            # where PDFs will be saved
 META_FILE = os.path.join(OUT_ROOT, "download_metadata.jsonl")  # metadata log
 LOG_FILE = os.path.join(OUT_ROOT, "crawler.log")

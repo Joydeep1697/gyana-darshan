@@ -1,1 +1,1 @@
-# Nova Legal OS — Intelligence Engine
+# Gyana Darshan — Intelligence Engine

@@ -30,7 +30,7 @@ lora:
     - "down_proj"
 
 training:
-  output_dir: "d:/Nova Legal/training/adapters/nyaya_legal_adapter"
+  output_dir: "d:/Gyana Darshan/training/adapters/nyaya_legal_adapter"
   num_train_epochs: 3
   per_device_train_batch_size: 1
   per_device_eval_batch_size: 1
@@ -48,11 +48,11 @@ training:
   random_seed: 42
 
 dataset:
-  train_file: "d:/Nova Legal/training/train.jsonl"
-  validation_file: "d:/Nova Legal/training/validation.jsonl"
-  test_file: "d:/Nova Legal/training/test.jsonl"
-  manifest_file: "d:/Nova Legal/training/dataset_manifest.json"
-  benchmark_file: "d:/Nova Legal/evaluation/benchmark_800.jsonl"
+  train_file: "d:/Gyana Darshan/training/train.jsonl"
+  validation_file: "d:/Gyana Darshan/training/validation.jsonl"
+  test_file: "d:/Gyana Darshan/training/test.jsonl"
+  manifest_file: "d:/Gyana Darshan/training/dataset_manifest.json"
+  benchmark_file: "d:/Gyana Darshan/evaluation/benchmark_800.jsonl"
   split_ratios:
     train: 0.80
     validation: 0.10

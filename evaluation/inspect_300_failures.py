@@ -1,6 +1,6 @@
 import json
 
-recs = [json.loads(l) for l in open("d:/Nova Legal/evaluation/phase_8_2d_per_record_results.jsonl", encoding="utf-8") if l.strip()]
+recs = [json.loads(l) for l in open("d:/Gyana Darshan/evaluation/phase_8_2d_per_record_results.jsonl", encoding="utf-8") if l.strip()]
 failed = [r for r in recs if not r["final_pass"]]
 print(f"Total Failed: {len(failed)}")
 

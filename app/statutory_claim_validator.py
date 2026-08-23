@@ -13,7 +13,7 @@ import json
 from pathlib import Path
 from typing import Dict, Any, List, Tuple
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 CHUNKS_FILE = BASE_DIR / "Indian Legal" / "processed_corpus" / "rag" / "chunks.jsonl"
 
 REPEALED_STATUTES = ["IPC", "CRPC", "INDIAN EVIDENCE ACT", "IEA", "INDIAN PENAL CODE"]

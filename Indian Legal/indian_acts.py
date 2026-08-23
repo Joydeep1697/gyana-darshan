@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 import requests, time, os, json, hashlib
 
 SEED = "https://judgments.ecourts.gov.in/pdfsearch/?p=pdf_search/home&text=tribunal&captcha=1eGRuh&search_opt=PHRASE&fcourt_type=2&escr_flag=&proximity=&sel_lang=&app_token=8102842c46eadb10d084a38e42c0bdf840e454471566c8612ff94a86adcd2c0f"
-OUT_DIR = r"D:/Nova Legal/Indian Legal/raw"
-META = r"D:/Nova Legal/Indian Legal/download_metadata.jsonl"
+OUT_DIR = r"D:/Gyana Darshan/Indian Legal/raw"
+META = r"D:/Gyana Darshan/Indian Legal/download_metadata.jsonl"
 DELAY = 2.0
 os.makedirs(OUT_DIR, exist_ok=True)
 

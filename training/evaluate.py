@@ -20,7 +20,7 @@ def get_cosine_similarity(text1, text2):
         return float(numerator) / denominator
 
 def evaluate_model(model_name):
-    eval_file = Path(r"d:\Nova Legal\training\dataset_eval.jsonl")
+    eval_file = Path(r"d:\Gyana Darshan\training\dataset_eval.jsonl")
     if not eval_file.exists():
         print("Eval file not found!")
         return
@@ -68,7 +68,7 @@ def evaluate_model(model_name):
     print(f"Model: {model_name}")
     print(f"Overall Score: {avg_score:.4f}")
     
-    with open(r"d:\Nova Legal\training\eval_results.json", 'w', encoding='utf-8') as f:
+    with open(r"d:\Gyana Darshan\training\eval_results.json", 'w', encoding='utf-8') as f:
         json.dump({"model": model_name, "average_score": avg_score, "results": results}, f, indent=2)
         
 if __name__ == "__main__":

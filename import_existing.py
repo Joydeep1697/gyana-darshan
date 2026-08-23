@@ -1,4 +1,4 @@
-"""Import existing processed documents into Nova Legal app database.
+"""Import existing processed documents into Gyana Darshan app database.
 
 Reads all .metadata.json files from Category/ and populates vault_documents,
 document_entities, and related tables so the UI shows all 252 documents.

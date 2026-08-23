@@ -7,7 +7,7 @@
 # 3. Bharatiya Sakshya Adhiniyam, 2023 (BSA - Act 47 of 2023, 170 Sections)
 # 4. Statutory Cross-Mapping Registry (BNS <-> IPC, BNSS <-> CrPC, BSA <-> IEA, POCSO Status)
 #
-# Output Directory: d:\Nova Legal\corpus_integrity\
+# Output Directory: d:\Gyana Darshan\corpus_integrity\
 
 import os
 import re
@@ -15,7 +15,7 @@ import json
 import pymupdf
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 RAW_DIR = BASE_DIR / "Indian Legal" / "raw"
 OUT_DIR = BASE_DIR / "corpus_integrity"
 OUT_DIR.mkdir(parents=True, exist_ok=True)

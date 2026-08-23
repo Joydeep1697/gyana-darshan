@@ -15,7 +15,7 @@ from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 router = APIRouter()
 
 # Singletons

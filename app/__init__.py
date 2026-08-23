@@ -1,1 +1,1 @@
-# Nova Legal OS — FastAPI Application
+# Gyana Darshan — FastAPI Application

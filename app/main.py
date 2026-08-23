@@ -38,7 +38,7 @@ from api.security import (
     log_audit_event
 )
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 
 # Singletons
 retriever = AuthoritativeLegalRetriever()

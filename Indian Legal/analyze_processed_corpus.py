@@ -7,7 +7,7 @@ from pathlib import Path
 # CHANGE THIS
 # ============================================
 
-CORPUS = Path(r"D:\Nova Legal\Indian Legal\processed_corpus")
+CORPUS = Path(r"D:\Gyana Darshan\Indian Legal\processed_corpus")
 
 # ============================================
 
@@ -51,7 +51,7 @@ def readable(size):
 
 
 print("=" * 70)
-print(" NOVA LEGAL CORPUS ANALYZER")
+print(" GYANA DARSHAN CORPUS ANALYZER")
 print("=" * 70)
 
 total_files = 0
@@ -190,7 +190,7 @@ REPORT.parent.mkdir(exist_ok=True)
 
 with open(REPORT, "w", encoding="utf8") as f:
 
-    f.write("NOVA LEGAL CORPUS REPORT\n")
+    f.write("GYANA DARSHAN CORPUS REPORT\n")
     f.write("="*60 + "\n\n")
 
     f.write(f"Total Files : {total_files}\n")

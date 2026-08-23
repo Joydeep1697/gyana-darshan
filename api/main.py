@@ -16,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 sys.path.append(str(BASE_DIR))
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever

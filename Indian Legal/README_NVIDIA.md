@@ -1,4 +1,4 @@
-# Nova Legal RAG with NVIDIA NIM
+# Gyana Darshan RAG with NVIDIA NIM
 
 This version keeps embeddings, FAISS, SQLite, keyword search, PDFs and metadata local. NVIDIA receives only the user's question and the small set of retrieved excerpts used to generate an answer. The optional reranker sends candidate excerpts to NVIDIA before generation.
 
@@ -14,27 +14,27 @@ processed_corpus/
 ## 1. Install
 
 ```powershell
-cd "D:\Nova Legal\Indian Legal"
+cd "D:\Gyana Darshan\Indian Legal"
 python -m venv .ragvenv
 .ragvenv\Scripts\activate
 python -m pip install --upgrade pip
-pip install -r requirements_nova_legal_rag_nvidia.txt
+pip install -r requirements_gyana_darshan_rag_nvidia.txt
 ```
 
 ## 2. Validate
 
 ```powershell
-python nova_legal_rag_nvidia.py validate `
-  --corpus "D:\Nova Legal\Indian Legal\processed_corpus" `
-  --save "D:\Nova Legal\Indian Legal\nova_rag_index\validation.json"
+python gyana_darshan_rag_nvidia.py validate `
+  --corpus "D:\Gyana Darshan\Indian Legal\processed_corpus" `
+  --save "D:\Gyana Darshan\Indian Legal\nova_rag_index\validation.json"
 ```
 
 ## 3. Build local index
 
 ```powershell
-python nova_legal_rag_nvidia.py build `
-  --corpus "D:\Nova Legal\Indian Legal\processed_corpus" `
-  --output "D:\Nova Legal\Indian Legal\nova_rag_index"
+python gyana_darshan_rag_nvidia.py build `
+  --corpus "D:\Gyana Darshan\Indian Legal\processed_corpus" `
+  --output "D:\Gyana Darshan\Indian Legal\nova_rag_index"
 ```
 
 No NVIDIA key is needed for validation, indexing or local search.
@@ -42,8 +42,8 @@ No NVIDIA key is needed for validation, indexing or local search.
 ## 4. Test local search
 
 ```powershell
-python nova_legal_rag_nvidia.py search `
-  --index "D:\Nova Legal\Indian Legal\nova_rag_index" `
+python gyana_darshan_rag_nvidia.py search `
+  --index "D:\Gyana Darshan\Indian Legal\nova_rag_index" `
   --question "What are the powers of the National Investigation Agency?"
 ```
 
@@ -67,21 +67,21 @@ Optional reranker model:
 $env:NVIDIA_RERANK_MODEL="nvidia/llama-nemotron-rerank-1b-v2"
 ```
 
-## 6. Ask Nova Legal
+## 6. Ask Gyana Darshan
 
 Without NVIDIA reranking:
 
 ```powershell
-python nova_legal_rag_nvidia.py ask `
-  --index "D:\Nova Legal\Indian Legal\nova_rag_index" `
+python gyana_darshan_rag_nvidia.py ask `
+  --index "D:\Gyana Darshan\Indian Legal\nova_rag_index" `
   --question "Explain the relevant provision and cite the source pages."
 ```
 
 With NVIDIA reranking:
 
 ```powershell
-python nova_legal_rag_nvidia.py ask `
-  --index "D:\Nova Legal\Indian Legal\nova_rag_index" `
+python gyana_darshan_rag_nvidia.py ask `
+  --index "D:\Gyana Darshan\Indian Legal\nova_rag_index" `
   --use-nvidia-reranker `
   --question "Explain the relevant provision and cite the source pages."
 ```
@@ -89,8 +89,8 @@ python nova_legal_rag_nvidia.py ask `
 ## 7. Interactive chat
 
 ```powershell
-python nova_legal_rag_nvidia.py chat `
-  --index "D:\Nova Legal\Indian Legal\nova_rag_index" `
+python gyana_darshan_rag_nvidia.py chat `
+  --index "D:\Gyana Darshan\Indian Legal\nova_rag_index" `
   --use-nvidia-reranker
 ```
 
@@ -101,8 +101,8 @@ Type `exit` to stop.
 A self-hosted NIM exposes OpenAI-compatible endpoints. Point the same script at the local NIM URL:
 
 ```powershell
-python nova_legal_rag_nvidia.py ask `
-  --index "D:\Nova Legal\Indian Legal\nova_rag_index" `
+python gyana_darshan_rag_nvidia.py ask `
+  --index "D:\Gyana Darshan\Indian Legal\nova_rag_index" `
   --nvidia-base-url "http://localhost:8000/v1" `
   --nvidia-model "MODEL-ID-FROM-LOCAL-V1-MODELS" `
   --question "Summarize the applicable law with citations."

@@ -21,7 +21,7 @@ import re
 from pathlib import Path
 from typing import Dict, List, Any
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 
 def run_red_team_analysis():
     print("=========================================================================")

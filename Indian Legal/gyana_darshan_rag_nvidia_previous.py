@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Nova Legal hybrid RAG using local FAISS/SQLite and NVIDIA NIM."""
+"""Gyana Darshan hybrid RAG using local FAISS/SQLite and NVIDIA NIM."""
 from __future__ import annotations
 
 import argparse
@@ -9,14 +9,13 @@ import logging
 import os
 import re
 import sqlite3
-from difflib import get_close_matches
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Optional
 
 import numpy as np
 
-LOG = logging.getLogger("nova-legal-rag")
+LOG = logging.getLogger("gyana-darshan-rag")
 DEFAULT_EMBED_MODEL = "sentence-transformers/all-mpnet-base-v2"
 DEFAULT_NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 DEFAULT_NVIDIA_MODEL = os.getenv("NVIDIA_LLM_MODEL", "")
@@ -164,80 +163,6 @@ def ocr_noise_score(text: str, title: str = "") -> float:
     ) / max(len(tokens), 1)
     score = 0.65 * min(symbol_ratio / 0.25, 1.0) + 0.35 * min(one_char_ratio / 0.35, 1.0)
     return max(0.0, min(1.0, score))
-
-
-
-LEGAL_QUERY_EXPANSIONS: dict[str, str] = {
-    "aoa": "articles of association",
-    "moa": "memorandum of association",
-    "nia": "national investigation agency",
-    "securities premium reserve": "securities premium account section 52 companies act 2013",
-    "security premium reserve": "securities premium account section 52 companies act 2013",
-    "security premium account": "securities premium account section 52 companies act 2013",
-    "partnership deed": "partnership deed Indian Partnership Act 1932 section 13 profit sharing",
-    "profit sharing": "profit sharing partners Indian Partnership Act 1932 section 13(b)",
-}
-
-COMMON_QUERY_TYPOS: dict[str, str] = {
-    "progit": "profit",
-    "secuirty": "security",
-    "memorundum": "memorandum",
-    "assosiation": "association",
-    "articals": "articles",
-}
-
-
-def rewrite_legal_query(question: str) -> str:
-    rewritten_words: list[str] = []
-    for word in question.strip().split():
-        bare = re.sub(r"[^a-z]", "", word.lower())
-        replacement = COMMON_QUERY_TYPOS.get(bare)
-        rewritten_words.append(replacement if replacement else word)
-
-    rewritten = " ".join(rewritten_words)
-    lower = rewritten.lower()
-    additions: list[str] = []
-
-    for key, expansion in LEGAL_QUERY_EXPANSIONS.items():
-        if re.search(rf"\b{re.escape(key)}\b", lower):
-            additions.append(expansion)
-
-    if "absence of partnership deed" in lower or (
-        "partnership deed" in lower and ("profit" in lower or "loss" in lower)
-    ):
-        additions.append(
-            "Indian Partnership Act 1932 section 13(b) partners share equally "
-            "in profits and contribute equally to losses"
-        )
-
-    if "securities premium" in lower or "security premium" in lower:
-        additions.append(
-            "Companies Act 2013 section 52 application of securities premium account"
-        )
-
-    if ("aoa" in lower or "articles of association" in lower) and (
-        "moa" in lower or "memorandum of association" in lower
-    ):
-        additions.append(
-            "Companies Act 2013 memorandum of association articles of association "
-            "sections 2(56) 2(5) 4 5 difference objects scope internal regulations"
-        )
-
-    if additions:
-        rewritten += " | Legal retrieval expansion: " + " ; ".join(dict.fromkeys(additions))
-
-    return rewritten
-
-
-def section_reference_terms(question: str) -> list[str]:
-    return list(
-        dict.fromkeys(
-            re.findall(
-                r"\bsection\s+\d+[a-z]?(?:\([a-z0-9]+\))?",
-                question.lower(),
-            )
-        )
-    )
 
 
 def query_type_preferences(question: str) -> dict[str, float]:
@@ -489,8 +414,8 @@ def build_index(args: argparse.Namespace) -> None:
 
     index = faiss.IndexFlatIP(vectors.shape[1])
     index.add(vectors)
-    faiss.write_index(index, str(output / "nova_legal.faiss"))
-    write_database(output / "nova_legal.sqlite3", kept)
+    faiss.write_index(index, str(output / "gyana_darshan.faiss"))
+    write_database(output / "gyana_darshan.sqlite3", kept)
 
     config = {
         "embedding_model": args.embedding_model,
@@ -522,8 +447,8 @@ def load_index(index_dir: Path):
     config = json.loads((index_dir / "index_config.json").read_text(encoding="utf-8"))
     LOG.info("Loading embedding model once for this process: %s", config["embedding_model"])
     model = SentenceTransformer(config["embedding_model"])
-    index = faiss.read_index(str(index_dir / "nova_legal.faiss"))
-    result = (model, index, index_dir / "nova_legal.sqlite3")
+    index = faiss.read_index(str(index_dir / "gyana_darshan.faiss"))
+    result = (model, index, index_dir / "gyana_darshan.sqlite3")
     _RUNTIME_CACHE[cache_key] = result
     return result
 
@@ -532,12 +457,6 @@ def fts_query(question: str) -> str:
     terms = [term for term in re.findall(r"[\w§]+", question) if len(term) > 1]
     return " OR ".join(f'"{term}"' for term in terms[:20])
 
-
-from functools import lru_cache
-
-@lru_cache(maxsize=512)
-def _encode_query_cached(model, question_text: str):
-    return model.encode([question_text], normalize_embeddings=True, convert_to_numpy=True).astype("float32")
 
 def local_search(
     question: str,
@@ -548,9 +467,9 @@ def local_search(
     court: Optional[str] = None,
 ) -> list[dict[str, Any]]:
     model, index, db_path = load_index(index_dir)
-    retrieval_question = rewrite_legal_query(question)
-    LOG.info("Retrieval query: %s", retrieval_question)
-    query_vector = _encode_query_cached(model, retrieval_question)
+    query_vector = model.encode(
+        [question], normalize_embeddings=True, convert_to_numpy=True
+    ).astype("float32")
     distances, positions = index.search(query_vector, min(candidates, index.ntotal))
 
     db = sqlite3.connect(db_path)
@@ -573,7 +492,7 @@ def local_search(
             vector_scores[row_id] = max(0.0, float(score))
 
         keyword_scores: dict[int, float] = {}
-        query = fts_query(retrieval_question)
+        query = fts_query(question)
         if query:
             conditions: list[str] = []
             params: list[Any] = [query]
@@ -609,31 +528,15 @@ def local_search(
                 0.70 * vector_scores.get(row_id, 0.0)
                 + 0.30 * keyword_scores.get(row_id, 0.0)
             )
-            type_boosts = query_type_preferences(retrieval_question)
+            type_boosts = query_type_preferences(question)
             type_multiplier = type_boosts.get(row["document_type"], 1.0)
             noise = ocr_noise_score(row["text"], row["title"])
             quality_multiplier = 0.55 + 0.45 * float(row["quality_score"])
             noise_multiplier = 1.0 - 0.35 * noise
             row["ocr_noise_score"] = noise
             row["type_multiplier"] = type_multiplier
-
-            requested_sections = section_reference_terms(retrieval_question)
-            searchable_text = (
-                f"{row['title']} {row['heading'] or ''} {row['text']}"
-            ).lower()
-            section_multiplier = 1.0
-            if requested_sections and any(
-                section in searchable_text for section in requested_sections
-            ):
-                section_multiplier = 1.35
-
-            row["section_multiplier"] = section_multiplier
             row["local_score"] = (
-                base_score
-                * quality_multiplier
-                * noise_multiplier
-                * type_multiplier
-                * section_multiplier
+                base_score * quality_multiplier * noise_multiplier * type_multiplier
             )
             results.append(row)
         results.sort(key=lambda item: item["local_score"], reverse=True)
@@ -775,7 +678,7 @@ def retrieve(args: argparse.Namespace) -> list[dict[str, Any]]:
     )
     if args.use_nvidia_reranker:
         candidates = rerank_with_nvidia(
-            rewrite_legal_query(args.question),
+            args.question,
             candidates,
             model=args.rerank_model,
             base_url=args.rerank_base_url,
@@ -835,7 +738,7 @@ def answer_with_nvidia(args: argparse.Namespace, hits: list[dict[str, Any]]) -> 
         used_chars += len(block)
 
     system = (
-        "You are Nova Legal, a legal research assistant. Use only the supplied "
+        "You are Gyana Darshan, a legal research assistant. Use only the supplied "
         "source excerpts. Cite every legal or factual claim with the matching "
         "source number such as [1]. Never invent an authority, section, date, "
         "case number, quotation, holding, or procedural fact. Distinguish direct "
@@ -855,47 +758,17 @@ def answer_with_nvidia(args: argparse.Namespace, hits: list[dict[str, Any]]) -> 
         api_key=os.environ["NVIDIA_API_KEY"],
         base_url=args.nvidia_base_url,
     )
-    messages = [
-        {"role": "system", "content": system},
-        {"role": "user", "content": user},
-    ]
-
     response = client.chat.completions.create(
         model=args.nvidia_model,
-        messages=messages,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
         temperature=args.temperature,
         max_tokens=args.max_tokens,
     )
-
-    choice = response.choices[0]
-    content = choice.message.content or ""
-    finish_reason = getattr(choice, "finish_reason", None)
-
-    if finish_reason == "length" and args.auto_continue:
-        LOG.warning(
-            "Answer reached max_tokens=%s; requesting one continuation.",
-            args.max_tokens,
-        )
-        continuation = client.chat.completions.create(
-            model=args.nvidia_model,
-            messages=[
-                *messages,
-                {"role": "assistant", "content": content},
-                {
-                    "role": "user",
-                    "content": (
-                        "Continue exactly where you stopped. Do not repeat earlier "
-                        "content. Complete unfinished sentences, tables, citations, "
-                        "limitations, and the required research note."
-                    ),
-                },
-            ],
-            temperature=args.temperature,
-            max_tokens=args.max_tokens,
-        )
-        content += "\n" + (continuation.choices[0].message.content or "")
-
-    if not content.strip():
+    content = response.choices[0].message.content
+    if not content:
         raise RuntimeError("NVIDIA returned an empty answer.")
     return content
 
@@ -903,8 +776,8 @@ def answer_with_nvidia(args: argparse.Namespace, hits: list[dict[str, Any]]) -> 
 def add_retrieval_arguments(parser: argparse.ArgumentParser, question_required: bool = True) -> None:
     parser.add_argument("--index", required=True)
     parser.add_argument("--question", required=question_required)
-    parser.add_argument("--top-k", type=int, default=10)
-    parser.add_argument("--candidates", type=int, default=60)
+    parser.add_argument("--top-k", type=int, default=8)
+    parser.add_argument("--candidates", type=int, default=40)
     parser.add_argument("--max-chunks-per-document", type=int, default=2)
     parser.add_argument("--document-type")
     parser.add_argument("--year", type=int)
@@ -916,7 +789,7 @@ def add_retrieval_arguments(parser: argparse.ArgumentParser, question_required: 
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Nova Legal NVIDIA hybrid RAG")
+    parser = argparse.ArgumentParser(description="Gyana Darshan NVIDIA hybrid RAG")
     parser.add_argument("--verbose", action="store_true")
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -942,8 +815,7 @@ def build_parser() -> argparse.ArgumentParser:
     ask.add_argument("--nvidia-model", default=DEFAULT_NVIDIA_MODEL)
     ask.add_argument("--nvidia-base-url", default=DEFAULT_NVIDIA_BASE_URL)
     ask.add_argument("--temperature", type=float, default=0.1)
-    ask.add_argument("--max-tokens", type=int, default=3000)
-    ask.add_argument("--auto-continue", action=argparse.BooleanOptionalAction, default=True)
+    ask.add_argument("--max-tokens", type=int, default=1400)
     ask.add_argument("--max-context-chars", type=int, default=30000)
     ask.add_argument("--no-llm", action="store_true")
 
@@ -952,8 +824,7 @@ def build_parser() -> argparse.ArgumentParser:
     chat.add_argument("--nvidia-model", default=DEFAULT_NVIDIA_MODEL)
     chat.add_argument("--nvidia-base-url", default=DEFAULT_NVIDIA_BASE_URL)
     chat.add_argument("--temperature", type=float, default=0.1)
-    chat.add_argument("--max-tokens", type=int, default=3000)
-    chat.add_argument("--auto-continue", action=argparse.BooleanOptionalAction, default=True)
+    chat.add_argument("--max-tokens", type=int, default=1400)
     chat.add_argument("--max-context-chars", type=int, default=30000)
     chat.add_argument("--no-llm", action="store_true")
 
@@ -999,7 +870,7 @@ def main() -> int:
         elif args.command == "ask":
             run_question(args)
         elif args.command == "chat":
-            print("Nova Legal NVIDIA chat. Type exit to stop.")
+            print("Gyana Darshan NVIDIA chat. Type exit to stop.")
             while True:
                 try:
                     question = input("\nYou: ").strip()

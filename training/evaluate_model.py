@@ -20,7 +20,7 @@ import argparse
 from pathlib import Path
 from typing import Dict, Any, List
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 BENCHMARK_FILE = BASE_DIR / "evaluation" / "benchmark_800.jsonl"
 ADAPTER_PATH = BASE_DIR / "training" / "adapters" / "nyaya_legal_adapter"
 RESULTS_FILE = BASE_DIR / "training" / "experiment_results.json"

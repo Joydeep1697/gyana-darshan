@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 from typing import Dict, List, Any, Set, Tuple
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 CORPUS_DIR = BASE_DIR / "corpus_integrity"
 
 # 1. Load Bare Acts Corpus

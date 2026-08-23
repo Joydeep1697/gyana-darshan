@@ -21,7 +21,7 @@ import json
 from pathlib import Path
 from typing import List, Dict, Any
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 BENCHMARK_FILE = BASE_DIR / "evaluation" / "benchmark_800.jsonl"
 RESULTS_FILE = BASE_DIR / "evaluation" / "results.json"
 ANALYSIS_JSON = BASE_DIR / "evaluation" / "failure_analysis.json"

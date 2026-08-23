@@ -21,7 +21,7 @@ import random
 from pathlib import Path
 from typing import Dict, List, Any
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 BENCHMARK_OUTPUT_FILE = BASE_DIR / "evaluation" / "nyaya_1100_independent_benchmark.jsonl"
 
 def generate_1100_benchmark():

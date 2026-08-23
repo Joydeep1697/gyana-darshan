@@ -17,7 +17,7 @@ import re
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 SCREENSHOTS_DIR = BASE_DIR / "evaluation" / "e2e_screenshots"
 SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -25,7 +25,7 @@ REPORT_JSON = BASE_DIR / "evaluation" / "phase_8_2_e2e_report.json"
 REPORT_MD = BASE_DIR / "evaluation" / "phase_8_2_e2e_report.md"
 
 LEAK_PATTERNS = [
-    r"d:\\nova legal", r"d:/nova legal",
+    r"d:\\gyana darshan", r"d:/gyana darshan",
     r"c:\\users\\", r"c:/users/",
     r"\.venv", r"site-packages",
     r"__pycache__", r"traceback \(most recent call last\)"

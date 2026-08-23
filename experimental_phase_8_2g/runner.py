@@ -4,7 +4,7 @@ import sys
 import json
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 sys.path.append(str(BASE_DIR))
 
 from experimental_phase_8_2g.pipeline import ExperimentalLegalPipeline

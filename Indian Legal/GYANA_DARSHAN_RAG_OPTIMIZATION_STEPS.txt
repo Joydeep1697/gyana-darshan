@@ -1,10 +1,10 @@
-NOVA LEGAL RAG OPTIMIZATION STEPS
+GYANA DARSHAN RAG OPTIMIZATION STEPS
 
-1. Replace your old file with nova_legal_rag_nvidia_optimized.py and rename it to nova_legal_rag_nvidia.py.
+1. Replace your old file with gyana_darshan_rag_nvidia_optimized.py and rename it to gyana_darshan_rag_nvidia.py.
 
 2. Use persistent chat mode:
-python nova_legal_rag_nvidia.py chat `
-  --index "D:\Nova Legal\Indian Legal\nova_rag_index" `
+python gyana_darshan_rag_nvidia.py chat `
+  --index "D:\Gyana Darshan\Indian Legal\nova_rag_index" `
   --use-nvidia-reranker
 
 The first question loads the model. Later questions reuse it.

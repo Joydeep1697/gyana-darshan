@@ -3,7 +3,7 @@
 import os, glob
 from pathlib import Path
 
-BASE = Path(r"d:\Nova Legal\Indian Legal")
+BASE = Path(r"d:\Gyana Darshan\Indian Legal")
 
 def validate():
     print("=== VALIDATING JUDGMENT METADATA ===")

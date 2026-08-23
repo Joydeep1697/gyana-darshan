@@ -30,7 +30,7 @@ def main():
         print("Ollama service is not running. Please start Ollama first.")
         sys.exit(1)
         
-    modelfile_path = Path(r"d:\Nova Legal\training\Modelfile")
+    modelfile_path = Path(r"d:\Gyana Darshan\training\Modelfile")
     if not modelfile_path.exists():
         print(f"Error: Modelfile not found at {modelfile_path}")
         sys.exit(1)

@@ -5,7 +5,7 @@ import json
 import os
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal\Indian Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan\Indian Legal")
 
 DIRS = [
     BASE_DIR / "corpus" / "constitution",
@@ -94,7 +94,7 @@ def create_validation_scripts():
 import os, json, glob
 from pathlib import Path
 
-BASE = Path(r"d:\\Nova Legal\\Indian Legal")
+BASE = Path(r"d:\\Gyana Darshan\\Indian Legal")
 
 def validate():
     print("=== VALIDATING CENTRAL ACTS & STATUTES ===")
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 import os, json
 from pathlib import Path
 
-BASE = Path(r"d:\\Nova Legal\\Indian Legal")
+BASE = Path(r"d:\\Gyana Darshan\\Indian Legal")
 
 def validate():
     print("=== VALIDATING SECTIONS & MAPPING AUTHORITIES ===")
@@ -138,7 +138,7 @@ if __name__ == "__main__":
 import os, glob
 from pathlib import Path
 
-BASE = Path(r"d:\\Nova Legal\\Indian Legal")
+BASE = Path(r"d:\\Gyana Darshan\\Indian Legal")
 
 def validate():
     print("=== VALIDATING JUDGMENT METADATA ===")

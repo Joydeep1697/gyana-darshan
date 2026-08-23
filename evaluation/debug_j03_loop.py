@@ -1,6 +1,6 @@
 import sys, json
 from pathlib import Path
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 sys.path.append(str(BASE_DIR))
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
@@ -10,7 +10,7 @@ from evaluation.run_phase_8_2b_novel_scenario_benchmark import evaluate_answer_c
 r = AuthoritativeLegalRetriever()
 fw = LegalVerificationFirewall()
 
-records = [json.loads(l) for l in open("d:/Nova Legal/evaluation/phase_8_2b_novel_scenario_benchmark.jsonl", encoding="utf-8") if l.strip()]
+records = [json.loads(l) for l in open("d:/Gyana Darshan/evaluation/phase_8_2b_novel_scenario_benchmark.jsonl", encoding="utf-8") if l.strip()]
 rec_j03 = [rec for rec in records if rec["scenario_id"] == "J03"][0]
 
 query = rec_j03["fact_pattern"] + " " + rec_j03["legal_question"]

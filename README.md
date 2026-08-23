@@ -1,4 +1,4 @@
-# Nova Legal OS
+# Gyana Darshan
 
 **AI-powered Legal Intelligence Operating System for Indian Law**
 
@@ -17,7 +17,7 @@ Powered by **NoveLaw** — a fine-tuned Indian Legal LLM trained on 252+ Indian 
 ### 1. Install Dependencies
 
 ```powershell
-cd "D:\Nova Legal"
+cd "D:\Gyana Darshan"
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
@@ -50,7 +50,7 @@ NVIDIA_LLM_MODEL=nvidia/llama-3.3-nemotron-super-49b-v1
 python run.py
 ```
 
-### 4. Open Nova Legal OS
+### 4. Open Gyana Darshan
 
 Navigate to **http://localhost:8000** in your browser.
 
@@ -59,7 +59,7 @@ Navigate to **http://localhost:8000** in your browser.
 ## 🏗️ Architecture
 
 ```
-Nova Legal OS
+Gyana Darshan
 ├── app/                          # FastAPI web application
 │   ├── main.py                   # App entry point + lifespan
 │   ├── config.py                 # Environment & path config
@@ -80,12 +80,12 @@ Nova Legal OS
 │   │   ├── deadline_extractor.py # Date/deadline extraction
 │   │   └── search_engine.py      # Enhanced semantic search
 │   └── static/
-│       └── index.html            # Nova Legal OS v6 frontend
+│       └── index.html            # Gyana Darshan v6 frontend
 │
 ├── Indian Legal/                 # Backend engines (existing, unmodified)
-│   ├── nova_legal_rag_nvidia.py  # FAISS + BM25 hybrid RAG
-│   ├── nova_legal_classifier.py  # 36-category legal classifier
-│   ├── nova_legal_corpus_builder.py  # PDF → text pipeline
+│   ├── gyana_darshan_rag_nvidia.py  # FAISS + BM25 hybrid RAG
+│   ├── gyana_darshan_classifier.py  # 36-category legal classifier
+│   ├── gyana_darshan_corpus_builder.py  # PDF → text pipeline
 │   ├── raw/                      # Uploaded PDFs
 │   ├── processed_corpus/         # Processed text chunks
 │   ├── Category/                 # Classified documents
@@ -145,7 +145,7 @@ Once running, visit **http://localhost:8000/docs** for the interactive Swagger A
 
 ## 📄 License
 
-NoveLaw is fine-tuned from [Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct) (MIT License). The fine-tuned weights and all application code are proprietary to Nova Legal.
+NoveLaw is fine-tuned from [Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct) (MIT License). The fine-tuned weights and all application code are proprietary to Gyana Darshan.
 
 ---
 

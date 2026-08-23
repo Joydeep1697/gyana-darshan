@@ -15,7 +15,7 @@ from pathlib import Path
 from collections import defaultdict
 from typing import List, Dict, Any, Set
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 TRAINING_DIR = BASE_DIR / "training"
 BENCHMARK_FILE = BASE_DIR / "evaluation" / "benchmark_800.jsonl"
 SOURCE_DATASET = TRAINING_DIR / "nyaya_darshan_instruction_dataset_v1.jsonl"

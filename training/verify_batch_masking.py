@@ -11,7 +11,7 @@ import json
 import py_compile
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 TRAIN_FILE = BASE_DIR / "training" / "train.jsonl"
 COLAB_SCRIPT = BASE_DIR / "training" / "finetune_colab.py"
 

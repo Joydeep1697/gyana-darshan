@@ -36,7 +36,7 @@ except ImportError as exc:
     raise SystemExit("Missing tqdm. Install with: pip install tqdm") from exc
 
 
-LOGGER = logging.getLogger("nova-legal-corpus")
+LOGGER = logging.getLogger("gyana-darshan-corpus")
 
 DOCUMENT_RULES: dict[str, tuple[str, ...]] = {
     "acts": (

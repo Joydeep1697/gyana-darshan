@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 # Add Indian Legal to sys.path
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 sys.path.append(str(BASE_DIR / "Indian Legal"))
 
 from evaluate_retrieval import calculate_retrieval_metrics

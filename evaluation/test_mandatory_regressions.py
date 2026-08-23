@@ -2,7 +2,7 @@
 
 import sys
 from pathlib import Path
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 sys.path.append(str(BASE_DIR))
 
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
