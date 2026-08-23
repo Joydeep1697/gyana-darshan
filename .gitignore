@@ -12,6 +12,7 @@ __pycache__/
 scratch/
 tmp/
 evaluation/chrome_profile*/
+Indian Legal/download_metadata.jsonl
 playwright-report/
 test-results/
 *.mp4
