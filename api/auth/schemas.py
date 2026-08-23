@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field, validator
 class UserRegisterRequest(BaseModel):
     email: str = Field(..., min_length=5, max_length=255, description="User email address")
     password: str = Field(..., min_length=8, max_length=128, description="Strong password (min 8 chars)")
-    full_name: str = Field(..., min_length=2, max_length=128, description="Full name of advocate or legal researcher")
+    full_name: str = Field(..., min_length=2, max_length=128, description="Full name of the account holder")
 
     @validator("email")
     def validate_email_format(cls, v):

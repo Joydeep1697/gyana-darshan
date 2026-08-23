@@ -139,6 +139,12 @@ class AuthService:
         if not user or not verify_password(password, user["password_hash"]):
             return None, None, "Invalid email or password."
 
+        return user, AuthService.issue_tokens_for_user(user), None
+
+    @staticmethod
+    def issue_tokens_for_user(user: Dict[str, Any]) -> Dict[str, str]:
+        """Issue the same first-party session tokens for password or verified OAuth login."""
+
         # Create access token
         access_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_jwt_token({
@@ -162,7 +168,7 @@ class AuthService:
             "token_type": "bearer",
             "expires_in_seconds": int(access_delta.total_seconds())
         }
-        return user, tokens, None
+        return tokens
 
     @staticmethod
     def refresh_access_token(refresh_token: str) -> Tuple[Optional[str], Optional[str]]:
