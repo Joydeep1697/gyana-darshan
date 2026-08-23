@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import sys
+import shutil
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -81,7 +82,8 @@ CATEGORY_REGISTRY_DB = INDIAN_LEGAL_DIR / "category_registry.sqlite3"
 
 # ── App database ──────────────────────────────────────────────────
 
-APP_DB_PATH = ROOT_DIR / "app" / "nova_app.sqlite3"
+DATA_DIR = Path(os.getenv("NYAYA_DATA_DIR", str(ROOT_DIR / "data"))).expanduser()
+APP_DB_PATH = DATA_DIR / "nyaya_app.sqlite3"
 
 # ── LLM Provider ─────────────────────────────────────────────────
 
@@ -118,9 +120,9 @@ RERANK_BASE_URL = os.getenv(
 
 # ── OCR ───────────────────────────────────────────────────────────
 
-TESSERACT_CMD = os.getenv("TESSERACT_CMD", r"C:\Program Files\Tesseract-OCR\tesseract.exe")
+TESSERACT_CMD = os.getenv("TESSERACT_CMD", shutil.which("tesseract") or "")
 OCR_LANGUAGE = os.getenv("OCR_LANGUAGE", "eng")
-OCR_ENABLED = Path(TESSERACT_CMD).exists()
+OCR_ENABLED = bool(TESSERACT_CMD) and Path(TESSERACT_CMD).is_file()
 
 # ── Server ────────────────────────────────────────────────────────
 
