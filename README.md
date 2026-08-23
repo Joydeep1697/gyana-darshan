@@ -2,7 +2,7 @@
 
 **AI-powered Legal Intelligence Operating System for Indian Law**
 
-Powered by **NoveLaw** — a fine-tuned Indian Legal LLM trained on 252+ Indian legal documents spanning 36 categories and 22 legal domains.
+Powered by **Gyana Darshan** — a fine-tuned Indian Legal LLM trained on 252+ Indian legal documents spanning 36 categories and 22 legal domains.
 
 ---
 
@@ -30,11 +30,11 @@ copy .env.example .env
 # Edit .env with your settings
 ```
 
-**For local NoveLaw model (recommended):**
+**For local Gyana Darshan model (recommended):**
 ```
 LLM_PROVIDER=ollama
 OLLAMA_BASE_URL=http://localhost:11434/v1
-OLLAMA_MODEL=novelaw
+OLLAMA_MODEL=gyana-darshan
 ```
 
 **For NVIDIA NIM (cloud API):**
@@ -91,7 +91,7 @@ Gyana Darshan
 │   ├── Category/                 # Classified documents
 │   └── nova_rag_index/           # FAISS vector index
 │
-├── training/                     # NoveLaw LLM training pipeline
+├── training/                     # Gyana Darshan LLM training pipeline
 │   ├── generate_dataset.py       # Generate training data from corpus
 │   ├── finetune_colab.py         # QLoRA fine-tuning (Google Colab)
 │   ├── evaluate.py               # Indian Legal Benchmark
@@ -117,7 +117,7 @@ Gyana Darshan
 | **Proactive Alerts** | Compliance gaps, outdated references, and deadline tracking |
 | **AI Daily Briefing** | Dashboard shows AI-generated summary of your corpus state |
 
-## 🎓 Training NoveLaw (Your Own LLM)
+## 🎓 Training Gyana Darshan (Your Own LLM)
 
 See [training/README.md](training/README.md) for complete instructions on:
 1. Generating training data from your legal corpus
@@ -145,7 +145,7 @@ Once running, visit **http://localhost:8000/docs** for the interactive Swagger A
 
 ## 📄 License
 
-NoveLaw is fine-tuned from [Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct) (MIT License). The fine-tuned weights and all application code are proprietary to Gyana Darshan.
+Gyana Darshan is fine-tuned from [Phi-3.5-mini-instruct](https://huggingface.co/microsoft/Phi-3.5-mini-instruct) (MIT License). The fine-tuned weights and all application code are proprietary to Gyana Darshan.
 
 ---
 

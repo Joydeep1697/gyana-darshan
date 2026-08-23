@@ -100,7 +100,7 @@ def get_llm_client_kwargs() -> dict:
     }
 
 
-LLM_MODEL = os.getenv("OLLAMA_MODEL", "novelaw") if LLM_PROVIDER == "ollama" else os.getenv("NVIDIA_LLM_MODEL", "")
+LLM_MODEL = os.getenv("OLLAMA_MODEL", "gyana-darshan") if LLM_PROVIDER == "ollama" else os.getenv("NVIDIA_LLM_MODEL", "")
 RERANK_MODEL = os.getenv("NVIDIA_RERANK_MODEL", "nvidia/llama-nemotron-rerank-1b-v2")
 RERANK_BASE_URL = os.getenv(
     "NVIDIA_RERANK_URL",

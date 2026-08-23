@@ -7,7 +7,7 @@ from pathlib import Path
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--gguf", required=True, help="Path to the NoveLaw GGUF file")
+    parser.add_argument("--gguf", required=True, help="Path to the Gyana Darshan GGUF file")
     args = parser.parse_args()
     
     gguf_path = Path(args.gguf).resolve()
@@ -40,7 +40,7 @@ def main():
     
     print("Creating model in Ollama (this might take a minute)...")
     try:
-        subprocess.run(["ollama", "create", "novelaw", "-f", str(modelfile_path)], check=True)
+        subprocess.run(["ollama", "create", "gyana-darshan", "-f", str(modelfile_path)], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Failed to create model: {e}")
         sys.exit(1)
@@ -48,13 +48,13 @@ def main():
     print("\nVerifying model with a test query...")
     try:
         res = requests.post("http://localhost:11434/api/generate", json={
-            "model": "novelaw",
+            "model": "gyana-darshan",
             "prompt": "What is the capital of India?",
             "stream": False
         })
         print(f"Response: {res.json().get('response', '').strip()}")
-        print("\nSuccess! NoveLaw has been deployed.")
-        print("You can now run it using: ollama run novelaw")
+        print("\nSuccess! Gyana Darshan has been deployed.")
+        print("You can now run it using: ollama run gyana-darshan")
     except Exception as e:
         print(f"Verification failed: {e}")
 
