@@ -125,6 +125,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 async def http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(
         status_code=exc.status_code,
+        headers=exc.headers,
         content={
             "type": f"https://nyayadarshana.com/errors/{exc.status_code}",
             "title": "HTTP Exception",
@@ -147,8 +148,9 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 # ── Mount Routers ─────────────────────────────────────────────────
 
-from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive  # noqa: E402
+from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive, billing  # noqa: E402
 from api.auth.router import router as auth_router
+from api.auth.dependencies import get_current_user
 from api.conversations.router import router as conversations_router
 from database.connection import init_db
 
@@ -159,10 +161,12 @@ app.include_router(auth_router)
 app.include_router(conversations_router)
 app.include_router(vault.router, prefix="/api/vault", tags=["Knowledge Vault"])
 app.include_router(chat.router, prefix="/api/chat", tags=["AI Chat"])
-app.include_router(classifier.router, prefix="/api/classifier", tags=["Classifier"])
-app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
-app.include_router(knowledge_graph.router, prefix="/api/graph", tags=["Knowledge Graph"])
-app.include_router(proactive.router, prefix="/api/proactive", tags=["Proactive Intelligence"])
+_private_workspace = [Depends(get_current_user)]
+app.include_router(classifier.router, prefix="/api/classifier", tags=["Classifier"], dependencies=_private_workspace)
+app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"], dependencies=_private_workspace)
+app.include_router(knowledge_graph.router, prefix="/api/graph", tags=["Knowledge Graph"], dependencies=_private_workspace)
+app.include_router(proactive.router, prefix="/api/proactive", tags=["Proactive Intelligence"], dependencies=_private_workspace)
+app.include_router(billing.router, prefix="/api/billing", tags=["Billing"])
 
 # ── Production Dual-Panel Evidence API ────────────────────────────
 
@@ -308,3 +312,17 @@ async def health_check():
         "engine": "Nyaya Darshan Legal OS",
         "corpus_loaded_sections": len(retriever.corpus)
     }
+
+
+@app.get("/ready", tags=["System Health"])
+async def readiness_check():
+    """Verify persistent storage and the statutory corpus before accepting traffic."""
+    try:
+        with get_db().connect() as connection:
+            connection.execute("SELECT 1").fetchone()
+        if not retriever.corpus:
+            raise RuntimeError("The statutory corpus is unavailable")
+        return {"status": "READY", "database": "connected", "corpus_loaded_sections": len(retriever.corpus)}
+    except Exception:
+        logger.exception("Readiness verification failed")
+        return JSONResponse(status_code=503, content={"status": "NOT_READY", "detail": "A required service is unavailable"})

@@ -4,15 +4,16 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException
 from app.database import get_db, Database
 from app.config import CATEGORY_DIR
+from api.auth.dependencies import get_current_user
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 @router.post("/classify/{doc_id}")
-async def reclassify_document(doc_id: str, db: Database = Depends(get_db)):
+async def reclassify_document(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
     """Re-classify a document by running extract_pdf + classify_rules + detect_domain."""
     doc = db.get_document(doc_id)
-    if not doc:
+    if not doc or doc.get("owner_id") != user["id"]:
         raise HTTPException(404, "Document not found")
         
     def do_reclassify():
@@ -48,12 +49,12 @@ async def list_categories():
     return {"categories": categories}
 
 @router.get("/domains")
-async def list_domains(db: Database = Depends(get_db)):
+async def list_domains(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
     """List all domains with document counts."""
-    return {"domains": db.get_domain_counts()}
+    return {"domains": db.get_domain_counts(owner_id=user["id"])}
 
 @router.get("/stats")
-async def get_classification_stats():
+async def get_classification_stats(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
     """Get classification statistics from classification reports."""
-    # Placeholder for reading classification_reports
-    return {"accuracy": 0.95, "total_classified": 1500}
+    stats = db.get_document_stats(owner_id=user["id"])
+    return {"accuracy": None, "total_classified": stats["indexed"], "total_documents": stats["total_documents"], "categories": stats["categories"]}

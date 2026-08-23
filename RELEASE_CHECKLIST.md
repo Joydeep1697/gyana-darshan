@@ -1,60 +1,37 @@
-# NYAYA DARSHAN — PRODUCTION RELEASE CHECKLIST
+# Nyaya Darshana production release checklist
 
-**Release Version**: 2.0.0  
-**Target Environment**: Production (Render.com / Containerized VPS)  
-**Date**: 2026-08-21  
+A release is approved only when every applicable item has current evidence.
 
----
+## Source and build
 
-## 1. Pre-Deployment Configuration Verification
+- [ ] Confirm `.env`, browser profiles, SQLite databases, private uploads, and excluded download metadata are absent from the release commit and container context.
+- [ ] Run `python scripts/release_preflight.py --repository-only` successfully.
+- [ ] Install production dependencies and run `pip check`.
+- [ ] Require the GitHub Actions **Release verification** workflow to pass for the release commit.
+- [ ] Build the Docker image or complete the Render build without bypassing preflight checks.
 
-- [x] **Secrets Removed from Source Control**: `.env` is listed in `.gitignore` and removed from git index.
-- [x] **Sample Configuration Scrubbed**: `.env.example` contains only sanitized placeholder values.
-- [x] **Docker Build Sanitized**: `.dockerignore` prevents `.env`, test code, and dev scratch files from being copied.
-- [x] **Hot-Reload Disabled**: `run.py` checks `RELOAD_ON_CHANGE=1` before enabling reload (disabled by default in production).
-- [x] **Uvicorn Start Command Configured**: `render.yaml` sets `uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2`.
-- [x] **Health Check Sanitized**: `/health` endpoints return clean status, loaded section count, and no misleading benchmark claims.
-- [x] **CORS Configuration Verified**: Startup warning is logged if `ALLOWED_ORIGINS` is missing or wildcard in production.
+## Production configuration
 
----
+- [ ] Set `ENVIRONMENT=production` and `LLM_PROVIDER=nvidia`.
+- [ ] Generate independent random values of at least 32 characters for `NYAYA_API_KEY` and `NYAYA_JWT_SECRET`.
+- [ ] Store a freshly rotated `NVIDIA_API_KEY` only in the hosting platform secret manager.
+- [ ] Set `ALLOWED_ORIGINS` to exact HTTPS frontend origins; wildcards and HTTP are forbidden.
+- [ ] Either provide both rotated Razorpay credentials or leave both unset.
+- [ ] Provision persistent storage for database, uploads, and logs; Render disks require a paid eligible service.
+- [ ] Run `python scripts/release_preflight.py --environment-only` in production.
+- [ ] Keep `NYAYA_LOG_QUERY_TEXT=false` unless a reviewed retention policy authorizes logging legal questions.
 
-## 2. Environment Variables Required on Production Host
+## Live verification
 
-The following environment variables **must** be populated in the production dashboard (e.g. Render Environment Settings / Docker Compose):
+- [ ] Confirm `/health` succeeds through the public HTTPS deployment.
+- [ ] Confirm anonymous or invalid API keys cannot access protected endpoints.
+- [ ] Confirm account creation, sign-in, and cross-user authorization controls.
+- [ ] Submit a legal question and verify a real NVIDIA-generated response with traceable statutory citations.
+- [ ] Upload a valid PDF, reject malformed uploads, and confirm documents survive a service restart.
+- [ ] If billing is enabled, complete a Razorpay test-mode payment and verify signature rejection before switching to live keys.
+- [ ] Check logs for absence of secrets, raw legal queries, internal paths, and stack traces.
+- [ ] Verify domain/TLS, backups, restore procedure, incident ownership, and rollback instructions.
 
-| Variable | Description | Example / Required Format | Mandatory? |
-|---|---|---|:---:|
-| `HOST` | Bind host address | `0.0.0.0` | Yes |
-| `PORT` | Bind port number | `8000` | Yes |
-| `LLM_PROVIDER` | Active LLM inference provider | `nvidia` | Yes |
-| `NVIDIA_API_KEY` | NVIDIA Cloud NIM API key | `nvapi-...` | Yes (if `LLM_PROVIDER=nvidia`) |
-| `NVIDIA_LLM_MODEL` | Statutory reasoning model | `nvidia/llama-3.3-nemotron-super-49b-v1` | Yes |
-| `NYAYA_API_KEY` | Master API Key for endpoint auth | Strong random string (≥ 32 chars) | Yes (for protected API) |
-| `NYAYA_JWT_SECRET` | Session token signing secret | Unique random string (≥ 32 chars) | Yes |
-| `ALLOWED_ORIGINS` | Comma-delimited CORS origins | `https://nyayadarshana.com,https://app.nyayadarshana.com` | Yes |
-| `RAZORPAY_KEY_ID` | Payment gateway Key ID | `rzp_live_...` or `rzp_test_...` | Optional (Billing) |
-| `RAZORPAY_KEY_SECRET` | Payment gateway Key Secret | Razorpay secret string | Optional (Billing) |
+## Approval
 
----
-
-## 3. Post-Deployment Verification Smoke Steps
-
-Immediately after container deployment:
-
-1. **Verify Health Endpoint**:
-   ```bash
-   curl -s http://<host>:8000/health | grep '"status":"HEALTHY"'
-   ```
-2. **Verify Database Initialization**:
-   Confirm that tables `users`, `conversations`, `messages`, `vault_documents` exist and SQLite is operating in WAL mode.
-3. **Verify Grounded Retrieval API**:
-   ```bash
-   curl -s -X POST http://<host>:8000/api/v1/query \
-     -H "Content-Type: application/json" \
-     -H "X-API-Key: <your configured NYAYA_API_KEY>" \
-     -d '{"query": "Convert IPC 302 to BNS", "top_k": 3}' | grep '103(1)'
-   ```
-4. **Verify Path Exposure Sanitization**:
-   Confirm response contains 0 internal drive paths or system trace tokens.
-5. **Verify Rate Limiting Headers**:
-   Confirm response headers include `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and `X-RateLimit-Reset`.
+Record the deployed commit, workflow URL, deployment URL, verifier, date, and evidence for each live check. Repository checks alone do not establish production readiness.

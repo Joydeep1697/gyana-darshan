@@ -96,7 +96,7 @@ rate_limiter = InMemoryRateLimiter(requests_per_minute=300)
 class RateLimitMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         # Exclude health check and static assets from strict rate limits
-        if request.url.path in ["/health", "/docs", "/openapi.json"] or request.url.path.startswith("/static"):
+        if request.url.path in ["/health", "/ready", "/docs", "/openapi.json"] or request.url.path.startswith("/static"):
             return await call_next(request)
 
         client_ip = request.client.host if request.client else "127.0.0.1"

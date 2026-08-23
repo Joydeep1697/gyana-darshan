@@ -137,6 +137,34 @@ Once running, visit **http://localhost:8000/docs** for the interactive Swagger A
 | `/api/graph/network` | GET | Citation network data |
 | `/api/proactive/compliance-gaps` | GET | Compliance gap analysis |
 
+## Production deployment
+
+`render.yaml` defines a Python 3.11 service with an attached persistent disk for
+SQLite databases, uploads, and application logs. **Render persistent disks and
+the web-service plan that supports them are paid features**; do not deploy this
+configuration on an ephemeral free instance if conversations or uploads must
+survive restarts. Configure `NVIDIA_API_KEY` and explicit HTTPS
+`ALLOWED_ORIGINS` in Render before deployment. The blueprint generates separate
+`NYAYA_API_KEY` and `NYAYA_JWT_SECRET` values automatically. Set both Razorpay
+credentials together only when payment processing is enabled.
+
+The deployment runs these release gates automatically:
+
+```bash
+python scripts/release_preflight.py --repository-only
+python scripts/release_preflight.py --environment-only
+```
+
+The first checks deployment files and secret exclusions without requiring live
+credentials; the second fails startup on missing secrets, insecure origins,
+unsupported providers, or incomplete payment configuration. GitHub Actions
+installs the full dependency set and runs statutory, deployment, authentication,
+authorization, legal-generation, and application regression suites.
+
+For Docker, mount persistent storage at `/var/lib/nyaya`, pass secrets through
+your hosting platform, and expose the configured `PORT`. The image runs as an
+unprivileged user and checks `/health` automatically.
+
 ## 📄 License
 
 Nyaya Darshan application code and project-specific legal datasets are proprietary. Any future fine-tuned model remains subject to the selected base model's license and independently verified training results.
