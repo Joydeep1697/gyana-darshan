@@ -30,6 +30,7 @@ from retrieval.legal_reranker import LegalReranker
 from retrieval.issue_planner import LegalIssuePlanner
 from retrieval.legal_concept_expander import LegalConceptExpander
 from retrieval.evidence_budget_engine import EvidenceBudgetEngine
+from retrieval.legal_reasoning import build_reasoning_plan, format_compact_evidence, prioritize_evidence
 
 class AuthoritativeLegalRetriever:
     def __init__(self):
@@ -344,6 +345,13 @@ class AuthoritativeLegalRetriever:
                         curr_top_ids.add(rec["id"])
                         top_sections.append(rec)
 
+        reasoning_plan = build_reasoning_plan(query)
+        if reasoning_plan.issues:
+            top_sections = prioritize_evidence(
+                reasoning_plan, top_sections, self.corpus_by_statute_sec,
+                limit=max(top_k, min(8, len(reasoning_plan.required_citations))),
+            )
+
         return {
             "query": query,
             "deterministic_payload": deterministic_payload,
@@ -352,10 +360,17 @@ class AuthoritativeLegalRetriever:
             "authoritative_facts": authoritative_facts,
             "retrieved_sections": top_sections,
             "top_documents": top_sections,
-            "query_analysis": analysis
+            "query_analysis": analysis,
+            "issue_categories": [issue.category for issue in reasoning_plan.issues],
+            "legal_safeguards": reasoning_plan.safeguards,
         }
 
     def format_evidence_context(self, evidence_pack: Dict[str, Any]) -> str:
+        reasoning_plan = build_reasoning_plan(evidence_pack.get("query", ""))
+        if reasoning_plan.issues:
+            return format_compact_evidence(
+                reasoning_plan, evidence_pack.get("retrieved_sections", [])
+            )
         analysis = evidence_pack.get("query_analysis", {})
         ctx = "=== AUTHORITATIVE STATUTORY EVIDENCE PACK (OFFICIAL GAZETTE) ===\n"
 

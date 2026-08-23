@@ -113,6 +113,12 @@ LLM_MODEL = os.getenv(
     "NVIDIA_LLM_MODEL", "nvidia/llama-3.3-nemotron-super-49b-v1"
 ).strip()
 RERANK_MODEL = os.getenv("NVIDIA_RERANK_MODEL", "nvidia/llama-nemotron-rerank-1b-v2")
+LEGAL_REQUEST_TIMEOUT = float(os.getenv("LEGAL_REQUEST_TIMEOUT", "75"))
+LEGAL_MODEL_TIMEOUT = float(os.getenv("LEGAL_MODEL_TIMEOUT", "60"))
+LEGAL_MAX_TOKENS = int(os.getenv("LEGAL_MAX_TOKENS", "320"))
+LEGAL_CACHE_TTL_SECONDS = int(os.getenv("LEGAL_CACHE_TTL_SECONDS", "300"))
+LEGAL_MAX_CONCURRENCY = int(os.getenv("LEGAL_MAX_CONCURRENCY", "4"))
+LEGAL_MAX_RETRIES = int(os.getenv("LEGAL_MAX_RETRIES", "2"))
 RERANK_BASE_URL = os.getenv(
     "NVIDIA_RERANK_URL",
     "https://ai.api.nvidia.com/v1/retrieval/nvidia/llama-nemotron-rerank-1b-v2/reranking",

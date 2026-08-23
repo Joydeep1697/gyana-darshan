@@ -26,6 +26,7 @@ from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from app import config
 from api.security import (
     RateLimitMiddleware, verify_api_key, sanitize_response_data,
     log_audit_event
@@ -219,7 +220,7 @@ async def process_legal_query(
             return passed_fw, enforced_answer, claims, evidence_pack, formatted_sections
 
         passed_fw, enforced_answer, claims, evidence_pack, formatted_sections = await asyncio.wait_for(
-            _execute_pipeline(), timeout=15.0
+            _execute_pipeline(), timeout=config.LEGAL_REQUEST_TIMEOUT
         )
 
     except asyncio.TimeoutError:
