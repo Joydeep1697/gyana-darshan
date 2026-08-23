@@ -1,4 +1,4 @@
-"""Gyana Darshan — Configuration Management.
+"""Nyaya Darshan — Configuration Management.
 
 Reads environment variables (with .env fallback) and provides
 centralized path and LLM configuration for the entire application.
@@ -45,7 +45,14 @@ def validate_production_config():
             "FAIL-CLOSED: Explicit non-wildcard ALLOWED_ORIGINS is required in production mode. Refusing startup."
         )
 
-    # 3. If LLM_PROVIDER is nvidia, NVIDIA_API_KEY must be configured
+    # 3. Authentication tokens must never use a public or predictable secret.
+    jwt_secret = os.getenv("NYAYA_JWT_SECRET", "").strip()
+    if len(jwt_secret) < 32:
+        raise RuntimeError(
+            "FAIL-CLOSED: NYAYA_JWT_SECRET must contain at least 32 characters in production mode."
+        )
+
+    # 4. If LLM_PROVIDER is nvidia, NVIDIA_API_KEY must be configured.
     if LLM_PROVIDER == "nvidia":
         nv_key = os.getenv("NVIDIA_API_KEY", "").strip()
         if not nv_key:
@@ -56,7 +63,7 @@ def validate_production_config():
 
 # ── Base directories ──────────────────────────────────────────────
 
-ROOT_DIR = Path(__file__).resolve().parent.parent  # d:\Gyana Darshan
+ROOT_DIR = Path(__file__).resolve().parent.parent
 INDIAN_LEGAL_DIR = Path(
     os.getenv("INDIAN_LEGAL_DIR", str(ROOT_DIR / "Indian Legal"))
 )
@@ -78,29 +85,31 @@ APP_DB_PATH = ROOT_DIR / "app" / "nova_app.sqlite3"
 
 # ── LLM Provider ─────────────────────────────────────────────────
 
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "ollama").lower()  # "ollama" or "nvidia"
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "nvidia").strip().lower()
+SUPPORTED_LLM_PROVIDERS = {"nvidia"}
 
 
 def get_llm_client_kwargs() -> dict:
     """Return kwargs for ``openai.OpenAI(...)`` matching the active provider."""
-    if LLM_PROVIDER == "nvidia":
-        api_key = os.getenv("NVIDIA_API_KEY", "")
-        if not api_key:
-            raise RuntimeError(
-                "NVIDIA_API_KEY environment variable is required when LLM_PROVIDER=nvidia"
-            )
-        return {
-            "base_url": os.getenv("NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"),
-            "api_key": api_key,
-        }
-    # Default: Ollama (local)
+    if LLM_PROVIDER not in SUPPORTED_LLM_PROVIDERS:
+        raise RuntimeError(
+            f"Unsupported LLM_PROVIDER={LLM_PROVIDER!r}. Configure LLM_PROVIDER=nvidia."
+        )
+
+    api_key = os.getenv("NVIDIA_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError(
+            "NVIDIA_API_KEY environment variable is required when LLM_PROVIDER=nvidia"
+        )
     return {
-        "base_url": os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1"),
-        "api_key": "ollama",  # Ollama doesn't require a real key
+        "base_url": os.getenv("NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"),
+        "api_key": api_key,
     }
 
 
-LLM_MODEL = os.getenv("OLLAMA_MODEL", "gyana-darshan") if LLM_PROVIDER == "ollama" else os.getenv("NVIDIA_LLM_MODEL", "")
+LLM_MODEL = os.getenv(
+    "NVIDIA_LLM_MODEL", "nvidia/llama-3.3-nemotron-super-49b-v1"
+).strip()
 RERANK_MODEL = os.getenv("NVIDIA_RERANK_MODEL", "nvidia/llama-nemotron-rerank-1b-v2")
 RERANK_BASE_URL = os.getenv(
     "NVIDIA_RERANK_URL",

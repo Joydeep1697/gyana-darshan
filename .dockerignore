@@ -16,6 +16,9 @@ __pycache__/
 *.pyo
 *.pyd
 .pytest_cache/
+evaluation/chrome_profile*/
+playwright-report/
+test-results/
 
 # ── Git ───────────────────────────────────────────────────────────
 .git/

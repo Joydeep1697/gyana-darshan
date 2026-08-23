@@ -27,6 +27,7 @@ torch.set_num_threads(1)
 
 from app import config
 from app.database import get_db
+from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
@@ -38,7 +39,7 @@ from api.security import (
     log_audit_event
 )
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 
 # Singletons
 retriever = AuthoritativeLegalRetriever()
@@ -93,7 +94,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
     allow_credentials=_allow_credentials,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -215,12 +216,9 @@ async def process_legal_query(
             evidence_pack = retriever.retrieve_evidence_pack(query, top_k=req.top_k)
             evidence_ctx = retriever.format_evidence_context(evidence_pack)
 
-            simulated_raw = (
-                f"According to current Indian Statutory Law:\n{evidence_ctx}\n"
-                f"In response to '{query}', the authoritative legal position is established under statute."
-            )
+            generated_answer = await generate_grounded_legal_answer(query, evidence_ctx)
 
-            passed_fw, enforced_answer, claims = firewall.verify_and_enforce(simulated_raw, evidence_pack)
+            passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
 
             formatted_sections = []
             for s in evidence_pack.get("retrieved_sections", []):
@@ -243,6 +241,8 @@ async def process_legal_query(
             status_code=status.HTTP_504_GATEWAY_TIMEOUT,
             detail="The legal reasoning pipeline timed out. Please retry with a more specific query."
         )
+    except LegalGenerationError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
 
     latency = round((time.perf_counter() - t0) * 1000, 2)
     grounding_status = "GROUNDED_AND_VERIFIED" if passed_fw else "AUTO_CORRECTED_BY_FIREWALL"
@@ -308,4 +308,3 @@ async def health_check():
         "engine": "Nyaya Darshan Legal OS",
         "corpus_loaded_sections": len(retriever.corpus)
     }
-

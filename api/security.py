@@ -20,8 +20,8 @@ from fastapi import HTTPException, Security, status
 from fastapi.security import APIKeyHeader, HTTPBearer, HTTPAuthorizationCredentials
 
 logger = logging.getLogger("nyaya-security")
-BASE_DIR = Path(r"d:\Gyana Darshan")
-LOGS_DIR = BASE_DIR / "logs"
+BASE_DIR = Path(__file__).resolve().parent.parent
+LOGS_DIR = Path(os.environ.get("NYAYA_LOG_DIR", str(BASE_DIR / "logs"))).expanduser()
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 AUDIT_LOG_FILE = LOGS_DIR / "nyaya_api_audit.jsonl"
 
@@ -55,7 +55,9 @@ def verify_api_key(
         return True  # Open in dev/local mode
 
     token = api_key or (bearer_token.credentials if bearer_token else None)
-    if not token or token.strip() != master_key:
+    import hmac
+
+    if not token or not hmac.compare_digest(token.strip(), master_key):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or missing API key. Provide via X-API-Key header or Authorization Bearer token."

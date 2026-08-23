@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 
 def build_document_links(doc_id: str, entities: list[dict], all_docs: list[dict]) -> list[dict]:
     """

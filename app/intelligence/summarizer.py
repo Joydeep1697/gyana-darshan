@@ -2,7 +2,7 @@ import logging
 import openai
 from app import config
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 
 def generate_summary(text: str, doc_type: str, metadata: dict) -> str:
     """

@@ -1,1 +1,1 @@
-# Gyana Darshan — API Routers
+# Nyaya Darshan — API Routers

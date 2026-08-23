@@ -1,4 +1,4 @@
-"""Gyana Darshan — Server Entry Point.
+"""Nyaya Darshan — Server Entry Point.
 
 Usage:
     python run.py
@@ -32,4 +32,3 @@ if __name__ == "__main__":
         reload=reload_flag,
         log_level="info",
     )
-

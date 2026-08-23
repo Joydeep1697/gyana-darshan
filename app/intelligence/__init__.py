@@ -1,1 +1,1 @@
-# Gyana Darshan — Intelligence Engine
+# Nyaya Darshan — Intelligence Engine

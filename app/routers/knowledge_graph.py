@@ -2,7 +2,7 @@ import logging
 from fastapi import APIRouter, Depends
 from app.database import get_db, Database
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 @router.get("/document/{doc_id}/links")

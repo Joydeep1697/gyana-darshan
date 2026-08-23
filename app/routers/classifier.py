@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.database import get_db, Database
 from app.config import CATEGORY_DIR
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 @router.post("/classify/{doc_id}")

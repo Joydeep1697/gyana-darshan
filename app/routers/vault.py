@@ -10,7 +10,7 @@ from app.database import get_db, Database
 from app.models import DocumentResponse, SearchResponse, SearchRequest
 from app.config import RAW_DIR, get_llm_client_kwargs
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 # WebSocket connections tracking

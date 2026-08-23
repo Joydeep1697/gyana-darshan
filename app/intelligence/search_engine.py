@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 from app import config
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 
 try:
     # Import existing RAG engine after config has set up the path

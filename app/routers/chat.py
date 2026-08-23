@@ -8,6 +8,7 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException, Request
 from app.database import get_db, Database
 from app.models import ChatResponse, ChatRequest
+from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
@@ -15,7 +16,7 @@ from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
 
-logger = logging.getLogger("gyana-darshan-app")
+logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 # Singletons
@@ -34,14 +35,14 @@ async def ask(req: ChatRequest, db: Database = Depends(get_db)):
     evidence_pack = retriever.retrieve_evidence_pack(query, top_k=4)
     evidence_ctx = retriever.format_evidence_context(evidence_pack)
 
-    # 2. Candidate Legal Generation
-    simulated_raw = (
-        f"According to current Indian Statutory Law:\n{evidence_ctx}\n"
-        f"In response to '{query}', the authoritative legal position is established under statute."
-    )
+    # 2. Generate an evidence-grounded answer through the configured cloud model.
+    try:
+        generated_answer = await generate_grounded_legal_answer(query, evidence_ctx)
+    except LegalGenerationError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
     # 3. Field-Level Verification & Firewall Enforcement
-    passed_fw, enforced_answer, claims = firewall.verify_and_enforce(simulated_raw, evidence_pack)
+    passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
 
     # Build sources array for UI display
     sources = []
