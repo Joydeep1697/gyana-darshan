@@ -1,4 +1,4 @@
-# NYAYA DARSHANA / GYANA — PRODUCTION RELEASE CHECKLIST
+# NYAYA DARSHAN — PRODUCTION RELEASE CHECKLIST
 
 **Release Version**: 2.0.0  
 **Target Environment**: Production (Render.com / Containerized VPS)  
@@ -30,6 +30,7 @@ The following environment variables **must** be populated in the production dash
 | `NVIDIA_API_KEY` | NVIDIA Cloud NIM API key | `nvapi-...` | Yes (if `LLM_PROVIDER=nvidia`) |
 | `NVIDIA_LLM_MODEL` | Statutory reasoning model | `nvidia/llama-3.3-nemotron-super-49b-v1` | Yes |
 | `NYAYA_API_KEY` | Master API Key for endpoint auth | Strong random string (≥ 32 chars) | Yes (for protected API) |
+| `NYAYA_JWT_SECRET` | Session token signing secret | Unique random string (≥ 32 chars) | Yes |
 | `ALLOWED_ORIGINS` | Comma-delimited CORS origins | `https://nyayadarshana.com,https://app.nyayadarshana.com` | Yes |
 | `RAZORPAY_KEY_ID` | Payment gateway Key ID | `rzp_live_...` or `rzp_test_...` | Optional (Billing) |
 | `RAZORPAY_KEY_SECRET` | Payment gateway Key Secret | Razorpay secret string | Optional (Billing) |
@@ -50,6 +51,7 @@ Immediately after container deployment:
    ```bash
    curl -s -X POST http://<host>:8000/api/v1/query \
      -H "Content-Type: application/json" \
+     -H "X-API-Key: <your configured NYAYA_API_KEY>" \
      -d '{"query": "Convert IPC 302 to BNS", "top_k": 3}' | grep '103(1)'
    ```
 4. **Verify Path Exposure Sanitization**:
