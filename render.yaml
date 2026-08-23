@@ -6,6 +6,7 @@ services:
     # Use uvicorn directly — never python run.py in production (run.py enables reload=True
     # only when RELOAD_ON_CHANGE=1, but uvicorn direct is cleaner for platform deployments).
     startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2"
+    healthCheckPath: /health
     envVars:
       - key: ENVIRONMENT
         value: production
@@ -19,9 +20,19 @@ services:
         sync: false
       - key: NYAYA_JWT_SECRET
         generateValue: true
+      - key: NYAYA_DATA_DIR
+        value: /var/data
+      - key: RAW_DIR
+        value: /var/data/uploads
+      - key: NYAYA_LOG_DIR
+        value: /var/data/logs
       - key: RAZORPAY_KEY_ID
         sync: false
       - key: RAZORPAY_KEY_SECRET
         sync: false
       - key: ALLOWED_ORIGINS
         sync: false
+    disk:
+      name: nyaya-darshan-data
+      mountPath: /var/data
+      sizeGB: 5
