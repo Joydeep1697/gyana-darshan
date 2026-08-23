@@ -2,6 +2,7 @@ import logging
 import asyncio
 import os
 import shutil
+import uuid
 from pathlib import Path
 from typing import Optional
 from fastapi import APIRouter, Depends, UploadFile, File, BackgroundTasks, HTTPException, WebSocket, WebSocketDisconnect, Query
@@ -32,7 +33,7 @@ def process_document(doc_id: str, file_path: str):
     try:
         # Step 1: Save file -> update status
         asyncio.run(broadcast_progress(doc_id, {"status": "extracting", "progress": 10}))
-        db.update_document_status(doc_id, "extracting")
+        db.update_document(doc_id, status="extracting")
         
         # Imports from backend
         try:
@@ -45,7 +46,7 @@ def process_document(doc_id: str, file_path: str):
             from app.config import OCR_ENABLED, OCR_LANGUAGE
         except ImportError as e:
             logger.error(f"Failed to import backend modules: {e}")
-            db.update_document_status(doc_id, "failed")
+            db.update_document(doc_id, status="failed")
             asyncio.run(broadcast_progress(doc_id, {"status": "failed", "error": "Backend modules unavailable"}))
             return
 
@@ -56,7 +57,7 @@ def process_document(doc_id: str, file_path: str):
             text = extracted.text
         except Exception as e:
             logger.error(f"Failed to extract PDF: {e}")
-            db.update_document_status(doc_id, "failed")
+            db.update_document(doc_id, status="failed")
             asyncio.run(broadcast_progress(doc_id, {"status": "failed", "error": "PDF extraction failed"}))
             return
             
@@ -104,28 +105,33 @@ def process_document(doc_id: str, file_path: str):
             pass
 
         # Step 7: Done
-        db.update_document_status(doc_id, "indexed")
+        db.update_document(doc_id, status="indexed", category=category, domain=domain, pages=pages)
         # In a real system: db.set_process_time(doc_id, ...)
         asyncio.run(broadcast_progress(doc_id, {"status": "indexed", "progress": 100}))
 
     except Exception as e:
         logger.exception("Unexpected error in process_document")
-        db.update_document_status(doc_id, "failed")
-        asyncio.run(broadcast_progress(doc_id, {"status": "failed", "error": str(e)}))
+        db.update_document(doc_id, status="failed")
+        asyncio.run(broadcast_progress(doc_id, {"status": "failed", "error": "Document processing failed"}))
 
 @router.post("/upload")
 async def upload_document(background_tasks: BackgroundTasks, file: UploadFile = File(...), db: Database = Depends(get_db)):
     """Upload a PDF and start background processing."""
-    if not file.filename.endswith('.pdf'):
+    original_filename = Path(file.filename or "").name
+    if not original_filename or Path(original_filename).suffix.lower() != ".pdf":
         raise HTTPException(400, "Only PDF files are supported")
     
     # Ensure RAW_DIR exists
     os.makedirs(RAW_DIR, exist_ok=True)
-    file_path = RAW_DIR / file.filename
+    file_path = RAW_DIR / f"{uuid.uuid4().hex}_{original_filename}"
     with open(file_path, "wb") as f:
         shutil.copyfileobj(file.file, f)
+    with open(file_path, "rb") as uploaded_file:
+        if uploaded_file.read(5) != b"%PDF-":
+            file_path.unlink(missing_ok=True)
+            raise HTTPException(400, "The uploaded file is not a valid PDF")
         
-    doc_id = db.create_document_record(file.filename, str(file_path))
+    doc_id = db.create_document(original_filename, file_path.stat().st_size, str(file_path))
     background_tasks.add_task(process_document, doc_id, str(file_path))
     return {"doc_id": doc_id, "status": "processing"}
 
@@ -138,7 +144,7 @@ async def list_documents(status: Optional[str] = None, category: Optional[str] =
 @router.get("/documents/{doc_id}")
 async def get_document(doc_id: str, db: Database = Depends(get_db)):
     """Get full details of a specific document including entities, clauses, deadlines, and links."""
-    doc = db.get_document_details(doc_id)
+    doc = db.get_document(doc_id)
     if not doc:
         raise HTTPException(404, "Document not found")
     return doc
@@ -149,8 +155,8 @@ async def delete_document(doc_id: str, db: Database = Depends(get_db)):
     doc = db.get_document(doc_id)
     if doc:
         try:
-            if os.path.exists(doc['file_path']):
-                os.remove(doc['file_path'])
+            if doc.get('raw_path') and os.path.exists(doc['raw_path']):
+                os.remove(doc['raw_path'])
         except Exception:
             pass
         db.delete_document(doc_id)
