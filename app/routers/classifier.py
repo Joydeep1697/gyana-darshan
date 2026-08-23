@@ -18,8 +18,8 @@ async def reclassify_document(doc_id: str, db: Database = Depends(get_db)):
     def do_reclassify():
         from gyana_darshan_classifier import extract_pdf, classify_rules, detect_domain
         from app.config import OCR_ENABLED, OCR_LANGUAGE
-        extracted = extract_pdf(doc['file_path'], OCR_ENABLED, OCR_LANGUAGE)
-        filename = Path(doc['file_path']).name
+        extracted = extract_pdf(doc['raw_path'], OCR_ENABLED, OCR_LANGUAGE)
+        filename = Path(doc['raw_path']).name
         category, confidence, _, _ = classify_rules(filename, extracted.text, None, 0.5)
         domain = detect_domain(extracted.text, filename)
         return category, domain
