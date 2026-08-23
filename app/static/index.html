@@ -1520,6 +1520,11 @@ function profileAction(action){
 }
 
 function openProfileModal(){
+    if (!currentUser) { openAuthModal(); return; }
+    const displayName = escapeHtml(currentUser.full_name || 'Nyaya Darshan user');
+    const displayEmail = escapeHtml(currentUser.email || 'No email available');
+    const initials = escapeHtml((currentUser.full_name || 'ND').split(' ').map(part => part[0]).join('').slice(0, 2).toUpperCase());
+    const paymentStatus = window.RAZORPAY_KEY_ID ? 'Configured' : 'Not configured';
     let old = document.getElementById('userProfileModal');
     if(old) old.remove();
     let el = document.createElement('div');
@@ -1530,19 +1535,19 @@ function openProfileModal(){
         <div class="command w-full max-w-lg panel rounded-[24px] p-6">
             <div class="flex justify-between items-start mb-5">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-2xl bg-[#e8ebef] text-[#171a1f] grid place-items-center font-bold text-lg">JD</div>
+                    <div class="w-12 h-12 rounded-2xl bg-[#e8ebef] text-[#171a1f] grid place-items-center font-bold text-lg">${initials}</div>
                     <div>
-                        <h3 class="text-lg font-semibold">Joydeep Das</h3>
-                        <div class="text-xs text-[#36d399] font-mono">joydeep@novaosconsulting.com</div>
+                        <h3 class="text-lg font-semibold">${displayName}</h3>
+                        <div class="text-xs text-[#36d399] font-mono">${displayEmail}</div>
                     </div>
                 </div>
                 <button onclick="document.getElementById('userProfileModal').remove()" class="w-8 h-8 rounded-xl hover:bg-white/5 text-lg">×</button>
             </div>
             <div class="space-y-3 text-xs">
-                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Role</span><span class="font-medium">Enterprise AI Architect & Systems Engineer</span></div>
-                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Subscription Tier</span><span class="pill bg-[#36d399]/20 text-[#36d399] border-none font-semibold">Enterprise OS Active</span></div>
+                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Role</span><span class="font-medium">${escapeHtml(currentUser.role || 'USER')}</span></div>
+                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Subscription Tier</span><span class="pill bg-[#36d399]/20 text-[#36d399] border-none font-semibold">${escapeHtml(currentUser.subscription_tier || 'Free')}</span></div>
                 <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">LLM Engine</span><span class="font-medium">NVIDIA NIM (Llama 3.3 Nemotron 49B)</span></div>
-                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Payment Gateway</span><span class="font-medium text-[#36d399]">Razorpay Gateway (Live Active)</span></div>
+                <div class="card p-3 flex justify-between items-center"><span class="text-[#7f8798]">Payment Gateway</span><span class="font-medium text-[#36d399]">${paymentStatus}</span></div>
             </div>
             <button onclick="showToast('Profile updated!'); document.getElementById('userProfileModal').remove();" class="w-full mt-5 py-3 rounded-xl gradient font-semibold text-xs">Save Profile Changes</button>
         </div>
@@ -1797,8 +1802,8 @@ function openSignOutModal() {
             <div class="w-12 h-12 rounded-2xl bg-[#ff6b7d]/15 border border-[#ff6b7d]/30 text-[#ff6b7d] grid place-items-center mx-auto text-xl mb-4">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </div>
-            <h3 class="text-lg font-semibold">Sign out of Nyaya Legal OS?</h3>
-            <p class="text-xs text-[#7f8798] mt-2 leading-relaxed">Signed in as <b class="text-white">joydeep@novaosconsulting.com</b></p>
+            <h3 class="text-lg font-semibold">Sign out of Nyaya Darshan?</h3>
+            <p class="text-xs text-[#7f8798] mt-2 leading-relaxed">Signed in as <b class="text-white">${escapeHtml(currentUser?.email || 'your account')}</b></p>
             <div class="grid grid-cols-2 gap-3 mt-6">
                 <button onclick="document.getElementById('signOutModal').remove()" class="py-2.5 rounded-xl border border-[#2a2e3a] hover:bg-white/5 text-xs font-semibold">Cancel</button>
                 <button onclick="confirmSignOut()" class="py-2.5 rounded-xl bg-[#ff6b7d] text-white hover:brightness-110 text-xs font-semibold">Confirm Sign Out</button>
@@ -1810,8 +1815,7 @@ function openSignOutModal() {
 
 function confirmSignOut() {
     document.getElementById('signOutModal')?.remove();
-    localStorage.clear();
-    showToast('Signed out of joydeep@novaosconsulting.com');
+    handleAuthLogout();
     setTimeout(() => {
         window.location.reload();
     }, 1200);
@@ -1838,22 +1842,34 @@ function closePricingModal(){
 }
 function selectTier(tierName){
  closePricingModal();
- if (typeof Razorpay !== 'undefined' && (tierName === 'Professional' || tierName === 'Enterprise')) {
+ if (tierName !== 'Professional' && tierName !== 'Enterprise') {
+     showToast(`Selected ${tierName}.`);
+     return;
+ }
+ if (!currentUser) {
+     showToast('Sign in before choosing a paid subscription.', true);
+     openAuthModal();
+     return;
+ }
+ if (typeof Razorpay === 'undefined' || !window.RAZORPAY_KEY_ID) {
+     showToast('Payments are not configured. No subscription was purchased.', true);
+     return;
+ }
+ {
      const amountInPaise = tierName === 'Professional' ? 399900 : 4999900;
      const options = {
-         key: window.RAZORPAY_KEY_ID || "rzp_test_placeholder",
+         key: window.RAZORPAY_KEY_ID,
          amount: amountInPaise,
          currency: "INR",
-         name: "Nyaya Legal OS",
+         name: "Nyaya Darshan",
          description: `${tierName} Subscription Plan`,
          image: "1.png",
          handler: function (response) {
-             showToast(`🎉 Payment Successful! ${tierName} Tier Activated! Ref: ${response.razorpay_payment_id}`);
+             showToast(`Payment received. Verification is required before ${tierName} can be activated. Ref: ${response.razorpay_payment_id}`);
          },
          prefill: {
-             name: "Joydeep Das",
-             email: "joydeep.das.1611@gmail.com",
-             contact: "+919591799319"
+             name: currentUser.full_name || '',
+             email: currentUser.email || ''
          },
          theme: {
              color: "#36d399"
@@ -1865,9 +1881,9 @@ function selectTier(tierName){
          return;
      } catch (e) {
          console.warn("Razorpay popup launch:", e);
+         showToast('Unable to start checkout. No subscription was purchased.', true);
      }
  }
- showToast(`Nyaya Platform Tier set to: ${tierName}`);
 }
 
 function contextAction(a){document.getElementById('contextMenu').classList.add('hidden');openCommand();document.getElementById('commandInput').value=a;filterCommands(a)}
