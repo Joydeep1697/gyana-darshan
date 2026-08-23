@@ -1,0 +1,69 @@
+{
+  "corpus_version": "2026.08.18",
+  "engine_version": "1.0.0",
+  "total_sections": 1353,
+  "statutes": [
+    {
+      "statute_name": "Bharatiya Nyaya Sanhita, 2023",
+      "short_name": "BNS",
+      "act_number": "Act 45 of 2023",
+      "enactment_year": 2023,
+      "effective_date": "2024-07-01",
+      "predecessor": "Indian Penal Code, 1860 (IPC)",
+      "section_count": 344,
+      "jsonl_file": "corpus_integrity/bns_2023_corpus.jsonl",
+      "source_document": "Indian Legal/raw/bcbc61df3b552a46b7155303bedf6a75830021414aa81943d4d469ea40fe56e61785957183.pdf",
+      "source_file_size_bytes": 545705,
+      "sha256_hash": "97afd91af22a5659970d48b382b91fa2ae675dc9e4e7ed96c50004beb3eb0f31",
+      "extraction_status": "VALIDATED_PRODUCTION"
+    },
+    {
+      "statute_name": "Bharatiya Nagarik Suraksha Sanhita, 2023",
+      "short_name": "BNSS",
+      "act_number": "Act 46 of 2023",
+      "enactment_year": 2023,
+      "effective_date": "2024-07-01",
+      "predecessor": "Code of Criminal Procedure, 1973 (CrPC)",
+      "section_count": 714,
+      "jsonl_file": "corpus_integrity/bnss_2023_corpus.jsonl",
+      "source_document": "Indian Legal/raw/A202346.pdf",
+      "source_file_size_bytes": 1948217,
+      "sha256_hash": "54b27a4f2786dc5867c2cc23391e8359b3b29125684119acbc652d1630a716d6",
+      "extraction_status": "VALIDATED_PRODUCTION"
+    },
+    {
+      "statute_name": "Bharatiya Sakshya Adhiniyam, 2023",
+      "short_name": "BSA",
+      "act_number": "Act 47 of 2023",
+      "enactment_year": 2023,
+      "effective_date": "2024-07-01",
+      "predecessor": "Indian Evidence Act, 1872 (IEA)",
+      "section_count": 233,
+      "jsonl_file": "corpus_integrity/bsa_2023_corpus.jsonl",
+      "source_document": "Indian Legal/raw/aa202347.pdf",
+      "source_file_size_bytes": 525216,
+      "sha256_hash": "993882ad0ae7ded6ae8087351edd61caeb6faa1a2d6c8fff8c269a9cf149b9ac",
+      "extraction_status": "VALIDATED_PRODUCTION"
+    },
+    {
+      "statute_name": "Protection of Children from Sexual Offences Act, 2012",
+      "short_name": "POCSO",
+      "act_number": "Act 32 of 2012",
+      "enactment_year": 2012,
+      "effective_date": "2012-11-14",
+      "predecessor": "None (Special Child Protection Statute; Overrides General Law per Section 42A)",
+      "section_count": 62,
+      "jsonl_file": "corpus_integrity/pocso_2012_corpus.jsonl",
+      "source_document": "Indian Legal/raw/AA2012-32.pdf",
+      "source_file_size_bytes": 207723,
+      "sha256_hash": "def90f072fdb6b62fe95adafa0f5e1ef08f5f1002dbb6067f8af4b1cd94a5c5b",
+      "extraction_status": "VALIDATED_PRODUCTION"
+    }
+  ],
+  "counts": {
+    "BNS": 344,
+    "BNSS": 714,
+    "BSA": 233,
+    "POCSO": 62
+  }
+}

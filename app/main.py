@@ -48,8 +48,9 @@ firewall = LegalVerificationFirewall()
 
 @asynccontextmanager
 async def lifespan(application: FastAPI) -> AsyncGenerator[None, None]:
-    """Startup: init DB, verify statutory corpus."""
+    """Startup: validate production config, init DB, verify statutory corpus."""
     logger.info("Nyaya Darshan Legal OS starting up...")
+    config.validate_production_config()
     db = get_db()
     logger.info("Statutory Corpus loaded: %d Bare Act sections", len(retriever.corpus))
     logger.info("Nyaya Darshan ready — serving on http://%s:%s", config.HOST, config.PORT)
@@ -69,14 +70,33 @@ app = FastAPI(
 
 app.add_middleware(RateLimitMiddleware)
 
-ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
+_raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
+_is_wildcard = not _raw_origins or _raw_origins.strip() == "*"
+
+if _is_wildcard:
+    if config.IS_PRODUCTION:
+        raise RuntimeError(
+            "FAIL-CLOSED: Wildcard CORS ('*') or missing ALLOWED_ORIGINS is forbidden in production mode. "
+            "Set explicit origins e.g. ALLOWED_ORIGINS=https://nyayadarshana.com"
+        )
+    ALLOWED_ORIGINS = ["*"]
+    _allow_credentials = False  # Never allow credentials on wildcard origins
+    logger.warning(
+        "SECURITY: ALLOWED_ORIGINS is not configured — CORS wildcard (*) is active (credentials disabled). "
+        "Set ALLOWED_ORIGINS=https://yourdomain.com in production."
+    )
+else:
+    ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+    _allow_credentials = True
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
-    allow_credentials=True,
+    allow_credentials=_allow_credentials,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
+
 
 # ── Global Exception Handlers ─────────────────────────────────────
 
@@ -127,7 +147,15 @@ async def generic_exception_handler(request: Request, exc: Exception):
 # ── Mount Routers ─────────────────────────────────────────────────
 
 from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive  # noqa: E402
+from api.auth.router import router as auth_router
+from api.conversations.router import router as conversations_router
+from database.connection import init_db
 
+# Initialize Relational Database Schema
+init_db()
+
+app.include_router(auth_router)
+app.include_router(conversations_router)
 app.include_router(vault.router, prefix="/api/vault", tags=["Knowledge Vault"])
 app.include_router(chat.router, prefix="/api/chat", tags=["AI Chat"])
 app.include_router(classifier.router, prefix="/api/classifier", tags=["Classifier"])
@@ -278,8 +306,6 @@ async def health_check():
     return {
         "status": "HEALTHY",
         "engine": "Nyaya Darshan Legal OS",
-        "production_status": "PRODUCTION_READINESS_APPROVED",
-        "accuracy_benchmark": "96.36%",
-        "false_corrections": 0,
         "corpus_loaded_sections": len(retriever.corpus)
     }
+

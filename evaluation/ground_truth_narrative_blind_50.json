@@ -1,0 +1,2482 @@
+{
+  "BLIND-001": {
+    "scenario_id": "BLIND-001",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Retail Cash Theft",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      },
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Dishonest removal of movable property from employer custody constitutes theft/breach of trust",
+      "CCTV and register logs require electronic certification under evidence law"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-002": {
+    "scenario_id": "BLIND-002",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Commercial Extortion Threat",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Putting a person in fear of injury to property to obtain delivery of money constitutes extortion",
+      "Threatening arson to cause alarm constitutes criminal intimidation"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-003": {
+    "scenario_id": "BLIND-003",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Armed Robbery / Dacoity",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "331"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Committing theft by putting occupants in fear of instant death constitutes robbery/dacoity",
+      "House-trespass with intent to commit offence is an aggravated offence"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-004": {
+    "scenario_id": "BLIND-004",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Corporate Embezzlement & Cheating",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Misappropriation of entrusted funds constitutes criminal breach of trust and cheating",
+      "Fabrication of fake invoices constitutes forgery",
+      "Bank statements require electronic certificate"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-005": {
+    "scenario_id": "BLIND-005",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Fatal Rash Driving",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Causing death through rash or negligent driving is governed as death by negligence rather than intentional murder",
+      "Traffic surveillance and mechanical inspection reports are relevant"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-006": {
+    "scenario_id": "BLIND-006",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Homeowner Private Defence",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNS",
+        "section": "105"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Right of private defence extends to causing death when facing reasonable apprehension of death or grievous hurt",
+      "Proportionality and lack of excessive force are essential elements"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-007": {
+    "scenario_id": "BLIND-007",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Mischief and Wrongful Restraint",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "126"
+      },
+      {
+        "statute": "BNS",
+        "section": "324"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Obstructing a person from proceeding in a direction they have a right to proceed constitutes wrongful restraint",
+      "Damaging essential utility supply causing wrongful loss constitutes mischief"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-008": {
+    "scenario_id": "BLIND-008",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Pedigree Document Forgery & Fraud",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BSA",
+        "section": "58"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Making a false document constitutes forgery",
+      "Inducing payment through false representation constitutes cheating",
+      "Original and secondary copies must be proven under evidence law"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-009": {
+    "scenario_id": "BLIND-009",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Physical Stalking",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "78"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Repeatedly following a woman despite clear indication of disinterest constitutes stalking",
+      "Procedural arrest notice rules apply"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-010": {
+    "scenario_id": "BLIND-010",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Voyeurism & Video Seizure",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "77"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Capturing images of a woman engaging in a private act where privacy is expected constitutes voyeurism",
+      "Digital search and seizure requires electronic memo and hash verification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-011": {
+    "scenario_id": "BLIND-011",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #11",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-012": {
+    "scenario_id": "BLIND-012",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #12",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-013": {
+    "scenario_id": "BLIND-013",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #13",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-014": {
+    "scenario_id": "BLIND-014",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #14",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-015": {
+    "scenario_id": "BLIND-015",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #15",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-016": {
+    "scenario_id": "BLIND-016",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #16",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-017": {
+    "scenario_id": "BLIND-017",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #17",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-018": {
+    "scenario_id": "BLIND-018",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #18",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-019": {
+    "scenario_id": "BLIND-019",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #19",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-020": {
+    "scenario_id": "BLIND-020",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #20",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-021": {
+    "scenario_id": "BLIND-021",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #21",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-022": {
+    "scenario_id": "BLIND-022",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #22",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-023": {
+    "scenario_id": "BLIND-023",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #23",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-024": {
+    "scenario_id": "BLIND-024",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #24",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-025": {
+    "scenario_id": "BLIND-025",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #25",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-026": {
+    "scenario_id": "BLIND-026",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #26",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-027": {
+    "scenario_id": "BLIND-027",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #27",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-028": {
+    "scenario_id": "BLIND-028",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #28",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-029": {
+    "scenario_id": "BLIND-029",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #29",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-030": {
+    "scenario_id": "BLIND-030",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #30",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-031": {
+    "scenario_id": "BLIND-031",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #31",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-032": {
+    "scenario_id": "BLIND-032",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #32",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-033": {
+    "scenario_id": "BLIND-033",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #33",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-034": {
+    "scenario_id": "BLIND-034",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #34",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-035": {
+    "scenario_id": "BLIND-035",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #35",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-036": {
+    "scenario_id": "BLIND-036",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #36",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-037": {
+    "scenario_id": "BLIND-037",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #37",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-038": {
+    "scenario_id": "BLIND-038",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #38",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-039": {
+    "scenario_id": "BLIND-039",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #39",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-040": {
+    "scenario_id": "BLIND-040",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #40",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-041": {
+    "scenario_id": "BLIND-041",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #41",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-042": {
+    "scenario_id": "BLIND-042",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #42",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-043": {
+    "scenario_id": "BLIND-043",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #43",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-044": {
+    "scenario_id": "BLIND-044",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #44",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-045": {
+    "scenario_id": "BLIND-045",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #45",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-046": {
+    "scenario_id": "BLIND-046",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #46",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-047": {
+    "scenario_id": "BLIND-047",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #47",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-048": {
+    "scenario_id": "BLIND-048",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #48",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-049": {
+    "scenario_id": "BLIND-049",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #49",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  },
+  "BLIND-050": {
+    "scenario_id": "BLIND-050",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Blind Legal Scenario #50",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal offences must be proven through statutory elements",
+      "Procedural arrest requires statutory notice compliance",
+      "Electronic proof requires certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of factual proof and chain of custody"
+  }
+}

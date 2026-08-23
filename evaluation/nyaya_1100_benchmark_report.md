@@ -1,6 +1,6 @@
 # Nyaya Legal OS — 1,100-Question Independent Benchmark Audit Report
 
-**Total Records Evaluated**: 1100 | **Passed**: 1060 (96.36%) | **Failed**: 40
+**Total Records Evaluated**: 1100 | **Passed**: 1065 (96.82%) | **Failed**: 35
 
 ## 1. Category-by-Category Statutory Performance Matrix
 
@@ -10,14 +10,14 @@
 | **Section Lookups** | 100 | 97 | 3 | **97.0%** | 0 |
 | **IPC -> BNS Cross-Mappings** | 100 | 100 | 0 | **100.0%** | 100 |
 | **CrPC -> BNSS Cross-Mappings** | 100 | 100 | 0 | **100.0%** | 100 |
-| **IEA -> BSA Cross-Mappings** | 100 | 100 | 0 | **100.0%** | 100 |
+| **IEA -> BSA Cross-Mappings** | 100 | 99 | 1 | **99.0%** | 99 |
 | **Repeal & Replacement Verifications** | 100 | 100 | 0 | **100.0%** | 100 |
-| **Penalty & Punishment Specifications** | 100 | 90 | 10 | **90.0%** | 50 |
+| **Penalty & Punishment Specifications** | 100 | 99 | 1 | **99.0%** | 87 |
 | **Procedural Timelines & Bail Rules** | 100 | 100 | 0 | **100.0%** | 100 |
-| **Multi-Step Criminal Fact Patterns** | 100 | 98 | 2 | **98.0%** | 98 |
+| **Multi-Step Criminal Fact Patterns** | 100 | 95 | 5 | **95.0%** | 95 |
 | **Landmark Case Law Codifications** | 100 | 100 | 0 | **100.0%** | 0 |
 | **Adversarial Traps & False Propositions** | 100 | 75 | 25 | **75.0%** | 75 |
-| **TOTAL / OVERALL SYSTEM** | **1100** | **1060** | **40** | **96.36%** | **723** |
+| **TOTAL / OVERALL SYSTEM** | **1100** | **1065** | **35** | **96.82%** | **756** |
 
 ---
 

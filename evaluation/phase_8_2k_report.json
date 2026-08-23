@@ -1,0 +1,129 @@
+{
+  "phase": "PHASE 8.2K — LEGAL CONCEPT -> SECTION CANDIDATE EXPANSION",
+  "benchmark_summary": {
+    "total_frozen_cases": 100,
+    "valid_ground_truth_cases": 80,
+    "invalid_placeholder_cases": 20,
+    "blind_validation_100_cases": 100,
+    "blind_validation_200_cases": 200
+  },
+  "frozen_benchmark_overall_metrics": {
+    "Recall@1": 23.61,
+    "Recall@3": 50.94,
+    "Recall@5": 61.89,
+    "Recall@10": 68.08,
+    "Precision@5": 34.8,
+    "MRR": 0.7528,
+    "NDCG@10": 0.6327
+  },
+  "frozen_benchmark_80_valid_metrics": {
+    "total_cases": 80,
+    "Recall@1": 20.76,
+    "Recall@3": 47.43,
+    "Recall@5": 58.62,
+    "Recall@10": 66.35,
+    "Precision@5": 35.25,
+    "MRR": 0.7473,
+    "NDCG@10": 0.6095
+  },
+  "blind_validation_100_metrics": {
+    "Recall@1": 19.42,
+    "Recall@3": 53.42,
+    "Recall@5": 64.72,
+    "Recall@10": 84.33,
+    "Precision@5": 32.4,
+    "MRR": 0.5666,
+    "NDCG@10": 0.6869,
+    "Distractor_Avoidance_Rate": 69.0
+  },
+  "blind_validation_200_metrics": {
+    "Recall@1": 26.5,
+    "Recall@3": 56.21,
+    "Recall@5": 62.17,
+    "Recall@10": 74.58,
+    "Precision@5": 30.6,
+    "MRR": 0.6635,
+    "NDCG@10": 0.686,
+    "Distractor_Avoidance_Rate": 92.0
+  },
+  "blind_validation_200_category_breakdown": {
+    "MULTI_STATUTE_3_PLUS_ISSUES": {
+      "total_cases": 40,
+      "Recall@5": 50.0,
+      "Recall@10": 78.33,
+      "Precision@5": 50.0,
+      "MRR": 0.9875,
+      "Distractor_Avoidance": 100.0
+    },
+    "NEAR_NEIGHBOUR_OFFENCES": {
+      "total_cases": 30,
+      "Recall@5": 50.0,
+      "Recall@10": 50.0,
+      "Precision@5": 16.67,
+      "MRR": 0.4,
+      "Distractor_Avoidance": 100.0
+    },
+    "NARRATIVE_OFFENCE_DESCRIPTIONS": {
+      "total_cases": 30,
+      "Recall@5": 48.89,
+      "Recall@10": 50.0,
+      "Precision@5": 18.67,
+      "MRR": 0.4667,
+      "Distractor_Avoidance": 100.0
+    },
+    "POCSO_DISCRIMINATION": {
+      "total_cases": 25,
+      "Recall@5": 100.0,
+      "Recall@10": 100.0,
+      "Precision@5": 55.2,
+      "MRR": 0.96,
+      "Distractor_Avoidance": 100.0
+    },
+    "BSA_EVIDENCE": {
+      "total_cases": 25,
+      "Recall@5": 60.0,
+      "Recall@10": 80.0,
+      "Precision@5": 20.0,
+      "MRR": 0.525,
+      "Distractor_Avoidance": 96.0
+    },
+    "BNSS_PROCEDURE": {
+      "total_cases": 20,
+      "Recall@5": 100.0,
+      "Recall@10": 100.0,
+      "Precision@5": 20.0,
+      "MRR": 0.6333,
+      "Distractor_Avoidance": 100.0
+    },
+    "NEGATIVE_PROPOSITIONS": {
+      "total_cases": 15,
+      "Recall@5": 46.67,
+      "Recall@10": 70.0,
+      "Precision@5": 14.67,
+      "MRR": 0.2267,
+      "Distractor_Avoidance": 0.0
+    },
+    "MULTI_HOP_LEGAL_REASONING": {
+      "total_cases": 15,
+      "Recall@5": 51.11,
+      "Recall@10": 82.22,
+      "Precision@5": 37.33,
+      "MRR": 0.9333,
+      "Distractor_Avoidance": 100.0
+    }
+  },
+  "failure_taxonomy": {
+    "R1": 0,
+    "R2": 30,
+    "R3": 0,
+    "R4": 4,
+    "R5": 32,
+    "R6": 0
+  },
+  "safety_gate": {
+    "false_corrections": 0,
+    "unsupported_corrections": 0,
+    "hallucinations": 0,
+    "regression_suites_pass_rate": "100% (29/29 tests)"
+  }
+}

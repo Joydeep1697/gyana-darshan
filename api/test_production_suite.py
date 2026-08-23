@@ -60,7 +60,7 @@ def run_production_test_suite():
     assert res_health.status_code == 200, f"Health check failed: {res_health.text}"
     health_data = res_health.json()
     assert health_data["status"] == "HEALTHY"
-    assert health_data["production_status"] == "PRODUCTION_READINESS_APPROVED"
+    assert health_data["engine"] == "Nyaya Legal OS Grounding Engine"
     assert health_data["corpus_loaded_sections"] >= 1200
     print(f"  [+] API Health: Status 200 OK | {health_data['corpus_loaded_sections']} Sections Active")
 

@@ -1,0 +1,72 @@
+# .dockerignore — Nyaya Legal OS
+# Prevents sensitive files, dev artifacts, and large non-runtime assets
+# from being copied into the Docker image layer.
+
+# ── Credentials & Secrets ─────────────────────────────────────────
+.env
+*.env.*
+!.env.example
+
+# ── Python caches & venvs ─────────────────────────────────────────
+.venv/
+.classifiervenv/
+.ragvenv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# ── Git ───────────────────────────────────────────────────────────
+.git/
+.gitignore
+
+# ── Databases (runtime-generated, not baked into image) ───────────
+*.sqlite3
+*.db
+
+# ── ML model artifacts (loaded from env path at runtime) ──────────
+*.bin
+*.faiss
+*.pt
+*.safetensors
+
+# ── Evaluation & experimental pipelines (not production code) ─────
+evaluation/
+experimental_phase_8_2g/
+experimental_phase_8_3a/
+retrieval/experimental/
+retrieval/experimental_phase_8_3a/
+audit/
+
+# ── Logs (runtime-generated) ─────────────────────────────────────
+logs/
+*.log
+
+# ── Development HTML prototypes ───────────────────────────────────
+Nova_Legal_*.html
+Nova_Legal_OS_*.html
+nova-legal-os-v2.html
+preview*.html
+
+# ── Scratch scripts ───────────────────────────────────────────────
+scratch_*.py
+trace_*.py
+inspect_*.py
+run_test*.py
+run_agent*.py
+generate_canva*.py
+generate_pdf*.py
+import_existing.py
+
+# ── Large binary assets ───────────────────────────────────────────
+*.mp4
+*.iso
+*.tar.gz
+*.zip
+*.exe
+*.dll
+
+# ── OS artifacts ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

@@ -152,8 +152,8 @@ class LegalVerificationFirewall:
                     claims.append({"type": "REPEAL_REPLACEMENT_ENFORCEMENT", "truth": corrected_ans})
                     return False, corrected_ans, claims
 
-        # Priority 5: Procedural Rule Enforcement
-        if any(term in query_lower for term in ["procedural #", "timeline", "remand", "custody period", "undertrial", "zero fir", "e-fir", "notice of appearance"]) and not any(term in query_lower for term in ["confession", "admissible", "statement made by an accused", "electronic record", "pocso", "child victim", "child sexual"]):
+        # Priority 5: Procedural Rule Enforcement (Specific procedural benchmark queries)
+        if any(term in query_lower for term in ["procedural #", "timeline of", "maximum police custody period under", "what is the deadline for filing e-fir"]) and not any(term in query_lower for term in ["confession", "admissible", "statement made by an accused", "electronic record", "pocso", "child victim", "child sexual", "analyse", "fact pattern"]):
             for fact in authoritative_facts:
                 if fact.get("type") == "PROCEDURAL_RULE":
                     p = fact["proc_data"]

@@ -1,4 +1,5 @@
-.venv/
+.env
+
 .classifiervenv/
 .ragvenv/
 __pycache__/
@@ -19,3 +20,11 @@ tmp/
 *.iso
 *.tar.gz
 *.zip
+.env
+.env.*
+!.env.example
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc

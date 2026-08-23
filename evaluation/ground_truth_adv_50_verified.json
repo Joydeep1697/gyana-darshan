@@ -1,0 +1,2403 @@
+{
+  "ADV-001": {
+    "scenario_id": "ADV-001",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Public Contract Forgery & Electronic Extraction",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Forging electronic documents to obtain public contracts constitutes Forgery under BNS Section 336/340",
+      "Police arrest and notice safeguards are governed by BNSS Section 35 and remand by BNSS Section 187",
+      "Electronic extraction report admissibility requires BSA Section 63 certification"
+    ],
+    "prohibited_false_propositions": [
+      "BNS governs police custody",
+      "POCSO applies to contract disputes"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of digital alterations to the specific accused"
+  },
+  "ADV-002": {
+    "scenario_id": "ADV-002",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "POCSO & Intimate Media Extortion",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "POCSO applies to child victims under 18 years and remains an unrepealed independent statute",
+      "Threatening to publish private photos to demand property or acts constitutes Extortion (BNS 308) and Criminal Intimidation (BNS 351)",
+      "Chat screenshots require BSA Section 63 electronic certification"
+    ],
+    "prohibited_false_propositions": [
+      "POCSO was repealed or subsumed into BNS",
+      "Extortion carries capital punishment"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Exact age on date of transmission"
+  },
+  "ADV-003": {
+    "scenario_id": "ADV-003",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Homicide vs Private Defence & Weapon Recovery",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNS",
+        "section": "105"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "39"
+      },
+      {
+        "statute": "BNS",
+        "section": "40"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Homicide is classified under BNS Section 103 (Murder) or Section 105 (Culpable Homicide)",
+      "Right of private defence is governed under BNS Sections 38 to 44 with proportionality requirements",
+      "Discovery of weapon upon disclosure statement is governed under BSA Section 23"
+    ],
+    "prohibited_false_propositions": [
+      "Private defence justifies retaliatory force after apprehension ceased"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Immediacy of threat and whether force used was proportionate"
+  },
+  "ADV-004": {
+    "scenario_id": "ADV-004",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Altered Regulatory Notice & Fund Diversion",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BSA",
+        "section": "62"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "347"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Persuading an investor to transfer funds using altered regulatory notices constitutes Cheating (BNS 318) and Forgery (BNS 336)",
+      "Account holder without guilty knowledge lacks mens rea for criminal conspiracy under BNS Section 61",
+      "Cloud ledger backups require BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "Civil contractual dispute excludes criminal fraud where deception existed at inception"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether deception existed at inception or arose subsequently"
+  },
+  "ADV-005": {
+    "scenario_id": "ADV-005",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Stalking & Electronic Attribution",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "78"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Repeatedly following or monitoring a woman online despite disinterest constitutes Stalking under BNS Section 78",
+      "GPS tracker data and electronic logs require provenance attribution under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [
+      "Stalking requires physical touching"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of SIM card or device to the specific accused"
+  },
+  "ADV-006": {
+    "scenario_id": "ADV-006",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Extortion vs Lawful Debt Assertion",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Extortion under BNS Section 308 requires intentionally putting a person in fear of injury to deliver property",
+      "Demanding repayment of lawful debt accompanied by unlawful threats may constitute Criminal Intimidation (BNS 351) or Extortion (BNS 308)",
+      "Edited screenshots require proof of context and completeness under BSA"
+    ],
+    "prohibited_false_propositions": [
+      "Extortion carries mandatory death penalty",
+      "Lawful debt permits coercive threats"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Completeness of chat logs and nature of threat"
+  },
+  "ADV-007": {
+    "scenario_id": "ADV-007",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Undertrial Bail & Multi-Case Detention Limits",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "479"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "480"
+      },
+      {
+        "statute": "BNSS",
+        "section": "482"
+      }
+    ],
+    "expected_legal_propositions": [
+      "First-time undertrial offender with no prior conviction is eligible for bail after undergoing one-third of maximum sentence under BNSS Section 479",
+      "Pending separate cases must be evaluated under statutory exceptions to undertrial release"
+    ],
+    "prohibited_false_propositions": [
+      "Undertrial detention can exceed maximum sentence"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether accused is legally a first-time offender without prior convictions"
+  },
+  "ADV-008": {
+    "scenario_id": "ADV-008",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Notice of Appearance & Arrest Preconditions",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35(3)"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Under BNSS Section 35(3), police must issue a notice of appearance for offences punishable with up to 7 years imprisonment where arrest is not necessary",
+      "Non-attendance alone does not grant arbitrary arrest powers without recording statutory reasons"
+    ],
+    "prohibited_false_propositions": [
+      "Police have unfettered discretion to arrest without notice for offences under 7 years"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether investigating officer recorded specific reasons in case diary"
+  },
+  "ADV-009": {
+    "scenario_id": "ADV-009",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Statutory Transition & Savings Framework",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "170"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "72"
+      },
+      {
+        "statute": "BNSS",
+        "section": "420"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive penal liability is governed by law in force on date of offence (Art. 20(1) Constitution & BNS Section 358)",
+      "Pending proceedings instituted under CrPC continue under CrPC 1973 per BNSS Section 531(2)(a)",
+      "BNS replaced IPC, BNSS replaced CrPC, and BSA replaced IEA on 1 July 2024"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaced CrPC",
+      "Substantive offences committed in 2022 can be charged under BNS"
+    ],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": "Exact date of offence and date of proceeding institution"
+  },
+  "ADV-010": {
+    "scenario_id": "ADV-010",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Warehouse Theft & Forensic Fingerprint Proof",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Dishonest removal of movable property from warehouse constitutes Theft under BNS Section 303",
+      "Fingerprint evidence on authorized workplace objects requires corroboration and CCTV gaps require contextual proof"
+    ],
+    "prohibited_false_propositions": [
+      "Fingerprint on authorized object is conclusive proof of theft"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether suspect had lawful access to the object during ordinary work hours"
+  },
+  "ADV-011": {
+    "scenario_id": "ADV-011",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "POCSO Temporal Age & Media Disclosure",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "23"
+      },
+      {
+        "statute": "POCSO",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      }
+    ],
+    "expected_legal_propositions": [
+      "POCSO applies based on victim age on date of offence under Section 2(1)(d)",
+      "Publishing child victim identity violates POCSO Section 23",
+      "Special court trial timelines are governed by POCSO Section 35"
+    ],
+    "prohibited_false_propositions": [
+      "POCSO age is determined on date of trial rather than date of offence"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Exact date of alleged offence relative to victim 18th birthday"
+  },
+  "ADV-012": {
+    "scenario_id": "ADV-012",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Electronic Certificate Rejection & Public Corruption",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "173"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "174"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Public servant bribery is governed under BNS corruption provisions",
+      "Electronic audio recordings require valid BSA Section 63 certification by person in lawful control",
+      "Defective certificate requires summoning the lawful system administrator"
+    ],
+    "prohibited_false_propositions": [
+      "Electronic records are admissible without any certification or witness testimony"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether recording was obtained lawfully and certified by competent person"
+  },
+  "ADV-013": {
+    "scenario_id": "ADV-013",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Joint Liability vs Vehicle Provider",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "46"
+      },
+      {
+        "statute": "BNS",
+        "section": "61"
+      },
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "49"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Principal offenders are liable for Robbery under BNS Section 309",
+      "Vehicle provider is chargeable under Abetment (BNS 46) or Conspiracy (BNS 61) only if prior knowledge and common intention are established",
+      "Accomplice statement requires independent corroboration"
+    ],
+    "prohibited_false_propositions": [
+      "Providing a vehicle without knowledge creates strict criminal liability for robbery"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether driver had prior knowledge of robbery plan"
+  },
+  "ADV-014": {
+    "scenario_id": "ADV-014",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Property Forgery & Power of Attorney",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "58"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Forging land documents or power of attorney constitutes Forgery (BNS 336) and using forged document (BNS 340)",
+      "Handwriting and forensic document examination are governed under BSA Section 39"
+    ],
+    "prohibited_false_propositions": [
+      "Forged document is valid if registered before discovery"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Expert handwriting authentication on original document"
+  },
+  "ADV-015": {
+    "scenario_id": "ADV-015",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Voyeurism & Hidden Camera Seizure",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "77"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "78"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Capturing images of a woman in private circumstances without consent constitutes Voyeurism under BNS Section 77",
+      "Electronic search and seizure requires mandatory recording under BNSS Section 105",
+      "Camera metadata and storage media require BSA Section 63 certification"
+    ],
+    "prohibited_false_propositions": [
+      "Voyeurism requires physical dissemination of images"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of hidden camera installation to the specific suspect"
+  },
+  "ADV-016": {
+    "scenario_id": "ADV-016",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Altercation Death vs Private Defence",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNS",
+        "section": "105"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Single blow during sudden quarrel is assessed under BNS Section 105 (Culpable Homicide) vs Section 103 (Murder)",
+      "Private defence requires imminent threat and proportionate force (BNS 38-44)",
+      "Post-mortem medical evidence is governed under BSA Section 39"
+    ],
+    "prohibited_false_propositions": [
+      "Any death during fight is automatically premeditated murder"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Who was the initial aggressor and weapon proportionality"
+  },
+  "ADV-017": {
+    "scenario_id": "ADV-017",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Aggravated POCSO & Institutional Duty",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "19"
+      },
+      {
+        "statute": "POCSO",
+        "section": "21"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "33"
+      },
+      {
+        "statute": "POCSO",
+        "section": "37"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Aggravated penetrative sexual assault by person in authority is punishable under POCSO Sections 5 and 6",
+      "Failure to report sexual assault on a child is an offence under POCSO Sections 19 and 21",
+      "In-camera trial is mandatory under POCSO Section 37"
+    ],
+    "prohibited_false_propositions": [
+      "School authority has discretion to conceal child sexual assault"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Individual participation and exact roles of each adult"
+  },
+  "ADV-018": {
+    "scenario_id": "ADV-018",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Cyber Personation & Fund Transfer Fraud",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "319"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Cheating by personation is punishable under BNS Section 319 and fraud under Section 318",
+      "Fake caller identity and VOIP logs require BSA Section 63 certification",
+      "Bank accounts can be attached under BNSS Section 353"
+    ],
+    "prohibited_false_propositions": [
+      "Cyber fraud is exclusively a civil IT Act matter"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "IP address attribution and device ownership"
+  },
+  "ADV-019": {
+    "scenario_id": "ADV-019",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Corporate Cheating & Device Seizure",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Dishonest inducement in corporate transactions constitutes Cheating under BNS Section 318",
+      "Seizure of digital devices must comply with BNSS Section 105 videography and memo mandates",
+      "Server logs must be certified under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [
+      "Police can seize company servers without search memo or hash verification"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Chain of custody for digital storage media"
+  },
+  "ADV-020": {
+    "scenario_id": "ADV-020",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "POCSO Child Victim Statement & Attribution",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "24"
+      },
+      {
+        "statute": "POCSO",
+        "section": "33"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "12"
+      },
+      {
+        "statute": "POCSO",
+        "section": "36"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Sexual harassment of child is governed by POCSO Sections 11 and 12",
+      "Recording victim statement is governed by POCSO Section 24 and Special Court rules by Section 33",
+      "Messaging app attribution requires BSA Section 63 certification"
+    ],
+    "prohibited_false_propositions": [
+      "Child victim must be directly cross-examined by accused in open court"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Device access logs and victim age verification"
+  },
+  "ADV-021": {
+    "scenario_id": "ADV-021",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Special Statute Non-Repeal & POCSO Scope",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BNS",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "42A"
+      },
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "31"
+      },
+      {
+        "statute": "POCSO",
+        "section": "33"
+      }
+    ],
+    "expected_legal_propositions": [
+      "POCSO Act 2012 remains an unrepealed independent special statute operating alongside BNS 2023 per Section 42A",
+      "Special law prevails over general penal provisions in case of conflict",
+      "Repeal of IPC/CrPC does not repeal independent special enactments"
+    ],
+    "prohibited_false_propositions": [
+      "POCSO was repealed by BNS 2023",
+      "BNS completely replaces all special criminal statutes"
+    ],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": "Statutory non-repeal is settled law"
+  },
+  "ADV-022": {
+    "scenario_id": "ADV-022",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Counterfeit Cheque Forgery & Expert Evidence",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "340"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "58"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Forging negotiable instruments and encashing them constitutes Forgery (BNS 336/340) and Cheating (BNS 318)",
+      "Handwriting and signature verification require expert opinion under BSA Section 39"
+    ],
+    "prohibited_false_propositions": [
+      "Encashing a forged cheque without knowledge is strict liability murder"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Proof of fraudulent intent at the time of presenting cheque"
+  },
+  "ADV-023": {
+    "scenario_id": "ADV-023",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Body-Worn Camera Confession & Zero FIR",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "173"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "22"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Registration of Zero FIR is mandatory under BNSS Section 173 regardless of territorial jurisdiction",
+      "Confession made to police officer on body-worn video is inadmissible as substantive confession under BSA",
+      "Discovery statements leading to recovery are admissible under BSA Section 23"
+    ],
+    "prohibited_false_propositions": [
+      "Video-recorded confession to police officer is fully admissible substantive proof of guilt"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether recording led to discovery of distinct fact under BSA Section 23"
+  },
+  "ADV-024": {
+    "scenario_id": "ADV-024",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Homicide Dying Declaration & Cell Tower Proof",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BSA",
+        "section": "26"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Intentional killing constitutes Murder under BNS Section 103",
+      "Dying declaration is admissible under BSA Section 26(a) without oath or cross-examination",
+      "Cell tower location records require BSA Section 63 certification and only establish approximate proximity"
+    ],
+    "prohibited_false_propositions": [
+      "Cell tower records constitute conclusive eye-witness proof of murder"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Mental fitness of deceased during dying declaration"
+  },
+  "ADV-025": {
+    "scenario_id": "ADV-025",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Cyber Extortion vs Lawful Contract Claim",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Threatening commercial sabotage or reputation harm to extract funds constitutes Extortion (BNS 308) and Criminal Intimidation (BNS 351)",
+      "Encrypted email headers require electronic proof under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [
+      "Commercial dispute permits threatening physical harm"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of anonymous email accounts to accused"
+  },
+  "ADV-026": {
+    "scenario_id": "ADV-026",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Social Media Stalking & Account Impersonation",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "78"
+      },
+      {
+        "statute": "BNS",
+        "section": "356"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Creating fake profiles to monitor or harass a woman constitutes Stalking under BNS Section 78",
+      "Defamatory online posts are punishable under BNS Section 356",
+      "Social media logs and IP addresses require BSA Section 63 certification"
+    ],
+    "prohibited_false_propositions": [
+      "Online stalking is lawful if no in-person contact occurs"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of IP address and device access"
+  },
+  "ADV-027": {
+    "scenario_id": "ADV-027",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "E-Commerce Cheating & Screenshot Authenticity",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "173"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Accepting money without intention or ability to deliver goods constitutes Cheating under BNS Section 318",
+      "Screenshots without original device or cryptographic hash require rigorous BSA certification"
+    ],
+    "prohibited_false_propositions": [
+      "Uncertified screenshots are conclusive proof of transaction terms"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Integrity of electronic chat transcript and payment gateway verification"
+  },
+  "ADV-028": {
+    "scenario_id": "ADV-028",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Inter-State Transit Jurisdiction & Multi-State Travel Remand",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BNSS",
+        "section": "197"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "199"
+      },
+      {
+        "statute": "BNSS",
+        "section": "201"
+      },
+      {
+        "statute": "BNS",
+        "section": "303"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offences committed during journey spanning multiple states are triable in any competent court along the route under BNSS Section 197/199",
+      "Transit remand and police custody must strictly comply with BNSS Section 187",
+      "Electronic evidence seized across state borders requires proper chain of custody under BNSS Section 105 and BSA Section 63"
+    ],
+    "prohibited_false_propositions": [
+      "Police can hold transit custody indefinitely without magistrate order in state of arrest"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Exact geographic location where each element of the offence was committed"
+  },
+  "ADV-029": {
+    "scenario_id": "ADV-029",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Dowry Cruelty & Electronic Harassment Messages",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "85"
+      },
+      {
+        "statute": "BNS",
+        "section": "86"
+      },
+      {
+        "statute": "BSA",
+        "section": "118"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "80"
+      },
+      {
+        "statute": "BNSS",
+        "section": "173"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Subjecting a woman to cruelty for dowry demands is punishable under BNS Section 85/86",
+      "Presumption as to dowry death or abetment of suicide is governed under BSA Section 118",
+      "Electronic messages demanding dowry must be certified under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [
+      "Dowry harassment is non-cognizable and requires prior civil court sanction"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Direct nexus between harassment and dowry demands"
+  },
+  "ADV-030": {
+    "scenario_id": "ADV-030",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Anonymous VoIP Extortion & Server Logs",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Anonymous extortionate demands backed by threats of injury constitute Extortion under BNS Section 308",
+      "VoIP server logs and proxy headers require BSA Section 63 certification"
+    ],
+    "prohibited_false_propositions": [
+      "VoIP calls cannot be prosecuted under Indian penal law"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of virtual phone numbers to specific physical user"
+  },
+  "ADV-031": {
+    "scenario_id": "ADV-031",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "POCSO In-Camera Trial & Minor Age Dispute",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "POCSO",
+      "BSA",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      },
+      {
+        "statute": "POCSO",
+        "section": "8"
+      },
+      {
+        "statute": "POCSO",
+        "section": "34"
+      },
+      {
+        "statute": "POCSO",
+        "section": "37"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "2"
+      },
+      {
+        "statute": "POCSO",
+        "section": "29"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Sexual assault on child is governed under POCSO Sections 7 and 8",
+      "Determination of age by Special Court is governed under POCSO Section 34 using birth records and ossification tests",
+      "In-camera trial is mandatory under POCSO Section 37"
+    ],
+    "prohibited_false_propositions": [
+      "Consent of minor negates POCSO statutory offence"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Reliability of school birth register vs medical ossification report"
+  },
+  "ADV-032": {
+    "scenario_id": "ADV-032",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Armed Robbery & Test Identification Parade",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNSS",
+        "section": "54"
+      },
+      {
+        "statute": "BSA",
+        "section": "7"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Robbery is punishable under BNS Section 309",
+      "Test Identification Parade (TIP) of accused is governed under BNSS Section 54 and facts establishing identity under BSA Section 7",
+      "Low-resolution CCTV stills require expert facial comparison under BSA Section 39"
+    ],
+    "prohibited_false_propositions": [
+      "Dock identification without prior TIP is always inadmissible per se"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Quality of surveillance video and lighting conditions during crime"
+  },
+  "ADV-033": {
+    "scenario_id": "ADV-033",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Pre-2024 Cheating Transition & Procedure",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      },
+      {
+        "statute": "BSA",
+        "section": "170"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "420"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Substantive offences committed prior to 1 July 2024 must be charged under IPC 1860 per BNS Section 358",
+      "Pending trials instituted prior to 1 July 2024 continue under CrPC 1973 per BNSS Section 531(2)(a)",
+      "Section conversion cannot be applied retrospectively to alter penal definitions"
+    ],
+    "prohibited_false_propositions": [
+      "Pre-2024 offences can be charged under BNS 318 directly",
+      "BNSS applies retrospectively to pending trials"
+    ],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": "Date of commission of offence and date of cognizance"
+  },
+  "ADV-034": {
+    "scenario_id": "ADV-034",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Home Intrusion Gunshot & Private Defence Limits",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNS",
+        "section": "109"
+      },
+      {
+        "statute": "BNS",
+        "section": "38"
+      },
+      {
+        "statute": "BNS",
+        "section": "41"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "44"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Firing a weapon at an intruder is evaluated under BNS Section 103/109 subject to Right of Private Defence (BNS 38-44)",
+      "Private defence against house-trespass extends to causing death only under reasonable apprehension of death or grievous hurt (BNS 41)",
+      "Ballistics expert opinion is governed under BSA Section 39"
+    ],
+    "prohibited_false_propositions": [
+      "Property owners have absolute right to execute fleeing trespassers without threat"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether intruder was advancing or retreating when shot was fired"
+  },
+  "ADV-035": {
+    "scenario_id": "ADV-035",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Digital Data Theft & Trade Secret Misappropriation",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      },
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Taking proprietary data without consent constitutes Theft (BNS 303) and Criminal Breach of Trust (BNS 316) if entrusted",
+      "Database extraction logs and repository timestamps require BSA Section 63 certification"
+    ],
+    "prohibited_false_propositions": [
+      "Intangible electronic files are immune from theft under Indian law"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether employee had authorized access and whether data was copied for personal use"
+  },
+  "ADV-036": {
+    "scenario_id": "ADV-036",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Electronic Seizure Memo & Hash Value Integrity",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Mandatory recording of search and seizure by audio-video electronic means is governed under BNSS Section 105",
+      "Hash value generation at the time of seizure is essential for demonstrating digital integrity under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [
+      "Search memo prepared without videography or independent witnesses is incontrovertible"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether hash value computed during trial matches hash recorded at initial seizure"
+  },
+  "ADV-037": {
+    "scenario_id": "ADV-037",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "POCSO Overlapping Offences & Multi-Date Timeline",
+    "material_issue_count": 4,
+    "expected_statutes": [
+      "POCSO",
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "3"
+      },
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "238"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "4"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Sexual conduct with minor is governed under POCSO Act 2012",
+      "Extortion by threat of image publication is punishable under BNS Section 308",
+      "Causing disappearance of electronic evidence constitutes offence under BNS Section 238",
+      "Age of accused on date of earlier incident determines juvenile justice applicability"
+    ],
+    "prohibited_false_propositions": [
+      "Destruction of evidence is immune from prosecution if offence occurred online"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Accused date of birth on date of earlier incident and forensic data recovery"
+  },
+  "ADV-038": {
+    "scenario_id": "ADV-038",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Subsection Penalty Precision & Undertrial Bail",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "479"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "480"
+      },
+      {
+        "statute": "BNS",
+        "section": "309"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Statutory penalty must be determined from the exact applicable subsection rather than general chapter heading",
+      "Undertrial bail eligibility under BNSS Section 479 is calculated strictly on the maximum imprisonment of the specific charged subsection"
+    ],
+    "prohibited_false_propositions": [
+      "Prosecution can arbitrarily apply higher subsection penalty to defeat bail eligibility"
+    ],
+    "requires_uncertainty_qualification": false,
+    "uncertainty_focus": "Exact subsection charged in charge-sheet"
+  },
+  "ADV-039": {
+    "scenario_id": "ADV-039",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "BNS 103 vs IPC 302 Scope & Electronic Confession",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BSA",
+        "section": "23"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "480"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BNSS",
+        "section": "531"
+      }
+    ],
+    "expected_legal_propositions": [
+      "BNS Section 103(1) punishes Murder and Section 103(2) introduces a distinct offence of Mob Lynching",
+      "Electronic confession in police custody is inadmissible under BSA principles",
+      "Bail in non-bailable offences is governed under BNSS Section 480"
+    ],
+    "prohibited_false_propositions": [
+      "BNS Section 103 is identical in every respect to IPC 302 with no new provisions (Section 103(2) is new)"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Voluntariness and custodial status during electronic recording"
+  },
+  "ADV-040": {
+    "scenario_id": "ADV-040",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Multi-Statute Semantic Decomposition & Irrelevant Facts",
+    "material_issue_count": 4,
+    "expected_statutes": [
+      "BNS",
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "12"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Decompose issues into substantive penal (BNS), special protection (POCSO), procedural arrest (BNSS), and evidence (BSA)",
+      "Irrelevant civil dispute background must be isolated and excluded from criminal retrieval focus"
+    ],
+    "prohibited_false_propositions": [
+      "All facts in narrative must be given equal weight in criminal charge-sheet"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Isolating legally operative facts from background narrative"
+  },
+  "ADV-041": {
+    "scenario_id": "ADV-041",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Restored Cloud Backup & Multi-User Attribution",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Restored cloud backups require proof of timestamp integrity and account authorship under BSA Section 63",
+      "Multi-user device access requires forensic IP and login correlation under BNSS investigation"
+    ],
+    "prohibited_false_propositions": [
+      "Presence of messages on shared device is conclusive proof of authorship by device owner"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Which individual user was logged in when specific messages were sent"
+  },
+  "ADV-042": {
+    "scenario_id": "ADV-042",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Extortion vs Threat of Lawful Police Reporting",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Threatening exposure to obtain money constitutes Extortion under BNS Section 308",
+      "Warning a wrongdoer of intention to initiate lawful legal proceedings does not constitute extortion unless accompanied by unlawful financial coercion"
+    ],
+    "prohibited_false_propositions": [
+      "Threat of reporting an offence can be used as leverage to extort arbitrary financial settlement"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether demand was for recovery of stolen property or coercive extortion"
+  },
+  "ADV-043": {
+    "scenario_id": "ADV-043",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Screenshots & Forwarded Chat Admissibility",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "58"
+      },
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Telecom account existence does not prove message content or authorship without device extraction",
+      "Forwarded messages and uncorroborated screenshots are secondary evidence requiring strict BSA Section 63 compliance"
+    ],
+    "prohibited_false_propositions": [
+      "Telecom CDR confirms text content of encrypted chat messages"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Device availability and cryptographic hash of original database"
+  },
+  "ADV-044": {
+    "scenario_id": "ADV-044",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Arrest Safeguards & Reason Recording",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "35"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "43"
+      },
+      {
+        "statute": "BNSS",
+        "section": "480"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Seriousness of allegation alone does not dispense with mandatory statutory arrest conditions under BNSS Section 35",
+      "Investigating officer must record concrete reasons showing necessity of arrest to prevent tampering or flight"
+    ],
+    "prohibited_false_propositions": [
+      "Police can arrest without recording reasons if offence is cognizable"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether police recorded objective grounds showing risk of flight or witness tampering"
+  },
+  "ADV-045": {
+    "scenario_id": "ADV-045",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Accomplice Liability & Vague Message Context",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "46"
+      },
+      {
+        "statute": "BNS",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "49"
+      },
+      {
+        "statute": "BSA",
+        "section": "3"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Abetment (BNS 46) and Conspiracy (BNS 61) require clear proof of common intention and guilty knowledge",
+      "Vague references to a plan without specific offence details require circumstantial corroboration under BSA"
+    ],
+    "prohibited_false_propositions": [
+      "Providing transport for ordinary purpose makes driver automatically guilty of principal crime"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Whether accused had actual knowledge of the criminal objective"
+  },
+  "ADV-046": {
+    "scenario_id": "ADV-046",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Copy Hash Integrity vs Original Authenticity",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BSA",
+        "section": "61"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "105"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Matching hash value proves only that the copy is identical to the file hashed, not that the underlying recording is authentic and unedited",
+      "Proof of provenance, camera origin, and lack of pre-hash editing requires BSA Section 63 certificate from the recording custodian"
+    ],
+    "prohibited_false_propositions": [
+      "Matching hash value proves underlying video was never edited prior to hashing"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Chain of custody from recording camera to first hashing workstation"
+  },
+  "ADV-047": {
+    "scenario_id": "ADV-047",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "POCSO Multi-Jurisdiction Online/Offline Transaction",
+    "material_issue_count": 4,
+    "expected_statutes": [
+      "POCSO",
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "BNSS",
+        "section": "197"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Online solicitation and offline physical assault are distinct legal acts requiring separate proof under POCSO Sections 11 and 5",
+      "Proof of online messages does not dispense with independent proof of offline physical encounter",
+      "Multi-location offences are triable under BNSS Section 197"
+    ],
+    "prohibited_false_propositions": [
+      "Proving online chat automatically proves offline physical assault without independent evidence"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Corroboration of physical meeting and forensic medical examination"
+  },
+  "ADV-048": {
+    "scenario_id": "ADV-048",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Prolonged Custody Post Charge-Sheet & Pending Forensics",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BNSS",
+        "section": "479"
+      },
+      {
+        "statute": "BNSS",
+        "section": "480"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNSS",
+        "section": "193"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Filing of charge-sheet marks completion of primary investigation, shifting custody presumption towards bail under BNSS Section 480",
+      "Pending forensic lab reports alone do not justify indefinite incarceration where accused is not at flight risk"
+    ],
+    "prohibited_false_propositions": [
+      "Accused must remain in jail indefinitely until all forensic reports are received"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Risk of tampering with unexamined digital evidence"
+  },
+  "ADV-049": {
+    "scenario_id": "ADV-049",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Single Narrative Overlapping Offence Tree",
+    "material_issue_count": 4,
+    "expected_statutes": [
+      "BNS",
+      "POCSO",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "BNSS",
+        "section": "173"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "78"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Construct a multi-branch issue tree distinguishing Cheating (BNS 318), Extortion (BNS 308), and Child Protection (POCSO 11)",
+      "Contradictory and hearsay allegations must be identified and marked unestablished"
+    ],
+    "prohibited_false_propositions": [
+      "All allegations in a multi-count complaint are assumed true without evidentiary filtration"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Direct evidence vs hearsay statements in witness testimony"
+  },
+  "ADV-050": {
+    "scenario_id": "ADV-050",
+    "benchmark_class": "HYBRID_ADVERSARIAL",
+    "category": "Full Chronology Multi-Statute Adversarial Defense",
+    "material_issue_count": 4,
+    "expected_statutes": [
+      "POCSO",
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "11"
+      },
+      {
+        "statute": "POCSO",
+        "section": "42A"
+      },
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNSS",
+        "section": "187"
+      },
+      {
+        "statute": "BNSS",
+        "section": "480"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "POCSO",
+        "section": "6"
+      },
+      {
+        "statute": "POCSO",
+        "section": "12"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Decompose chronology into separate legal transactions: online grooming (POCSO 11), extortion threat (BNS 308), and physical assault (POCSO 5/6)",
+      "POCSO Act 2012 remains in force as unrepealed special statute per Section 42A and was NOT replaced by BNS",
+      "Multi-user device access, banking records, and date discrepancies require rigorous corroboration under BSA Section 63",
+      "Custody and bail are evaluated under BNSS Sections 187 and 480"
+    ],
+    "prohibited_false_propositions": [
+      "POCSO was replaced by BNS",
+      "BNS is a procedural statute",
+      "Extortion carries death penalty",
+      "Shared device ownership automatically proves guilt of registered owner"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Attribution of online communications, resolution of statement date discrepancies, and physical corroboration"
+  }
+}

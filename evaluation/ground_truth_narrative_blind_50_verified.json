@@ -1,0 +1,1947 @@
+{
+  "BLIND-001": {
+    "scenario_id": "BLIND-001",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Retail Cash Theft",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "303"
+      },
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "314"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Dishonest removal of movable property from employer custody constitutes Theft (BNS 303) and Criminal Breach of Trust (BNS 316)",
+      "Register logs require electronic certification under BSA Section 63"
+    ],
+    "prohibited_false_propositions": [
+      "Cash removal by employee is purely civil matter"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Cash audit reconciliation and register access logs"
+  },
+  "BLIND-002": {
+    "scenario_id": "BLIND-002",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Arson Threat Extortion",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "308"
+      },
+      {
+        "statute": "BNS",
+        "section": "351"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "326"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Putting a person in fear of injury to property to extract money constitutes Extortion (BNS 308)",
+      "Threatening arson constitutes Criminal Intimidation (BNS 351)"
+    ],
+    "prohibited_false_propositions": [
+      "Extortion carries capital punishment"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Authorship of anonymous demand letters"
+  },
+  "BLIND-003": {
+    "scenario_id": "BLIND-003",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Armed Group Robbery / Dacoity",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "309"
+      },
+      {
+        "statute": "BNS",
+        "section": "329"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "310"
+      },
+      {
+        "statute": "BNS",
+        "section": "332"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Theft by putting occupants in fear of instant death or hurt constitutes Robbery (BNS 309)",
+      "House-trespass at night after preparation for hurt constitutes aggravated trespass (BNS 331)"
+    ],
+    "prohibited_false_propositions": [
+      "Robbery requires five or more persons (five or more is dacoity)"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Identification of armed assailants"
+  },
+  "BLIND-004": {
+    "scenario_id": "BLIND-004",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Accountant Embezzlement & Forgery",
+    "material_issue_count": 3,
+    "expected_statutes": [
+      "BNS",
+      "BNSS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "316"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNSS",
+        "section": "107"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "340"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Misappropriating entrusted employer funds constitutes Criminal Breach of Trust (BNS 316) and Cheating (BNS 318)",
+      "Fabricating duplicate invoices constitutes Forgery (BNS 336)",
+      "Bank accounts may be attached under BNSS Section 353"
+    ],
+    "prohibited_false_propositions": [
+      "Commercial accounting fraud cannot be prosecuted under penal law"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Audit trail and verification of invoice approvals"
+  },
+  "BLIND-005": {
+    "scenario_id": "BLIND-005",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Fatal Rash Driving",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNS",
+      "BSA"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BNS",
+        "section": "281"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Causing death by rash or negligent driving is governed as Death by Negligence under BNS Section 106(1) and Rash Driving under Section 281",
+      "Mechanical inspection report is governed under BSA Section 39"
+    ],
+    "prohibited_false_propositions": [
+      "Rash driving collision without premeditation is automatically first-degree murder"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Vehicle speed, road visibility, and mechanical failure"
+  },
+  "BLIND-006": {
+    "scenario_id": "BLIND-006",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Evaluate whether the resident actions ar",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-007": {
+    "scenario_id": "BLIND-007",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the civil and criminal dimensio",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-008": {
+    "scenario_id": "BLIND-008",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine the criminal elements of this de",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-009": {
+    "scenario_id": "BLIND-009",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "What specific statutory offence is commi",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "78"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 78"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-010": {
+    "scenario_id": "BLIND-010",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "What penal offences are established, and",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BSA",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "77"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 77"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-011": {
+    "scenario_id": "BLIND-011",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the criminal liability for prod",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-012": {
+    "scenario_id": "BLIND-012",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the penal provisions governing p",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-013": {
+    "scenario_id": "BLIND-013",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Determine the criminal liability of the ",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BSA",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 106"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-014": {
+    "scenario_id": "BLIND-014",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine the penal offence committed by a",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-015": {
+    "scenario_id": "BLIND-015",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the criminal offences establish",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-016": {
+    "scenario_id": "BLIND-016",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the criminal liability for publi",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-017": {
+    "scenario_id": "BLIND-017",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Evaluate the standard of gross medical n",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BSA",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 106"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-018": {
+    "scenario_id": "BLIND-018",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Distinguish civil tenancy disputes from ",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-019": {
+    "scenario_id": "BLIND-019",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the penal offences disclosed by ",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-020": {
+    "scenario_id": "BLIND-020",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine the criminal liability for offer",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-021": {
+    "scenario_id": "BLIND-021",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the group homicide and mob viole",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "103"
+      },
+      {
+        "statute": "BNS",
+        "section": "190"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 103"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-022": {
+    "scenario_id": "BLIND-022",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Determine the penal liability for unauth",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-023": {
+    "scenario_id": "BLIND-023",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the special protection and pena",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-024": {
+    "scenario_id": "BLIND-024",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Determine the statutory liability and pe",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-025": {
+    "scenario_id": "BLIND-025",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "What substantive penal offence is establ",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-026": {
+    "scenario_id": "BLIND-026",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze whether coercive debt collection",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-027": {
+    "scenario_id": "BLIND-027",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine the penal offences relating to r",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-028": {
+    "scenario_id": "BLIND-028",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the forgery, false document, an",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 336"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-029": {
+    "scenario_id": "BLIND-029",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Evaluate the criminal elements of electr",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BSA",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "77"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 77"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-030": {
+    "scenario_id": "BLIND-030",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Distinguish business failure from fraudu",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-031": {
+    "scenario_id": "BLIND-031",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the penal liability for unauthor",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-032": {
+    "scenario_id": "BLIND-032",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "What offences apply to negligent conduct",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "326"
+      },
+      {
+        "statute": "BNS",
+        "section": "324"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 326"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-033": {
+    "scenario_id": "BLIND-033",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine cheating by personation and fabr",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-034": {
+    "scenario_id": "BLIND-034",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Evaluate whether private defence of prop",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-035": {
+    "scenario_id": "BLIND-035",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the specific aggravated offence",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under POCSO Section 5"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-036": {
+    "scenario_id": "BLIND-036",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the offences of making a false e",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-037": {
+    "scenario_id": "BLIND-037",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "What specific offence is committed by fo",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-038": {
+    "scenario_id": "BLIND-038",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine the criminal liability for sale ",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-039": {
+    "scenario_id": "BLIND-039",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Determine the penal classification of ar",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-040": {
+    "scenario_id": "BLIND-040",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the criminal intimidation, extor",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-041": {
+    "scenario_id": "BLIND-041",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "What penal provisions govern adulteratio",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-042": {
+    "scenario_id": "BLIND-042",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the aggravated mischief by fire",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "326"
+      },
+      {
+        "statute": "BNS",
+        "section": "324"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 326"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-043": {
+    "scenario_id": "BLIND-043",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Evaluate criminal cheating alongside sta",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 336"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-044": {
+    "scenario_id": "BLIND-044",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Determine the aggravated penetrative sex",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "5"
+      },
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under POCSO Section 5"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-045": {
+    "scenario_id": "BLIND-045",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine the penal offences of breach of ",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-046": {
+    "scenario_id": "BLIND-046",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Identify the rash driving and hit-and-ru",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BSA",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 106"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-047": {
+    "scenario_id": "BLIND-047",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze causing death by negligence and ",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BSA",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "106"
+      },
+      {
+        "statute": "BSA",
+        "section": "39"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 106"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-048": {
+    "scenario_id": "BLIND-048",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Determine the forgery of valuable securi",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "336"
+      },
+      {
+        "statute": "BNS",
+        "section": "318"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 336"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-049": {
+    "scenario_id": "BLIND-049",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Examine criminal intimidation and extort",
+    "material_issue_count": 2,
+    "expected_statutes": [
+      "BNSS",
+      "BNS"
+    ],
+    "expected_sections": [
+      {
+        "statute": "BNS",
+        "section": "318"
+      },
+      {
+        "statute": "BNSS",
+        "section": "35"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under BNS Section 318"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  },
+  "BLIND-050": {
+    "scenario_id": "BLIND-050",
+    "benchmark_class": "NARRATIVE_BLIND",
+    "category": "Analyze the aggravated child sexual assa",
+    "material_issue_count": 1,
+    "expected_statutes": [
+      "POCSO"
+    ],
+    "expected_sections": [
+      {
+        "statute": "POCSO",
+        "section": "7"
+      },
+      {
+        "statute": "POCSO",
+        "section": "3"
+      }
+    ],
+    "acceptable_alternative_sections": [
+      {
+        "statute": "BNS",
+        "section": "358"
+      },
+      {
+        "statute": "BSA",
+        "section": "63"
+      }
+    ],
+    "expected_legal_propositions": [
+      "Offence governed under POCSO Section 7"
+    ],
+    "prohibited_false_propositions": [
+      "BNS replaces CrPC",
+      "POCSO was repealed"
+    ],
+    "requires_uncertainty_qualification": true,
+    "uncertainty_focus": "Sufficiency of evidence and chain of custody"
+  }
+}

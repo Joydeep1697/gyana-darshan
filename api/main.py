@@ -28,6 +28,12 @@ from api.security import (
     RateLimitMiddleware, verify_api_key, sanitize_response_data,
     log_audit_event
 )
+from database.connection import init_db
+from api.auth.router import router as auth_router
+from api.conversations.router import router as conversations_router
+
+# Initialize Relational Database Schema
+init_db()
 
 app = FastAPI(
     title="Nyaya Legal OS — Production Statutory API",
@@ -35,18 +41,45 @@ app = FastAPI(
     version="2.0.0"
 )
 
+# Mount Product Routers
+app.include_router(auth_router)
+app.include_router(conversations_router)
+
 # 1. Mount Rate Limiting Middleware
 app.add_middleware(RateLimitMiddleware)
 
 # 2. Mount CORS Middleware
-ALLOWED_ORIGINS = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
+import logging as _logging
+_cors_logger = _logging.getLogger("nyaya-security")
+_raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
+_env = os.environ.get("ENVIRONMENT", os.environ.get("ENV", "development")).lower()
+_is_prod = _env in ["production", "prod"]
+_is_wildcard = not _raw_origins or _raw_origins.strip() == "*"
+
+if _is_wildcard:
+    if _is_prod:
+        raise RuntimeError(
+            "FAIL-CLOSED: Wildcard CORS ('*') or missing ALLOWED_ORIGINS is forbidden in production mode. "
+            "Set explicit origins e.g. ALLOWED_ORIGINS=https://nyayadarshana.com"
+        )
+    ALLOWED_ORIGINS = ["*"]
+    _allow_credentials = False  # Never allow credentials on wildcard origins
+    _cors_logger.warning(
+        "SECURITY: ALLOWED_ORIGINS is not configured — CORS wildcard (*) is active (credentials disabled). "
+        "Set ALLOWED_ORIGINS=https://yourdomain.com in production."
+    )
+else:
+    ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+    _allow_credentials = True
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
-    allow_credentials=True,
+    allow_credentials=_allow_credentials,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
+
 
 # Global Exception Handlers (RFC-7807 Standard Error Format & No Path Leakage)
 @app.exception_handler(RequestValidationError)
@@ -141,9 +174,6 @@ def health_check():
     return {
         "status": "HEALTHY",
         "engine": "Nyaya Legal OS Grounding Engine",
-        "production_status": "PRODUCTION_READINESS_APPROVED",
-        "accuracy_benchmark": "96.36%",
-        "false_corrections": 0,
         "corpus_loaded_sections": len(retriever.corpus),
         "timestamp": time.time()
     }

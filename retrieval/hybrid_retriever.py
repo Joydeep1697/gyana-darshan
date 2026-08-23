@@ -1,20 +1,19 @@
-# hybrid_retriever.py — Nyaya Legal OS Authoritative Statutory RAG Engine (Phase 8.2C Hardened)
+# hybrid_retriever.py — Nyaya Legal OS Authoritative Statutory RAG Engine (Phase 8.2F Generalized Architecture)
 #
 # Objective:
 # Provide 100% authoritative statutory evidence packs for legal queries using:
 # 1. Structured Statutory Corpus (BNS, BNSS, BSA, POCSO JSONL records)
-# 2. Multi-Issue Query Decomposition & Legal Concept Expansion
-# 3. Statutory Cross-Mapping Registry (IPC -> BNS, CrPC -> BNSS, IEA -> BSA, POCSO status)
-# 4. Deterministic Legal Indexer & Provenance Tracking
-# 5. Procedural Rules Registry (Timelines, Remand, Bail, FIR)
-# 6. Statute Scope Classifier & Multi-Statute Evidence Fusion
+# 2. Multi-Issue Query Decomposition & Generalized Legal Ontology Expansion
+# 3. Statutory Cross-Mapping Registry & Deterministic Section Injection
+# 4. Statute-Diversified Parallel Branch Retrieval & Fusion
+# 5. Procedural Rules Registry & Transition Router Integration
 
 import os
 import sys
 import json
 import re
 from pathlib import Path
-from typing import Dict, List, Any, Set
+from typing import Dict, List, Any, Set, Optional
 
 BASE_DIR = Path(r"d:\Nova Legal")
 sys.path.append(str(BASE_DIR))
@@ -24,15 +23,29 @@ from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
 from retrieval.query_analyzer import LegalQueryAnalyzer
+from retrieval.transition_router import TransitionLawRouter
+from retrieval.legal_issue_classifier import LegalIssueClassifier
+from retrieval.legal_reranker import LegalReranker
+from retrieval.issue_planner import LegalIssuePlanner
+from retrieval.legal_concept_expander import LegalConceptExpander
+from retrieval.evidence_budget_engine import EvidenceBudgetEngine
 
 class AuthoritativeLegalRetriever:
     def __init__(self):
         self.corpus = []
+        self.corpus_by_id = {}
+        self.corpus_by_statute_sec = {}
         self.cross_mappings = {}
         self.deterministic_indexer = DeterministicLegalIndexer()
         self.procedural_registry = ProceduralRulesRegistry()
         self.statute_classifier = StatuteScopeClassifier()
         self.query_analyzer = LegalQueryAnalyzer()
+        self.transition_router = TransitionLawRouter()
+        self.issue_classifier = LegalIssueClassifier()
+        self.legal_reranker = LegalReranker()
+        self.issue_planner = LegalIssuePlanner()
+        self.concept_expander = LegalConceptExpander()
+        self.evidence_budget_engine = EvidenceBudgetEngine()
         self._load_corpus()
 
     def _load_corpus(self):
@@ -48,7 +61,12 @@ class AuthoritativeLegalRetriever:
                 with open(fp, "r", encoding="utf-8") as f:
                     for line in f:
                         if line.strip():
-                            self.corpus.append(json.loads(line))
+                            rec = json.loads(line)
+                            self.corpus.append(rec)
+                            self.corpus_by_id[rec.get("id")] = rec
+                            st_short = rec.get("short_name") or ("BNS" if "Nyaya" in rec.get("statute","") else ("BNSS" if "Nagarik" in rec.get("statute","") else ("BSA" if "Sakshya" in rec.get("statute","") else ("POCSO" if "POCSO" in rec.get("statute","") else ""))))
+                            sec_clean = str(rec.get("section", "")).strip().upper()
+                            self.corpus_by_statute_sec[(st_short.upper(), sec_clean)] = rec
 
         map_file = CORPUS_DIR / "statutory_cross_mappings.json"
         if map_file.exists():
@@ -58,29 +76,40 @@ class AuthoritativeLegalRetriever:
     def _score_section(self, rec: Dict[str, Any], query_words: Set[str], candidate_sections: Set[str], target_statute: str = None) -> float:
         score = 0.0
         sec_str = str(rec.get("section", "")).strip()
+        sec_base = sec_str.split('(')[0]
         st_short = rec.get("short_name", "").upper()
 
         if target_statute and target_statute.upper() != st_short:
             return -100.0
 
-        # Exact target section match
-        if sec_str in candidate_sections or any(re.sub(r'\(.*?\)', '', s) == sec_str for s in candidate_sections):
-            score += 30.0
+        # Exact target section match from ontology or query
+        if sec_str in candidate_sections or sec_base in candidate_sections or any(re.sub(r'\(.*?\)', '', s) == sec_base for s in candidate_sections):
+            score += 60.0
 
-        # Check section number in query
-        if sec_str in query_words:
-            score += 20.0
+        # Check section number in query words (with boundary)
+        if sec_str in query_words and sec_str not in ["1", "2", "3"]:
+            score += 30.0
 
         heading_lower = rec.get("heading", "").lower()
         text_snippet = rec.get("text", "")[:400].lower()
 
-        # Keyword matches
+        # Demote generic definition / commencement sections unless specifically requested
+        if sec_str in ["1", "2"] and not any(w in query_words for w in ["definition", "title", "commencement", "application", "scope"]):
+            score -= 25.0
+
+        # Heading and Element-Aware Keyword Matches
         for w in query_words:
-            if len(w) > 3:
+            if len(w) > 3 and w not in ["with", "from", "that", "this", "have", "under", "which", "shall", "about", "their", "where"]:
                 if w in heading_lower:
-                    score += 5.0
+                    score += 15.0
                 elif w in text_snippet:
-                    score += 2.0
+                    score += 4.0
+
+        # Specific Key Compound Matches in Heading (Strict Phrase Match)
+        q_clean = " " + " ".join(query_words) + " "
+        for key_phrase in ["electronic record", "admissibility", "attachment of property", "proceeds of crime", "police custody", "remand", "bail", "undertrial", "sexual harassment", "sexual assault", "mandatory reporting", "forgery", "criminal breach of trust", "cheating", "private defence", "rash driving", "death by negligence", "snatching", "extortion", "robbery", "dacoity", "dishonest misappropriation", "counterfeiting"]:
+            if key_phrase in heading_lower and (key_phrase in q_clean or all(w in query_words for w in key_phrase.split())):
+                score += 35.0
 
         return score
 
@@ -88,15 +117,21 @@ class AuthoritativeLegalRetriever:
         query_lower = query.lower()
         authoritative_facts = []
 
-        # 1. Query Analysis & Concept Expansion
+        # 1. Query Analysis & Generalized Legal Concept Expansion
         analysis = self.query_analyzer.analyze_query(query)
         candidate_sections = set(analysis["candidate_sections"])
         candidate_statutes = analysis["candidate_statutes"]
+        statute_to_candidate_sections = analysis.get("statute_to_candidate_sections", {})
 
-        # Extract explicit section numbers from query
-        explicit_nums = re.findall(r'\b\d+(?:[A-Za-z]+)?\b', query)
-        for n in explicit_nums:
-            candidate_sections.add(n)
+        # Extract explicit section numbers from text (e.g. "Section 303", "Sec 187")
+        explicit_sec_matches = re.findall(r'(?:section|sec\.?|§|u/s|under\s+section)\s+(\d+[A-Za-z]*(?:\(\w+\))?)', query, re.IGNORECASE)
+        for s in explicit_sec_matches:
+            clean_s = s.strip()
+            candidate_sections.add(clean_s)
+            for st in candidate_statutes:
+                if st not in statute_to_candidate_sections:
+                    statute_to_candidate_sections[st] = []
+                statute_to_candidate_sections[st].append(clean_s)
 
         # 2. Statute Scope Classification
         scope = self.statute_classifier.classify_statute_scope(query)
@@ -114,13 +149,20 @@ class AuthoritativeLegalRetriever:
                 "proc_data": proc_rule
             })
 
-        # 4. Deterministic Payload Integration
+        # 4. Deterministic Payload Integration & Section Resolution
         deterministic_payload = self.deterministic_indexer.route_query_and_extract(query)
+        deterministic_injected_sections = []
+
         if deterministic_payload:
             payload_type = deterministic_payload["type"]
             data = deterministic_payload["data"]
 
             if payload_type == "SECTION_CONVERSION":
+                ref_st = "BNS" if "BNS" in data["reformed_statute"] or "Nyaya" in data["reformed_statute"] else ("BNSS" if "BNSS" in data["reformed_statute"] or "Nagarik" in data["reformed_statute"] else ("BSA" if "BSA" in data["reformed_statute"] or "Sakshya" in data["reformed_statute"] else ""))
+                ref_sec = str(data["reformed_section"]).split("/")[0].split("(")[0].strip().upper()
+                if (ref_st, ref_sec) in self.corpus_by_statute_sec:
+                    deterministic_injected_sections.append(self.corpus_by_statute_sec[(ref_st, ref_sec)])
+
                 authoritative_facts.append({
                     "type": "SECTION_CONVERSION",
                     "legacy_section": data["legacy_section"],
@@ -131,6 +173,11 @@ class AuthoritativeLegalRetriever:
                     "reform_note": data["reform_note"]
                 })
             elif payload_type == "CASE_LAW_PRECEDENT":
+                cod_st = "BNS" if "BNS" in data["codified_statute"] else ("BNSS" if "BNSS" in data["codified_statute"] else ("BSA" if "BSA" in data["codified_statute"] else ""))
+                cod_sec = str(data["codified_section"]).split("(")[0].strip().upper()
+                if (cod_st, cod_sec) in self.corpus_by_statute_sec:
+                    deterministic_injected_sections.append(self.corpus_by_statute_sec[(cod_st, cod_sec)])
+
                 authoritative_facts.append({
                     "type": "CASE_LAW_PRECEDENT",
                     "case_title": data["case_title"],
@@ -141,6 +188,11 @@ class AuthoritativeLegalRetriever:
                     "statutory_standard": data["statutory_standard"]
                 })
             elif payload_type == "OFFENCE_METADATA":
+                off_st = "BNS" if "BNS" in data["statute"] else ("BNSS" if "BNSS" in data["statute"] else ("BSA" if "BSA" in data["statute"] else ""))
+                off_sec = str(data["section"]).split("(")[0].strip().upper()
+                if (off_st, off_sec) in self.corpus_by_statute_sec:
+                    deterministic_injected_sections.append(self.corpus_by_statute_sec[(off_st, off_sec)])
+
                 authoritative_facts.append({
                     "type": "OFFENCE_METADATA",
                     "offence_name": data["offence_name"],
@@ -158,7 +210,7 @@ class AuthoritativeLegalRetriever:
                     "qualification": data["qualification"]
                 })
 
-        # 5. Check Statutory Replacements & Relationships
+        # 5. Statutory Replacements & Relationships
         if any(w in query_lower for w in ["ipc", "indian penal code", "penal code"]):
             authoritative_facts.append({
                 "predecessor": "Indian Penal Code, 1860 (IPC)",
@@ -191,36 +243,105 @@ class AuthoritativeLegalRetriever:
                 "note": "POCSO Act 2012 remains an unrepealed independent special statute operating alongside Bharatiya Nyaya Sanhita, 2023 (BNS). It is NOT repealed or subsumed into BNS."
             })
 
-        # 6. Multi-Statute Evidence Fusion & Section Retrieval
+        # 6. Structured Legal Issue Plan, Concept Expansion & Issue-Aware Candidate Allocation (Phase 8.2K)
+        concept_res = self.concept_expander.extract_concepts_and_expand(query)
+        expanded_statute_sections = concept_res.get("statute_to_expanded_sections", {})
+        concept_prohibited = set((d[0].upper(), str(d[1]).upper()) for d in concept_res.get("negation_analysis", {}).get("prohibited_sections", []))
+
+        issue_analysis = self.issue_classifier.classify_issues(query)
+        issue_plan = self.issue_planner.create_issue_plan(issue_analysis, top_k=top_k)
+        targeted_sections = issue_analysis.get("targeted_sections", {})
+        negative_distractors = set((d[0].upper(), str(d[1]).upper()) for d in issue_analysis.get("negative_distractors", []))
+        negative_distractors.update(concept_prohibited)
+
         query_words = set(re.findall(r'\w+', query_lower))
-        for tok in analysis["enriched_tokens"]:
+        for tok in analysis.get("enriched_tokens", []):
             query_words.add(tok)
 
-        top_sections = []
+        # Step 6a: Gather all targeted and expanded sections per statute
+        target_map: Dict[str, List[str]] = {}
+        for st_source in [targeted_sections, expanded_statute_sections, statute_to_candidate_sections]:
+            for st, s_list in st_source.items():
+                if st not in target_map:
+                    target_map[st] = []
+                for s in s_list:
+                    if s not in target_map[st]:
+                        target_map[st].append(s)
 
-        if analysis["is_multi_statute"]:
-            # Retrieve top 1-2 sections per candidate statute
-            seen_ids = set()
-            for st in candidate_statutes:
-                st_matches = []
-                for rec in self.corpus:
-                    sc = self._score_section(rec, query_words, candidate_sections, target_statute=st)
-                    if sc > 0:
-                        st_matches.append((sc, rec))
-                st_matches.sort(key=lambda x: x[0], reverse=True)
-                for item in st_matches[:2]:
-                    if item[1]["id"] not in seen_ids:
-                        seen_ids.add(item[1]["id"])
-                        top_sections.append(item[1])
-        else:
-            matched_records = []
-            target_st = candidate_statutes[0] if len(candidate_statutes) == 1 else None
+        # Step 6b: Ensure all active statutes with targets have an issue plan entry
+        active_statutes = set(analysis.get("candidate_statutes", []))
+        for st in target_map.keys():
+            active_statutes.add(st)
+        if not active_statutes:
+            active_statutes.add("BNS")
+
+        # Step 6c: Per-Statute / Issue Priority Queues (Verified Targets + Scored Corpus Candidates)
+        issue_queues = {}
+        for st in sorted(active_statutes):
+            iss_candidates = []
+            seen_iss_ids = set()
+
+            # Priority 1: Verified target & concept-expanded sections for this statute
+            for s in target_map.get(st, []):
+                s_clean = re.match(r'(\d+[A-Za-z]*)', str(s).strip())
+                s_norm = s_clean.group(1).upper() if s_clean else str(s).strip().upper()
+                sec_key = (st.upper(), s_norm)
+                if sec_key in negative_distractors:
+                    continue
+                rec = self.corpus_by_statute_sec.get(sec_key)
+                if rec and rec["id"] not in seen_iss_ids:
+                    seen_iss_ids.add(rec["id"])
+                    iss_candidates.append((100.0, rec))
+
+            # Priority 2: Scored corpus candidates for this statute
             for rec in self.corpus:
-                sc = self._score_section(rec, query_words, candidate_sections, target_statute=target_st)
-                if sc > 0:
-                    matched_records.append((sc, rec))
-            matched_records.sort(key=lambda x: x[0], reverse=True)
-            top_sections = [r[1] for r in matched_records[:top_k]]
+                st_short = rec.get("short_name") or ("BNS" if "Nyaya" in rec.get("statute","") else ("BNSS" if "Nagarik" in rec.get("statute","") else ("BSA" if "Sakshya" in rec.get("statute","") else ("POCSO" if "POCSO" in rec.get("statute","") else ""))))
+                if st and st.upper() != st_short.upper():
+                    continue
+                if rec["id"] in seen_iss_ids:
+                    continue
+
+                sc = self.legal_reranker.score_candidate(rec, query, query_words, issue_analysis)
+                sec_clean = str(rec.get("section", "")).strip().upper()
+                sec_key = (st_short.upper(), sec_clean)
+                if sc > 0 and sec_key not in negative_distractors:
+                    iss_candidates.append((sc, rec))
+
+            iss_candidates.sort(key=lambda x: x[0], reverse=True)
+            issue_queues[st] = [c[1] for c in iss_candidates[:25]]
+
+        # Step 6d: Dynamic Issue Budget Allocation & Fair Diversified Top-K Selection
+        active_issue_objs = [{"issue_id": st, "statute": st, "priority": "PRIMARY" if st in ["BNS", "POCSO"] else "SECONDARY"} for st in issue_queues.keys()]
+        issue_budgets = self.evidence_budget_engine.allocate_issue_budgets(active_issue_objs, top_k=top_k)
+
+        top_sections = self.evidence_budget_engine.select_diversified_evidence(
+            issue_queues,
+            issue_budgets,
+            top_k=top_k,
+            negative_distractors=negative_distractors
+        )
+
+        # Prepend deterministic cross-mappings if any
+        if deterministic_injected_sections:
+            det_to_add = []
+            curr_sec_keys = set((s.get("short_name","").upper(), str(s.get("section","")).strip().upper()) for s in top_sections)
+            for d in deterministic_injected_sections:
+                d_key = (d.get("short_name","").upper(), str(d.get("section","")).strip().upper())
+                if d_key not in curr_sec_keys and d_key not in negative_distractors:
+                    det_to_add.append(d)
+            top_sections = det_to_add + top_sections
+            top_sections = top_sections[:top_k]
+
+        # Step 6c: Transition Law Guarantees
+        if analysis.get("is_transition"):
+            curr_top_ids = set(s["id"] for s in top_sections)
+            for rec in self.corpus:
+                st_short = rec.get("short_name") or ("BNS" if "Nyaya" in rec.get("statute","") else ("BNSS" if "Nagarik" in rec.get("statute","") else ""))
+                sec_str = str(rec.get("section", "")).strip()
+                if (st_short == "BNS" and sec_str == "358") or (st_short == "BNSS" and sec_str == "531"):
+                    if rec["id"] not in curr_top_ids:
+                        curr_top_ids.add(rec["id"])
+                        top_sections.append(rec)
 
         return {
             "query": query,
@@ -229,6 +350,7 @@ class AuthoritativeLegalRetriever:
             "procedural_rule": proc_rule,
             "authoritative_facts": authoritative_facts,
             "retrieved_sections": top_sections,
+            "top_documents": top_sections,
             "query_analysis": analysis
         }
 
@@ -236,7 +358,7 @@ class AuthoritativeLegalRetriever:
         analysis = evidence_pack.get("query_analysis", {})
         ctx = "=== AUTHORITATIVE STATUTORY EVIDENCE PACK (OFFICIAL GAZETTE) ===\n"
 
-        # Multi-Statute Jurisdictional Decomposition Header
+        # Multi-Statute Jurisdictional Architecture Header
         if analysis.get("is_multi_statute"):
             ctx += "• MULTI-STATUTE JURISDICTIONAL ARCHITECTURE:\n"
             if "BNS" in analysis.get("candidate_statutes", []):
@@ -248,7 +370,7 @@ class AuthoritativeLegalRetriever:
             if "POCSO" in analysis.get("candidate_statutes", []):
                 ctx += "  - Special Child Protection Law: Governed by the Protection of Children from Sexual Offences Act, 2012 (POCSO Act, 2012 — Unrepealed Special Statute).\n"
 
-        for fact in evidence_pack["authoritative_facts"]:
+        for fact in evidence_pack.get("authoritative_facts", []):
             f_type = fact.get("type", "")
             if f_type == "STATUTE_SCOPE":
                 s = fact["scope_data"]
@@ -269,8 +391,9 @@ class AuthoritativeLegalRetriever:
             elif "relationship" in fact:
                 ctx += f"• SPECIAL STATUTE STATUS: {fact['statute']} is an {fact['status']} ({fact['note']}).\n"
 
-        for sec in evidence_pack["retrieved_sections"]:
-            ctx += f"\n• [{sec['short_name']} Section {sec['section']}]: {sec['heading']}\n  Chapter: {sec['chapter']}\n  Text Snippet: {sec['text'][:350]}...\n"
+        for sec in evidence_pack.get("retrieved_sections", []):
+            st_name = sec.get("short_name") or ("BNS" if "Nyaya" in sec.get("statute","") else ("BNSS" if "Nagarik" in sec.get("statute","") else ("BSA" if "Sakshya" in sec.get("statute","") else "POCSO")))
+            ctx += f"\n• [{st_name} Section {sec.get('section')}]: {sec.get('heading', '')}\n  Chapter: {sec.get('chapter', '')}\n  Text Snippet: {sec.get('text', '')[:350]}...\n"
 
         ctx += "=================================================================\n"
         return ctx

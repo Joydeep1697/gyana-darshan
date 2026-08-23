@@ -1,0 +1,94 @@
+{
+  "phase": "PHASE 8.2I — ISSUE-LEVEL LEGAL DISCRIMINATION & PRECISION HARDENING",
+  "benchmark_summary": {
+    "total_frozen_cases": 100,
+    "valid_ground_truth_cases": 80,
+    "invalid_placeholder_cases": 20,
+    "blind_validation_cases": 100
+  },
+  "frozen_benchmark_overall_metrics": {
+    "Recall@1": 26.17,
+    "Recall@3": 52.26,
+    "Recall@5": 61.39,
+    "Recall@10": 68.25,
+    "Precision@5": 34.4,
+    "MRR": 0.7708,
+    "NDCG@10": 0.6461
+  },
+  "frozen_benchmark_80_valid_metrics": {
+    "total_cases": 80,
+    "Recall@1": 23.54,
+    "Recall@3": 48.24,
+    "Recall@5": 58.41,
+    "Recall@10": 66.56,
+    "Precision@5": 35.0,
+    "MRR": 0.7656,
+    "NDCG@10": 0.6249
+  },
+  "blind_validation_100_metrics": {
+    "Recall@1": 7.08,
+    "Recall@3": 32.17,
+    "Recall@5": 56.92,
+    "Recall@10": 78.75,
+    "Precision@5": 37.4,
+    "MRR": 0.3882,
+    "NDCG@10": 0.5491,
+    "Distractor_Avoidance_Rate": 94.0
+  },
+  "blind_validation_category_breakdown": {
+    "POCSO_DISCRIMINATION": {
+      "total_cases": 5,
+      "Recall@5": 85.0,
+      "Recall@10": 100.0,
+      "Precision@5": 48.0,
+      "MRR": 0.5733,
+      "Distractor_Avoidance": 80.0
+    },
+    "BNS_NEAR_NEIGHBOUR": {
+      "total_cases": 10,
+      "Recall@5": 61.67,
+      "Recall@10": 75.0,
+      "Precision@5": 28.0,
+      "MRR": 0.485,
+      "Distractor_Avoidance": 90.0
+    },
+    "BNSS_PROCEDURE": {
+      "total_cases": 5,
+      "Recall@5": 100.0,
+      "Recall@10": 100.0,
+      "Precision@5": 20.0,
+      "MRR": 0.9,
+      "Distractor_Avoidance": 40.0
+    },
+    "BSA_EVIDENCE": {
+      "total_cases": 5,
+      "Recall@5": 80.0,
+      "Recall@10": 100.0,
+      "Precision@5": 24.0,
+      "MRR": 0.405,
+      "Distractor_Avoidance": 80.0
+    },
+    "MULTI_STATUTE_HYBRID": {
+      "total_cases": 75,
+      "Recall@5": 50.0,
+      "Recall@10": 75.0,
+      "Precision@5": 40.0,
+      "MRR": 0.3278,
+      "Distractor_Avoidance": 100.0
+    }
+  },
+  "failure_taxonomy": {
+    "R1": 0,
+    "R2": 32,
+    "R3": 0,
+    "R4": 4,
+    "R5": 30,
+    "R6": 0
+  },
+  "safety_gate": {
+    "false_corrections": 0,
+    "unsupported_corrections": 0,
+    "hallucinations": 0,
+    "regression_suites_pass_rate": "100% (29/29 tests)"
+  }
+}
