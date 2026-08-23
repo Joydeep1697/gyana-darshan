@@ -20,6 +20,18 @@ services:
         value: nvidia/llama-3.3-nemotron-super-49b-v1
       - key: NVIDIA_API_KEY
         sync: false
+      - key: LEGAL_REQUEST_TIMEOUT
+        value: "75"
+      - key: LEGAL_MODEL_TIMEOUT
+        value: "60"
+      - key: LEGAL_MAX_TOKENS
+        value: "320"
+      - key: LEGAL_CACHE_TTL_SECONDS
+        value: "300"
+      - key: LEGAL_MAX_CONCURRENCY
+        value: "4"
+      - key: LEGAL_MAX_RETRIES
+        value: "2"
       - key: NYAYA_API_KEY
         generateValue: true
       - key: NYAYA_JWT_SECRET
