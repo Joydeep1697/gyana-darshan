@@ -1,6 +1,6 @@
-# Phase 6 — SFT / QLoRA Pipeline for Nyaya Darshana
+# Phase 6 — SFT / QLoRA Pipeline for Nyaya Darshan
 **Project**: Nyaya Legal OS  
-**Objective**: Build a high-precision Supervised Fine-Tuning (SFT) & QLoRA pipeline to train **Nyaya Darshana** on legal reasoning, statutory qualification, structure, citation standards, challenging false premises, handling historical vs. current 2023 laws, and resisting hallucination.
+**Objective**: Build a high-precision Supervised Fine-Tuning (SFT) & QLoRA pipeline to train **Nyaya Darshan** on legal reasoning, statutory qualification, structure, citation standards, challenging false premises, handling historical vs. current 2023 laws, and resisting hallucination.
 
 ---
 
