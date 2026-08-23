@@ -27,7 +27,7 @@
 All Phase 8.3A modules and evaluators are strictly isolated in new directories without modifying production or Phase 8.2G code:
 
 ```text
-d:\Nova Legal\
+d:\Gyana Darshan\
 ├── retrieval\
 │   └── experimental_phase_8_3a\
 │       ├── __init__.py

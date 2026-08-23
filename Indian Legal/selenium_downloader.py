@@ -1,4 +1,4 @@
-﻿# manual_page_downloader.py
+# manual_page_downloader.py
 # Interactive Playwright downloader: you manually browse in the opened Playwright browser;
 # press Enter in the terminal to capture PDF links from the current page and download them.
 # Requirements:
@@ -12,8 +12,8 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 from playwright.sync_api import sync_playwright
 
-OUT_DIR = r"D:/Nova Legal/Indian Legal/raw"
-META_FILE = r"D:/Nova Legal/Indian Legal/download_metadata.jsonl"
+OUT_DIR = r"D:/Gyana Darshan/Indian Legal/raw"
+META_FILE = r"D:/Gyana Darshan/Indian Legal/download_metadata.jsonl"
 WAIT_AFTER_ACTION = 1.0
 REQUEST_TIMEOUT = 120
 

@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from fastapi.testclient import TestClient
 
-sys.path.append(r"d:\Nova Legal")
+sys.path.append(r"d:\Gyana Darshan")
 from api.main import app
 from database.connection import init_db
 from database.repository import UserRepository, UsageRepository

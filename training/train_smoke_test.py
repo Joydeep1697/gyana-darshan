@@ -17,7 +17,7 @@ import yaml
 import json
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 CONFIG_PATH = BASE_DIR / "training" / "config.yaml"
 SMOKE_ADAPTER_DIR = BASE_DIR / "training" / "adapters" / "smoke_test_adapter"
 

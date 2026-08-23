@@ -1,6 +1,6 @@
 import json
 
-with open("d:/Nova Legal/evaluation/phase_8_2b_per_record_results.jsonl", "r", encoding="utf-8") as f:
+with open("d:/Gyana Darshan/evaluation/phase_8_2b_per_record_results.jsonl", "r", encoding="utf-8") as f:
     records = [json.loads(l) for l in f if l.strip()]
 
 failed = [r for r in records if not r.get("final_pass")]

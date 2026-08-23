@@ -5,7 +5,7 @@ import glob
 from pathlib import Path
 
 # Paths
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 CHUNKS_FILE = BASE_DIR / "Indian Legal" / "processed_corpus" / "rag" / "chunks.jsonl"
 CATEGORY_DIR = BASE_DIR / "Indian Legal" / "Category"
 OUT_DIR = BASE_DIR / "training"

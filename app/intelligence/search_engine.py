@@ -3,13 +3,13 @@ import re
 from pathlib import Path
 from app import config
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 
 try:
     # Import existing RAG engine after config has set up the path
-    import nova_legal_rag_nvidia as rag
+    import gyana_darshan_rag_nvidia as rag
 except ImportError as e:
-    logger.warning(f"Failed to import nova_legal_rag_nvidia: {e}")
+    logger.warning(f"Failed to import gyana_darshan_rag_nvidia: {e}")
     rag = None
 
 def parse_natural_language_filters(query: str) -> tuple[str, dict]:
@@ -55,7 +55,7 @@ def intelligent_search(query: str, filters: dict, index_dir: Path) -> dict:
     }
     try:
         if not rag:
-            raise ImportError("nova_legal_rag_nvidia is not available.")
+            raise ImportError("gyana_darshan_rag_nvidia is not available.")
             
         # 1. Parse natural language filters
         cleaned_query, parsed_filters = parse_natural_language_filters(query)

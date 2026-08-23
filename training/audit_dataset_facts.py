@@ -12,7 +12,7 @@ import json
 import re
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 TRAIN_FILE = BASE_DIR / "training" / "train.jsonl"
 VAL_FILE = BASE_DIR / "training" / "validation.jsonl"
 TEST_FILE = BASE_DIR / "training" / "test.jsonl"

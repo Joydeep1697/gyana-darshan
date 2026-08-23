@@ -20,7 +20,7 @@ from fastapi import HTTPException, Security, status
 from fastapi.security import APIKeyHeader, HTTPBearer, HTTPAuthorizationCredentials
 
 logger = logging.getLogger("nyaya-security")
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 LOGS_DIR = BASE_DIR / "logs"
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 AUDIT_LOG_FILE = LOGS_DIR / "nyaya_api_audit.jsonl"
@@ -126,7 +126,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 # 3. PATH & TRACE SANITIZER
 # -------------------------------------------------------------
 LEAK_PATTERNS = [
-    r"d:\\nova legal", r"d:/nova legal",
+    r"d:\\gyana darshan", r"d:/gyana darshan",
     r"c:\\users\\", r"c:/users/",
     r"\.venv", r"site-packages",
     r"__pycache__"

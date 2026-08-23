@@ -6,7 +6,7 @@ import re
 import fitz
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal\Indian Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan\Indian Legal")
 CHUNKS_FILE = BASE_DIR / "processed_corpus" / "rag" / "chunks.jsonl"
 RAW_DIR = BASE_DIR / "raw"
 

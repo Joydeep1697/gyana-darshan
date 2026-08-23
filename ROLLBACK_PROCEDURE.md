@@ -21,7 +21,7 @@ Initiate immediate rollback if any of the following conditions occur post-deploy
 ## 2. Fast Rollback Execution (Render.com Platform)
 
 1. Open the [Render Dashboard](https://dashboard.render.com).
-2. Navigate to **Services** -> **nova-legal-os** -> **Events / Deploys**.
+2. Navigate to **Services** -> **gyana-darshan** -> **Events / Deploys**.
 3. Locate the previous stable build commit (`Phase 8.2G / Phase 7 Production Approved`).
 4. Click **Rollback to this deploy**.
 5. Verify application restoration by polling:
@@ -37,15 +37,15 @@ If deployed via standard Docker / Git container:
 
 ```bash
 # 1. Stop current container
-docker stop nova-legal-app
+docker stop gyana-darshan-app
 
 # 2. Checkout previous tagged release or commit
 git fetch --tags
 git checkout tags/v1.9.0-prod  # or previous stable SHA
 
 # 3. Rebuild and restart container
-docker build -t nova-legal-os:rollback .
-docker run -d --name nova-legal-app -p 8000:8000 --env-file .env nova-legal-os:rollback
+docker build -t gyana-darshan:rollback .
+docker run -d --name gyana-darshan-app -p 8000:8000 --env-file .env gyana-darshan:rollback
 
 # 4. Confirm health
 curl -f http://localhost:8000/health

@@ -15,7 +15,7 @@ import re
 import fitz  # PyMuPDF
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal\Indian Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan\Indian Legal")
 RAW_DIR = BASE_DIR / "raw"
 CATEGORY_DIR = BASE_DIR / "Category" / "central_acts"
 PROCESSED_DIR = BASE_DIR / "processed_corpus"

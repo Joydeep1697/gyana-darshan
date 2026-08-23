@@ -6,7 +6,7 @@ import json
 import asyncio
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 sys.path.append(str(BASE_DIR))
 sys.path.append(str(BASE_DIR / "Indian Legal"))
 
@@ -14,7 +14,7 @@ import openai
 from app.config import get_llm_client_kwargs, LLM_MODEL
 from app.routers.chat import LEGAL_SYSTEM_PROMPT
 from app.legal_decision_tree import NyayaLegalDecisionEngine
-from nova_legal_rag_nvidia import local_search
+from gyana_darshan_rag_nvidia import local_search
 from app.config import INDEX_DIR
 
 TEST_QUERY = "Since IPC Section 309 is still the general provision for attempting suicide, what punishment does it prescribe today? Do not assume my premise is correct. Verify whether IPC Section 309 is currently operative and identify the current legal position."

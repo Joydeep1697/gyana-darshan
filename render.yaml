@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: nova-legal-os
+    name: gyana-darshan
     env: python
     buildCommand: "pip install -r requirements.txt"
     # Use uvicorn directly — never python run.py in production (run.py enables reload=True

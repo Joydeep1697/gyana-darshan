@@ -82,7 +82,7 @@ class NyayaHybridRetriever:
         }
 
 if __name__ == "__main__":
-    chunks_file = Path(r"d:\Nova Legal\Indian Legal\processed_corpus\rag\chunks.jsonl")
+    chunks_file = Path(r"d:\Gyana Darshan\Indian Legal\processed_corpus\rag\chunks.jsonl")
     engine = NyayaHybridRetriever(chunks_file)
     print(f"Nyaya Hybrid RAG Engine initialized with {len(engine.chunks)} indexed statutory chunks.")
     

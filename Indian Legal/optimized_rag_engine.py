@@ -10,7 +10,7 @@ import re
 from pathlib import Path
 from typing import List, Dict, Any, Tuple
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 CHUNKS_FILE = BASE_DIR / "Indian Legal" / "processed_corpus" / "rag" / "chunks.jsonl"
 
 # Deterministic Statutory Mappings (IPC/CrPC/IEA -> BNS/BNSS/BSA & Section Lookups)

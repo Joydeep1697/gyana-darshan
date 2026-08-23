@@ -9,7 +9,7 @@ import json
 import yaml
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 CONFIG_PATH = BASE_DIR / "training" / "config.yaml"
 
 

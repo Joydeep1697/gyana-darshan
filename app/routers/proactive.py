@@ -3,7 +3,7 @@ import asyncio
 from fastapi import APIRouter, Depends, BackgroundTasks
 from app.database import get_db, Database
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 router = APIRouter()
 
 @router.get("/compliance-gaps")

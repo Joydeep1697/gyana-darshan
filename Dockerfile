@@ -1,4 +1,4 @@
-# Production Dockerfile for Nova Legal OS
+# Production Dockerfile for Gyana Darshan
 FROM python:3.11-slim
 
 WORKDIR /app

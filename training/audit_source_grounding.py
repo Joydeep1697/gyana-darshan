@@ -14,7 +14,7 @@ from pathlib import Path
 from collections import defaultdict
 from typing import List, Dict, Any, Tuple
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 TRAINING_DIR = BASE_DIR / "training"
 DATASET_FILE = TRAINING_DIR / "nyaya_darshan_instruction_dataset_v1.jsonl"
 AUDIT_JSON = TRAINING_DIR / "source_audit.json"

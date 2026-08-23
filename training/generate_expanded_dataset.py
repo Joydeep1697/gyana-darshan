@@ -20,7 +20,7 @@ import json
 from pathlib import Path
 from typing import List, Dict, Any
 
-TRAINING_DIR = Path(r"d:\Nova Legal\training")
+TRAINING_DIR = Path(r"d:\Gyana Darshan\training")
 OUTPUT_FILE = TRAINING_DIR / "nyaya_darshan_instruction_dataset_v1.jsonl"
 
 

@@ -146,9 +146,9 @@ def create_resume_pdf(filename):
     # Featured Product
     story.append(Paragraph("FEATURED PRODUCTS", section_heading))
     
-    # Product 1: Nova Legal OS
-    story.append(Paragraph("1. NOVA LEGAL OS - AI-Powered Legal Intelligence Operating System", job_title_style))
-    story.append(Paragraph("Nova Legal OS is an enterprise AI operating system built for Indian law, integrating NoveLaw (a proprietary fine-tuned LLM) with a hybrid RAG engine (FAISS vector embeddings + SQLite FTS5 BM25 search) over a 252+ document, 5,720-page corpus.", body_style))
+    # Product 1: Gyana Darshan
+    story.append(Paragraph("1. GYANA DARSHAN - AI-Powered Legal Intelligence Operating System", job_title_style))
+    story.append(Paragraph("Gyana Darshan is an enterprise AI operating system built for Indian law, integrating NoveLaw (a proprietary fine-tuned LLM) with a hybrid RAG engine (FAISS vector embeddings + SQLite FTS5 BM25 search) over a 252+ document, 5,720-page corpus.", body_style))
     story.append(Paragraph("&bull; Engineered a hybrid RAG retrieval pipeline delivering sub-second search citations across 3,150+ vector embeddings.", bullet_style))
     story.append(Paragraph("&bull; Developed automated document processing featuring 36-category classification, entity extraction (2,150+ courts, judges, sections), and clause risk scoring (indemnity, liability, termination).", bullet_style))
     story.append(Paragraph("&bull; Built a citation knowledge graph for auto-linking related precedents and proactive compliance gap analysis.", bullet_style))

@@ -1,6 +1,6 @@
 """clean_raw_folder.py — Dedup raw PDFs down to the 217 unique superset files.
 
-Calculates SHA-256 hashes of all raw PDFs in d:\\Nova Legal\\Indian Legal\\raw,
+Calculates SHA-256 hashes of all raw PDFs in d:\\Gyana Darshan\\Indian Legal\\raw,
 identifies exact duplicates (35 duplicate files), and outputs an accurate inventory
 report matching the 217 unique baseline.
 """
@@ -9,8 +9,8 @@ import os
 import hashlib
 from pathlib import Path
 
-RAW_DIR = Path(r"d:\Nova Legal\Indian Legal\raw")
-CATEGORY_DIR = Path(r"d:\Nova Legal\Indian Legal\Category")
+RAW_DIR = Path(r"d:\Gyana Darshan\Indian Legal\raw")
+CATEGORY_DIR = Path(r"d:\Gyana Darshan\Indian Legal\Category")
 
 def get_file_hash(filepath: Path) -> str:
     hasher = hashlib.sha256()

@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 from typing import Any, Dict, List
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 AUDIT_TABLE_FILE = BASE_DIR / "evaluation" / "phase_6_11a_per_record_audit_table.jsonl"
 OUTPUT_JSON_FILE = BASE_DIR / "evaluation" / "phase_6_12_failure_distribution.json"
 OUTPUT_REPORT_FILE = BASE_DIR / "evaluation" / "phase_6_12_failure_distribution_report.md"

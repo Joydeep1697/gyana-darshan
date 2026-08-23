@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 BENCHMARK_FILE = BASE_DIR / "evaluation" / "phase_8_2b_novel_scenario_benchmark.jsonl"
 RESULTS_FILE = BASE_DIR / "evaluation" / "phase_8_2b_per_record_results.jsonl"
 REPORT_MD = BASE_DIR / "evaluation" / "phase_8_2c_generalization_report.md"

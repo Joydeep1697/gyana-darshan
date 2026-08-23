@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.database import get_db, Database
 from app.config import CATEGORY_DIR
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 router = APIRouter()
 
 @router.post("/classify/{doc_id}")
@@ -16,7 +16,7 @@ async def reclassify_document(doc_id: str, db: Database = Depends(get_db)):
         raise HTTPException(404, "Document not found")
         
     def do_reclassify():
-        from nova_legal_classifier import extract_pdf, classify_rules, detect_domain
+        from gyana_darshan_classifier import extract_pdf, classify_rules, detect_domain
         from app.config import OCR_ENABLED, OCR_LANGUAGE
         extracted = extract_pdf(doc['file_path'], OCR_ENABLED, OCR_LANGUAGE)
         filename = Path(doc['file_path']).name

@@ -1,4 +1,4 @@
-"""Nova Legal OS — Server Entry Point.
+"""Gyana Darshan — Server Entry Point.
 
 Usage:
     python run.py

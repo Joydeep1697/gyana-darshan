@@ -1,7 +1,7 @@
 import logging
 import re
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 
 CLAUSE_PATTERNS = {
     "indemnity": r"indemnif|hold harmless",

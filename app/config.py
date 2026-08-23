@@ -1,4 +1,4 @@
-"""Nova Legal OS — Configuration Management.
+"""Gyana Darshan — Configuration Management.
 
 Reads environment variables (with .env fallback) and provides
 centralized path and LLM configuration for the entire application.
@@ -56,7 +56,7 @@ def validate_production_config():
 
 # ── Base directories ──────────────────────────────────────────────
 
-ROOT_DIR = Path(__file__).resolve().parent.parent  # d:\Nova Legal
+ROOT_DIR = Path(__file__).resolve().parent.parent  # d:\Gyana Darshan
 INDIAN_LEGAL_DIR = Path(
     os.getenv("INDIAN_LEGAL_DIR", str(ROOT_DIR / "Indian Legal"))
 )

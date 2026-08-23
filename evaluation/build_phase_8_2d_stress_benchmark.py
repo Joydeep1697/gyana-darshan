@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-OUT_FILE = Path(r"d:\Nova Legal\evaluation\phase_8_2d_stress_benchmark.jsonl")
+OUT_FILE = Path(r"d:\Gyana Darshan\evaluation\phase_8_2d_stress_benchmark.jsonl")
 
 def generate_300_scenarios():
     scenarios = []

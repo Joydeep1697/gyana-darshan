@@ -5,7 +5,7 @@ Enterprise AI Architecture | Agentic AI & Systems Engineer | Generative AI Engin
 ---
 
 ### PROFESSIONAL SUMMARY
-AI Solutions Architect with 5+ years of experience designing and delivering AI-powered software solutions across Agentic AI, Generative AI, voice intelligence, and enterprise applications. Architect of Nova Legal OS, Trynah.com (NAH), and Vaani AI, featuring multi-agent orchestration, proprietary fine-tuned LLM integration (NoveLaw), hybrid vector RAG retrieval, real-time speech processing, and proactive compliance automation. Experienced in translating business requirements into production-ready AI solutions through solution architecture, AI-assisted software development, technical documentation, testing, deployment, and cross-functional collaboration.
+AI Solutions Architect with 5+ years of experience designing and delivering AI-powered software solutions across Agentic AI, Generative AI, voice intelligence, and enterprise applications. Architect of Gyana Darshan, Trynah.com (NAH), and Vaani AI, featuring multi-agent orchestration, proprietary fine-tuned LLM integration (NoveLaw), hybrid vector RAG retrieval, real-time speech processing, and proactive compliance automation. Experienced in translating business requirements into production-ready AI solutions through solution architecture, AI-assisted software development, technical documentation, testing, deployment, and cross-functional collaboration.
 
 ---
 
@@ -35,7 +35,7 @@ AI Solutions Architect with 5+ years of experience designing and delivering AI-p
 
 #### AI Solutions Architect | Nova OS Consulting
 2025 - Present
-* Architected and developed Nova Legal OS, Trynah.com, and Vaani AI, enterprise AI platforms designed to streamline risk verification, voice intelligence, and legal research workflows using natural language interaction and autonomous multi-agent orchestration.
+* Architected and developed Gyana Darshan, Trynah.com, and Vaani AI, enterprise AI platforms designed to streamline risk verification, voice intelligence, and legal research workflows using natural language interaction and autonomous multi-agent orchestration.
 * Designed a modular architecture supporting agentic tool-calling protocols, multi-provider LLM routing (NVIDIA NIM, OpenAI, Claude, Gemini), speech processing, document intelligence, authentication, licensing, and intelligent automation.
 * Led the end-to-end product lifecycle including solution architecture, feature planning, AI-assisted software development, testing, documentation, branding, website development, and production deployment.
 * Established architectural standards, technical documentation, and multi-agent engineering workflows to ensure product quality, safety, and maintainability.
@@ -63,8 +63,8 @@ Jul 2019 - Oct 2021
 
 ### FEATURED PRODUCTS
 
-#### 1. NOVA LEGAL OS - AI-Powered Legal Intelligence Operating System
-Nova Legal OS is an enterprise-grade AI legal operating system engineered specifically for Indian statutory law and judicial research. It combines **NoveLaw** (a proprietary fine-tuned LLM) with a high-performance hybrid RAG engine (FAISS dense vector embeddings + SQLite FTS5 BM25 lexical search) over a 252+ document, 5,720-page legal corpus. The platform automates document ingestion, 36-category classification, entity extraction across 2,150+ judges and court sections, clause risk scoring (indemnity, liability, termination), citation knowledge graph mapping, and proactive statutory compliance gap analysis with sub-second retrieval.
+#### 1. GYANA DARSHAN - AI-Powered Legal Intelligence Operating System
+Gyana Darshan is an enterprise-grade AI legal operating system engineered specifically for Indian statutory law and judicial research. It combines **NoveLaw** (a proprietary fine-tuned LLM) with a high-performance hybrid RAG engine (FAISS dense vector embeddings + SQLite FTS5 BM25 lexical search) over a 252+ document, 5,720-page legal corpus. The platform automates document ingestion, 36-category classification, entity extraction across 2,150+ judges and court sections, clause risk scoring (indemnity, liability, termination), citation knowledge graph mapping, and proactive statutory compliance gap analysis with sub-second retrieval.
 
 * **Hybrid Dense-Sparse RAG Engine:** Delivers sub-second retrieval across 3,150+ vector embeddings (768-dim all-mpnet-base-v2) combined with BM25 keyword matching.
 * **Automated Document Processing Pipeline:** Auto-extracts metadata, classifies documents into 36 legal categories, and resolves 2,150+ legal entities (courts, judges, sections, precedents).

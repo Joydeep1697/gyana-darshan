@@ -1,4 +1,4 @@
-# Nova Legal Classifier v2
+# Gyana Darshan Classifier v2
 
 ## What this version adds
 
@@ -21,19 +21,19 @@ script uses the OpenAI Python client with NVIDIA's API base URL.
 Copy these files to:
 
 ```text
-D:\Nova Legal\Indian Legal
+D:\Gyana Darshan\Indian Legal
 ```
 
 Create the environment:
 
 ```powershell
-cd "D:\Nova Legal\Indian Legal"
+cd "D:\Gyana Darshan\Indian Legal"
 
 python -m venv .classifiervenv
 .classifiervenv\Scripts\activate
 
 python -m pip install --upgrade pip
-pip install -r requirements_nova_legal_classifier_v2.txt
+pip install -r requirements_gyana_darshan_classifier_v2.txt
 ```
 
 ## Configure NVIDIA
@@ -69,11 +69,11 @@ unclassified or below the fallback threshold.
 ## Manual test
 
 ```powershell
-python nova_legal_classifier_v2.py `
-  --raw "D:\Nova Legal\Indian Legal\raw" `
-  --category "D:\Nova Legal\Indian Legal\Category" `
-  --database "D:\Nova Legal\Indian Legal\category_registry_v2.sqlite3" `
-  --reports "D:\Nova Legal\Indian Legal\classification_reports_v2" `
+python gyana_darshan_classifier_v2.py `
+  --raw "D:\Gyana Darshan\Indian Legal\raw" `
+  --category "D:\Gyana Darshan\Indian Legal\Category" `
+  --database "D:\Gyana Darshan\Indian Legal\category_registry_v2.sqlite3" `
+  --reports "D:\Gyana Darshan\Indian Legal\classification_reports_v2" `
   --tesseract-cmd "C:\Program Files\Tesseract-OCR\tesseract.exe" `
   --ocr-language "eng" `
   --use-nvidia-fallback
@@ -134,17 +134,17 @@ example.pdf.metadata.json
 to the correct folder, then run:
 
 ```powershell
-python nova_legal_classifier_v2.py `
-  --category "D:\Nova Legal\Indian Legal\Category" `
-  --database "D:\Nova Legal\Indian Legal\category_registry_v2.sqlite3" `
-  --reports "D:\Nova Legal\Indian Legal\classification_reports_v2" `
+python gyana_darshan_classifier_v2.py `
+  --category "D:\Gyana Darshan\Indian Legal\Category" `
+  --database "D:\Gyana Darshan\Indian Legal\category_registry_v2.sqlite3" `
+  --reports "D:\Gyana Darshan\Indian Legal\classification_reports_v2" `
   --learn-corrections
 ```
 
 Or double-click:
 
 ```text
-learn_nova_legal_corrections.bat
+learn_gyana_darshan_corrections.bat
 ```
 
 The program updates the registry and learns positive filename/title/keyword
@@ -156,15 +156,15 @@ fine-tuning.
 Test:
 
 ```powershell
-& "D:\Nova Legal\Indian Legal\run_nova_legal_classifier_v2.bat"
+& "D:\Gyana Darshan\Indian Legal\run_gyana_darshan_classifier_v2.bat"
 ```
 
 Create the scheduled task from Administrator PowerShell:
 
 ```powershell
 schtasks /Create `
-  /TN "Nova Legal Classifier v2" `
-  /TR '"D:\Nova Legal\Indian Legal\run_nova_legal_classifier_v2.bat"' `
+  /TN "Gyana Darshan Classifier v2" `
+  /TR '"D:\Gyana Darshan\Indian Legal\run_gyana_darshan_classifier_v2.bat"' `
   /SC HOURLY `
   /MO 2 `
   /F
@@ -173,13 +173,13 @@ schtasks /Create `
 Run now:
 
 ```powershell
-schtasks /Run /TN "Nova Legal Classifier v2"
+schtasks /Run /TN "Gyana Darshan Classifier v2"
 ```
 
 Inspect:
 
 ```powershell
-schtasks /Query /TN "Nova Legal Classifier v2" /V /FO LIST
+schtasks /Query /TN "Gyana Darshan Classifier v2" /V /FO LIST
 ```
 
 ## Important limitations

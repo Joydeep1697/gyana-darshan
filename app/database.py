@@ -1,4 +1,4 @@
-"""Nova Legal OS — Application Database.
+"""Gyana Darshan — Application Database.
 
 Manages the web-application SQLite database (``nova_app.sqlite3``).
 This is separate from the existing classifier/RAG databases and tracks:
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS search_analytics (
 # ── Database Manager ──────────────────────────────────────────────
 
 class Database:
-    """Thread-safe SQLite database manager for the Nova Legal web app."""
+    """Thread-safe SQLite database manager for the Gyana Darshan web app."""
 
     def __init__(self, db_path: Optional[Path] = None):
         self.db_path = db_path or APP_DB_PATH

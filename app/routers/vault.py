@@ -10,7 +10,7 @@ from app.database import get_db, Database
 from app.models import DocumentResponse, SearchResponse, SearchRequest
 from app.config import RAW_DIR, get_llm_client_kwargs
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 router = APIRouter()
 
 # WebSocket connections tracking
@@ -36,7 +36,7 @@ def process_document(doc_id: str, file_path: str):
         
         # Imports from backend
         try:
-            from nova_legal_classifier import (
+            from gyana_darshan_classifier import (
                 extract_pdf, classify_rules, detect_domain, authority_for,
                 extract_sections, extract_rules, extract_articles, extract_court,
                 extract_judges, extract_parties, extract_citations, extract_case_number,
@@ -160,7 +160,7 @@ async def delete_document(doc_id: str, db: Database = Depends(get_db)):
 async def search(req: SearchRequest, db: Database = Depends(get_db)):
     """Intelligent search using local_search."""
     try:
-        from nova_legal_rag_nvidia import local_search
+        from gyana_darshan_rag_nvidia import local_search
         from app.config import INDEX_DIR
         results = await asyncio.to_thread(local_search, req.query, INDEX_DIR)
         return SearchResponse(results=results)

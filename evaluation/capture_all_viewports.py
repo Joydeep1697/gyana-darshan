@@ -5,7 +5,7 @@ import subprocess
 import time
 from pathlib import Path
 
-BASE_DIR = Path(r"d:\Nova Legal")
+BASE_DIR = Path(r"d:\Gyana Darshan")
 SCREENSHOTS_DIR = BASE_DIR / "evaluation" / "screenshots"
 SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
 

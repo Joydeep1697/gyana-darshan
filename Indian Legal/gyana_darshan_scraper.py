@@ -1,5 +1,5 @@
 """
-Nova Legal Automatic Web Scraper
+Gyana Darshan Automatic Web Scraper
 ================================
 
 Features:
@@ -74,21 +74,21 @@ from playwright.async_api import (
 SEED_URLS = ["https://www.indiacode.nic.in/"]
 
 # Where downloaded legal documents will be saved.
-OUTPUT_DIR = Path(r"D:\Nova Legal\Indian Legal\raw")
+OUTPUT_DIR = Path(r"D:\Gyana Darshan\Indian Legal\raw")
 
 # SQLite database used for resumable crawling.
 DATABASE_PATH = Path(
-    r"D:\Nova Legal\Indian Legal\nova_legal_crawler.db"
+    r"D:\Gyana Darshan\Indian Legal\gyana_darshan_crawler.db"
 )
 
 # Human-readable document metadata.
 METADATA_FILE = Path(
-    r"D:\Nova Legal\Indian Legal\download_metadata.jsonl"
+    r"D:\Gyana Darshan\Indian Legal\download_metadata.jsonl"
 )
 
 # Saved Playwright cookies and browser authentication state.
 SESSION_STATE_FILE = Path(
-    r"D:\Nova Legal\Indian Legal\browser_session.json"
+    r"D:\Gyana Darshan\Indian Legal\browser_session.json"
 )
 
 # False means the browser window will be visible.
@@ -212,7 +212,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
 )
 
-logger = logging.getLogger("nova-legal-scraper")
+logger = logging.getLogger("gyana-darshan-scraper")
 
 
 # ============================================================

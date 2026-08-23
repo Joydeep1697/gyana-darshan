@@ -25,7 +25,7 @@
 All new components designed by Agents 4, 5, 6, 7, 8, and 9 are strictly partitioned into experimental directories:
 
 ```text
-d:\Nova Legal\
+d:\Gyana Darshan\
 ├── retrieval\
 │   └── experimental\
 │       ├── issue_decomposer.py          # Agent 4: Legal Issue Decomposition Engine

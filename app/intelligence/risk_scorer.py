@@ -2,7 +2,7 @@ import logging
 import re
 from datetime import datetime
 
-logger = logging.getLogger("nova-legal-app")
+logger = logging.getLogger("gyana-darshan-app")
 
 def score_document(text: str, metadata: dict, clauses: list[dict], entities: list[dict]) -> int:
     """
