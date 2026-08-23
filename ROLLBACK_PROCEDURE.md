@@ -1,4 +1,4 @@
-# NYAYA DARSHANA / GYANA — PRODUCTION ROLLBACK PROCEDURE
+# NYAYA DARSHAN — PRODUCTION ROLLBACK PROCEDURE
 
 **Protocol**: Production Incident Recovery & Rapid Rollback  
 **Version**: 2.0.0  
