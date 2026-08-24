@@ -69,8 +69,8 @@ class TestLegalGeneration(unittest.IsolatedAsyncioTestCase):
             return_value="BNSS Section 173 governs initial FIR registration.",
         ) as fallback:
             answer = await generate_grounded_legal_answer(
-                "Can police refuse a cognizable FIR based on territorial jurisdiction?",
-                "BNSS Section 173: information in cognizable cases",
+                "What penalty does BNS Section 103 prescribe?",
+                "BNS Section 103: punishment for murder",
             )
         self.assertIn("173", answer)
         fallback.assert_awaited_once()

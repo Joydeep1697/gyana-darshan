@@ -3,7 +3,7 @@
 import unittest
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
-from retrieval.legal_reasoning import build_reasoning_plan
+from retrieval.legal_reasoning import build_reasoning_plan, deterministic_grounded_answer
 
 
 class AdversarialReasoningTests(unittest.TestCase):
@@ -52,6 +52,15 @@ class AdversarialReasoningTests(unittest.TestCase):
             "Can the nearest police station refuse a cognizable FIR because it occurred in another district?",
             {("BNSS", "173")},
         )
+
+    def test_transition_question_is_answered_without_cloud_model(self):
+        query = "A theft occurred on 29 June 2024 but the FIR was registered on 3 July 2024. Does BNS section 303 apply?"
+        pack = self.retriever.retrieve_evidence_pack(query, top_k=4)
+        answer = deterministic_grounded_answer(query, self.retriever.format_evidence_context(pack))
+        self.assertIsNotNone(answer)
+        self.assertIn("Indian Penal Code (IPC)", answer)
+        self.assertIn("BNS section 358", answer)
+        self.assertIn("BNSS section 531", answer)
 
     def test_custody_arithmetic_distinguishes_limits(self):
         plan = build_reasoning_plan(
