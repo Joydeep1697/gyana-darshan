@@ -25,27 +25,36 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 
 try:
-    from model_quality import LEGAL_PROBES, audit_splits, evaluate_answers, read_jsonl
+    from model_quality import CORRECTIVE_RECORDS, LEGAL_PROBES, audit_splits, evaluate_answers, read_jsonl
 except ImportError:
     try:
-        from training.model_quality import LEGAL_PROBES, audit_splits, evaluate_answers, read_jsonl
+        from training.model_quality import CORRECTIVE_RECORDS, LEGAL_PROBES, audit_splits, evaluate_answers, read_jsonl
     except ImportError:
-        from __main__ import LEGAL_PROBES, audit_splits, evaluate_answers, read_jsonl
+        from __main__ import CORRECTIVE_RECORDS, LEGAL_PROBES, audit_splits, evaluate_answers, read_jsonl
 
 
 MODEL_NAME = os.getenv("NYAYA_BASE_MODEL", "unsloth/Meta-Llama-3.1-8B-Instruct")
 WORKING_ROOT = Path(os.getenv("NYAYA_WORKING_ROOT", "/kaggle/working"))
 if not WORKING_ROOT.is_dir():
     WORKING_ROOT = Path.cwd()
-OUTPUT_ROOT = WORKING_ROOT / "nyaya_model_release"
+RUN_ID = os.getenv("NYAYA_RUN_ID", "r3").strip() or "r3"
+OUTPUT_ROOT = WORKING_ROOT / f"nyaya_model_release_{RUN_ID}"
 ADAPTER_DIR = OUTPUT_ROOT / "adapter"
-CHECKPOINT_DIR = WORKING_ROOT / "nyaya_training_checkpoints"
+CHECKPOINT_DIR = WORKING_ROOT / f"nyaya_training_checkpoints_{RUN_ID}"
 REPORT_DIR = OUTPUT_ROOT / "reports"
-ARCHIVE_PATH = WORKING_ROOT / "nyaya_model_release.zip"
+ARCHIVE_PATH = WORKING_ROOT / f"nyaya_model_release_{RUN_ID}.zip"
 HF_TOKEN = os.getenv("HF_TOKEN")
 MINIMUM_ACCURACY = float(os.getenv("NYAYA_MINIMUM_ACCURACY", "0.90"))
 MAX_LENGTH = int(os.getenv("NYAYA_MAX_LENGTH", "768"))
 MAX_STEPS = int(os.getenv("NYAYA_MAX_STEPS", "-1"))
+CORRECTION_REPEATS = max(1, int(os.getenv("NYAYA_CORRECTION_REPEATS", "8")))
+REFINE_EXISTING = os.getenv("NYAYA_REFINE_EXISTING", "0") == "1"
+INITIAL_ADAPTER = Path(
+    os.getenv(
+        "NYAYA_INIT_ADAPTER",
+        str(WORKING_ROOT / "nyaya_model_release" / "adapter"),
+    )
+)
 SYSTEM_PROMPT = (
     "You are Nyaya Darshana, a precise Indian legal assistant. "
     "Use only genuine statutory names and provisions. "
@@ -244,14 +253,21 @@ def main() -> dict[str, Any]:
     write_json(REPORT_DIR / "dataset_audit.json", dataset_report)
     if not dataset_report["passed"]:
         raise RuntimeError("Dataset audit failed: " + "; ".join(dataset_report["errors"]))
+    known_ids = {str(record.get("id", "")) for record in train_records}
+    unique_anchors = [record for record in CORRECTIVE_RECORDS if record["id"] not in known_ids]
+    added_anchors = []
+    for repeat_index in range(CORRECTION_REPEATS):
+        for anchor in unique_anchors:
+            added_anchors.append({**anchor, "id": f"{anchor['id']}_r{repeat_index + 1}"})
+    train_records.extend(added_anchors)
     announce(
         f"Dataset audit passed: train={len(train_records)}, validation={len(validation_records)}, "
-        f"test={len(test_records or [])}"
+        f"test={len(test_records or [])}; verified anchors added={len(added_anchors)}; run={RUN_ID}"
     )
 
     import torch
     from datasets import Dataset
-    from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+    from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, EarlyStoppingCallback
     from trl import SFTConfig, SFTTrainer
 
@@ -285,17 +301,26 @@ def main() -> dict[str, Any]:
     )
     model.config.use_cache = False
     model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
-    model = get_peft_model(
-        model,
-        LoraConfig(
-            r=8,
-            lora_alpha=16,
-            lora_dropout=0.10,
-            bias="none",
-            task_type="CAUSAL_LM",
-            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-        ),
-    )
+    if REFINE_EXISTING:
+        if not (INITIAL_ADAPTER / "adapter_config.json").is_file():
+            raise FileNotFoundError(
+                f"Refinement requested, but no adapter_config.json exists in {INITIAL_ADAPTER}. "
+                "Download or restore the prior adapter, or set NYAYA_INIT_ADAPTER."
+            )
+        announce(f"Refining preserved adapter: {INITIAL_ADAPTER}")
+        model = PeftModel.from_pretrained(model, INITIAL_ADAPTER, is_trainable=True)
+    else:
+        model = get_peft_model(
+            model,
+            LoraConfig(
+                r=8,
+                lora_alpha=16,
+                lora_dropout=0.10,
+                bias="none",
+                task_type="CAUSAL_LM",
+                target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+            ),
+        )
 
     train_dataset = Dataset.from_list(train_records).map(
         lambda record: tokenize_completion_only(tokenizer, record),
@@ -373,6 +398,8 @@ def main() -> dict[str, Any]:
 
     training_report = {
         "base_model": MODEL_NAME,
+        "run_id": RUN_ID,
+        "refined_from": str(INITIAL_ADAPTER) if REFINE_EXISTING else None,
         "adapter_path": str(ADAPTER_DIR),
         "adapter_weight_file": weight_path.name,
         "adapter_size_mb": directory_size_mb(ADAPTER_DIR),
