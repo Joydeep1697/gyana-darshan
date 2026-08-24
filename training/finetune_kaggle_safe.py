@@ -169,7 +169,14 @@ class CompletionOnlyCollator:
         for item in features:
             pad_count = maximum_length - len(item["input_ids"])
             inputs.append(item["input_ids"] + [pad_token] * pad_count)
-            masks.append(item["attention_mask"] + [0] * pad_count)
+            # Some Transformers/TRL versions prune attention_mask before the
+            # custom collator sees pre-tokenized examples. Reconstructing the
+            # mask here is safe because every original token is real and only
+            # this collator adds right-padding.
+            attention_mask = item.get("attention_mask", [1] * len(item["input_ids"]))
+            if len(attention_mask) != len(item["input_ids"]):
+                raise ValueError("attention_mask length does not match input_ids length")
+            masks.append(attention_mask + [0] * pad_count)
             labels.append(item["labels"] + [-100] * pad_count)
         return {
             "input_ids": torch.tensor(inputs, dtype=torch.long),
@@ -328,6 +335,7 @@ def main() -> dict[str, Any]:
         "max_length": MAX_LENGTH,
         "packing": False,
         "dataset_kwargs": {"skip_prepare_dataset": True},
+        "remove_unused_columns": False,
         "report_to": "none",
         "seed": 42,
         "fp16": False,
