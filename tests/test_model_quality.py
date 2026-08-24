@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import unittest
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from training.model_quality import (
     LEGAL_PROBES,
@@ -10,6 +12,7 @@ from training.model_quality import (
     record_fingerprint,
     score_answer,
 )
+from training.finetune_kaggle_safe import CompletionOnlyCollator
 
 
 def record(index: int, *, category: str = "statutory_mapping", output: str | None = None) -> dict:
@@ -97,6 +100,22 @@ class LegalQualityGateTests(unittest.TestCase):
         report = evaluate_answers(answers, minimum_accuracy=0.8)
         self.assertFalse(report["release_ready"])
         self.assertIn("pocso_independent", report["critical_failures"])
+
+
+class CompletionOnlyCollatorTests(unittest.TestCase):
+    def test_reconstructs_attention_mask_when_trainer_removes_it(self) -> None:
+        fake_torch = SimpleNamespace(long="long", tensor=lambda value, dtype: value)
+        collator = CompletionOnlyCollator(tokenizer=SimpleNamespace(pad_token_id=0))
+        features = [
+            {"input_ids": [1, 2, 3], "labels": [-100, 2, 3]},
+            {"input_ids": [4, 5], "labels": [-100, 5]},
+        ]
+        with patch.dict("sys.modules", {"torch": fake_torch}):
+            result = collator(features)
+
+        self.assertEqual(result["attention_mask"], [[1, 1, 1], [1, 1, 0]])
+        self.assertEqual(result["input_ids"], [[1, 2, 3], [4, 5, 0]])
+        self.assertEqual(result["labels"], [[-100, 2, 3], [-100, 5, -100]])
 
 
 if __name__ == "__main__":
