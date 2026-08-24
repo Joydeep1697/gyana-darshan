@@ -13,7 +13,7 @@ failed, and its final adapter was not present in the saved Kaggle outputs.
 - Uses evaluation-based early stopping and restores the best validation checkpoint.
 - Saves `adapter_model.safetensors`, adapter configuration, and tokenizer before
   running any legal evaluation.
-- Writes a downloadable `/kaggle/working/nyaya_model_release.zip` immediately
+- Writes a downloadable `/kaggle/working/nyaya_model_release_r3.zip` immediately
   after saving the adapter and refreshes it with the final evaluation report.
 - Checks actual statutory meaning, rejects invented laws, and blocks deployment
   unless every critical legal probe passes and total accuracy reaches 90%.
@@ -30,7 +30,7 @@ failed, and its final adapter was not present in the saved Kaggle outputs.
    model must be downloaded.
 5. Add `HF_TOKEN` as a Kaggle secret if the selected base model requires it.
 6. Run all cells and save the notebook version.
-7. Download `nyaya_model_release.zip` from the Output tab.
+7. Download `nyaya_model_release_r3.zip` from the Output tab.
 8. Inspect `reports/legal_evaluation.json`. Connect the adapter to production
    only when `release_ready` is `true`.
 
@@ -50,7 +50,24 @@ nyaya_model_release/
 
 Optional environment variables include `NYAYA_BASE_MODEL`, `NYAYA_MAX_STEPS`,
 `NYAYA_MAX_LENGTH`, `NYAYA_MINIMUM_ACCURACY`, `NYAYA_TRAIN_FILE`,
-`NYAYA_VALIDATION_FILE`, and `NYAYA_TEST_FILE`.
+`NYAYA_VALIDATION_FILE`, `NYAYA_TEST_FILE`, `NYAYA_RUN_ID`,
+`NYAYA_CORRECTION_REPEATS`, `NYAYA_REFINE_EXISTING`, and
+`NYAYA_INIT_ADAPTER`.
+
+To refine a preserved R2 adapter in the same Kaggle session, run this before
+the training cell:
+
+```python
+import os
+os.environ["NYAYA_REFINE_EXISTING"] = "1"
+os.environ["NYAYA_RUN_ID"] = "r3"
+os.environ["NYAYA_MAX_STEPS"] = "150"
+os.environ["NYAYA_CORRECTION_REPEATS"] = "8"
+```
+
+The default initial adapter path is
+`/kaggle/working/nyaya_model_release/adapter`. The refined adapter and reports
+are written separately under `nyaya_model_release_r3`, preserving R2.
 
 For a fast infrastructure smoke test, set `NYAYA_MAX_STEPS=10`. A smoke-test
 adapter is not deployment-ready unless it independently passes the legal gate.
