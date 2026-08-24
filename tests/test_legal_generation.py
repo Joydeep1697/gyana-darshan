@@ -55,6 +55,26 @@ class TestLegalGeneration(unittest.IsolatedAsyncioTestCase):
         self.assertIn("BNS Section 103: punishment for murder", request["messages"][1]["content"])
         self.assertIn("What does BNS Section 103 cover?", request["messages"][1]["content"])
 
+    async def test_broken_sdk_falls_back_to_standard_https(self):
+        fake_client = MagicMock()
+        fake_client.chat.completions.create = AsyncMock(side_effect=RuntimeError("broken local SDK"))
+        with patch(
+            "app.intelligence.legal_generation.config.get_llm_client_kwargs",
+            return_value={"api_key": "test-key", "base_url": "https://example.invalid/v1"},
+        ), patch(
+            "app.intelligence.legal_generation.AsyncOpenAI", return_value=fake_client
+        ), patch(
+            "app.intelligence.legal_generation._generate_with_standard_http",
+            new_callable=AsyncMock,
+            return_value="BNSS Section 173 governs initial FIR registration.",
+        ) as fallback:
+            answer = await generate_grounded_legal_answer(
+                "Can police refuse a cognizable FIR based on territorial jurisdiction?",
+                "BNSS Section 173: information in cognizable cases",
+            )
+        self.assertIn("173", answer)
+        fallback.assert_awaited_once()
+
 
 if __name__ == "__main__":
     unittest.main()
