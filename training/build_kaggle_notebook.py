@@ -38,7 +38,7 @@ notebook = {
         ),
         code(
             "# Install only when the required package is missing.\n"
-            "import importlib.util, os, subprocess, sys\n"
+            "import importlib.util, os, shutil, subprocess, sys\n"
             "from pathlib import Path\n"
             "packages = {'trl': 'trl', 'peft': 'peft', 'bitsandbytes': 'bitsandbytes', "
             "'accelerate': 'accelerate', 'datasets': 'datasets'}\n"
@@ -47,12 +47,21 @@ notebook = {
             "if missing:\n"
             "    subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-q', *missing])\n"
             "prior_adapter = Path('/kaggle/working/nyaya_model_release/adapter/adapter_config.json')\n"
+            "if not prior_adapter.is_file():\n"
+            "    archives = sorted(Path('/kaggle/input').rglob('nyaya_model_release.zip')) if Path('/kaggle/input').is_dir() else []\n"
+            "    if archives:\n"
+            "        shutil.unpack_archive(str(archives[0]), '/kaggle/working/nyaya_model_release')\n"
+            "if not prior_adapter.is_file() and Path('/kaggle/input').is_dir():\n"
+            "    configs = sorted(Path('/kaggle/input').rglob('adapter_config.json'))\n"
+            "    if configs:\n"
+            "        os.environ['NYAYA_INIT_ADAPTER'] = str(configs[0].parent)\n"
+            "        prior_adapter = configs[0]\n"
             "if prior_adapter.is_file():\n"
             "    os.environ.setdefault('NYAYA_REFINE_EXISTING', '1')\n"
             "    os.environ.setdefault('NYAYA_RUN_ID', 'r3')\n"
             "    os.environ.setdefault('NYAYA_MAX_STEPS', '150')\n"
             "    os.environ.setdefault('NYAYA_CORRECTION_REPEATS', '8')\n"
-            "    print('Refinement mode enabled from the preserved R2 adapter')\n"
+            "    print('Refinement mode enabled from preserved adapter:', prior_adapter.parent)\n"
             "print('Dependencies ready:', ', '.join(packages))\n"
         ),
         code(QUALITY_SOURCE),
