@@ -69,5 +69,9 @@ The default initial adapter path is
 `/kaggle/working/nyaya_model_release/adapter`. The refined adapter and reports
 are written separately under `nyaya_model_release_r3`, preserving R2.
 
+For a fresh Kaggle session, first attach `nyaya_model_release.zip` from the R2
+run as a private input. The recovery notebook automatically finds and extracts
+that archive. It also detects an already-extracted adapter attached as input.
+
 For a fast infrastructure smoke test, set `NYAYA_MAX_STEPS=10`. A smoke-test
 adapter is not deployment-ready unless it independently passes the legal gate.
