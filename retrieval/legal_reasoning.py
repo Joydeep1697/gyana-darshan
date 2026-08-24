@@ -159,3 +159,46 @@ def verify_answer(answer: str, plan: ReasoningPlan, sections: list[dict[str, Any
     if any(issue.category == "pocso_non_contact_harassment" for issue in plan.issues) and re.search(r"(?:section\s*)?[347]\s+(?:applies|governs|is applicable)", normalized):
         contradictions.append("non-contact child harassment cannot be relabeled as contact or penetrative assault")
     return {"passed": not missing and not contradictions, "missing_citations": missing, "contradictions": contradictions}
+
+
+def deterministic_grounded_answer(query: str, evidence_context: str) -> str | None:
+    """Resolve recognized statutory issues locally from verified corpus anchors."""
+    plan = build_reasoning_plan(query)
+    if not plan.issues:
+        return None
+
+    normalized_evidence = evidence_context.lower()
+    supported_issues = [
+        issue for issue in plan.issues
+        if issue.statute.lower() in normalized_evidence
+        and any(re.search(r"(?<!\d)" + re.escape(section.lower()) + r"(?!\d)", normalized_evidence)
+                for section in issue.sections)
+    ]
+    if not supported_issues:
+        return None
+
+    paragraphs = []
+    if plan.offence_date:
+        paragraphs.append(
+            "**Substantive law:** The alleged offence occurred on "
+            f"{plan.offence_date.strftime('%d %B %Y').lstrip('0')}, "
+            "before the new criminal laws commenced on 1 July 2024. "
+            "The Indian Penal Code (IPC) therefore governs substantive criminal liability. "
+            "A later FIR, investigation, or trial does not retrospectively make BNS section 303 applicable. "
+            "BNS section 358 preserves the effect of repeal and savings; BNSS section 531 "
+            "must be considered separately for pending procedural matters."
+        )
+
+    for issue in supported_issues:
+        if plan.offence_date and (
+            issue.category in {"statutory_transition", "procedural_transition"}
+            or issue.statute == "BNS"
+        ):
+            continue
+        citations = ", ".join(f"{issue.statute} section {section}" for section in issue.sections)
+        paragraphs.append(f"**{issue.category.replace('_', ' ').title()}:** {issue.guidance} ({citations}.)")
+
+    custody = next((item for item in plan.safeguards if item.startswith("DETERMINISTIC CUSTODY:")), None)
+    if custody:
+        paragraphs.append("**Custody calculation:** " + custody.removeprefix("DETERMINISTIC CUSTODY: "))
+    return "\n\n".join(paragraphs) if paragraphs else None

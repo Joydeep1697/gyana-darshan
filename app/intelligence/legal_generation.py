@@ -14,7 +14,7 @@ from urllib.request import Request, urlopen
 from openai import AsyncOpenAI
 
 from app import config
-from retrieval.legal_reasoning import build_reasoning_plan, verify_answer
+from retrieval.legal_reasoning import build_reasoning_plan, deterministic_grounded_answer, verify_answer
 
 logger = logging.getLogger("nyaya-darshan-app")
 
@@ -139,6 +139,10 @@ def _evidence_only_response(query: str, evidence_context: str) -> str:
 
 async def generate_grounded_legal_answer(query: str, evidence_context: str) -> str:
     """Generate a cited answer, with an explicit evidence-only development mode."""
+    direct_answer = deterministic_grounded_answer(query, evidence_context)
+    if direct_answer:
+        logger.info("Answered recognized statutory question locally without a cloud model request.")
+        return direct_answer
     try:
         client_kwargs = config.get_llm_client_kwargs()
     except RuntimeError as exc:
