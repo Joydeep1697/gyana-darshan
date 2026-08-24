@@ -22,8 +22,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field, validator
 
-import torch
-torch.set_num_threads(1)
+# Cloud-hosted legal generation and statutory retrieval do not require PyTorch.
+# Keep optional numerical libraries restrained without making a broken or
+# missing native PyTorch installation prevent the web application from booting.
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
 
 from app import config
 from app.database import get_db
