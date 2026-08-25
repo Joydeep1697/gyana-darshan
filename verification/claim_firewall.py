@@ -17,7 +17,20 @@
 import re
 from typing import Dict, List, Any, Tuple
 
+from retrieval.legal_reasoning import build_reasoning_plan, deterministic_grounded_answer
+from retrieval.transition_context import COMMENCEMENT_DATE, analyze_transition
+
 KNOWN_FABRICATED_ACRONYMS = ["iec", "indian evidence code", "bns criminal procedure code", "bns procedure code"]
+
+UNSUPPORTED_INFERENCE_PATTERNS = {
+    "typical legal construct": re.compile(r"\btypical\s+legal\s+construct", re.I),
+    "typical legal framework": re.compile(r"\btypical\s+legal\s+framework", re.I),
+    "legal systems typically": re.compile(r"\blegal\s+systems?\s+typically", re.I),
+    "presumed numerical cap": re.compile(r"\bpresum(?:e|ed|ing)\b[^.\n]{0,50}\b(?:cap|limit|days?)\b", re.I),
+    "logic substituted for authority": re.compile(r"\b(?:logically|logic\s+follows)\b", re.I),
+    "inferred without text": re.compile(r"\binferred?\s+from\s+(?:the\s+)?context\b", re.I),
+    "unquoted cap": re.compile(r"\bexact\s+(?:cap|limit)\b[^.\n]{0,70}\bnot\s+(?:directly\s+)?(?:quoted|stated|provided)\b", re.I),
+}
 
 STATUTE_ALIASES = {
     "bns": "BNS",
@@ -39,7 +52,17 @@ STATUTE_ALIASES = {
 _CITATION_RE = re.compile(
     r"\b(" + "|".join(
         sorted((re.escape(alias) for alias in STATUTE_ALIASES), key=len, reverse=True)
-    ) + r")\s*(?:,\s*\d{4})?\s*(?:section|sections|sec\.?|§)\s*(\d+[A-Za-z]*(?:\(\d+\))?)",
+    ) + r")\s*(?:,\s*\d{4})?\s*(?:section|sections|sec\.?|§)\s*"
+        r"([0-9][0-9A-Za-z()]*(?:\s*(?:,|and|&|to|[-–])\s*[0-9][0-9A-Za-z()]*)*)",
+    re.IGNORECASE,
+)
+
+_POSTFIX_CITATION_RE = re.compile(
+    r"(?:section|sections|sec\.?|§)\s*"
+    r"([0-9][0-9A-Za-z()]*(?:\s*(?:,|and|&|to|[-–])\s*[0-9][0-9A-Za-z()]*)*)"
+    r"\s+of\s+(?:the\s+)?(" + "|".join(
+        sorted((re.escape(alias) for alias in STATUTE_ALIASES), key=len, reverse=True)
+    ) + r")\b",
     re.IGNORECASE,
 )
 
@@ -61,10 +84,20 @@ def _statute_code(value: Any) -> str:
 
 
 def _response_citations(text: str) -> set[tuple[str, str]]:
-    return {
-        (STATUTE_ALIASES[match.group(1).lower()], _section_root(match.group(2)))
-        for match in _CITATION_RE.finditer(text)
-    }
+    citations: set[tuple[str, str]] = set()
+    for match in _CITATION_RE.finditer(text):
+        code = STATUTE_ALIASES[match.group(1).lower()]
+        roots = [_section_root(value) for value in re.findall(r"\d+[A-Za-z]*(?:\(\d+\))?", match.group(2))]
+        for root in roots:
+            if root:
+                citations.add((code, root))
+    for match in _POSTFIX_CITATION_RE.finditer(text):
+        code = STATUTE_ALIASES[match.group(2).lower()]
+        roots = [_section_root(value) for value in re.findall(r"\d+[A-Za-z]*(?:\(\d+\))?", match.group(1))]
+        for root in roots:
+            if root:
+                citations.add((code, root))
+    return citations
 
 
 def _allowed_citations(evidence_pack: Dict[str, Any]) -> set[tuple[str, str]]:
@@ -123,6 +156,33 @@ def _safe_evidence_fallback(evidence_pack: Dict[str, Any], unsupported: list[tup
     lines.append("A reliable conclusion cannot be added without matching statutory evidence.")
     return "\n".join(lines)
 
+
+def _deterministic_firewall_fallback(query: str, evidence_pack: Dict[str, Any], reason: str) -> str:
+    """Replace unsafe synthesis with an audited answer, never with more model prose."""
+    context_lines = ["AUTHORITATIVE STATUTORY EXCERPTS:"]
+    for record in evidence_pack.get("retrieved_sections", []):
+        statute = record.get("short_name") or record.get("statute", "")
+        context_lines.append(
+            f"- {statute} section {record.get('section', '')}: "
+            f"{record.get('heading', '')}. {record.get('text', '')}"
+        )
+    direct = deterministic_grounded_answer(query, "\n".join(context_lines))
+    if direct:
+        return direct
+    records = evidence_pack.get("retrieved_sections", [])[:3]
+    lines = [
+        "The generated analysis was withheld because it relied on unsupported legal inference.",
+        f"Verification finding: {reason}.",
+    ]
+    if records:
+        lines.append("Verified statutory material available:")
+        for record in records:
+            code = _statute_code(record.get("short_name") or record.get("statute")) or "Statute"
+            excerpt = re.sub(r"\s+", " ", str(record.get("text", ""))).strip()[:260]
+            lines.append(f"- {code} section {_section_root(record.get('section'))}: {excerpt}")
+    lines.append("The available evidence does not support a more specific conclusion.")
+    return "\n".join(lines)
+
 class LegalVerificationFirewall:
     def __init__(self):
         pass
@@ -141,6 +201,17 @@ class LegalVerificationFirewall:
             assertion_text = raw_llm_output
 
         resp_lower = assertion_text.lower()
+
+        # 0. Unsupported reasoning language.  These phrases are a strong signal that
+        # the model substituted remembered/general assumptions for retrieved law.
+        for label, pattern in UNSUPPORTED_INFERENCE_PATTERNS.items():
+            if pattern.search(assertion_text):
+                claims.append({
+                    "type": "UNSUPPORTED_LEGAL_INFERENCE",
+                    "claimed_relation": label,
+                    "is_contradiction": True,
+                    "truth": "A material legal conclusion must be tied to retrieved authority or identified as an evidence gap.",
+                })
 
         # 1. Fabricated Entities & Acronyms
         for fab in KNOWN_FABRICATED_ACRONYMS:
@@ -182,15 +253,6 @@ class LegalVerificationFirewall:
                 "truth": "Extortion is punishable under BNS Section 308(2) with imprisonment up to 7 years, not death."
             })
 
-        # 5. Repealed Evidence Provision Claims (IEA 65B remains in force)
-        if ("65b" in resp_lower or "section 65b" in resp_lower) and ("iea" in resp_lower or "evidence act" in resp_lower) and any(w in resp_lower for w in ["valid", "force", "applicable", "applies"]):
-            claims.append({
-                "type": "REPEALED_EVIDENCE_PROVISION_CLAIM",
-                "claimed_relation": "IEA Section 65B remains in force post-July 1, 2024",
-                "is_contradiction": True,
-                "truth": "Section 65B of IEA 1872 is replaced by Section 63 of Bharatiya Sakshya Adhiniyam, 2023 (BSA)."
-            })
-
         return claims
 
     def verify_and_enforce(self, llm_response: str, evidence_pack: Dict[str, Any]) -> Tuple[bool, str, List[Dict[str, Any]]]:
@@ -198,8 +260,104 @@ class LegalVerificationFirewall:
         contradictions = [c for c in claims if c.get("is_contradiction")]
         query_lower = evidence_pack.get("query", "").lower()
         resp_lower = llm_response.lower()
+        transition = analyze_transition(evidence_pack.get("query", ""))
+        reasoning_plan = build_reasoning_plan(evidence_pack.get("query", ""))
 
         authoritative_facts = evidence_pack.get("authoritative_facts", [])
+
+        unsafe_inferences = [c for c in claims if c.get("type") == "UNSUPPORTED_LEGAL_INFERENCE"]
+        if unsafe_inferences:
+            reason = ", ".join(c.get("claimed_relation", "unsupported inference") for c in unsafe_inferences)
+            return False, _deterministic_firewall_fallback(
+                evidence_pack.get("query", ""), evidence_pack, reason
+            ), claims
+
+        if transition.offence_date and transition.offence_date < COMMENCEMENT_DATE and re.search(
+            r"bns\s+(?:section\s+)?303[^.\n]{0,90}\b(?:applies|governs|applicable|charge|prosecution)",
+            resp_lower,
+        ):
+            claim = {
+                "type": "RETROSPECTIVE_BNS_THEFT_CLAIM",
+                "is_contradiction": True,
+                "truth": "The pre-commencement theft allegation must be assessed under IPC sections 378 and 379, subject to BNS section 358 savings.",
+            }
+            claims.append(claim)
+            return False, _deterministic_firewall_fallback(
+                evidence_pack.get("query", ""), evidence_pack, "retrospective application of the BNS theft provision"
+            ), claims
+
+        if transition.evidence_regime == "BSA" and re.search(
+            r"(?:iea|indian\s+evidence\s+act)\s*(?:section\s*)?65b[^.\n]{0,80}\b(?:applies|governs|applicable|in\s+force)",
+            resp_lower,
+        ):
+            claim = {
+                "type": "WRONG_EVIDENCE_TRANSITION_BRANCH",
+                "is_contradiction": True,
+                "truth": "BSA governs the stated post-commencement matter; IEA section 65B is saved only when BSA section 170(2) applies.",
+            }
+            claims.append(claim)
+            return False, _deterministic_firewall_fallback(
+                evidence_pack.get("query", ""), evidence_pack, "wrong evidence-law transition branch"
+            ), claims
+
+        if transition.evidence_regime == "IEA" and re.search(
+            r"bsa\s*(?:sections?\s*)?(?:61|62|63)[^.\n]{0,80}\b(?:applies|governs|applicable)",
+            resp_lower,
+        ):
+            claim = {
+                "type": "WRONG_EVIDENCE_TRANSITION_BRANCH",
+                "is_contradiction": True,
+                "truth": "The saved pending matter is governed by the Indian Evidence Act under BSA section 170(2).",
+            }
+            claims.append(claim)
+            return False, _deterministic_firewall_fallback(
+                evidence_pack.get("query", ""), evidence_pack, "BSA applied to a saved pending matter"
+            ), claims
+
+        if transition.procedure_regime == "UNKNOWN" and any(
+            issue.category.startswith("police_custody") for issue in reasoning_plan.issues
+        ) and re.search(r"\b(?:only\s+)?3\s+(?:more\s+)?days?\s+(?:remain|remaining|available)\b", resp_lower) and not re.search(
+            r"\bif\s+(?:bnss|section\s+187|the\s+bnss)\b", resp_lower
+        ):
+            claim = {
+                "type": "UNCONDITIONAL_CUSTODY_ARITHMETIC",
+                "is_contradiction": True,
+                "truth": "Three days is only a conditional aggregate maximum if BNSS governs and the earlier twelve days were validly authorised; saved CrPC procedure requires separate analysis.",
+            }
+            claims.append(claim)
+            return False, _deterministic_firewall_fallback(
+                evidence_pack.get("query", ""), evidence_pack, "unconditional police-custody arithmetic"
+            ), claims
+
+        if re.search(
+            r"(?:failure|breach|non[- ]compliance)[^.\n]{0,100}(?:video|videograph|section\s+105)"
+            r"[^.\n]{0,80}\b(?:causes?|requires?|results?\s+in|means?|leads?\s+to)\b"
+            r"[^.\n]{0,30}\b(?:automatic(?:ally)?\s+)?(?:acquittal|exclusion|exclude)\b",
+            resp_lower,
+        ):
+            claim = {
+                "type": "INVENTED_SEARCH_REMEDY",
+                "is_contradiction": True,
+                "truth": "BNSS section 105 imposes the recording duty but the supplied statutory text does not prescribe automatic acquittal or automatic exclusion.",
+            }
+            claims.append(claim)
+            return False, _deterministic_firewall_fallback(
+                evidence_pack.get("query", ""), evidence_pack, "invented automatic consequence for search-videography non-compliance"
+            ), claims
+
+        if re.search(
+            r"(?:procedural|evidentiary)\s+defects?[^.\n]{0,100}\b(?:prove|establish|mean)\b[^.\n]{0,40}\binnocen",
+            resp_lower,
+        ):
+            claim = {
+                "type": "DEFECTS_EQUAL_INNOCENCE_CLAIM",
+                "is_contradiction": True,
+                "truth": "The supplied provisions do not make the identified defects a self-executing finding of innocence.",
+            }
+            claims.append(claim)
+            return False, _deterministic_firewall_fallback(
+                evidence_pack.get("query", ""), evidence_pack, "procedural defects treated as proof of innocence"
+            ), claims
 
         # Priority 1: Adversarial Probes & False Assertions (Query-Level Interception)
         if ("crpc" in query_lower or "code of criminal procedure" in query_lower) and (re.search(r'\bbns\b', query_lower) or "bharatiya nyaya" in query_lower) and any(w in query_lower for w in ["replace", "repeal", "since bns"]) and not any(w in query_lower for w in ["what replaced", "which section replaced", "corresponds to", "equivalent of"]):
@@ -217,8 +375,19 @@ class LegalVerificationFirewall:
         if any(w in query_lower for w in ["bns criminal procedure code", "bns procedure code"]):
             return False, "False. Under Indian Law, the procedural criminal statute is the Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS), while the substantive criminal statute is the Bharatiya Nyaya Sanhita, 2023 (BNS). The phrase 'BNS Criminal Procedure Code' is non-statutory and incorrect.", claims
 
-        if ("65b" in query_lower or "section 65b" in query_lower) and any(w in query_lower for w in ["iea", "evidence act", "indian evidence act"]) and not any(w in query_lower for w in ["what replaced", "which section replaced"]):
-            return False, "False. Section 65B of the repealed Indian Evidence Act, 1872 has been replaced by Section 63 of the Bharatiya Sakshya Adhiniyam, 2023 (BSA).", claims
+        if (
+            ("65b" in query_lower or "section 65b" in query_lower)
+            and any(w in query_lower for w in ["iea", "evidence act", "indian evidence act"])
+            and not any(w in query_lower for w in ["what replaced", "which section replaced"])
+            and not transition.is_transition_matter
+            and not any(w in query_lower for w in ["pending", "before 1 july 2024", "saved", "savings"])
+        ):
+            return False, (
+                "For a matter not saved by the transition clause, electronic-record proof is governed by "
+                "BSA sections 62 and 63. IEA section 65B can still govern a matter saved by BSA section "
+                "170(2), so applicability depends on whether the relevant matter was pending immediately "
+                "before commencement."
+            ), claims
 
         # Priority 2: Explicit Section Conversion Queries
         if any(term in query_lower for term in ["convert legacy", "mapping #", "equivalent of", "equivalent section", "what replaced", "which section replaced", "what is the replacement for"]):
@@ -316,8 +485,6 @@ class LegalVerificationFirewall:
                     )
                 elif c["type"] == "PENALTY_CONTRADICTION_CLAIM":
                     corrected_response = "False. Extortion is governed under Section 308(2) of the Bharatiya Nyaya Sanhita, 2023 (BNS) and is punishable with imprisonment up to 7 years, or fine, or both. It does NOT carry the death penalty."
-                elif c["type"] == "REPEALED_EVIDENCE_PROVISION_CLAIM":
-                    corrected_response = "False. Section 65B of IEA 1872 has been replaced by Section 63 of Bharatiya Sakshya Adhiniyam, 2023 (BSA)."
                 elif c["type"] == "FABRICATED_STATUTE_NAME":
                     corrected_response = (
                         "False. Under Indian Law, the procedural criminal statute is the Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS), "

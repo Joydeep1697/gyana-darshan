@@ -18,6 +18,7 @@ from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
 from retrieval.legal_reasoning import build_reasoning_plan
 from app import config
+from app.source_presenter import format_cited_evidence
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
@@ -51,54 +52,15 @@ async def ask(req: ChatRequest, db: Database = Depends(get_db), user: dict = Dep
     # 3. Field-Level Verification & Firewall Enforcement
     passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
 
-    # Build sources array for UI display
+    # Show unique authorities cited in the enforced answer, not every retrieved
+    # candidate.  This keeps the source count meaningful and avoids duplicate OCR titles.
     sources = []
-    for fact in evidence_pack.get("authoritative_facts", []):
-        f_type = fact.get("type", "")
-        if f_type == "SECTION_CONVERSION":
-            sources.append({
-                "title": f"Statute Mapping: {fact['legacy_statute']} -> {fact['reformed_statute']}",
-                "snippet": f"Legacy Section {fact['legacy_section']} ({fact['subject']}) replaced by Section {fact['reformed_section']}. Reform: {fact['reform_note']}",
-                "category": "Statutory Mapping",
-                "relevance": 1.0
-            })
-        elif f_type == "PROCEDURAL_RULE":
-            p = fact["proc_data"]
-            sources.append({
-                "title": f"Procedural Rule: {p['section']} {p['statute']}",
-                "snippet": f"{p['topic']}: {p['rule_summary']} (Timeline: {p['exact_timeline']})",
-                "category": "Procedural Rule",
-                "relevance": 1.0
-            })
-        elif f_type == "STATUTE_SCOPE":
-            s = fact["scope_data"]
-            sources.append({
-                "title": f"Statute Scope: {s['statute_title']} ({s['act_number']})",
-                "snippet": s["standard_statement"],
-                "category": "Statute Scope",
-                "relevance": 1.0
-            })
-        elif f_type == "CASE_LAW_PRECEDENT":
-            sources.append({
-                "title": f"Precedent: {fact['case_title']} ({fact['citation']})",
-                "snippet": f"Ratio: {fact['ratio_decidendi']} -> Codified in {fact['codified_statute']} {fact['codified_section']}",
-                "category": "Landmark Precedent",
-                "relevance": 1.0
-            })
-        elif f_type == "OFFENCE_METADATA":
-            sources.append({
-                "title": f"Offence: {fact['offence_name']} ({fact['statute']} Section {fact['section']})",
-                "snippet": f"Chapter: {fact['chapter']} | Prescribed Penalty: {fact['penalty']}",
-                "category": "Offence Metadata",
-                "relevance": 1.0
-            })
-
-    for s in evidence_pack.get("retrieved_sections", []):
+    for source in format_cited_evidence(enforced_answer, evidence_pack):
         sources.append({
-            "title": f"{s.get('short_name', 'Statute')} Section {s.get('section', '')}: {s.get('heading', '')}",
-            "snippet": s.get("text", "")[:280] + "...",
-            "category": "Gazette Text",
-            "relevance": 0.95
+            "title": f"{source['statute']} § {source['section']} — {source['heading']}",
+            "snippet": source["text_snippet"],
+            "category": source["statute"],
+            "relevance": 1.0,
         })
 
     elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)

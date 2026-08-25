@@ -31,6 +31,7 @@ os.environ.setdefault("MKL_NUM_THREADS", "1")
 from app import config
 from app.database import get_db
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from app.source_presenter import format_cited_evidence
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
@@ -228,13 +229,13 @@ async def process_legal_query(
             passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
 
             formatted_sections = []
-            for s in evidence_pack.get("retrieved_sections", []):
+            for s in format_cited_evidence(enforced_answer, evidence_pack):
                 formatted_sections.append(EvidenceSection(
                     statute=s.get("statute", ""),
                     section=str(s.get("section", "")),
                     heading=s.get("heading", ""),
                     chapter=s.get("chapter", ""),
-                    text_snippet=s.get("text", "")[:350]
+                    text_snippet=s.get("text_snippet", "")
                 ))
 
             return passed_fw, enforced_answer, claims, evidence_pack, formatted_sections
@@ -272,7 +273,7 @@ async def process_legal_query(
         statute_scope=evidence_pack.get("statute_scope"),
         evidence_pack={
             "authoritative_facts": evidence_pack.get("authoritative_facts", []),
-            "source_authority": "Official Gazette of India (Act 45, 46, 47 of 2023)"
+            "source_authority": "Official statutory sources identified in each cited evidence record"
         },
         retrieved_sections=formatted_sections,
         verification_firewall=VerificationDetails(

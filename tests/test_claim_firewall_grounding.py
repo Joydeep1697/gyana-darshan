@@ -55,3 +55,22 @@ def test_full_statute_name_is_normalized():
 
     assert passed is False
     assert claims[-1]["citations"] == ["BNS section 404"]
+
+
+def test_every_section_in_a_plural_citation_must_be_grounded():
+    passed, answer, claims = LegalVerificationFirewall().verify_and_enforce(
+        "BNS sections 103 and 999 govern the issue.", evidence_pack()
+    )
+
+    assert passed is False
+    assert "BNS section 999" in answer
+    assert claims[-1]["citations"] == ["BNS section 999"]
+
+
+def test_postfix_plural_citation_is_also_grounded():
+    passed, _, claims = LegalVerificationFirewall().verify_and_enforce(
+        "Sections 103 and 999 of the BNS govern the issue.", evidence_pack()
+    )
+
+    assert passed is False
+    assert claims[-1]["citations"] == ["BNS section 999"]

@@ -8,8 +8,8 @@ from datetime import date, datetime
 from functools import lru_cache
 from typing import Any
 
+from retrieval.transition_context import COMMENCEMENT_DATE, analyze_transition
 
-COMMENCEMENT_DATE = date(2024, 7, 1)
 DATE_FORMATS = ("%d %B %Y", "%d %b %Y", "%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y")
 
 
@@ -28,6 +28,10 @@ class ReasoningPlan:
     safeguards: list[str] = field(default_factory=list)
     direct_answer: str | None = None
     offence_date: date | None = None
+    procedure_start_date: date | None = None
+    pending_before_commencement: bool | None = None
+    procedure_regime: str = "UNKNOWN"
+    evidence_regime: str = "UNKNOWN"
 
     @property
     def required_citations(self) -> list[tuple[str, str]]:
@@ -55,15 +59,45 @@ def _extract_dates(query: str) -> list[date]:
 @lru_cache(maxsize=1024)
 def build_reasoning_plan(query: str) -> ReasoningPlan:
     text = query.lower()
-    plan = ReasoningPlan()
+    timeline = analyze_transition(query)
+    plan = ReasoningPlan(
+        offence_date=timeline.offence_date,
+        procedure_start_date=timeline.procedure_start_date,
+        pending_before_commencement=timeline.pending_before_commencement,
+        procedure_regime=timeline.procedure_regime,
+        evidence_regime=timeline.evidence_regime,
+    )
     ages = [int(value) for value in re.findall(r"\b(\d{1,2})[ -]year[ -]old\b|\b(?:aged?|was)\s+(\d{1,2})\b", text) for value in value if value]
-    dates = _extract_dates(query)
-    offence_words = ("offence", "theft", "committed", "occurred", "alleged", "conduct")
-    if dates and any(word in text for word in offence_words) and min(dates) < COMMENCEMENT_DATE:
-        plan.offence_date = min(dates)
-        plan.issues.append(LegalIssue("statutory_transition", "BNS", ("358",), "The alleged offence predates 1 July 2024: substantive criminal liability is assessed under the IPC in force on the date of conduct, not retrospectively under BNS. Distinguish procedural savings under BNSS section 531."))
-        plan.issues.append(LegalIssue("procedural_transition", "BNSS", ("531",), "Check whether proceedings or investigation were already pending when BNSS commenced; do not assume the filing or trial date changes the substantive offence."))
-        plan.safeguards.append("MANDATORY: State that an offence committed before 1 July 2024 is not retrospectively governed by BNS; identify IPC substantive liability and BNS section 358 savings.")
+    is_pre_commencement_offence = bool(plan.offence_date and plan.offence_date < COMMENCEMENT_DATE)
+    if is_pre_commencement_offence:
+        plan.issues.append(LegalIssue(
+            "statutory_transition", "BNS", ("358",),
+            "The alleged offence predates 1 July 2024. Apply the IPC substantive offence in force on the conduct date; BNS section 358 preserves pre-repeal liability and does not make the corresponding BNS offence retrospective.",
+        ))
+        if "theft" in text:
+            plan.issues.append(LegalIssue(
+                "legacy_theft", "IPC", ("378", "379"),
+                "IPC section 378 supplies the definition of theft and IPC section 379 supplies its punishment for this pre-commencement allegation. Do not substitute the corresponding BNS theft provision.",
+            ))
+        plan.issues.append(LegalIssue(
+            "procedural_transition", "BNSS", ("531",),
+            "Decide procedure independently: matters pending immediately before 1 July 2024 continue under CrPC; a later-started matter is not moved to CrPC solely because the alleged offence predates commencement.",
+        ))
+        if plan.procedure_regime == "CRPC":
+            plan.safeguards.append(
+                "TRANSITION PROCEDURE: The relevant matter was pending before commencement; apply saved CrPC procedure under BNSS section 531(2)(a)."
+            )
+        elif plan.procedure_regime == "BNSS":
+            plan.safeguards.append(
+                "TRANSITION PROCEDURE: The relevant matter began on or after commencement; apply BNSS procedure, while retaining IPC substantive liability for the earlier conduct."
+            )
+        else:
+            plan.safeguards.append(
+                "TRANSITION PROCEDURE: The facts do not establish whether an investigation or proceeding was pending immediately before 1 July 2024. State both branches under BNSS section 531(2)(a); do not choose one without a procedural start fact."
+            )
+        plan.safeguards.append(
+            "MANDATORY: State that a pre-1 July 2024 offence is not retrospectively governed by BNS; cite IPC sections 378 and 379 for theft and BNS section 358 for savings."
+        )
 
     mentions_child = bool(re.search(r"\b(?:pocso|child|minor|student|school|1[0-7][ -]year[ -]old)\b", text))
     adult_only = bool(ages) and min(ages) >= 18 and not any(age < 18 for age in ages)
@@ -93,34 +127,134 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
         if any(value in text for value in ("repeal", "ceased to exist", "only bns", "alongside", "special statute")):
             plan.issues.append(LegalIssue("pocso_special_statute", "POCSO", ("42", "42A"), "POCSO remains an independent special enactment after BNS commencement; apply its special-law and conflict provisions without claiming repeal."))
 
-    if any(value in text for value in ("whatsapp", "screenshot", "electronic record", "electronic evidence", "chat backup", "digital evidence", "certificate", "cctv")):
-        plan.issues.append(LegalIssue("electronic_evidence", "BSA", ("63", "62"), "Assess source, authenticity, integrity, chain of custody, and the applicable electronic-record certificate requirements; a printout is not automatically authenticated."))
-    if any(value in text for value in (
+    has_electronic_evidence = any(value in text for value in (
+        "whatsapp", "screenshot", "electronic record", "electronic evidence",
+        "chat backup", "digital evidence", "certificate", "cctv", "laptop files",
+    ))
+    if has_electronic_evidence:
+        if is_pre_commencement_offence or plan.evidence_regime == "IEA":
+            plan.issues.append(LegalIssue(
+                "evidence_transition", "BSA", ("170",),
+                "Choose the evidence statute from BSA section 170, not from the offence date alone. A relevant matter pending immediately before commencement is saved to the Indian Evidence Act; otherwise BSA applies.",
+            ))
+        if plan.evidence_regime == "IEA":
+            plan.issues.append(LegalIssue(
+                "electronic_evidence_legacy", "IEA", ("65B", "65A"),
+                "For a saved Indian Evidence Act matter, electronic computer outputs are proved under IEA sections 65A and 65B. State the statutory conditions and certificate requirement actually supported by the excerpt; do not attribute every forensic concern to section 65B.",
+            ))
+        elif plan.evidence_regime == "BSA":
+            plan.issues.append(LegalIssue(
+                "electronic_evidence_current", "BSA", ("63", "62"),
+                "Under BSA, section 62 directs proof of electronic-record contents to section 63, which governs computer-output conditions and certification. Distinguish those express conditions from separate questions of authenticity, integrity, and evidentiary weight.",
+            ))
+        elif is_pre_commencement_offence:
+            plan.issues.append(LegalIssue(
+                "electronic_evidence_legacy_branch", "IEA", ("65B", "65A"),
+                "If the relevant matter was pending immediately before commencement, IEA sections 65A and 65B govern electronic computer outputs.",
+            ))
+            plan.issues.append(LegalIssue(
+                "electronic_evidence_current_branch", "BSA", ("63", "62"),
+                "If the relevant matter began on or after commencement, BSA sections 62 and 63 govern proof of electronic records and computer outputs.",
+            ))
+            plan.safeguards.append(
+                "EVIDENCE TRANSITION: The offence date alone does not select IEA or BSA. Apply BSA section 170 to the relevant pending matter and state both branches if pendency is unknown."
+            )
+        else:
+            plan.issues.append(LegalIssue(
+                "electronic_evidence_current", "BSA", ("63", "62"),
+                "BSA sections 62 and 63 govern proof of electronic records and computer outputs, including section 63 conditions and certification. Distinguish express statutory conditions from separate forensic-weight questions.",
+            ))
+
+    has_electronic_fir = any(value in text for value in (
         "electronic fir", "e-fir", "e fir", "fir electronically", "fir is registered electronically",
         "register the fir electronically", "register an fir electronically", "online fir",
-    )) or ("fir" in text and any(value in text for value in ("electronically", "electronic registration", "online registration"))):
-        plan.issues.append(LegalIssue(
-            "electronic_fir_registration", "BNSS", ("173",),
-            "Identify BNSS section 173 as the governing provision for information relating to a cognizable offence, including electronic communication; distinguish registration, signature or confirmation requirements, and investigation from proof of guilt.",
-        ))
+    )) or ("fir" in text and any(value in text for value in ("electronically", "electronic registration", "online registration")))
+    if has_electronic_fir:
+        if plan.procedure_regime == "CRPC":
+            plan.issues.append(LegalIssue(
+                "legacy_fir_registration", "CRPC", ("154",),
+                "The saved CrPC section 154 governs recording cognizable information. Do not import BNSS section 173's express electronic-communication and three-day signature rules into a saved CrPC matter.",
+            ))
+        else:
+            qualifier = "" if plan.procedure_regime == "BNSS" else "If BNSS governs the later-started matter, "
+            plan.issues.append(LegalIssue(
+                "electronic_fir_registration", "BNSS", ("173",),
+                qualifier + "BNSS section 173 covers cognizable information irrespective of area and permits electronic communication, subject to the statutory signature-within-three-days requirement. Separate registration from later investigation and proof.",
+            ))
     if any(value in text for value in ("default bail", "day 91", "charge sheet", "charge-sheet", "investigation period")) and "bail" in text:
-        plan.issues.append(LegalIssue("default_bail", "BNSS", ("187",), "Default-bail analysis belongs to BNSS section 187; check whether the applicable 60/90-day period expired, whether the application preceded the charge sheet, and whether the accused was prepared to furnish bail. Do not substitute undertrial detention under section 479.", ("479",)))
-        plan.safeguards.append("MANDATORY: Cite BNSS section 187 for investigation/default bail; section 479 concerns a distinct undertrial-detention issue.")
+        if plan.procedure_regime == "CRPC":
+            plan.issues.append(LegalIssue(
+                "legacy_default_bail", "CRPC", ("167",),
+                "For a saved investigation, default-bail analysis belongs to CrPC section 167. Check expiry of the applicable period, the timing of the application and charge sheet, and readiness to furnish bail.",
+            ))
+        else:
+            plan.issues.append(LegalIssue("default_bail", "BNSS", ("187",), "Default-bail analysis belongs to BNSS section 187; check whether the applicable 60/90-day period expired, whether the application preceded the charge sheet, and whether the accused was prepared to furnish bail. Do not substitute undertrial detention under section 479.", ("479",)))
+            plan.safeguards.append("MANDATORY: Cite BNSS section 187 for investigation/default bail; section 479 concerns a distinct undertrial-detention issue.")
     if any(value in text for value in ("police custody", "remand", "custody ceiling")):
-        plan.issues.append(LegalIssue("police_custody", "BNSS", ("187",), "Aggregate police custody is capped at 15 days; distinguish that ceiling and its initial 40/60-day allocation window from the overall 60/90-day investigation detention period."))
+        if plan.procedure_regime == "CRPC":
+            plan.issues.append(LegalIssue(
+                "legacy_police_custody", "CRPC", ("167",),
+                "A saved pre-commencement investigation is governed by CrPC section 167, not BNSS section 187. Do not assume unused days are automatically available without considering the applicable remand stage and judicial authorisation.",
+            ))
+        elif plan.procedure_regime == "BNSS" or not is_pre_commencement_offence:
+            plan.issues.append(LegalIssue(
+                "police_custody", "BNSS", ("187",),
+                "BNSS section 187 caps police custody at fifteen days in the whole, usable wholly or in parts within the applicable initial forty- or sixty-day allocation window. Keep that distinct from the overall sixty- or ninety-day investigation-detention limit and from the Magistrate's authorisation decision.",
+            ))
+        else:
+            plan.issues.append(LegalIssue(
+                "police_custody_current_branch", "BNSS", ("187",),
+                "If BNSS governs, section 187 supplies the fifteen-day aggregate police-custody ceiling and the initial forty- or sixty-day allocation window.",
+            ))
+            plan.issues.append(LegalIssue(
+                "police_custody_legacy_branch", "CRPC", ("167",),
+                "If the investigation was pending before commencement, CrPC section 167 governs custody; do not apply BNSS section 187 merely from the remand date.",
+            ))
         days_match = re.search(r"(?:spent|already|completed)\s+(\d{1,2})\s+days", text)
         if days_match:
             used = int(days_match.group(1))
             remaining = max(0, 15 - used)
+            remaining_label = "day" if remaining == 1 else "days"
             overall = "90 days where the statutory serious-offence category applies" if any(value in text for value in ("life imprisonment", "death", "ten years")) else "the applicable 60-day or 90-day investigation limit"
-            plan.safeguards.append(f"DETERMINISTIC CUSTODY: {used} police-custody days used; maximum additional police custody is {remaining} days. Distinguish this from {overall}; never describe 40/60-day allocation windows as the total detention limit.")
+            if plan.procedure_regime == "BNSS":
+                plan.safeguards.append(
+                    f"DETERMINISTIC CUSTODY: If the earlier {used} police-custody days were validly authorised under BNSS section 187, no more than {remaining} aggregate {remaining_label} remain. This arithmetic is not an authorisation; the Magistrate and the applicable initial 40/60-day window still control. Distinguish it from {overall}."
+                )
+            elif plan.procedure_regime == "CRPC":
+                plan.safeguards.append(
+                    f"DETERMINISTIC CUSTODY: CrPC section 167, not BNSS section 187, governs. The fifteen-day statutory aggregate leaves at most {remaining} unused {remaining_label}, but do not say those days are automatically available; remand timing and valid judicial authorisation require separate analysis."
+                )
+            else:
+                plan.safeguards.append(
+                    f"DETERMINISTIC CUSTODY: Do not state that {remaining} {remaining_label} remain unconditionally. If BNSS governs and {used} days were validly authorised, no more than {remaining} aggregate {remaining_label} remain under section 187, subject to its timing window and Magistrate authorisation; if CrPC is saved, section 167 requires separate remand analysis. Distinguish either custody analysis from {overall}."
+                )
     if any(value in text for value in ("territorial", "another district", "nearest police station", "zero fir", "jurisdiction")) and any(value in text for value in ("fir", "police", "cognizable", "complainant")):
-        plan.issues.append(LegalIssue("zero_fir", "BNSS", ("173",), "A cognizable offence report cannot be refused solely for territorial location; distinguish initial information/FIR registration under BNSS section 173 from investigation and transfer."))
+        if plan.procedure_regime == "CRPC":
+            plan.issues.append(LegalIssue(
+                "legacy_territorial_fir", "CRPC", ("154",),
+                "CrPC section 154 governs the saved matter. Do not cite BNSS section 173's express 'irrespective of area' language as though it applied; any broader Zero-FIR conclusion needs authority applicable to the CrPC regime.",
+            ))
+        else:
+            qualifier = "Under BNSS, " if plan.procedure_regime == "BNSS" else "If BNSS governs, "
+            plan.issues.append(LegalIssue(
+                "zero_fir", "BNSS", ("173",),
+                qualifier + "cognizable information cannot be refused solely because the offence occurred outside the station's area. Distinguish registration under section 173 from investigation and transfer.",
+            ))
     if "search" in text and any(value in text for value in ("video", "videography", "record", "seizure")):
-        plan.issues.append(LegalIssue("search_videography", "BNSS", ("105",), "Identify the audio-video recording obligation without asserting automatic acquittal or automatic exclusion absent supporting statutory text."))
+        if plan.procedure_regime == "CRPC":
+            plan.issues.append(LegalIssue(
+                "legacy_search", "CRPC", ("100", "165"),
+                "For a saved CrPC investigation, assess the search under CrPC sections 100 and 165; BNSS section 105's audio-video duty does not apply merely because the search is discussed after commencement.",
+            ))
+        else:
+            qualifier = "Under BNSS, " if plan.procedure_regime == "BNSS" else "If BNSS governs, "
+            plan.issues.append(LegalIssue(
+                "search_videography", "BNSS", ("105",),
+                qualifier + "section 105 requires audio-video recording of the search-and-seizure process and forwarding of the recording. The supplied text does not prescribe automatic acquittal or automatic exclusion for breach; state that a consequence requires separate authority and fact-specific analysis.",
+            ))
     if any(value in text for value in ("entrust", "cashier", "lawfully receives", "diverts")):
         plan.issues.append(LegalIssue("criminal_breach_of_trust", "BNS", ("316",), "Entrustment followed by dishonest diversion points to criminal breach of trust; distinguish lawful initial possession from theft."))
-    if any(value in text for value in ("locked drawer", "never authorised", "unauthorized", "theft", "secretly removes")):
+    if not is_pre_commencement_offence and any(value in text for value in ("locked drawer", "never authorised", "unauthorized", "theft", "secretly removes")):
         plan.issues.append(LegalIssue("theft", "BNS", ("303",), "Theft requires dishonest taking of movable property out of another's possession without consent; compare with entrusted-property breach of trust."))
     if any(value in text for value in (
         "extortion", "threatens to publish", "threaten to publish", "threatening to publish",
@@ -138,6 +272,13 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
         plan.safeguards.append(
             "MANDATORY: Distinguish an allegation and a prima facie statutory assessment from proof at trial; identity, authenticity, intent, age, and any disputed facts require admissible evidence. Do not pronounce guilt from the narrative alone."
         )
+    if any(value in text for value in (
+        "establish innocence", "prove innocence", "automatic acquittal", "automatically acquit",
+        "procedural defects", "evidentiary defects", "defects mean innocence",
+    )):
+        plan.safeguards.append(
+            "MANDATORY DEFECT CONSEQUENCE: Do not say defects prove innocence, and do not invoke what legal systems 'typically' do. Identify the specific breached provision and any consequence stated in retrieved authority. If no automatic remedy is stated, say the supplied authority does not establish one and that the remaining consequence requires separate authority and fact-specific adjudication."
+        )
     return plan
 
 
@@ -145,6 +286,12 @@ def prioritize_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], cor
     """Guarantee at least the primary provisions for every independent issue."""
     result, seen = [], set()
     blocked = {(issue.statute, excluded) for issue in plan.issues for excluded in issue.excluded_sections}
+    if plan.offence_date and plan.offence_date < COMMENCEMENT_DATE:
+        blocked.add(("BNS", "303"))
+    if plan.procedure_regime == "CRPC":
+        blocked.update({("BNSS", section) for section in ("35", "105", "173", "187")})
+    if plan.evidence_regime == "IEA":
+        blocked.update({("BSA", section) for section in ("61", "62", "63")})
 
     def append_record(record):
         if not record:
@@ -161,29 +308,54 @@ def prioritize_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], cor
                 append_record(corpus_by_key.get((issue.statute, issue.sections[position].upper())))
     for section in sections:
         append_record(section)
-    return result[: max(limit, min(len(plan.required_citations), 10))]
+    # Complex transition matters can legitimately require old-law, new-law, and
+    # savings provisions at once.  Do not drop the second half of a paired citation
+    # (for example IPC 379 or BSA 62) merely because the UI requested top_k=10.
+    return result[: max(limit, min(len(plan.required_citations), 16))]
 
 
-def format_compact_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], max_chars: int = 12000) -> str:
+def format_compact_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], max_chars: int = 18000) -> str:
     lines = ["VERIFIED LEGAL ISSUES AND REQUIRED ANALYSIS:"]
     for issue in plan.issues:
         lines.append(f"- {issue.category}: {issue.statute} sections {', '.join(issue.sections)}. {issue.guidance}")
     if plan.safeguards:
         lines += ["DETERMINISTIC SAFEGUARDS:"] + [f"- {item}" for item in plan.safeguards]
-    lines.append("AUTHORITATIVE STATUTORY EXCERPTS:")
+    lines.append("AUTHORITATIVE STATUTORY MATERIAL:")
     for record in sections:
         statute = record.get("short_name", record.get("statute", ""))
         heading = str(record.get("heading", ""))[:180]
-        excerpt = re.sub(r"\s+", " ", str(record.get("text", "")))[:650]
+        excerpt = re.sub(r"\s+", " ", str(record.get("text", "")))[:600]
         lines.append(f"- {statute} section {record.get('section','')}: {heading}. {excerpt}")
     return "\n".join(lines)[:max_chars]
+
+
+def verified_evidence_material(evidence_context: str) -> str:
+    """Remove planner instructions before checking whether a citation was retrieved."""
+    for marker in ("AUTHORITATIVE STATUTORY MATERIAL:", "AUTHORITATIVE STATUTORY EXCERPTS:"):
+        if marker in evidence_context:
+            return evidence_context.split(marker, 1)[-1]
+    return evidence_context
+
+
+def citation_is_grounded(statute: str, section: str, evidence_context: str) -> bool:
+    excerpt = verified_evidence_material(evidence_context)
+    pattern = (
+        r"\b" + re.escape(statute) + r"\b[^\n]{0,80}\bsections?\s*"
+        + re.escape(section) + r"(?!\d)"
+    )
+    return bool(re.search(pattern, excerpt, re.IGNORECASE))
 
 
 def verify_answer(answer: str, plan: ReasoningPlan, sections: list[dict[str, Any]]) -> dict[str, Any]:
     normalized = answer.lower()
     missing = []
+    require_all_categories = {
+        "pocso_non_contact_harassment", "pocso_reporting", "legacy_theft",
+        "electronic_evidence_current", "electronic_evidence_current_branch",
+        "electronic_evidence_legacy", "electronic_evidence_legacy_branch",
+    }
     for issue in plan.issues:
-        if issue.category in {"pocso_non_contact_harassment", "pocso_reporting"}:
+        if issue.category in require_all_categories:
             required = issue.sections
         else:
             required = issue.sections[:1]
@@ -191,8 +363,13 @@ def verify_answer(answer: str, plan: ReasoningPlan, sections: list[dict[str, Any
             if not re.search(r"(?<!\d)" + re.escape(section) + r"(?!\d)", normalized):
                 missing.append(f"{issue.statute} {section}")
     contradictions = []
-    if plan.offence_date and "ipc" not in normalized:
+    if plan.offence_date and plan.offence_date < COMMENCEMENT_DATE and "ipc" not in normalized:
         contradictions.append("pre-commencement offence must identify IPC substantive liability")
+    if plan.offence_date and plan.offence_date < COMMENCEMENT_DATE and re.search(
+        r"bns\s+(?:section\s+)?303[^.\n]{0,90}\b(?:applies|governs|applicable|charge|prosecution)",
+        normalized,
+    ):
+        contradictions.append("BNS section 303 cannot govern a pre-commencement theft allegation")
     if any(issue.category == "pocso_non_contact_harassment" for issue in plan.issues) and re.search(r"(?:section\s*)?[347]\s+(?:applies|governs|is applicable)", normalized):
         contradictions.append("non-contact child harassment cannot be relabeled as contact or penetrative assault")
     return {"passed": not missing and not contradictions, "missing_citations": missing, "contradictions": contradictions}
@@ -215,27 +392,77 @@ def deterministic_grounded_answer(query: str, evidence_context: str) -> str | No
         return None
 
     paragraphs = []
-    if plan.offence_date:
+    pre_commencement = bool(plan.offence_date and plan.offence_date < COMMENCEMENT_DATE)
+    if pre_commencement:
+        theft_citations = "IPC sections 378 and 379; " if any(
+            issue.category == "legacy_theft" for issue in supported_issues
+        ) else ""
         paragraphs.append(
-            "**Substantive law:** The alleged offence occurred on "
-            f"{plan.offence_date.strftime('%d %B %Y').lstrip('0')}, "
-            "before the new criminal laws commenced on 1 July 2024. "
-            "The Indian Penal Code (IPC) therefore governs substantive criminal liability. "
-            "A later FIR, investigation, or trial does not retrospectively make BNS section 303 applicable. "
-            "BNS section 358 preserves the effect of repeal and savings; BNSS section 531 "
-            "must be considered separately for pending procedural matters."
+            "**1. Substantive criminal law:** The alleged conduct occurred on "
+            f"{plan.offence_date.strftime('%d %B %Y').lstrip('0')}, before commencement on "
+            "1 July 2024. The Indian Penal Code (IPC) therefore governs substantive criminal "
+            "liability; a later "
+            "FIR, investigation, or trial does not retrospectively replace that offence with "
+            f"its BNS counterpart ({theft_citations}BNS section 358)."
         )
 
+        if plan.procedure_regime == "BNSS":
+            procedure_text = (
+                "The stated investigation/proceeding began on or after 1 July 2024, so BNSS "
+                "governs procedure while IPC continues to govern the earlier substantive offence."
+            )
+        elif plan.procedure_regime == "CRPC":
+            procedure_text = (
+                "The relevant investigation/proceeding was pending immediately before 1 July "
+                "2024 and therefore continues under CrPC."
+            )
+        else:
+            procedure_text = (
+                "The facts do not say whether the relevant matter was pending immediately before "
+                "1 July 2024. If it was pending, CrPC continues; if it began afterward, BNSS applies."
+            )
+        paragraphs.append(f"**2. Procedural transition:** {procedure_text} (BNSS section 531.)")
+
+    label_map = {
+        "electronic_fir_registration": "Electronic FIR",
+        "legacy_fir_registration": "FIR registration",
+        "zero_fir": "Territorial objection / Zero FIR",
+        "legacy_territorial_fir": "Territorial objection / FIR",
+        "police_custody": "Police custody",
+        "legacy_police_custody": "Police custody",
+        "police_custody_current_branch": "Police custody — BNSS branch",
+        "police_custody_legacy_branch": "Police custody — CrPC branch",
+        "search_videography": "Search videography",
+        "legacy_search": "Search procedure",
+        "evidence_transition": "Evidence-law transition",
+        "electronic_evidence_current": "Electronic records",
+        "electronic_evidence_current_branch": "Electronic records — BSA branch",
+        "electronic_evidence_legacy": "Electronic records",
+        "electronic_evidence_legacy_branch": "Electronic records — IEA branch",
+    }
+    skip_categories = {"statutory_transition", "procedural_transition", "legacy_theft"}
+    section_number = 3 if pre_commencement else 1
+    emitted = set()
     for issue in supported_issues:
-        if plan.offence_date and (
-            issue.category in {"statutory_transition", "procedural_transition"}
-            or issue.statute == "BNS"
-        ):
+        if issue.category in skip_categories:
             continue
+        key = (issue.category, issue.statute, issue.sections)
+        if key in emitted:
+            continue
+        emitted.add(key)
         citations = ", ".join(f"{issue.statute} section {section}" for section in issue.sections)
-        paragraphs.append(f"**{issue.category.replace('_', ' ').title()}:** {issue.guidance} ({citations}.)")
+        label = label_map.get(issue.category, issue.category.replace("_", " ").title())
+        paragraphs.append(f"**{section_number}. {label}:** {issue.guidance} ({citations}.)")
+        section_number += 1
 
     custody = next((item for item in plan.safeguards if item.startswith("DETERMINISTIC CUSTODY:")), None)
     if custody:
         paragraphs.append("**Custody calculation:** " + custody.removeprefix("DETERMINISTIC CUSTODY: "))
+    if any(item.startswith("MANDATORY DEFECT CONSEQUENCE:") for item in plan.safeguards):
+        paragraphs.append(
+            "**Procedural and evidentiary defects:** The cited provisions do not state that the "
+            "identified defects themselves establish innocence or require automatic acquittal. "
+            "Any exclusion, prejudice, weight, or other remedy must be tied to applicable authority "
+            "and the case facts; the available statutory excerpts alone do not establish a universal consequence."
+        )
     return "\n\n".join(paragraphs) if paragraphs else None

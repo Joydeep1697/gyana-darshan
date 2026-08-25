@@ -28,6 +28,7 @@ from database.repository import (
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from app.source_presenter import format_cited_evidence
 
 router = APIRouter(prefix="/api/conversations", tags=["Conversations & Consultations"])
 
@@ -36,10 +37,10 @@ retriever = AuthoritativeLegalRetriever()
 firewall = LegalVerificationFirewall()
 
 # Engine Versioning Constants
-ENGINE_VERSION = "1.0.0"
-CORPUS_VERSION = "2026.08.18"
-RETRIEVER_VERSION = "1.0.0"
-FIREWALL_VERSION = "1.0.0"
+ENGINE_VERSION = "1.1.0"
+CORPUS_VERSION = "2026.08.26-transition"
+RETRIEVER_VERSION = "1.1.0"
+FIREWALL_VERSION = "1.1.0"
 
 def compute_group_period(dt_str: str) -> str:
     """Group conversations into 'Today', 'Yesterday', or 'Older'."""
@@ -224,17 +225,7 @@ async def send_message(
     grounding_status = "GROUNDED_AND_VERIFIED" if passed_fw else "AUTO_CORRECTED_BY_FIREWALL"
 
     # 3. Format Evidence Items
-    formatted_evidence = []
-    for s in evidence_pack.get("retrieved_sections", []):
-        formatted_evidence.append({
-            "statute": s.get("statute", "BNS"),
-            "act_number": s.get("act_number", "Act 45 of 2023"),
-            "section": str(s.get("section", "")),
-            "heading": s.get("heading", ""),
-            "source": s.get("source", "Official Gazette of India"),
-            "text_snippet": s.get("text", "")[:450],
-            "provenance": "Official Gazette of India (Extraordinary, Part II)"
-        })
+    formatted_evidence = format_cited_evidence(enforced_answer, evidence_pack)
 
     # 4. Auto-update Conversation Title if still default
     if conv["title"] == "New Legal Consultation":

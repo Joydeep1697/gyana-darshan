@@ -67,7 +67,8 @@ class AdversarialReasoningTests(unittest.TestCase):
             "For an offence punishable with life imprisonment, the accused already spent 12 days in police custody. How much police custody remains?"
         )
         safeguards = " ".join(plan.safeguards)
-        self.assertIn("maximum additional police custody is 3 days", safeguards)
+        self.assertIn("no more than 3 aggregate days remain", safeguards)
+        self.assertIn("validly authorised", safeguards)
         self.assertIn("90 days", safeguards)
 
     def test_electronic_record_uses_bsa_62_and_63(self):
@@ -90,7 +91,7 @@ class AdversarialReasoningTests(unittest.TestCase):
         self.assertTrue(plan.is_complex)
         self.assertTrue({
             "pocso_non_contact_harassment", "pocso_reporting", "pocso_age_consent",
-            "electronic_evidence", "electronic_fir_registration", "extortion",
+            "electronic_evidence_current", "electronic_fir_registration", "extortion",
         }.issubset(issues), issues)
         self.assertTrue(any("proof at trial" in value.lower() for value in plan.safeguards))
         reporting = next(issue for issue in plan.issues if issue.category == "pocso_reporting")
