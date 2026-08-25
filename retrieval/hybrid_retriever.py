@@ -35,6 +35,7 @@ from retrieval.legal_reasoning import build_reasoning_plan, format_compact_evide
 class AuthoritativeLegalRetriever:
     def __init__(self):
         self.corpus = []
+        self.retrieval_corpus = []
         self.corpus_by_id = {}
         self.corpus_by_statute_sec = {}
         self.cross_mappings = {}
@@ -84,11 +85,13 @@ class AuthoritativeLegalRetriever:
             if key not in deduplicated:
                 key_order.append(key)
             deduplicated[key] = rec
-        self.corpus = [deduplicated[key] for key in key_order]
-        self.corpus_by_id = {rec.get("id"): rec for rec in self.corpus if rec.get("id")}
+        # Preserve the complete imported corpus for release metrics, audit tools,
+        # and callers that inspect corpus size.  Retrieval uses the normalized
+        # view so duplicate OCR stubs never displace curated statutory records.
+        self.retrieval_corpus = [deduplicated[key] for key in key_order]
         self.corpus_by_statute_sec = {
             (str(rec.get("short_name", "")).upper(), str(rec.get("section", "")).strip().upper()): rec
-            for rec in self.corpus
+            for rec in self.retrieval_corpus
             if rec.get("short_name") and rec.get("section")
         }
 
@@ -318,7 +321,7 @@ class AuthoritativeLegalRetriever:
                     iss_candidates.append((100.0, rec))
 
             # Priority 2: Scored corpus candidates for this statute
-            for rec in self.corpus:
+            for rec in self.retrieval_corpus:
                 st_short = rec.get("short_name") or ("BNS" if "Nyaya" in rec.get("statute","") else ("BNSS" if "Nagarik" in rec.get("statute","") else ("BSA" if "Sakshya" in rec.get("statute","") else ("POCSO" if "POCSO" in rec.get("statute","") else ""))))
                 if st and st.upper() != st_short.upper():
                     continue
@@ -359,7 +362,7 @@ class AuthoritativeLegalRetriever:
         # Step 6c: Transition Law Guarantees
         if analysis.get("is_transition"):
             curr_top_ids = set(s["id"] for s in top_sections)
-            for rec in self.corpus:
+            for rec in self.retrieval_corpus:
                 st_short = rec.get("short_name") or ("BNS" if "Nyaya" in rec.get("statute","") else ("BNSS" if "Nagarik" in rec.get("statute","") else ""))
                 sec_str = str(rec.get("section", "")).strip()
                 if (st_short == "BNS" and sec_str == "358") or (st_short == "BNSS" and sec_str == "531"):
