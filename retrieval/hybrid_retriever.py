@@ -55,7 +55,9 @@ class AuthoritativeLegalRetriever:
             "bns_2023_corpus.jsonl",
             "bnss_2023_corpus.jsonl",
             "bsa_2023_corpus.jsonl",
-            "pocso_2012_corpus.jsonl"
+            "pocso_2012_corpus.jsonl",
+            "legacy_criminal_corpus.jsonl",
+            "transition_supplement_corpus.jsonl",
         ]
         for corpus_file in corpus_files:
             fp = CORPUS_DIR / corpus_file
@@ -69,6 +71,26 @@ class AuthoritativeLegalRetriever:
                             st_short = rec.get("short_name") or ("BNS" if "Nyaya" in rec.get("statute","") else ("BNSS" if "Nagarik" in rec.get("statute","") else ("BSA" if "Sakshya" in rec.get("statute","") else ("POCSO" if "POCSO" in rec.get("statute","") else ""))))
                             sec_clean = str(rec.get("section", "")).strip().upper()
                             self.corpus_by_statute_sec[(st_short.upper(), sec_clean)] = rec
+
+        # OCR imports contain a few duplicate section records, including empty
+        # table-of-contents stubs.  Curated supplements are loaded last and therefore
+        # replace those stubs deterministically for both retrieval and presentation.
+        deduplicated = {}
+        key_order = []
+        for rec in self.corpus:
+            st_short = str(rec.get("short_name", "")).upper()
+            sec_clean = str(rec.get("section", "")).strip().upper()
+            key = (st_short, sec_clean) if st_short and sec_clean else ("ID", rec.get("id"))
+            if key not in deduplicated:
+                key_order.append(key)
+            deduplicated[key] = rec
+        self.corpus = [deduplicated[key] for key in key_order]
+        self.corpus_by_id = {rec.get("id"): rec for rec in self.corpus if rec.get("id")}
+        self.corpus_by_statute_sec = {
+            (str(rec.get("short_name", "")).upper(), str(rec.get("section", "")).strip().upper()): rec
+            for rec in self.corpus
+            if rec.get("short_name") and rec.get("section")
+        }
 
         map_file = CORPUS_DIR / "statutory_cross_mappings.json"
         if map_file.exists():

@@ -12,10 +12,19 @@ from collections import OrderedDict
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from openai import AsyncOpenAI
+try:
+    from openai import AsyncOpenAI
+except ImportError:  # Deterministic statutory answers and stdlib HTTPS remain available.
+    AsyncOpenAI = None
 
 from app import config
-from retrieval.legal_reasoning import build_reasoning_plan, deterministic_grounded_answer, verify_answer
+from retrieval.legal_reasoning import (
+    build_reasoning_plan,
+    citation_is_grounded,
+    deterministic_grounded_answer,
+    verify_answer,
+)
+from retrieval.transition_context import COMMENCEMENT_DATE
 
 logger = logging.getLogger("nyaya-darshan-app")
 
@@ -26,6 +35,10 @@ SYSTEM_PROMPT = (
     "Clearly distinguish current law, repealed law, transition provisions, and special statutes. "
     "If the evidence does not establish an answer, say that the available evidence is insufficient. "
     "Never invent a statute, section, precedent, deadline, penalty, or citation. "
+    "Never infer a numerical limit from a 'typical' framework, presumed rule, general legal construct, or unsupported logic. "
+    "For a transition problem, decide substantive law, procedure, and evidence law on separate timelines. "
+    "Do not apply a corresponding BNS offence to pre-commencement conduct, and do not select BSA or IEA from the offence date alone. "
+    "If a cited provision imposes a duty but states no automatic remedy, say exactly that instead of inventing acquittal or exclusion consequences. "
     "Give the conclusion first, distinguish each independent issue, and omit generic disclaimers."
 )
 
@@ -113,21 +126,6 @@ async def _generate_with_standard_http(
     return await asyncio.to_thread(request_answer)
 
 
-def _verified_evidence_excerpt(evidence_context: str) -> str:
-    """Exclude planner instructions when deciding which citations were actually retrieved."""
-    marker = "AUTHORITATIVE STATUTORY EXCERPTS:"
-    return evidence_context.split(marker, 1)[-1] if marker in evidence_context else evidence_context
-
-
-def _citation_is_grounded(statute: str, section: str, evidence_context: str) -> bool:
-    excerpt = _verified_evidence_excerpt(evidence_context)
-    pattern = (
-        r"\b" + re.escape(statute) + r"\b[^\n]{0,80}\bsections?\s*"
-        + re.escape(section) + r"(?!\d)"
-    )
-    return bool(re.search(pattern, excerpt, re.IGNORECASE))
-
-
 def _enforce_guardrails(query: str, answer: str, evidence_context: str = "") -> str:
     """Restore omitted issues using only citations present in retrieved excerpts."""
     plan = build_reasoning_plan(query)
@@ -142,7 +140,7 @@ def _enforce_guardrails(query: str, answer: str, evidence_context: str = "") -> 
             continue
         supported = [
             section for section in issue.sections
-            if _citation_is_grounded(issue.statute, section, evidence_context)
+            if citation_is_grounded(issue.statute, section, evidence_context)
         ]
         if not supported:
             continue
@@ -168,6 +166,26 @@ def _is_complex_scenario(query: str) -> bool:
     return plan.is_complex or numbered_questions >= 2 or (len(query) > 450 and len(plan.issues) >= 1)
 
 
+def _can_answer_transition_scenario_deterministically(query: str) -> bool:
+    """Use the statutory template only when every detected issue has audited logic."""
+    plan = build_reasoning_plan(query)
+    if not (plan.offence_date and plan.offence_date < COMMENCEMENT_DATE):
+        return False
+    categories = {issue.category for issue in plan.issues}
+    allowed = {
+        "statutory_transition", "legacy_theft", "procedural_transition",
+        "electronic_fir_registration", "legacy_fir_registration",
+        "zero_fir", "legacy_territorial_fir",
+        "police_custody", "legacy_police_custody",
+        "police_custody_current_branch", "police_custody_legacy_branch",
+        "search_videography", "legacy_search", "evidence_transition",
+        "electronic_evidence_current", "electronic_evidence_current_branch",
+        "electronic_evidence_legacy", "electronic_evidence_legacy_branch",
+    }
+    core = {"statutory_transition", "legacy_theft", "procedural_transition"}
+    return core.issubset(categories) and categories.issubset(allowed)
+
+
 class LegalGenerationError(RuntimeError):
     """Raised when a configured production model cannot generate an answer."""
 
@@ -185,11 +203,12 @@ def _evidence_only_response(query: str, evidence_context: str) -> str:
 async def generate_grounded_legal_answer(query: str, evidence_context: str) -> str:
     """Generate a cited answer, with an explicit evidence-only development mode."""
     complex_scenario = _is_complex_scenario(query)
-    if not complex_scenario:
-        direct_answer = deterministic_grounded_answer(query, evidence_context)
-        if direct_answer:
-            logger.info("Answered a single statutory issue locally without a cloud model request.")
-            return direct_answer
+    direct_answer = deterministic_grounded_answer(query, evidence_context)
+    if direct_answer and (
+        not complex_scenario or _can_answer_transition_scenario_deterministically(query)
+    ):
+        logger.info("Answered an audited statutory scenario locally without a cloud model request.")
+        return direct_answer
     try:
         client_kwargs = config.get_llm_client_kwargs()
     except RuntimeError as exc:
@@ -203,7 +222,9 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
     if cached is not None:
         return cached
 
-    client = AsyncOpenAI(**client_kwargs, timeout=config.LEGAL_MODEL_TIMEOUT, max_retries=0)
+    client = AsyncOpenAI(
+        **client_kwargs, timeout=config.LEGAL_MODEL_TIMEOUT, max_retries=0
+    ) if AsyncOpenAI is not None else None
     max_tokens = config.LEGAL_SCENARIO_MAX_TOKENS if complex_scenario else config.LEGAL_MAX_TOKENS
     max_words = config.LEGAL_SCENARIO_MAX_WORDS if complex_scenario else 160
     instructions = (
@@ -227,6 +248,20 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
             f"{instructions}"
         )},
     ]
+    if client is None:
+        try:
+            answer = await _generate_with_standard_http(client_kwargs, messages, max_tokens=max_tokens)
+            if not answer:
+                raise LegalGenerationError("The legal AI provider returned an empty answer.")
+            answer = _enforce_guardrails(query, answer, evidence_context)
+            _store_cached(key, answer)
+            return answer
+        except LegalGenerationError:
+            raise
+        except Exception as fallback_error:
+            logger.error("NVIDIA HTTPS request failed: %s", type(fallback_error).__name__)
+            raise LegalGenerationError(_provider_failure_message(fallback_error)) from fallback_error
+
     last_error: Exception | None = None
     async with _provider_semaphore():
         for attempt in range(config.LEGAL_MAX_RETRIES + 1):
