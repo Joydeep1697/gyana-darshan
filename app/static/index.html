@@ -135,7 +135,7 @@ input::placeholder,textarea::placeholder{color:#9299a6!important}
 .nyaya-assistant-label{display:flex;align-items:center;gap:9px;margin-bottom:10px;font-size:12px;font-weight:700;color:#18345b}
 .nyaya-composer-wrap{padding:12px max(22px,calc((100% - 800px)/2)) 18px;background:#fff}
 .nyaya-composer{display:flex;align-items:flex-end;gap:10px;padding:10px 12px;border:1px solid #dfddd7;border-radius:20px;background:#fff;box-shadow:0 6px 20px rgba(16,33,59,.055)}
-.nyaya-composer textarea{border:0!important;box-shadow:none!important;padding:8px 4px!important;min-height:40px;max-height:160px}
+.nyaya-composer textarea{border:0!important;box-shadow:none!important;padding:8px 4px!important;min-height:40px;max-height:min(240px,32vh);height:40px;overflow-y:hidden;resize:none;line-height:1.55}
 .nyaya-source-details{margin-top:14px;padding-top:10px;border-top:1px solid #efede8;color:#6d7585}.nyaya-source-details summary{cursor:pointer;font-size:12px;font-weight:600;color:#17365f}
 #workspace:has(.nyaya-chat-layout){padding-top:14px;padding-bottom:8px}
 @media(max-width:900px){.nyaya-chat-layout{grid-template-columns:210px minmax(0,1fr);gap:12px}.nyaya-chat-thread{padding:24px 20px}}
@@ -1108,7 +1108,7 @@ async function renderNova(){
             </div>
             <div class="nyaya-composer-wrap">
                 <div class="nyaya-composer">
-                    <textarea id="chatInput" rows="1" class="flex-1 resize-none outline-none text-sm" placeholder="Ask Nyaya Darshan anything about Indian law..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+                    <textarea id="chatInput" rows="1" class="flex-1 resize-none outline-none text-sm" placeholder="Ask Nyaya Darshan anything about Indian law..." oninput="resizeChatInput(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
                     <button onclick="sendChat()" class="w-10 h-10 rounded-xl gradient text-white hover:brightness-110"><i class="fa-solid fa-arrow-up"></i></button>
                 </div>
                 <div class="text-center text-[10px] mt-2" style="color:#8a909a">Answers are grounded in official Indian statutory sources. Verify advice before acting.</div>
@@ -1127,7 +1127,16 @@ async function renderNova(){
     }
 }
 
-function suggest(t){return `<button onclick="document.getElementById('chatInput').value='${t}'; sendChat();" class="card text-left p-3 text-xs">${t}</button>`}
+function resizeChatInput(input) {
+    if (!input) return;
+    input.style.height = 'auto';
+    const maxHeight = Math.min(240, window.innerHeight * 0.32);
+    const targetHeight = Math.max(40, Math.min(input.scrollHeight, maxHeight));
+    input.style.height = `${targetHeight}px`;
+    input.style.overflowY = input.scrollHeight > maxHeight ? 'auto' : 'hidden';
+}
+
+function suggest(t){return `<button onclick="const input=document.getElementById('chatInput');input.value='${t}';resizeChatInput(input);sendChat();" class="card text-left p-3 text-xs">${t}</button>`}
 
 function appendUserBubble(q) {
     let chat = document.getElementById('chat');
@@ -1229,6 +1238,7 @@ async function sendChat(){
     if(!i || !i.value.trim()) return;
     let q = i.value.trim();
     i.value = '';
+    resizeChatInput(i);
     appendUserBubble(q);
     const thinkingId = appendThinkingBubble();
     
