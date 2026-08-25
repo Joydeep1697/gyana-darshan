@@ -81,9 +81,15 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
             plan.issues.append(LegalIssue("pocso_non_contact_harassment", "POCSO", ("11", "12"), "Non-contact sexually explicit communications with a child require analysis of POCSO sexual harassment under sections 11 and 12, not penetrative or physical-contact sexual assault.", ("3", "4", "5", "6", "7", "8", "9", "10")))
             plan.safeguards.append("MANDATORY: Cite POCSO sections 11 AND 12; exclude sections 3–10 where the facts expressly establish no physical contact.")
         if any(value in text for value in ("report", "teacher", "counsellor", "principal", "institution", "school's reputation")):
-            plan.issues.append(LegalIssue("pocso_reporting", "POCSO", ("19", "21"), "Assess mandatory reporting and liability for failure to report separately from proof of the underlying offence."))
+            plan.issues.append(LegalIssue(
+                "pocso_reporting", "POCSO", ("19", "21"),
+                "Assess the reporting duty under section 19 and possible liability under section 21 separately from proof of the underlying offence. Do not call delayed reporting automatically punishable: section 21 addresses failure to report or record, so the effect of a later report depends on the facts and legal interpretation.",
+            ))
         if any(value in text for value in ("age", "consent", "17-year-old", "school records")):
-            plan.issues.append(LegalIssue("pocso_age_consent", "POCSO", ("2",), "A person below 18 is a child; alleged consent alone does not eliminate POCSO applicability, and disputed age must be resolved on reliable evidence."))
+            plan.issues.append(LegalIssue(
+                "pocso_age_consent", "POCSO", ("2",),
+                "A person below 18 is a child. Alleged consent does not by itself remove POCSO applicability, but each charged offence—including sexual intent under section 11—must still be proved on admissible evidence; disputed age requires reliable proof.",
+            ))
         if any(value in text for value in ("repeal", "ceased to exist", "only bns", "alongside", "special statute")):
             plan.issues.append(LegalIssue("pocso_special_statute", "POCSO", ("42", "42A"), "POCSO remains an independent special enactment after BNS commencement; apply its special-law and conflict provisions without claiming repeal."))
 
@@ -121,7 +127,10 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
         "threatened to publish", "publish edited intimate", "publish intimate images",
         "leak intimate images", "private photographs", "threat to publish",
     )):
-        plan.issues.append(LegalIssue("extortion", "BNS", ("308", "351"), "Completed extortion requires fear-induced delivery of property or valuable security; a bare threat without delivery may instead support attempted conduct or criminal intimidation, depending on evidence."))
+        plan.issues.append(LegalIssue(
+            "extortion", "BNS", ("308", "351"),
+            "Completed extortion under section 308 requires fear-induced delivery of property or valuable security. A demand that the child merely meet the accused does not establish that element; the threat may instead require analysis as criminal intimidation under section 351, subject to proof of its elements.",
+        ))
     if any(value in text for value in (
         "conclusively establish guilt", "conclusively prove guilt", "proof of guilt",
         "establish guilt", "prove the allegations", "facts alone", "presumption of innocence",
