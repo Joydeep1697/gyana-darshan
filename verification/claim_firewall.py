@@ -19,6 +19,110 @@ from typing import Dict, List, Any, Tuple
 
 KNOWN_FABRICATED_ACRONYMS = ["iec", "indian evidence code", "bns criminal procedure code", "bns procedure code"]
 
+STATUTE_ALIASES = {
+    "bns": "BNS",
+    "bharatiya nyaya sanhita": "BNS",
+    "bnss": "BNSS",
+    "bharatiya nagarik suraksha sanhita": "BNSS",
+    "bsa": "BSA",
+    "bharatiya sakshya adhiniyam": "BSA",
+    "pocso": "POCSO",
+    "protection of children from sexual offences act": "POCSO",
+    "ipc": "IPC",
+    "indian penal code": "IPC",
+    "crpc": "CRPC",
+    "code of criminal procedure": "CRPC",
+    "iea": "IEA",
+    "indian evidence act": "IEA",
+}
+
+_CITATION_RE = re.compile(
+    r"\b(" + "|".join(
+        sorted((re.escape(alias) for alias in STATUTE_ALIASES), key=len, reverse=True)
+    ) + r")\s*(?:,\s*\d{4})?\s*(?:section|sections|sec\.?|§)\s*(\d+[A-Za-z]*(?:\(\d+\))?)",
+    re.IGNORECASE,
+)
+
+
+def _section_root(value: Any) -> str:
+    """Normalize subsection citations to the parent section stored by the corpus."""
+    match = re.match(r"\s*(\d+[A-Za-z]*)", str(value or ""), re.IGNORECASE)
+    return match.group(1).upper() if match else ""
+
+
+def _statute_code(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    if text in STATUTE_ALIASES:
+        return STATUTE_ALIASES[text]
+    for alias, code in STATUTE_ALIASES.items():
+        if re.search(r"\b" + re.escape(alias) + r"\b", text):
+            return code
+    return ""
+
+
+def _response_citations(text: str) -> set[tuple[str, str]]:
+    return {
+        (STATUTE_ALIASES[match.group(1).lower()], _section_root(match.group(2)))
+        for match in _CITATION_RE.finditer(text)
+    }
+
+
+def _allowed_citations(evidence_pack: Dict[str, Any]) -> set[tuple[str, str]]:
+    """Build the only statutory citations that a generated answer may assert."""
+    allowed: set[tuple[str, str]] = set()
+    for record in evidence_pack.get("retrieved_sections", []):
+        code = _statute_code(record.get("short_name") or record.get("statute"))
+        section = _section_root(record.get("section"))
+        if code and section:
+            allowed.add((code, section))
+
+    for fact in evidence_pack.get("authoritative_facts", []):
+        fact_type = fact.get("type")
+        candidates = []
+        if fact_type == "PROCEDURAL_RULE":
+            data = fact.get("proc_data", {})
+            candidates.append((data.get("statute"), data.get("section")))
+        elif fact_type == "SECTION_CONVERSION":
+            candidates.extend([
+                (fact.get("legacy_statute"), fact.get("legacy_section")),
+                (fact.get("reformed_statute"), fact.get("reformed_section")),
+            ])
+        elif fact_type == "CASE_LAW_PRECEDENT":
+            candidates.append((fact.get("codified_statute"), fact.get("codified_section")))
+        elif fact_type == "OFFENCE_METADATA":
+            candidates.append((fact.get("statute"), fact.get("section")))
+        for statute, section in candidates:
+            code = _statute_code(statute)
+            root = _section_root(section)
+            if code and root:
+                allowed.add((code, root))
+    return allowed
+
+
+def _unsupported_citations(text: str, evidence_pack: Dict[str, Any]) -> list[tuple[str, str]]:
+    return sorted(_response_citations(text) - _allowed_citations(evidence_pack))
+
+
+def _safe_evidence_fallback(evidence_pack: Dict[str, Any], unsupported: list[tuple[str, str]]) -> str:
+    citations = ", ".join(f"{statute} section {section}" for statute, section in unsupported)
+    records = evidence_pack.get("retrieved_sections", [])[:3]
+    if not records:
+        return (
+            f"The generated answer cited {citations}, but those citations were not present in the "
+            "retrieved authoritative evidence. The available evidence is insufficient to answer safely."
+        )
+    lines = [
+        f"The generated answer cited {citations}, but those citations were not present in the retrieved authoritative evidence.",
+        "Verified excerpts available for review:",
+    ]
+    for record in records:
+        code = _statute_code(record.get("short_name") or record.get("statute")) or "Statute"
+        section = _section_root(record.get("section"))
+        excerpt = re.sub(r"\s+", " ", str(record.get("text", ""))).strip()[:240]
+        lines.append(f"- {code} section {section}: {excerpt}")
+    lines.append("A reliable conclusion cannot be added without matching statutory evidence.")
+    return "\n".join(lines)
+
 class LegalVerificationFirewall:
     def __init__(self):
         pass
@@ -220,5 +324,17 @@ class LegalVerificationFirewall:
                         "the substantive criminal statute is the Bharatiya Nyaya Sanhita, 2023 (BNS), and the evidence statute is the Bharatiya Sakshya Adhiniyam, 2023 (BSA)."
                     )
             return False, corrected_response, claims
+
+        # Priority 9: General citation grounding. Any statutory citation introduced by
+        # the model must exist in this request's retrieved evidence pack.
+        unsupported = _unsupported_citations(llm_response, evidence_pack)
+        if unsupported:
+            claims.append({
+                "type": "UNSUPPORTED_STATUTORY_CITATION",
+                "is_contradiction": True,
+                "citations": [f"{statute} section {section}" for statute, section in unsupported],
+                "truth": "The cited sections were not present in the retrieved authoritative evidence.",
+            })
+            return False, _safe_evidence_fallback(evidence_pack, unsupported), claims
 
         return True, llm_response, claims
