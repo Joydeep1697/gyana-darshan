@@ -215,7 +215,9 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
             " Address EVERY numbered question and EVERY verified legal issue in separate labeled sections. "
             "Distinguish offence classification, child status and consent, mandatory reporting, "
             "threats or intimidation, FIR procedure, electronic evidence, and limits on proving guilt "
-            "whenever those issues arise. If an issue lacks a retrieved statutory excerpt, identify the "
+            "whenever those issues arise. Do not reveal internal category names, machine labels, "
+            "verification notes, retrieval metadata, or phrases such as 'verified legal issues'. "
+            "If an issue lacks a retrieved statutory excerpt, identify the "
             "evidence gap rather than inventing a section. End with a concise practical conclusion."
         )
     messages = [
