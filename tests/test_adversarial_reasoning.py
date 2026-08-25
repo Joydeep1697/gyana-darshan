@@ -93,6 +93,10 @@ class AdversarialReasoningTests(unittest.TestCase):
             "electronic_evidence", "electronic_fir_registration", "extortion",
         }.issubset(issues), issues)
         self.assertTrue(any("proof at trial" in value.lower() for value in plan.safeguards))
+        reporting = next(issue for issue in plan.issues if issue.category == "pocso_reporting")
+        self.assertIn("Do not call delayed reporting automatically punishable", reporting.guidance)
+        threats = next(issue for issue in plan.issues if issue.category == "extortion")
+        self.assertIn("does not establish that element", threats.guidance)
         self.assert_sections(
             query,
             {

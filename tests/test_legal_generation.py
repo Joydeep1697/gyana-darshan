@@ -119,6 +119,7 @@ class TestLegalGeneration(unittest.IsolatedAsyncioTestCase):
         self.assertIn("BNSS section 173", answer)
         self.assertIn("BSA section 63", answer)
         self.assertIn("not established guilt", answer)
+        self.assertIn("Do not reveal internal category names", request["messages"][1]["content"])
 
     async def test_missing_source_is_not_invented_to_complete_an_answer(self):
         query = "A 17-year-old received sexually explicit messages, was never touched, and her teacher delayed reporting."
