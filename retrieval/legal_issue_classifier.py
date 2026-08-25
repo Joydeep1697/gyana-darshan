@@ -79,7 +79,8 @@ class LegalIssueClassifier:
             if any(w in q_lower for w in [
                 "explicit sexual messages", "sexual harassment", "online communications", "sent explicit", 
                 "private photos of minor", "messages to a 14-year-old", "messages to a student", "account registered to the accused",
-                "online and partly offline"
+                "online and partly offline", "sexually explicit messages", "explicit messages on instagram",
+                "never touched", "no physical contact", "without touching", "non-contact sexual harassment"
             ]):
                 add_issue("child_protection", "pocso_sexual_harassment", "POCSO", ["11", "12"], is_primary=True, fact_triggers=["explicit_messages_harassment"])
 
@@ -116,7 +117,11 @@ class LegalIssueClassifier:
             add_issue("substantive_offence", "snatching", "BNS", ["304"], is_primary=True, fact_triggers=["sudden_grabbing_body"])
             negative_distractors.update([("BNS", "303"), ("BNS", "308")])
 
-        elif any(w in q_lower for w in ["threaten to leak", "threatened to publish", "anonymous demand letter", "extortion", "extort", "leak private photos", "threat of arson to extract"]):
+        elif any(w in q_lower for w in [
+            "threaten to leak", "threatened to publish", "threatening to publish", "threatens to publish",
+            "publish edited intimate images", "publish intimate images", "anonymous demand letter",
+            "extortion", "extort", "leak private photos", "threat of arson to extract"
+        ]):
             add_issue("substantive_offence", "extortion", "BNS", ["308", "351"], is_primary=True, fact_triggers=["coercive_demand_fear"])
             negative_distractors.update([("BNS", "303")])
 
@@ -190,7 +195,11 @@ class LegalIssueClassifier:
         if any(w in q_lower for w in ["undertrial bail", "one-third sentence", "detention without trial", "bnss section 479", "bnss section 480", "bail in non-bailable"]):
             add_issue("criminal_procedure", "undertrial_bail", "BNSS", ["479", "480"], is_primary=False, fact_triggers=["statutory_bail_safeguards"])
 
-        if any(w in q_lower for w in ["zero fir", "inter-state journey", "jurisdiction during transit", "bnss section 173", "bnss section 197"]):
+        if any(w in q_lower for w in [
+            "zero fir", "inter-state journey", "jurisdiction during transit", "bnss section 173",
+            "bnss section 197", "electronic fir", "e-fir", "online fir", "fir electronically",
+            "register the fir electronically"
+        ]) or ("fir" in q_lower and "electronically" in q_lower):
             add_issue("criminal_procedure", "fir_and_jurisdiction", "BNSS", ["173", "197"], is_primary=False, fact_triggers=["transit_jurisdiction_fir"])
 
         # ── 4. BSA EVIDENCE ISSUE DISCRIMINATION ───────────────────────────────────
@@ -198,7 +207,7 @@ class LegalIssueClassifier:
             "electronic record", "whatsapp", "chat logs", "cctv footage", "hash value", "certificate under section 63", 
             "digital proof", "phone backup", "restored from backup", "electronic extraction report", "what evidence is required to prove",
             "bsa section 63", "section 65b equivalent", "server logs", "digital copy"
-        ]):
+        ]) or "screenshots" in q_lower:
             add_issue("law_of_evidence", "electronic_evidence", "BSA", ["61", "62", "63", "63(1)", "63(4)"], is_primary=False, fact_triggers=["electronic_admissibility_cert"])
 
         if any(w in q_lower for w in ["discovery statement", "disclosure statement", "weapon recovered from a ditch", "bsa section 23"]):
