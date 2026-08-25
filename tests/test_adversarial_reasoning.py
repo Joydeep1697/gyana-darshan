@@ -76,6 +76,33 @@ class AdversarialReasoningTests(unittest.TestCase):
             {("BSA", "62"), ("BSA", "63")},
         )
 
+    def test_complex_school_scenario_identifies_every_independent_issue(self):
+        query = (
+            "A 17-year-old student tells her teacher that a 24-year-old man has been sending "
+            "her sexually explicit messages on Instagram and threatening to publish edited "
+            "intimate images unless she meets him. He says she consented and he never touched "
+            "her. The teacher waits five days before reporting. Police register the FIR "
+            "electronically and say screenshots are automatically admissible without "
+            "verification. Can these facts alone conclusively establish guilt?"
+        )
+        plan = build_reasoning_plan(query)
+        issues = {issue.category for issue in plan.issues}
+        self.assertTrue(plan.is_complex)
+        self.assertTrue({
+            "pocso_non_contact_harassment", "pocso_reporting", "pocso_age_consent",
+            "electronic_evidence", "electronic_fir_registration", "extortion",
+        }.issubset(issues), issues)
+        self.assertTrue(any("proof at trial" in value.lower() for value in plan.safeguards))
+        self.assert_sections(
+            query,
+            {
+                ("POCSO", "11"), ("POCSO", "12"), ("POCSO", "19"), ("POCSO", "21"),
+                ("POCSO", "2"), ("BSA", "62"), ("BSA", "63"), ("BNSS", "173"),
+                ("BNS", "308"), ("BNS", "351"),
+            },
+            {("POCSO", "3"), ("POCSO", "4"), ("POCSO", "7"), ("POCSO", "8")},
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
