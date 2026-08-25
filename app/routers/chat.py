@@ -16,6 +16,8 @@ from verification.claim_firewall import LegalVerificationFirewall
 from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
+from retrieval.legal_reasoning import build_reasoning_plan
+from app import config
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
@@ -33,7 +35,11 @@ async def ask(req: ChatRequest, db: Database = Depends(get_db), user: dict = Dep
         raise HTTPException(status_code=400, detail="Query cannot be empty.")
 
     # 1. Retrieve Authoritative Evidence Pack
-    evidence_pack = retriever.retrieve_evidence_pack(query, top_k=4)
+    reasoning_plan = build_reasoning_plan(query)
+    requested_sources = min(req.top_k, config.LEGAL_SCENARIO_MAX_SOURCES)
+    minimum_sources = len(reasoning_plan.required_citations) if reasoning_plan.is_complex else 4
+    top_k = max(4, requested_sources, min(minimum_sources, config.LEGAL_SCENARIO_MAX_SOURCES))
+    evidence_pack = retriever.retrieve_evidence_pack(query, top_k=top_k)
     evidence_ctx = retriever.format_evidence_context(evidence_pack)
 
     # 2. Generate an evidence-grounded answer through the configured cloud model.
@@ -99,7 +105,7 @@ async def ask(req: ChatRequest, db: Database = Depends(get_db), user: dict = Dep
 
     reasoning_steps = [
         {"step": "Statute Scope & Jurisdiction Classification", "status": "done", "ms": 4},
-        {"step": "Authoritative Gazette RAG & Deterministic Index Lookup", "status": "done", "ms": 8},
+        {"step": f"Authoritative Gazette RAG & Deterministic Index Lookup ({len(evidence_pack.get('retrieved_sections', []))} verified sections)", "status": "done", "ms": 8},
         {"step": "Procedural Law & Timeline Verification (BNSS/BNS/BSA)", "status": "done", "ms": 3},
         {"step": f"Field-Level Claim Verification Firewall ({'Clean Pass' if passed_fw else 'Auto-Corrected'})", "status": "done", "ms": 2},
         {"step": f"Grounding Final Synthesis ({elapsed_ms}ms total)", "status": "done", "ms": int(elapsed_ms)}

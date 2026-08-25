@@ -33,6 +33,11 @@ class ReasoningPlan:
     def required_citations(self) -> list[tuple[str, str]]:
         return [(issue.statute, section) for issue in self.issues for section in issue.sections]
 
+    @property
+    def is_complex(self) -> bool:
+        """Complex fact patterns require model synthesis rather than canned summaries."""
+        return len(self.issues) >= 2 or len({issue.statute for issue in self.issues}) >= 2
+
 
 def _extract_dates(query: str) -> list[date]:
     candidates = re.findall(r"\b\d{1,2}\s+[A-Za-z]+\s+\d{4}\b|\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}[/-]\d{1,2}[/-]\d{4}\b", query)
@@ -62,7 +67,11 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
 
     mentions_child = bool(re.search(r"\b(?:pocso|child|minor|student|school|1[0-7][ -]year[ -]old)\b", text))
     adult_only = bool(ages) and min(ages) >= 18 and not any(age < 18 for age in ages)
-    no_contact = any(value in text for value in ("no physical contact", "no touching", "never met", "non-contact", "without physical contact", "online only"))
+    no_contact = any(value in text for value in (
+        "no physical contact", "no touching", "never met", "non-contact",
+        "without physical contact", "online only", "never touched", "did not touch",
+        "didn't touch", "without touching", "no physical touch", "absence of physical contact",
+    ))
     explicit_messages = any(value in text for value in ("explicit", "sexual messages", "sexually explicit", "harassment", "instagram", "messages", "online"))
     if mentions_child and adult_only:
         plan.issues.append(LegalIssue("pocso_age", "POCSO", ("2",), "POCSO applies to a child below 18; an actual age of 18 or older does not become a child merely because another person believed otherwise."))
@@ -71,7 +80,7 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
         if explicit_messages and no_contact:
             plan.issues.append(LegalIssue("pocso_non_contact_harassment", "POCSO", ("11", "12"), "Non-contact sexually explicit communications with a child require analysis of POCSO sexual harassment under sections 11 and 12, not penetrative or physical-contact sexual assault.", ("3", "4", "5", "6", "7", "8", "9", "10")))
             plan.safeguards.append("MANDATORY: Cite POCSO sections 11 AND 12; exclude sections 3–10 where the facts expressly establish no physical contact.")
-        if any(value in text for value in ("report", "counsellor", "principal", "institution", "school's reputation")):
+        if any(value in text for value in ("report", "teacher", "counsellor", "principal", "institution", "school's reputation")):
             plan.issues.append(LegalIssue("pocso_reporting", "POCSO", ("19", "21"), "Assess mandatory reporting and liability for failure to report separately from proof of the underlying offence."))
         if any(value in text for value in ("age", "consent", "17-year-old", "school records")):
             plan.issues.append(LegalIssue("pocso_age_consent", "POCSO", ("2",), "A person below 18 is a child; alleged consent alone does not eliminate POCSO applicability, and disputed age must be resolved on reliable evidence."))
@@ -80,6 +89,14 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
 
     if any(value in text for value in ("whatsapp", "screenshot", "electronic record", "electronic evidence", "chat backup", "digital evidence", "certificate", "cctv")):
         plan.issues.append(LegalIssue("electronic_evidence", "BSA", ("63", "62"), "Assess source, authenticity, integrity, chain of custody, and the applicable electronic-record certificate requirements; a printout is not automatically authenticated."))
+    if any(value in text for value in (
+        "electronic fir", "e-fir", "e fir", "fir electronically", "fir is registered electronically",
+        "register the fir electronically", "register an fir electronically", "online fir",
+    )) or ("fir" in text and any(value in text for value in ("electronically", "electronic registration", "online registration"))):
+        plan.issues.append(LegalIssue(
+            "electronic_fir_registration", "BNSS", ("173",),
+            "Identify BNSS section 173 as the governing provision for information relating to a cognizable offence, including electronic communication; distinguish registration, signature or confirmation requirements, and investigation from proof of guilt.",
+        ))
     if any(value in text for value in ("default bail", "day 91", "charge sheet", "charge-sheet", "investigation period")) and "bail" in text:
         plan.issues.append(LegalIssue("default_bail", "BNSS", ("187",), "Default-bail analysis belongs to BNSS section 187; check whether the applicable 60/90-day period expired, whether the application preceded the charge sheet, and whether the accused was prepared to furnish bail. Do not substitute undertrial detention under section 479.", ("479",)))
         plan.safeguards.append("MANDATORY: Cite BNSS section 187 for investigation/default bail; section 479 concerns a distinct undertrial-detention issue.")
@@ -99,8 +116,19 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
         plan.issues.append(LegalIssue("criminal_breach_of_trust", "BNS", ("316",), "Entrustment followed by dishonest diversion points to criminal breach of trust; distinguish lawful initial possession from theft."))
     if any(value in text for value in ("locked drawer", "never authorised", "unauthorized", "theft", "secretly removes")):
         plan.issues.append(LegalIssue("theft", "BNS", ("303",), "Theft requires dishonest taking of movable property out of another's possession without consent; compare with entrusted-property breach of trust."))
-    if any(value in text for value in ("extortion", "threatens to publish", "threaten to publish", "private photographs")):
+    if any(value in text for value in (
+        "extortion", "threatens to publish", "threaten to publish", "threatening to publish",
+        "threatened to publish", "publish edited intimate", "publish intimate images",
+        "leak intimate images", "private photographs", "threat to publish",
+    )):
         plan.issues.append(LegalIssue("extortion", "BNS", ("308", "351"), "Completed extortion requires fear-induced delivery of property or valuable security; a bare threat without delivery may instead support attempted conduct or criminal intimidation, depending on evidence."))
+    if any(value in text for value in (
+        "conclusively establish guilt", "conclusively prove guilt", "proof of guilt",
+        "establish guilt", "prove the allegations", "facts alone", "presumption of innocence",
+    )):
+        plan.safeguards.append(
+            "MANDATORY: Distinguish an allegation and a prima facie statutory assessment from proof at trial; identity, authenticity, intent, age, and any disputed facts require admissible evidence. Do not pronounce guilt from the narrative alone."
+        )
     return plan
 
 
@@ -127,7 +155,7 @@ def prioritize_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], cor
     return result[: max(limit, min(len(plan.required_citations), 10))]
 
 
-def format_compact_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], max_chars: int = 7200) -> str:
+def format_compact_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], max_chars: int = 12000) -> str:
     lines = ["VERIFIED LEGAL ISSUES AND REQUIRED ANALYSIS:"]
     for issue in plan.issues:
         lines.append(f"- {issue.category}: {issue.statute} sections {', '.join(issue.sections)}. {issue.guidance}")

@@ -6,6 +6,7 @@ import asyncio
 import hashlib
 import json
 import logging
+import re
 import time
 from collections import OrderedDict
 from urllib.error import HTTPError, URLError
@@ -25,7 +26,7 @@ SYSTEM_PROMPT = (
     "Clearly distinguish current law, repealed law, transition provisions, and special statutes. "
     "If the evidence does not establish an answer, say that the available evidence is insufficient. "
     "Never invent a statute, section, precedent, deadline, penalty, or citation. "
-    "Give the conclusion first, stay below 160 words, and omit generic disclaimers."
+    "Give the conclusion first, distinguish each independent issue, and omit generic disclaimers."
 )
 
 _cache: OrderedDict[str, tuple[float, str]] = OrderedDict()
@@ -84,13 +85,15 @@ def _provider_failure_message(exc: Exception | None) -> str:
     return "The legal AI provider is temporarily unavailable."
 
 
-async def _generate_with_standard_http(client_kwargs: dict, messages: list[dict]) -> str:
+async def _generate_with_standard_http(
+    client_kwargs: dict, messages: list[dict], max_tokens: int | None = None
+) -> str:
     """Bypass a broken OpenAI/httpx installation using Python's HTTPS client."""
     payload = json.dumps({
         "model": config.LLM_MODEL,
         "messages": messages,
         "temperature": 0.0,
-        "max_tokens": config.LEGAL_MAX_TOKENS,
+        "max_tokens": max_tokens or config.LEGAL_MAX_TOKENS,
     }).encode("utf-8")
     endpoint = client_kwargs["base_url"].rstrip("/") + "/chat/completions"
     request = Request(
@@ -110,17 +113,59 @@ async def _generate_with_standard_http(client_kwargs: dict, messages: list[dict]
     return await asyncio.to_thread(request_answer)
 
 
-def _enforce_guardrails(query: str, answer: str) -> str:
-    """Attach deterministic corrections when a model omits required legal anchors."""
+def _verified_evidence_excerpt(evidence_context: str) -> str:
+    """Exclude planner instructions when deciding which citations were actually retrieved."""
+    marker = "AUTHORITATIVE STATUTORY EXCERPTS:"
+    return evidence_context.split(marker, 1)[-1] if marker in evidence_context else evidence_context
+
+
+def _citation_is_grounded(statute: str, section: str, evidence_context: str) -> bool:
+    excerpt = _verified_evidence_excerpt(evidence_context)
+    pattern = (
+        r"\b" + re.escape(statute) + r"\b[^\n]{0,80}\bsections?\s*"
+        + re.escape(section) + r"(?!\d)"
+    )
+    return bool(re.search(pattern, excerpt, re.IGNORECASE))
+
+
+def _enforce_guardrails(query: str, answer: str, evidence_context: str = "") -> str:
+    """Restore omitted issues using only citations present in retrieved excerpts."""
     plan = build_reasoning_plan(query)
     result = verify_answer(answer, plan, [])
-    if result["passed"]:
+    if result["passed"] and not (plan.safeguards and plan.is_complex):
         return answer
+    missing = set(result["missing_citations"])
     additions = []
-    if result["missing_citations"]:
-        additions.append("Required statutory anchors: " + ", ".join(result["missing_citations"]) + ".")
-    additions.extend(plan.safeguards)
-    return answer.rstrip() + "\n\nVerification note: " + " ".join(dict.fromkeys(additions))
+    for issue in plan.issues:
+        expected = [f"{issue.statute} {section}" for section in issue.sections]
+        if not missing.intersection(expected):
+            continue
+        supported = [
+            section for section in issue.sections
+            if _citation_is_grounded(issue.statute, section, evidence_context)
+        ]
+        if not supported:
+            continue
+        citations = ", ".join(f"{issue.statute} section {section}" for section in supported)
+        additions.append(
+            f"**{issue.category.replace('_', ' ').title()}:** {issue.guidance} ({citations}.)"
+        )
+    if result["contradictions"]:
+        additions.extend(result["contradictions"])
+    if any("proof at trial" in safeguard.lower() for safeguard in plan.safeguards):
+        additions.append(
+            "**Evidentiary limits:** These facts describe allegations, not established guilt; "
+            "identity, intent, age, authenticity, and disputed facts require admissible proof."
+        )
+    if not additions:
+        return answer
+    return answer.rstrip() + "\n\n" + "\n\n".join(dict.fromkeys(additions))
+
+
+def _is_complex_scenario(query: str) -> bool:
+    plan = build_reasoning_plan(query)
+    numbered_questions = len(re.findall(r"(?:^|\n)\s*\d+[.)]\s+", query))
+    return plan.is_complex or numbered_questions >= 2 or (len(query) > 450 and len(plan.issues) >= 1)
 
 
 class LegalGenerationError(RuntimeError):
@@ -139,10 +184,12 @@ def _evidence_only_response(query: str, evidence_context: str) -> str:
 
 async def generate_grounded_legal_answer(query: str, evidence_context: str) -> str:
     """Generate a cited answer, with an explicit evidence-only development mode."""
-    direct_answer = deterministic_grounded_answer(query, evidence_context)
-    if direct_answer:
-        logger.info("Answered recognized statutory question locally without a cloud model request.")
-        return direct_answer
+    complex_scenario = _is_complex_scenario(query)
+    if not complex_scenario:
+        direct_answer = deterministic_grounded_answer(query, evidence_context)
+        if direct_answer:
+            logger.info("Answered a single statutory issue locally without a cloud model request.")
+            return direct_answer
     try:
         client_kwargs = config.get_llm_client_kwargs()
     except RuntimeError as exc:
@@ -157,12 +204,25 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
         return cached
 
     client = AsyncOpenAI(**client_kwargs, timeout=config.LEGAL_MODEL_TIMEOUT, max_retries=0)
+    max_tokens = config.LEGAL_SCENARIO_MAX_TOKENS if complex_scenario else config.LEGAL_MAX_TOKENS
+    max_words = config.LEGAL_SCENARIO_MAX_WORDS if complex_scenario else 160
+    instructions = (
+        f"Answer in at most {max_words} words. Apply every deterministic safeguard. "
+        "Use only supplied excerpts and cite each material conclusion."
+    )
+    if complex_scenario:
+        instructions += (
+            " Address EVERY numbered question and EVERY verified legal issue in separate labeled sections. "
+            "Distinguish offence classification, child status and consent, mandatory reporting, "
+            "threats or intimidation, FIR procedure, electronic evidence, and limits on proving guilt "
+            "whenever those issues arise. If an issue lacks a retrieved statutory excerpt, identify the "
+            "evidence gap rather than inventing a section. End with a concise practical conclusion."
+        )
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": (
             f"{evidence_context}\n\nQUESTION: {query}\n\n"
-            "Answer in at most 160 words. Apply every deterministic safeguard. "
-            "Use only supplied excerpts and cite each material conclusion."
+            f"{instructions}"
         )},
     ]
     last_error: Exception | None = None
@@ -173,12 +233,12 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
                     model=config.LLM_MODEL,
                     messages=messages,
                     temperature=0.0,
-                    max_tokens=config.LEGAL_MAX_TOKENS,
+                    max_tokens=max_tokens,
                 )
                 answer = (completion.choices[0].message.content or "").strip()
                 if not answer:
                     raise LegalGenerationError("The legal AI provider returned an empty answer.")
-                answer = _enforce_guardrails(query, answer)
+                answer = _enforce_guardrails(query, answer, evidence_context)
                 _store_cached(key, answer)
                 return answer
             except LegalGenerationError:
@@ -190,10 +250,10 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
                 await asyncio.sleep(min(0.5 * (2 ** attempt), 2.0))
     logger.warning("Primary NVIDIA client failed: %s; trying standard HTTPS fallback.", type(last_error).__name__)
     try:
-        answer = await _generate_with_standard_http(client_kwargs, messages)
+        answer = await _generate_with_standard_http(client_kwargs, messages, max_tokens=max_tokens)
         if not answer:
             raise LegalGenerationError("The legal AI provider returned an empty answer.")
-        answer = _enforce_guardrails(query, answer)
+        answer = _enforce_guardrails(query, answer, evidence_context)
         _store_cached(key, answer)
         return answer
     except LegalGenerationError:
