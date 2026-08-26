@@ -13,7 +13,8 @@ from verification.claim_firewall import LegalVerificationFirewall
 
 POST_COMMENCEMENT_CASE = (
     "A theft allegedly occurred on 29 June 2024. The FIR was registered electronically "
-    "on 3 July 2024 at a police station in another district. The accused has already spent "
+    "on 3 July 2024 at a police station in another district. The informant signed the "
+    "electronic report at the station on 5 July 2024. The accused has already spent "
     "12 days in police custody. Police searched his home without videography and seized "
     "laptop files, CCTV footage and WhatsApp messages. Which substantive and procedural "
     "law applies, how much additional police custody is available, how are the electronic "
@@ -67,11 +68,17 @@ def test_audited_answer_has_no_presumed_law_and_qualifies_custody_arithmetic():
     assert "bsa section 170" in lowered
     assert "if the earlier 12 police-custody days were validly authorised" in lowered
     assert "no more than 3 aggregate days remain" in lowered
+    assert "initial forty days" in lowered
+    assert "initial 40-day police-custody allocation window" in lowered
+    assert "60-day investigation-detention limit" in lowered
+    assert "signature on 5 july 2024 was 2 days after" in lowered
+    assert "three-day timing requirement was satisfied" in lowered
     assert "automatic acquittal" in lowered
     assert "do not state" in lowered
     for forbidden in (
         "typical legal construct", "typical legal framework", "legal systems typically",
         "presumed 15-day", "logically", "inferred from the context",
+        "choose the evidence statute", "state that a consequence",
     ):
         assert forbidden not in lowered
 

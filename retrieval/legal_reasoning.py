@@ -11,6 +11,20 @@ from typing import Any
 from retrieval.transition_context import COMMENCEMENT_DATE, analyze_transition
 
 DATE_FORMATS = ("%d %B %Y", "%d %b %Y", "%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y")
+DATE_CANDIDATE_RE = re.compile(
+    r"\b\d{1,2}\s+[A-Za-z]+\s+\d{4}\b|"
+    r"\b\d{4}-\d{2}-\d{2}\b|"
+    r"\b\d{1,2}[/-]\d{1,2}[/-]\d{4}\b"
+)
+ELECTRONIC_FIR_EVENT_RE = re.compile(
+    r"\b(?:"
+    r"fir\b[^.\n]{0,80}\b(?:electronically|electronic|online)|"
+    r"(?:electronically|online)\b[^.\n]{0,60}\b"
+    r"(?:report(?:ed)?|submit(?:ted)?|lodg(?:ed)?|fil(?:e|ed)|register(?:ed)?)"
+    r")\b",
+    re.IGNORECASE,
+)
+SIGNATURE_EVENT_RE = re.compile(r"\b(?:signed|signing|signature)\b", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -44,7 +58,7 @@ class ReasoningPlan:
 
 
 def _extract_dates(query: str) -> list[date]:
-    candidates = re.findall(r"\b\d{1,2}\s+[A-Za-z]+\s+\d{4}\b|\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}[/-]\d{1,2}[/-]\d{4}\b", query)
+    candidates = DATE_CANDIDATE_RE.findall(query)
     found = []
     for candidate in candidates:
         for pattern in DATE_FORMATS:
@@ -54,6 +68,69 @@ def _extract_dates(query: str) -> list[date]:
             except ValueError:
                 continue
     return found
+
+
+def _nearest_event_date(query: str, event_pattern: re.Pattern[str]) -> date | None:
+    """Return the date nearest a named event, preferring dates in its sentence."""
+    dated_matches = []
+    for match in DATE_CANDIDATE_RE.finditer(query):
+        parsed = _extract_dates(match.group(0))
+        if parsed:
+            dated_matches.append((match, parsed[0]))
+    if not dated_matches:
+        return None
+
+    for event in event_pattern.finditer(query):
+        sentence_start = max(query.rfind(".", 0, event.start()), query.rfind("\n", 0, event.start())) + 1
+        period_end = query.find(".", event.end())
+        newline_end = query.find("\n", event.end())
+        sentence_ends = [value for value in (period_end, newline_end) if value >= 0]
+        sentence_end = min(sentence_ends) if sentence_ends else len(query)
+        candidates = [
+            item for item in dated_matches
+            if sentence_start <= item[0].start() <= sentence_end
+        ]
+        if not candidates:
+            candidates = [
+                item for item in dated_matches
+                if abs(item[0].start() - event.start()) <= 120
+            ]
+        if candidates:
+            def distance(item: tuple[re.Match[str], date]) -> int:
+                match = item[0]
+                if match.end() < event.start():
+                    return event.start() - match.end()
+                if match.start() > event.end():
+                    return match.start() - event.end()
+                return 0
+
+            return min(candidates, key=distance)[1]
+    return None
+
+
+def _electronic_fir_timing_guidance(query: str) -> str:
+    report_date = _nearest_event_date(query, ELECTRONIC_FIR_EVENT_RE)
+    signature_date = _nearest_event_date(query, SIGNATURE_EVENT_RE)
+    if report_date is None or signature_date is None:
+        return ""
+
+    elapsed_days = (signature_date - report_date).days
+    report_label = report_date.strftime("%d %B %Y").lstrip("0")
+    signature_label = signature_date.strftime("%d %B %Y").lstrip("0")
+    if 0 <= elapsed_days <= 3:
+        day_label = "day" if elapsed_days == 1 else "days"
+        return (
+            f" On the stated dates, the signature on {signature_label} was {elapsed_days} "
+            f"{day_label} after the electronic report on {report_label}, so section 173's "
+            "three-day timing requirement was satisfied."
+        )
+    if elapsed_days > 3:
+        return (
+            f" On the stated dates, the signature on {signature_label} came more than three "
+            f"days after the electronic report on {report_label}, so it did not satisfy section "
+            "173's three-day timing requirement."
+        )
+    return ""
 
 
 @lru_cache(maxsize=1024)
@@ -133,9 +210,27 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
     ))
     if has_electronic_evidence:
         if is_pre_commencement_offence or plan.evidence_regime == "IEA":
+            if plan.evidence_regime == "BSA":
+                evidence_transition_guidance = (
+                    "BSA section 170 governs the evidence-law transition. Because the relevant "
+                    "matter began after commencement, BSA applies; the earlier offence date does "
+                    "not preserve the Indian Evidence Act for that later-started matter."
+                )
+            elif plan.evidence_regime == "IEA":
+                evidence_transition_guidance = (
+                    "BSA section 170 saves the Indian Evidence Act for this relevant matter "
+                    "because it was pending immediately before commencement."
+                )
+            else:
+                evidence_transition_guidance = (
+                    "BSA section 170 makes pendency immediately before commencement decisive: "
+                    "the Indian Evidence Act governs a saved pending matter, while BSA governs "
+                    "a matter begun on or after commencement. The offence date alone does not "
+                    "select the evidence statute."
+                )
             plan.issues.append(LegalIssue(
                 "evidence_transition", "BSA", ("170",),
-                "Choose the evidence statute from BSA section 170, not from the offence date alone. A relevant matter pending immediately before commencement is saved to the Indian Evidence Act; otherwise BSA applies.",
+                evidence_transition_guidance,
             ))
         if plan.evidence_regime == "IEA":
             plan.issues.append(LegalIssue(
@@ -145,7 +240,7 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
         elif plan.evidence_regime == "BSA":
             plan.issues.append(LegalIssue(
                 "electronic_evidence_current", "BSA", ("63", "62"),
-                "Under BSA, section 62 directs proof of electronic-record contents to section 63, which governs computer-output conditions and certification. Distinguish those express conditions from separate questions of authenticity, integrity, and evidentiary weight.",
+                "Under BSA, section 62 directs proof of electronic-record contents to section 63, which governs computer-output conditions and certification. Authenticity, integrity, and evidentiary weight remain separate questions rather than additional conditions stated in section 63.",
             ))
         elif is_pre_commencement_offence:
             plan.issues.append(LegalIssue(
@@ -177,9 +272,10 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
             ))
         else:
             qualifier = "" if plan.procedure_regime == "BNSS" else "If BNSS governs the later-started matter, "
+            timing_guidance = _electronic_fir_timing_guidance(query) if plan.procedure_regime == "BNSS" else ""
             plan.issues.append(LegalIssue(
                 "electronic_fir_registration", "BNSS", ("173",),
-                qualifier + "BNSS section 173 covers cognizable information irrespective of area and permits electronic communication, subject to the statutory signature-within-three-days requirement. Separate registration from later investigation and proof.",
+                qualifier + "BNSS section 173 covers cognizable information irrespective of area and permits electronic communication, subject to the statutory signature-within-three-days requirement. The registration question is separate from later investigation and proof." + timing_guidance,
             ))
     if any(value in text for value in ("default bail", "day 91", "charge sheet", "charge-sheet", "investigation period")) and "bail" in text:
         if plan.procedure_regime == "CRPC":
@@ -191,15 +287,34 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
             plan.issues.append(LegalIssue("default_bail", "BNSS", ("187",), "Default-bail analysis belongs to BNSS section 187; check whether the applicable 60/90-day period expired, whether the application preceded the charge sheet, and whether the accused was prepared to furnish bail. Do not substitute undertrial detention under section 479.", ("479",)))
             plan.safeguards.append("MANDATORY: Cite BNSS section 187 for investigation/default bail; section 479 concerns a distinct undertrial-detention issue.")
     if any(value in text for value in ("police custody", "remand", "custody ceiling")):
+        ordinary_legacy_theft = is_pre_commencement_offence and any(
+            issue.category == "legacy_theft" for issue in plan.issues
+        )
         if plan.procedure_regime == "CRPC":
             plan.issues.append(LegalIssue(
                 "legacy_police_custody", "CRPC", ("167",),
                 "A saved pre-commencement investigation is governed by CrPC section 167, not BNSS section 187. Do not assume unused days are automatically available without considering the applicable remand stage and judicial authorisation.",
             ))
         elif plan.procedure_regime == "BNSS" or not is_pre_commencement_offence:
+            if ordinary_legacy_theft:
+                custody_guidance = (
+                    "The stated IPC section 379 theft allegation carries a maximum punishment "
+                    "of three years. It therefore falls within BNSS section 187's sixty-day "
+                    "investigation category, making the police-custody allocation window the "
+                    "initial forty days. Police custody remains capped at fifteen days in the "
+                    "whole, usable wholly or in parts, and every period requires Magistrate "
+                    "authorisation."
+                )
+            else:
+                custody_guidance = (
+                    "BNSS section 187 caps police custody at fifteen days in the whole, usable "
+                    "wholly or in parts within the applicable initial forty- or sixty-day "
+                    "allocation window. The overall sixty- or ninety-day investigation-detention "
+                    "limit is distinct, and every period requires Magistrate authorisation."
+                )
             plan.issues.append(LegalIssue(
                 "police_custody", "BNSS", ("187",),
-                "BNSS section 187 caps police custody at fifteen days in the whole, usable wholly or in parts within the applicable initial forty- or sixty-day allocation window. Keep that distinct from the overall sixty- or ninety-day investigation-detention limit and from the Magistrate's authorisation decision.",
+                custody_guidance,
             ))
         else:
             plan.issues.append(LegalIssue(
@@ -215,10 +330,18 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
             used = int(days_match.group(1))
             remaining = max(0, 15 - used)
             remaining_label = "day" if remaining == 1 else "days"
-            overall = "90 days where the statutory serious-offence category applies" if any(value in text for value in ("life imprisonment", "death", "ten years")) else "the applicable 60-day or 90-day investigation limit"
+            if ordinary_legacy_theft:
+                allocation_window = "initial 40-day police-custody allocation window"
+                overall = "60-day investigation-detention limit"
+            elif any(value in text for value in ("life imprisonment", "death", "ten years")):
+                allocation_window = "initial 60-day police-custody allocation window"
+                overall = "investigation-detention limit of 90 days"
+            else:
+                allocation_window = "applicable initial 40/60-day police-custody allocation window"
+                overall = "applicable investigation-detention limit of 60 or 90 days"
             if plan.procedure_regime == "BNSS":
                 plan.safeguards.append(
-                    f"DETERMINISTIC CUSTODY: If the earlier {used} police-custody days were validly authorised under BNSS section 187, no more than {remaining} aggregate {remaining_label} remain. This arithmetic is not an authorisation; the Magistrate and the applicable initial 40/60-day window still control. Distinguish it from {overall}."
+                    f"DETERMINISTIC CUSTODY: If the earlier {used} police-custody days were validly authorised under BNSS section 187, no more than {remaining} aggregate {remaining_label} remain. This arithmetic is not an authorisation; the Magistrate and the {allocation_window} still control. The separate {overall} governs the investigation-detention period."
                 )
             elif plan.procedure_regime == "CRPC":
                 plan.safeguards.append(
@@ -238,7 +361,7 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
             qualifier = "Under BNSS, " if plan.procedure_regime == "BNSS" else "If BNSS governs, "
             plan.issues.append(LegalIssue(
                 "zero_fir", "BNSS", ("173",),
-                qualifier + "cognizable information cannot be refused solely because the offence occurred outside the station's area. Distinguish registration under section 173 from investigation and transfer.",
+                qualifier + "cognizable information cannot be refused solely because the offence occurred outside the station's area. Registration under section 173 is separate from later investigation and transfer.",
             ))
     if "search" in text and any(value in text for value in ("video", "videography", "record", "seizure")):
         if plan.procedure_regime == "CRPC":
@@ -250,7 +373,7 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
             qualifier = "Under BNSS, " if plan.procedure_regime == "BNSS" else "If BNSS governs, "
             plan.issues.append(LegalIssue(
                 "search_videography", "BNSS", ("105",),
-                qualifier + "section 105 requires audio-video recording of the search-and-seizure process and forwarding of the recording. The supplied text does not prescribe automatic acquittal or automatic exclusion for breach; state that a consequence requires separate authority and fact-specific analysis.",
+                qualifier + "section 105 requires audio-video recording of the search-and-seizure process and forwarding of the recording. The supplied text does not prescribe automatic acquittal or automatic exclusion for breach. Any further consequence requires separate authority and fact-specific analysis.",
             ))
     if any(value in text for value in ("entrust", "cashier", "lawfully receives", "diverts")):
         plan.issues.append(LegalIssue("criminal_breach_of_trust", "BNS", ("316",), "Entrustment followed by dishonest diversion points to criminal breach of trust; distinguish lawful initial possession from theft."))

@@ -1196,7 +1196,7 @@ function replaceThinking(id, answer, sources, follow_ups) {
     if (sources && sources.length > 0) {
         html += `<details class="nyaya-source-details"><summary>${sources.length} statutory source${sources.length === 1 ? '' : 's'}</summary><div class="grid gap-2 mt-3">`;
         html += sources.map(s => {
-            return `<div class="p-3 rounded-lg border text-xs" style="border-color:#e9e6df;background:#fcfbf9"><div class="flex justify-between items-center font-medium"><span style="color:#17365f">${escapeHtml(s.title || 'Statutory source')}</span><span class="pill text-[9px] py-0.5 px-1.5">${escapeHtml(s.category || 'Statute')}</span></div><div class="mt-1 text-[11px] leading-relaxed" style="color:#727b8a">${escapeHtml(s.snippet || '')}</div></div>`;
+            return `<div class="p-3 rounded-lg border text-xs" style="border-color:#e9e6df;background:#fcfbf9"><div class="font-medium leading-snug" style="color:#17365f">${escapeHtml(s.title || 'Statutory source')}</div><div class="mt-1 text-[11px] leading-relaxed" style="color:#727b8a">${escapeHtml(s.snippet || '')}</div></div>`;
         }).join('');
         html += `</div></details>`;
     }
