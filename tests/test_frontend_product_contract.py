@@ -10,6 +10,8 @@ import re
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX = ROOT / "app" / "static" / "index.html"
+LOGO = ROOT / "app" / "static" / "logo-scales-v2.png"
+FAVICON = ROOT / "app" / "static" / "favicon-scales.png"
 
 
 class ProductHTMLParser(HTMLParser):
@@ -55,6 +57,24 @@ def test_frontend_loads_without_render_blocking_third_party_assets():
     ]
     assert not [src for src in scripts if src.startswith(("http://", "https://"))]
     assert not [href for href in stylesheets if href.startswith(("http://", "https://"))]
+
+
+def test_frontend_uses_the_approved_scales_brand_assets():
+    source, parser = _parsed()
+    logo_images = [
+        attrs
+        for tag, attrs in parser.tags
+        if tag == "img" and attrs.get("class") == "brand-logo"
+    ]
+    icons = [attrs for tag, attrs in parser.tags if tag == "link" and "icon" in attrs.get("rel", "")]
+
+    assert LOGO.is_file() and LOGO.stat().st_size > 0
+    assert FAVICON.is_file() and FAVICON.stat().st_size > 0
+    assert len(logo_images) == 4
+    assert all(image.get("src") == "/static/logo-scales-v2.png" for image in logo_images)
+    assert all(image.get("alt") == "" for image in logo_images)
+    assert any(icon.get("href") == "/static/favicon-scales.png" for icon in icons)
+    assert 'class="mark"' not in source
 
 
 def test_frontend_uses_real_product_routes_and_current_response_shapes():
