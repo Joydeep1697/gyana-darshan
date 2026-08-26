@@ -73,6 +73,9 @@ def test_frontend_uses_the_approved_scales_brand_assets():
     assert len(logo_images) == 4
     assert all(image.get("src") == "/static/logo-scales-v2.png" for image in logo_images)
     assert all(image.get("alt") == "" for image in logo_images)
+    sidebar_logo = next(image for image in logo_images if image.get("width") == "54")
+    assert sidebar_logo.get("height") == "54"
+    assert 'class="sidebar-brand-name">Nyaya<br>Darshana</span>' in source
     assert any(icon.get("href") == "/static/favicon-scales.png" for icon in icons)
     assert 'class="mark"' not in source
 

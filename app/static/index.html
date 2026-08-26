@@ -154,9 +154,11 @@
     /* Authenticated application */
     .app-shell{height:100dvh;background:#f4f1e9;display:grid;grid-template-columns:248px minmax(0,1fr);overflow:hidden}
     .app-sidebar{background:var(--navy);color:#e7edf4;padding:20px 15px;display:flex;flex-direction:column;min-width:0;z-index:31}
-    .app-sidebar .brand{padding:2px 9px 25px;color:#fff}
-    .app-sidebar .brand-logo{filter:drop-shadow(0 2px 8px rgba(0,0,0,.18))}
-    .app-sidebar .brand small{color:#91a0b5}
+    .app-sidebar .brand{align-items:center;gap:13px;padding:2px 8px 27px;color:#fff}
+    .app-sidebar .brand-logo{width:54px;height:54px;filter:drop-shadow(0 3px 10px rgba(0,0,0,.22))}
+    .sidebar-brand-copy{display:grid;gap:6px;min-width:0}
+    .sidebar-brand-name{font-family:var(--serif);font-size:22px;font-weight:700;line-height:.98;letter-spacing:-.025em}
+    .app-sidebar .brand small{color:#9eacc0;font-size:8px;line-height:1.25;letter-spacing:.18em;margin:0}
     .sidebar-label{padding:0 11px;margin:17px 0 8px;text-transform:uppercase;letter-spacing:.14em;font-size:9px;color:#7788a0;font-weight:750}
     .app-nav{display:grid;gap:4px}
     .app-nav button{width:100%;min-height:45px;border:0;border-radius:11px;background:transparent;color:#aeb9c8;display:flex;align-items:center;gap:12px;text-align:left;padding:0 12px;font-size:13px;font-weight:650;cursor:pointer}
@@ -427,7 +429,7 @@
   <section id="appShell" class="app-shell" hidden>
     <div id="sidebarScrim" class="sidebar-scrim" aria-hidden="true"></div>
     <aside class="app-sidebar" aria-label="Workspace navigation">
-      <a class="brand" href="#consultation"><img class="brand-logo" src="/static/logo-scales-v2.png" alt="" width="42" height="42"><span>Nyaya Darshana<small>Private workspace</small></span></a>
+      <a class="brand" href="#consultation"><img class="brand-logo" src="/static/logo-scales-v2.png" alt="" width="54" height="54"><span class="sidebar-brand-copy"><span class="sidebar-brand-name">Nyaya<br>Darshana</span><small>Private workspace</small></span></a>
       <div class="sidebar-label">Workspace</div>
       <nav class="app-nav">
         <button type="button" class="active" data-view="consultation"><svg class="icon" aria-hidden="true"><use href="#i-message"></use></svg>Consultation</button>
