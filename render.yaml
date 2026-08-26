@@ -10,10 +10,14 @@ services:
         value: production
       - key: WEB_CONCURRENCY
         value: "1"
-      - key: LLM_PROVIDER
+      - key: AI_PROVIDER
         value: nvidia
-      - key: NVIDIA_LLM_MODEL
-        value: nvidia/llama-3.3-nemotron-super-49b-v1
+      - key: AI_MODEL
+        value: nvidia/nemotron-3-super-120b-a12b
+      - key: AI_FALLBACK_MODEL
+        value: nvidia/nemotron-3.5-lightning-30b-a3b
+      - key: AI_STARTUP_PROBE
+        value: "true"
       - key: NVIDIA_API_KEY
         sync: false
       - key: LEGAL_REQUEST_TIMEOUT
@@ -26,7 +30,7 @@ services:
         value: "300"
       - key: LEGAL_MAX_CONCURRENCY
         value: "4"
-      - key: LEGAL_MAX_RETRIES
+      - key: AI_MAX_RETRIES
         value: "2"
       - key: NYAYA_API_KEY
         generateValue: true

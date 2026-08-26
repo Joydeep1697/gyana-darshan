@@ -26,6 +26,7 @@ from retrieval.deterministic_legal_indexer import DeterministicLegalIndexer
 from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from app.intelligence.ai_provider import get_ai_status
 from app.source_presenter import format_cited_evidence
 from app import config
 from api.security import (
@@ -179,7 +180,8 @@ def health_check():
         "status": "HEALTHY",
         "engine": "Nyaya Darshana Grounding Engine",
         "corpus_loaded_sections": len(retriever.corpus),
-        "timestamp": time.time()
+        "timestamp": time.time(),
+        "ai": get_ai_status(),
     }
 
 @app.post("/api/v1/query", response_model=LegalQueryResponse, tags=["Production Grounding API"])

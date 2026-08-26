@@ -19,9 +19,11 @@ SPEC.loader.exec_module(preflight)
 class TestDeploymentPreflight(unittest.TestCase):
     def setUp(self):
         environment = {
-            "ENVIRONMENT": "production", "LLM_PROVIDER": "nvidia",
+            "ENVIRONMENT": "production", "AI_PROVIDER": "nvidia",
             "NYAYA_API_KEY": "a" * 48, "NYAYA_JWT_SECRET": "b" * 48,
             "NVIDIA_API_KEY": "nvapi-" + "c" * 48,
+            "AI_MODEL": "nvidia/nemotron-3-super-120b-a12b",
+            "AI_FALLBACK_MODEL": "nvidia/nemotron-3.5-lightning-30b-a3b",
             "ALLOWED_ORIGINS": "https://nyayadarshana.com",
             "RAZORPAY_KEY_ID": "", "RAZORPAY_KEY_SECRET": "",
             "GOOGLE_CLIENT_ID": "", "GOOGLE_CLIENT_SECRET": "", "GOOGLE_REDIRECT_URI": "",
@@ -45,6 +47,19 @@ class TestDeploymentPreflight(unittest.TestCase):
     def test_short_secrets_are_rejected(self):
         with patch.dict(os.environ, {"NYAYA_JWT_SECRET": "short"}):
             self.assertTrue(any("NYAYA_JWT_SECRET" in issue for issue in preflight.check_environment()))
+
+    def test_retired_hosted_model_is_rejected(self):
+        with patch.dict(os.environ, {
+            "AI_MODEL": "nvidia/llama-3.3-nemotron-super-49b-v1",
+        }):
+            self.assertTrue(any("Retired NVIDIA hosted model" in issue for issue in preflight.check_environment()))
+
+    def test_missing_distinct_fallback_is_rejected(self):
+        with patch.dict(os.environ, {
+            "AI_MODEL": "nvidia/nemotron-3-super-120b-a12b",
+            "AI_FALLBACK_MODEL": "nvidia/nemotron-3-super-120b-a12b",
+        }):
+            self.assertTrue(any("AI_FALLBACK_MODEL" in issue for issue in preflight.check_environment()))
 
     def test_partial_or_insecure_google_oauth_configuration_is_rejected(self):
         with patch.dict(os.environ, {"GOOGLE_CLIENT_ID": "client-id"}):

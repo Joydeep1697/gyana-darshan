@@ -10,6 +10,7 @@ Nyaya Darshana retrieves relevant statutory provisions before generation, separa
 - Transition-aware analysis across the IPC/BNS, CrPC/BNSS, and IEA/BSA commencement boundaries.
 - A claim-verification firewall that blocks or corrects unsupported material assertions.
 - A tenant-isolated Knowledge Vault for PDF upload, classification, metadata search, and cached summaries.
+- Centralized NVIDIA model routing with startup validation, bounded fallback, circuit cooldowns, and visible degraded-state health.
 - Email/password authentication, optional Google OAuth, quota reporting, and optional Razorpay access activation.
 - Production health/readiness checks, explicit CORS policy, secret validation, persistent SQLite storage, and a non-root Docker image.
 
@@ -34,8 +35,10 @@ Then open [http://127.0.0.1:8000](http://127.0.0.1:8000). The API documentation 
 At minimum, configure these values in `.env` for live generated answers:
 
 ```dotenv
-LLM_PROVIDER=nvidia
+AI_PROVIDER=nvidia
 NVIDIA_API_KEY=nvapi-your-key
+AI_MODEL=nvidia/nemotron-3-super-120b-a12b
+AI_FALLBACK_MODEL=nvidia/nemotron-3.5-lightning-30b-a3b
 NYAYA_JWT_SECRET=generate-a-unique-secret-with-at-least-32-characters
 ```
 
@@ -50,6 +53,7 @@ Tesseract is optional and is used only when OCR is available for scanned PDFs.
 | `api/conversations` | Persistent consultations, evidence records, and ownership checks |
 | `retrieval` | Deterministic statutory retrieval and transition routing |
 | `verification` | Claim grounding and answer enforcement |
+| `app/intelligence/ai_provider.py` | Provider calls, model fallback, lifecycle handling, and safe AI health state |
 | `app/routers/vault.py` | Tenant-isolated PDF upload, metadata search, summaries, and deletion |
 | `corpus_integrity` | Runtime statutory text and cross-mapping data |
 | `database` / `app/database.py` | SQLite persistence for identity, conversations, evidence, billing, and Vault metadata |
@@ -74,6 +78,8 @@ The Render Blueprint generates `NYAYA_API_KEY` and `NYAYA_JWT_SECRET`. Supply th
 
 - `NVIDIA_API_KEY`: required for live generated legal answers.
 - `ALLOWED_ORIGINS`: one or more explicit HTTPS origins, comma-separated.
+
+The Blueprint keeps model selection outside application code through `AI_MODEL` and `AI_FALLBACK_MODEL`. At startup, Nyaya Darshana probes the configured route. Lifecycle, capacity, and transport failures may activate the bounded fallback; authentication and invalid-request failures do not. `/health` and `/ready` expose only safe provider status—never credentials or prompts—and AI-backed endpoints return HTTP 503 when all configured models are unavailable.
 
 Optional integrations are configured directly in the production environment:
 

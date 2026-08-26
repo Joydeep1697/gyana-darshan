@@ -30,6 +30,7 @@ os.environ.setdefault("MKL_NUM_THREADS", "1")
 
 from app import config
 from app.database import get_db
+from app.intelligence.ai_provider import AIProviderError, get_ai_status, probe_ai_provider
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
 from app.source_presenter import format_cited_evidence
 
@@ -58,6 +59,18 @@ async def lifespan(application: FastAPI) -> AsyncGenerator[None, None]:
     config.validate_production_config()
     db = get_db()
     logger.info("Statutory Corpus loaded: %d Bare Act sections", len(retriever.corpus))
+    if config.AI_STARTUP_PROBE and get_ai_status()["configured"]:
+        try:
+            ai_status = await probe_ai_provider()
+            logger.info(
+                "AI provider startup probe passed status=%s active_model=%s",
+                ai_status["status"],
+                ai_status["active_model"],
+            )
+        except AIProviderError:
+            # The statutory engine and authenticated workspace can still boot.
+            # /ready and AI-backed endpoints expose the degraded state honestly.
+            logger.error("AI provider startup probe failed; application is starting in degraded mode")
     logger.info("Nyaya Darshana ready — serving on http://%s:%s", config.HOST, config.PORT)
     yield
     logger.info("Nyaya Darshana shutting down...")
@@ -314,7 +327,8 @@ async def health_check():
     return {
         "status": "HEALTHY",
         "engine": "Nyaya Darshana Legal Intelligence",
-        "corpus_loaded_sections": len(retriever.corpus)
+        "corpus_loaded_sections": len(retriever.corpus),
+        "ai": get_ai_status(),
     }
 
 
@@ -326,7 +340,13 @@ async def readiness_check():
             connection.execute("SELECT 1").fetchone()
         if not retriever.corpus:
             raise RuntimeError("The statutory corpus is unavailable")
-        return {"status": "READY", "database": "connected", "corpus_loaded_sections": len(retriever.corpus)}
+        ai_status = get_ai_status()
+        return {
+            "status": "READY" if ai_status["status"] in {"available", "unknown"} else "DEGRADED",
+            "database": "connected",
+            "corpus_loaded_sections": len(retriever.corpus),
+            "ai": ai_status,
+        }
     except Exception:
         logger.exception("Readiness verification failed")
         return JSONResponse(status_code=503, content={"status": "NOT_READY", "detail": "A required service is unavailable"})
