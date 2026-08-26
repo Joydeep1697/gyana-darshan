@@ -104,3 +104,4 @@ def test_frontend_does_not_reintroduce_mock_operational_claims_or_reasoning_thea
     for phrase in forbidden:
         assert phrase.casefold() not in source.casefold()
     assert not re.search(r"Nyaya Darshan(?!a)", source)
+    assert "corpus" not in source.casefold()
