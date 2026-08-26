@@ -49,6 +49,19 @@ def check_environment() -> list[str]:
     if razorpay_id and (is_placeholder(razorpay_id) or is_placeholder(razorpay_secret)):
         failures.append("Razorpay credentials cannot contain placeholder values")
 
+    google_id = os.getenv("GOOGLE_CLIENT_ID", "").strip()
+    google_secret = os.getenv("GOOGLE_CLIENT_SECRET", "").strip()
+    google_redirect = os.getenv("GOOGLE_REDIRECT_URI", "").strip()
+    google_values = (google_id, google_secret, google_redirect)
+    if any(google_values) and not all(google_values):
+        failures.append("GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and GOOGLE_REDIRECT_URI must be configured together")
+    if all(google_values):
+        redirect = urlparse(google_redirect)
+        if redirect.scheme != "https" or not redirect.netloc or redirect.path != "/api/auth/google/callback":
+            failures.append("GOOGLE_REDIRECT_URI must be an HTTPS /api/auth/google/callback URL in production")
+        if is_placeholder(google_id) or is_placeholder(google_secret):
+            failures.append("Google OAuth credentials cannot contain placeholder values")
+
     return failures
 
 

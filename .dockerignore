@@ -23,3 +23,15 @@ playwright-report
 test-results
 evaluation/chrome_profile*
 Indian Legal/download_metadata.jsonl
+Indian Legal/*
+!Indian Legal/*.py
+training
+evaluation
+upload
+*.pdf
+*.mp4
+*.webm
+*.mov
+*.zip
+*.html
+!app/static/*.html

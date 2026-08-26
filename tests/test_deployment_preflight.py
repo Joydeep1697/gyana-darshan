@@ -24,6 +24,7 @@ class TestDeploymentPreflight(unittest.TestCase):
             "NVIDIA_API_KEY": "nvapi-" + "c" * 48,
             "ALLOWED_ORIGINS": "https://nyayadarshana.com",
             "RAZORPAY_KEY_ID": "", "RAZORPAY_KEY_SECRET": "",
+            "GOOGLE_CLIENT_ID": "", "GOOGLE_CLIENT_SECRET": "", "GOOGLE_REDIRECT_URI": "",
         }
         self.environment_patch = patch.dict(os.environ, environment)
         self.environment_patch.start()
@@ -44,6 +45,16 @@ class TestDeploymentPreflight(unittest.TestCase):
     def test_short_secrets_are_rejected(self):
         with patch.dict(os.environ, {"NYAYA_JWT_SECRET": "short"}):
             self.assertTrue(any("NYAYA_JWT_SECRET" in issue for issue in preflight.check_environment()))
+
+    def test_partial_or_insecure_google_oauth_configuration_is_rejected(self):
+        with patch.dict(os.environ, {"GOOGLE_CLIENT_ID": "client-id"}):
+            self.assertTrue(any("configured together" in issue for issue in preflight.check_environment()))
+        with patch.dict(os.environ, {
+            "GOOGLE_CLIENT_ID": "client-id",
+            "GOOGLE_CLIENT_SECRET": "client-secret",
+            "GOOGLE_REDIRECT_URI": "http://nyayadarshana.com/api/auth/google/callback",
+        }):
+            self.assertTrue(any("GOOGLE_REDIRECT_URI" in issue for issue in preflight.check_environment()))
 
     def test_repository_configuration_is_complete(self):
         self.assertEqual(preflight.check_repository(), [])

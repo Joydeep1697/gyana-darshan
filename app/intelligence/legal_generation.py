@@ -1,4 +1,4 @@
-"""Evidence-grounded legal answer generation for Nyaya Darshan."""
+"""Evidence-grounded legal answer generation for Nyaya Darshana."""
 
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ from retrieval.transition_context import COMMENCEMENT_DATE
 logger = logging.getLogger("nyaya-darshan-app")
 
 SYSTEM_PROMPT = (
-    "You are Nyaya Darshan, an Indian legal research assistant. "
+    "You are Nyaya Darshana, an Indian legal research assistant. "
     "Answer the user's question using only the supplied authoritative statutory evidence. "
     "Cite the statute and section for every material legal assertion. "
     "Clearly distinguish current law, repealed law, transition provisions, and special statutes. "
@@ -94,7 +94,7 @@ def _provider_failure_message(exc: Exception | None) -> str:
     if isinstance(exc, (TimeoutError, asyncio.TimeoutError)) or type(exc).__name__ == "APITimeoutError":
         return "NVIDIA took too long to answer. Retry or increase LEGAL_MODEL_TIMEOUT."
     if isinstance(exc, (ConnectionError, URLError)) or type(exc).__name__ == "APIConnectionError":
-        return "Nyaya Darshan could not reach NVIDIA. Check your internet, proxy, or firewall."
+        return "Nyaya Darshana could not reach NVIDIA. Check your internet, proxy, or firewall."
     return "The legal AI provider is temporarily unavailable."
 
 

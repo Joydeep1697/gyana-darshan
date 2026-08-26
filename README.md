@@ -1,174 +1,91 @@
-# Nyaya Darshan
+# Nyaya Darshana
 
-**AI-powered Legal Intelligence Operating System for Indian Law**
+Source-grounded Indian legal intelligence for statutory research, transition analysis, and private PDF work.
 
-**Nyaya Darshan** combines authoritative Indian statutory retrieval, evidence-grounded legal answers, verification safeguards, and a configurable NVIDIA-hosted language model. The repository also includes an experimental legal-model training pipeline; a production-ready fine-tuned model should not be assumed until its weights and evaluation results have been verified.
+Nyaya Darshana retrieves relevant statutory provisions before generation, separates substantive, procedural, and evidence-law timelines, and checks material legal claims against the retrieved evidence. It is a research-support product, not a substitute for professional legal advice.
 
----
+## What is implemented
 
-## 🚀 Quick Start
+- Authenticated, persistent legal consultations with source cards and verification status.
+- Transition-aware analysis across the IPC/BNS, CrPC/BNSS, and IEA/BSA commencement boundaries.
+- A claim-verification firewall that blocks or corrects unsupported material assertions.
+- A tenant-isolated Knowledge Vault for PDF upload, classification, metadata search, and cached summaries.
+- Email/password authentication, optional Google OAuth, quota reporting, and optional Razorpay access activation.
+- Production health/readiness checks, explicit CORS policy, secret validation, persistent SQLite storage, and a non-root Docker image.
 
-### Prerequisites
+The repository also contains research and experimental training material. No fine-tuned production model is claimed unless its weights and evaluation results are independently verified.
 
-- **Python 3.11+** (recommended)
-- **NVIDIA API key** for live AI-generated legal responses
-- **Tesseract OCR** — [download here](https://github.com/UB-Mannheim/tesseract/wiki) (optional, for scanned PDFs)
+## Run locally
 
-### 1. Install Dependencies
+Use Python 3.11 or newer. There is no root-level `app.py`; start the product with `run.py` or Uvicorn.
 
 ```powershell
-cd "D:\Nyaya Darshan"
+cd "D:\Gyana Darshan"
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 pip install -r requirements.txt
-```
-
-### 2. Configure Environment
-
-```powershell
 copy .env.example .env
-# Edit .env with your settings
-```
-
-**For NVIDIA NIM (cloud API):**
-```
-LLM_PROVIDER=nvidia
-NVIDIA_API_KEY=nvapi-your-key
-NVIDIA_LLM_MODEL=nvidia/llama-3.3-nemotron-super-49b-v1
-NYAYA_JWT_SECRET=replace-with-a-random-secret-of-at-least-32-characters
-```
-
-### 3. Start the Server
-
-```powershell
 python run.py
 ```
 
-### 4. Open Nyaya Darshan
+Then open [http://127.0.0.1:8000](http://127.0.0.1:8000). The API documentation is available at `/docs`, the liveness check at `/health`, and the readiness check at `/ready`.
 
-Navigate to **http://localhost:8000** in your browser.
+At minimum, configure these values in `.env` for live generated answers:
 
----
-
-## 🏗️ Architecture
-
-```
-Nyaya Darshan
-├── app/                          # FastAPI web application
-│   ├── main.py                   # App entry point + lifespan
-│   ├── config.py                 # Environment & path config
-│   ├── database.py               # SQLite schema (11 tables)
-│   ├── models.py                 # Pydantic request/response schemas
-│   ├── routers/                  # API endpoints
-│   │   ├── vault.py              # Knowledge Vault (upload, search, CRUD)
-│   │   ├── chat.py               # AI Chat with RAG
-│   │   ├── classifier.py         # Document classification
-│   │   ├── dashboard.py          # Dashboard & analytics
-│   │   ├── knowledge_graph.py    # Citation network
-│   │   └── proactive.py          # Compliance gaps & deadlines
-│   ├── intelligence/             # AI brain modules
-│   │   ├── summarizer.py         # Document summaries & briefings
-│   │   ├── clause_detector.py    # Legal clause detection
-│   │   ├── risk_scorer.py        # Risk analysis
-│   │   ├── knowledge_graph.py    # Citation graph builder
-│   │   ├── deadline_extractor.py # Date/deadline extraction
-│   │   └── search_engine.py      # Enhanced semantic search
-│   └── static/
-│       └── index.html            # Nyaya Darshan frontend
-│
-├── Indian Legal/                 # Backend engines (existing, unmodified)
-│   ├── gyana_darshan_rag_nvidia.py  # FAISS + BM25 hybrid RAG
-│   ├── gyana_darshan_classifier.py  # 36-category legal classifier
-│   ├── gyana_darshan_corpus_builder.py  # PDF → text pipeline
-│   ├── raw/                      # Uploaded PDFs
-│   ├── processed_corpus/         # Processed text chunks
-│   ├── Category/                 # Classified documents
-│   └── nova_rag_index/           # FAISS vector index
-│
-├── training/                     # Experimental Nyaya Darshan training pipeline
-│   ├── generate_dataset.py       # Generate training data from corpus
-│   ├── finetune_colab.py         # QLoRA fine-tuning (Google Colab)
-│   ├── evaluate.py               # Indian Legal Benchmark
-│   └── README.md                 # Training documentation
-│
-├── requirements.txt
-├── run.py
-├── .env.example
-└── README.md                     # ← You are here
+```dotenv
+LLM_PROVIDER=nvidia
+NVIDIA_API_KEY=nvapi-your-key
+NYAYA_JWT_SECRET=generate-a-unique-secret-with-at-least-32-characters
 ```
 
-## 🧠 Intelligence Features
+Tesseract is optional and is used only when OCR is available for scanned PDFs.
 
-| Feature | Description |
-|---------|-------------|
-| **RAG-Powered Chat** | Ask questions about Indian law — answers cite specific sections and pages |
-| **Streaming Responses** | See the AI think in real-time with reasoning chain visualization |
-| **Smart Document Processing** | Upload a PDF → auto-classify, extract entities, detect clauses, score risk |
-| **Knowledge Graph** | Documents auto-link via shared citations and section references |
-| **Semantic Search** | Natural language search: "contracts about data protection from 2023" |
-| **Proactive Alerts** | Compliance gaps, outdated references, and deadline tracking |
-| **AI Daily Briefing** | Dashboard shows AI-generated summary of your corpus state |
+## Architecture
 
-## 🎓 Experimental Model Training
+| Layer | Responsibility |
+|---|---|
+| `app/static/index.html` | Responsive public site and authenticated workspace |
+| `api/auth` | Accounts, JWT sessions, quotas, and optional Google OAuth |
+| `api/conversations` | Persistent consultations, evidence records, and ownership checks |
+| `retrieval` | Deterministic statutory retrieval and transition routing |
+| `verification` | Claim grounding and answer enforcement |
+| `app/routers/vault.py` | Tenant-isolated PDF upload, metadata search, summaries, and deletion |
+| `corpus_integrity` | Runtime statutory text and cross-mapping data |
+| `database` / `app/database.py` | SQLite persistence for identity, conversations, evidence, billing, and Vault metadata |
 
-See [training/README.md](training/README.md) for complete instructions on:
-1. Generating training data from your legal corpus
-2. Fine-tuning Phi-3.5-mini on Google Colab (free)
-3. Evaluating on the Indian Legal Benchmark
-4. Comparing adapter quality against the existing grounded retrieval baseline
+The consultation engine uses the compact statutory corpus in `corpus_integrity`; it does not require FAISS, PyTorch, or sentence-transformers at runtime. The PDF classifier is retained as a separate local processing module.
 
-The training pipeline is experimental. Do not advertise a proprietary fine-tuned production model unless the model weights, evaluation results, and deployment are independently verified.
+## Tests and release checks
 
-## 📡 API Reference
+```powershell
+python scripts/release_preflight.py --repository-only
+python -m compileall -q app api database retrieval verification scripts tests
+python -m pytest -q tests app/test_app_endpoints.py
+```
 
-Once running, visit **http://localhost:8000/docs** for the interactive Swagger API documentation.
-
-### Key Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/vault/upload` | POST | Upload a PDF for processing |
-| `/api/vault/documents` | GET | List all documents |
-| `/api/vault/search` | POST | Semantic search |
-| `/api/chat/ask` | POST | Ask a legal question |
-| `/api/chat/ask/stream` | POST | Streaming RAG response |
-| `/api/dashboard/stats` | GET | Dashboard statistics |
-| `/api/dashboard/briefing` | GET | AI daily briefing |
-| `/api/graph/network` | GET | Citation network data |
-| `/api/proactive/compliance-gaps` | GET | Compliance gap analysis |
+GitHub Actions runs the same release gates on pull requests and pushes to `main`.
 
 ## Production deployment
 
-`render.yaml` defines a Python 3.11 service with an attached persistent disk for
-SQLite databases, uploads, and application logs. **Render persistent disks and
-the web-service plan that supports them are paid features**; do not deploy this
-configuration on an ephemeral free instance if conversations or uploads must
-survive restarts. Configure `NVIDIA_API_KEY` and explicit HTTPS
-`ALLOWED_ORIGINS` in Render before deployment. The blueprint generates separate
-`NYAYA_API_KEY` and `NYAYA_JWT_SECRET` values automatically. Set both Razorpay
-credentials together only when payment processing is enabled.
+`render.yaml` deploys the checked-in Dockerfile and attaches a 5 GB persistent disk at `/var/data`. A Render plan that supports persistent disks is required if conversations and uploads must survive restarts.
 
-The deployment runs these release gates automatically:
+The Render Blueprint generates `NYAYA_API_KEY` and `NYAYA_JWT_SECRET`. Supply these values during deployment:
 
-```bash
-python scripts/release_preflight.py --repository-only
-python scripts/release_preflight.py --environment-only
-```
+- `NVIDIA_API_KEY`: required for live generated legal answers.
+- `ALLOWED_ORIGINS`: one or more explicit HTTPS origins, comma-separated.
 
-The first checks deployment files and secret exclusions without requiring live
-credentials; the second fails startup on missing secrets, insecure origins,
-unsupported providers, or incomplete payment configuration. GitHub Actions
-installs the full dependency set and runs statutory, deployment, authentication,
-authorization, legal-generation, and application regression suites.
+Optional integrations are configured directly in the production environment:
 
-For Docker, mount persistent storage at `/var/lib/nyaya`, pass secrets through
-your hosting platform, and expose the configured `PORT`. The image runs as an
-unprivileged user and checks `/health` automatically.
+- Google sign-in requires `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and an HTTPS `GOOGLE_REDIRECT_URI` ending in `/api/auth/google/callback`.
+- Razorpay requires both `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET`. Leave both unset to disable checkout.
 
-## 📄 License
+Production startup fails closed when required secrets are absent, origins are insecure, or an optional integration is only partially configured. The container runs as an unprivileged user and checks `/health` automatically.
 
-Nyaya Darshan application code and project-specific legal datasets are proprietary. Any future fine-tuned model remains subject to the selected base model's license and independently verified training results.
+## Product truth
 
----
+Nyaya Darshana presents retrieved sources, corpus versions, and verification results. It does not expose private chain-of-thought, invent customer activity, or imply that a procedural defect automatically determines innocence or acquittal without supporting authority.
 
-*Built with ❤️ for Indian Legal Intelligence*
+## License
+
+Application code and project-specific legal datasets are proprietary. Third-party models and source materials remain subject to their respective licences and terms.

@@ -1,6 +1,6 @@
-"""Nyaya Darshan — FastAPI Application Entry Point.
+"""Nyaya Darshana — FastAPI application entry point.
 
-Serves the Nyaya Darshan web interface, mounts routers for Knowledge Vault,
+Serves the Nyaya Darshana web interface, mounts routers for Knowledge Vault,
 AI Chat, and the Production Dual-Panel Evidence API (/api/v1/query).
 """
 
@@ -20,7 +20,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 # Cloud-hosted legal generation and statutory retrieval do not require PyTorch.
 # Keep optional numerical libraries restrained without making a broken or
@@ -54,19 +54,19 @@ firewall = LegalVerificationFirewall()
 @asynccontextmanager
 async def lifespan(application: FastAPI) -> AsyncGenerator[None, None]:
     """Startup: validate production config, init DB, verify statutory corpus."""
-    logger.info("Nyaya Darshan Legal OS starting up...")
+    logger.info("Nyaya Darshana legal intelligence starting up...")
     config.validate_production_config()
     db = get_db()
     logger.info("Statutory Corpus loaded: %d Bare Act sections", len(retriever.corpus))
-    logger.info("Nyaya Darshan ready — serving on http://%s:%s", config.HOST, config.PORT)
+    logger.info("Nyaya Darshana ready — serving on http://%s:%s", config.HOST, config.PORT)
     yield
-    logger.info("Nyaya Darshan shutting down...")
+    logger.info("Nyaya Darshana shutting down...")
 
 # ── Create FastAPI app ────────────────────────────────────────────
 
 app = FastAPI(
-    title="Nyaya Darshan",
-    description="Indian Legal Intelligence Operating System — Powered by Authoritative Gazette RAG & Legal Verification Firewall",
+    title="Nyaya Darshana",
+    description="Source-grounded Indian legal intelligence with authoritative statutory retrieval and claim verification.",
     version="2.0.0",
     lifespan=lifespan,
 )
@@ -115,7 +115,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         clean_errors.append(err_dict)
 
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=422,
         content={
             "type": "https://nyayadarshana.com/errors/validation-error",
             "title": "Unprocessable Entity",
@@ -179,7 +179,7 @@ class LegalQueryRequest(BaseModel):
     session_id: Optional[str] = Field(default=None, max_length=128, description="Client session identifier.")
     top_k: Optional[int] = Field(default=4, ge=1, le=10, description="Number of statutory sections to retrieve.")
 
-    @validator("query")
+    @field_validator("query")
     def validate_query_content(cls, v):
         cleaned = v.strip()
         if not cleaned:
@@ -285,7 +285,7 @@ async def process_legal_query(
         latency_ms=latency
     )
 
-    return sanitize_response_data(response_payload.dict())
+    return sanitize_response_data(response_payload.model_dump())
 
 # ── Serve Static Frontend ────────────────────────────────────────
 
@@ -295,7 +295,7 @@ if STATIC_DIR.exists():
 
 @app.get("/", include_in_schema=False)
 async def serve_frontend():
-    """Serve the Nyaya Darshan frontend without browser caching."""
+    """Serve the Nyaya Darshana frontend without browser caching."""
     index = STATIC_DIR / "index.html"
     if index.exists():
         return FileResponse(
@@ -306,14 +306,14 @@ async def serve_frontend():
                 "Expires": "0",
             },
         )
-    return {"message": "Nyaya Darshan API is running. Frontend not found at app/static/index.html"}
+    return {"message": "Nyaya Darshana API is running. Frontend not found at app/static/index.html"}
 
 @app.get("/health", tags=["System Health"])
 async def health_check():
     """Quick health check endpoint."""
     return {
         "status": "HEALTHY",
-        "engine": "Nyaya Darshan Legal OS",
+        "engine": "Nyaya Darshana Legal Intelligence",
         "corpus_loaded_sections": len(retriever.corpus)
     }
 
