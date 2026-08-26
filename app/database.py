@@ -260,6 +260,40 @@ class Database:
             rows = conn.execute(query, params).fetchall()
             return [dict(r) for r in rows]
 
+    def search_documents(
+        self,
+        query: str,
+        *,
+        owner_id: str,
+        category: Optional[str] = None,
+        domain: Optional[str] = None,
+        limit: int = 20,
+    ) -> list[dict]:
+        """Search only metadata and cached summaries owned by one account."""
+        needle = f"%{query.strip()}%"
+        sql = """
+            SELECT * FROM vault_documents
+            WHERE owner_id = ?
+              AND (
+                filename LIKE ? COLLATE NOCASE
+                OR COALESCE(category, '') LIKE ? COLLATE NOCASE
+                OR COALESCE(domain, '') LIKE ? COLLATE NOCASE
+                OR COALESCE(summary, '') LIKE ? COLLATE NOCASE
+              )
+        """
+        params: list[Any] = [owner_id, needle, needle, needle, needle]
+        if category:
+            sql += " AND category = ?"
+            params.append(category)
+        if domain:
+            sql += " AND domain = ?"
+            params.append(domain)
+        sql += " ORDER BY upload_time DESC LIMIT ?"
+        params.append(max(1, min(limit, 100)))
+        with self.connect() as conn:
+            rows = conn.execute(sql, params).fetchall()
+            return [dict(row) for row in rows]
+
     def count_documents(self, status: Optional[str] = None) -> int:
         query = "SELECT COUNT(*) FROM vault_documents"
         params: list[Any] = []

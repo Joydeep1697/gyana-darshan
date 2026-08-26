@@ -99,8 +99,8 @@ class TestAuthAndConversations(unittest.TestCase):
         self.assertEqual(msg_data["role"], "assistant")
         self.assertIn("187", msg_data["answer"])
         self.assertGreaterEqual(len(msg_data["evidence"]), 1)
-        self.assertEqual(msg_data["engine_version"], "1.0.0")
-        self.assertEqual(msg_data["corpus_version"], "2026.08.18")
+        self.assertEqual(msg_data["engine_version"], "1.1.0")
+        self.assertEqual(msg_data["corpus_version"], "2026.08.26-transition")
 
         # 3. Retrieve conversation history with attached persistent evidence
         history_res = self.client.get(f"/api/conversations/{conv_id}", headers=headers)

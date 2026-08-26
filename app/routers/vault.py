@@ -8,7 +8,8 @@ from fastapi import APIRouter, Depends, UploadFile, File, BackgroundTasks, HTTPE
 from fastapi.responses import JSONResponse
 from app.database import get_db, Database
 from app.models import DocumentResponse, SearchResponse, SearchRequest
-from app.config import RAW_DIR, get_llm_client_kwargs
+from app.config import RAW_DIR
+from app.intelligence.summarizer import generate_summary
 from api.auth.dependencies import get_current_user
 from api.auth.service import decode_jwt_token
 
@@ -175,6 +176,58 @@ async def get_document(doc_id: str, db: Database = Depends(get_db), user: dict =
     """Get full details of a specific document including entities, clauses, deadlines, and links."""
     return _public_document(_owned_document(db, doc_id, user["id"]))
 
+
+@router.post("/documents/{doc_id}/summary")
+async def generate_document_summary(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+    """Generate and cache a grounded summary for an owned PDF."""
+    document = _owned_document(db, doc_id, user["id"])
+    if document.get("summary"):
+        return {"summary": document["summary"], "cached": True}
+
+    raw_value = document.get("raw_path")
+    if not raw_value:
+        raise HTTPException(409, "The source PDF is not available for summarisation")
+    raw_path = Path(raw_value).resolve()
+    if not raw_path.is_relative_to(RAW_DIR.resolve()):
+        logger.error("Refusing to summarise a document outside the upload directory: %s", doc_id)
+        raise HTTPException(500, "Document storage configuration is invalid")
+    if not raw_path.is_file():
+        raise HTTPException(404, "The source PDF is no longer available")
+
+    try:
+        from gyana_darshan_classifier import extract_pdf
+        from app.config import OCR_ENABLED, OCR_LANGUAGE
+
+        extracted = await asyncio.to_thread(extract_pdf, str(raw_path), OCR_ENABLED, OCR_LANGUAGE)
+        text = (getattr(extracted, "text", "") or "").strip()
+        if not text:
+            raise HTTPException(422, "No readable text could be extracted from this PDF")
+        metadata = {
+            "filename": document.get("filename"),
+            "category": document.get("category"),
+            "domain": document.get("domain"),
+            "pages": document.get("pages"),
+        }
+        summary = await asyncio.to_thread(
+            generate_summary,
+            text,
+            document.get("category") or "Legal document",
+            metadata,
+        )
+    except HTTPException:
+        raise
+    except ImportError:
+        logger.exception("PDF extraction backend is unavailable")
+        raise HTTPException(503, "PDF extraction is temporarily unavailable")
+    except Exception:
+        logger.exception("Summary extraction failed for document %s", doc_id)
+        raise HTTPException(500, "The document could not be summarised")
+
+    if not summary:
+        raise HTTPException(503, "Summary generation is temporarily unavailable")
+    db.update_document(doc_id, summary=summary)
+    return {"summary": summary, "cached": False}
+
 @router.delete("/documents/{doc_id}")
 async def delete_document(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
     """Delete a document from DB and filesystem."""
@@ -190,15 +243,28 @@ async def delete_document(doc_id: str, db: Database = Depends(get_db), user: dic
 
 @router.post("/search", response_model=SearchResponse)
 async def search(req: SearchRequest, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
-    """Intelligent search using local_search."""
-    try:
-        from gyana_darshan_rag_nvidia import local_search
-        from app.config import INDEX_DIR
-        results = await asyncio.to_thread(local_search, req.query, INDEX_DIR)
-        return SearchResponse(results=results)
-    except Exception as e:
-        logger.error(f"Search error: {e}")
-        raise HTTPException(500, "Search failed")
+    """Search metadata and cached summaries within the authenticated user's vault."""
+    documents = db.search_documents(
+        req.query,
+        owner_id=user["id"],
+        category=req.category,
+        domain=req.domain,
+        limit=req.top_k,
+    )
+    results = [
+        {
+            "doc_id": document["id"],
+            "title": document["filename"],
+            "snippet": (document.get("summary") or "")[:360],
+            "relevance": 1.0,
+            "category": document.get("category") or "",
+            "domain": document.get("domain") or "",
+            "pages": str(document.get("pages") or ""),
+            "authority_weight": document.get("authority_weight") or 1.0,
+        }
+        for document in documents
+    ]
+    return SearchResponse(results=results, total=len(results))
 
 @router.get("/stats")
 async def get_stats(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
