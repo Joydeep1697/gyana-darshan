@@ -42,6 +42,7 @@ class ReasoningPlan:
     safeguards: list[str] = field(default_factory=list)
     direct_answer: str | None = None
     offence_date: date | None = None
+    offence_before_commencement: bool = False
     procedure_start_date: date | None = None
     pending_before_commencement: bool | None = None
     procedure_regime: str = "UNKNOWN"
@@ -55,6 +56,13 @@ class ReasoningPlan:
     def is_complex(self) -> bool:
         """Complex fact patterns require model synthesis rather than canned summaries."""
         return len(self.issues) >= 2 or len({issue.statute for issue in self.issues}) >= 2
+
+    @property
+    def is_pre_commencement_offence(self) -> bool:
+        return bool(
+            self.offence_before_commencement
+            or (self.offence_date and self.offence_date < COMMENCEMENT_DATE)
+        )
 
 
 def _extract_dates(query: str) -> list[date]:
@@ -139,13 +147,14 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
     timeline = analyze_transition(query)
     plan = ReasoningPlan(
         offence_date=timeline.offence_date,
+        offence_before_commencement=timeline.offence_before_commencement,
         procedure_start_date=timeline.procedure_start_date,
         pending_before_commencement=timeline.pending_before_commencement,
         procedure_regime=timeline.procedure_regime,
         evidence_regime=timeline.evidence_regime,
     )
     ages = [int(value) for value in re.findall(r"\b(\d{1,2})[ -]year[ -]old\b|\b(?:aged?|was)\s+(\d{1,2})\b", text) for value in value if value]
-    is_pre_commencement_offence = bool(plan.offence_date and plan.offence_date < COMMENCEMENT_DATE)
+    is_pre_commencement_offence = plan.is_pre_commencement_offence
     if is_pre_commencement_offence:
         plan.issues.append(LegalIssue(
             "statutory_transition", "BNS", ("358",),
@@ -260,10 +269,13 @@ def build_reasoning_plan(query: str) -> ReasoningPlan:
                 "BSA sections 62 and 63 govern proof of electronic records and computer outputs, including section 63 conditions and certification. Distinguish express statutory conditions from separate forensic-weight questions.",
             ))
 
-    has_electronic_fir = any(value in text for value in (
-        "electronic fir", "e-fir", "e fir", "fir electronically", "fir is registered electronically",
-        "register the fir electronically", "register an fir electronically", "online fir",
-    )) or ("fir" in text and any(value in text for value in ("electronically", "electronic registration", "online registration")))
+    has_electronic_fir = bool(re.search(
+        r"\b(?:electronic\s+fir|e[-\s]?fir|online\s+fir|fir\s+(?:(?:is|was)\s+registered\s+)?electronically|"
+        r"register\s+(?:an?|the)\s+fir\s+electronically)\b",
+        text,
+    )) or ("fir" in text and any(
+        value in text for value in ("electronic registration", "online registration")
+    ))
     if has_electronic_fir:
         if plan.procedure_regime == "CRPC":
             plan.issues.append(LegalIssue(
@@ -409,7 +421,7 @@ def prioritize_evidence(plan: ReasoningPlan, sections: list[dict[str, Any]], cor
     """Guarantee at least the primary provisions for every independent issue."""
     result, seen = [], set()
     blocked = {(issue.statute, excluded) for issue in plan.issues for excluded in issue.excluded_sections}
-    if plan.offence_date and plan.offence_date < COMMENCEMENT_DATE:
+    if plan.is_pre_commencement_offence:
         blocked.add(("BNS", "303"))
     if plan.procedure_regime == "CRPC":
         blocked.update({("BNSS", section) for section in ("35", "105", "173", "187")})
@@ -486,9 +498,9 @@ def verify_answer(answer: str, plan: ReasoningPlan, sections: list[dict[str, Any
             if not re.search(r"(?<!\d)" + re.escape(section) + r"(?!\d)", normalized):
                 missing.append(f"{issue.statute} {section}")
     contradictions = []
-    if plan.offence_date and plan.offence_date < COMMENCEMENT_DATE and "ipc" not in normalized:
+    if plan.is_pre_commencement_offence and "ipc" not in normalized:
         contradictions.append("pre-commencement offence must identify IPC substantive liability")
-    if plan.offence_date and plan.offence_date < COMMENCEMENT_DATE and re.search(
+    if plan.is_pre_commencement_offence and re.search(
         r"bns\s+(?:section\s+)?303[^.\n]{0,90}\b(?:applies|governs|applicable|charge|prosecution)",
         normalized,
     ):
@@ -515,15 +527,18 @@ def deterministic_grounded_answer(query: str, evidence_context: str) -> str | No
         return None
 
     paragraphs = []
-    pre_commencement = bool(plan.offence_date and plan.offence_date < COMMENCEMENT_DATE)
+    pre_commencement = plan.is_pre_commencement_offence
     if pre_commencement:
         theft_citations = "IPC sections 378 and 379; " if any(
             issue.category == "legacy_theft" for issue in supported_issues
         ) else ""
+        timing = (
+            f"on {plan.offence_date.strftime('%d %B %Y').lstrip('0')}, before commencement on 1 July 2024"
+            if plan.offence_date else "before commencement on 1 July 2024"
+        )
         paragraphs.append(
-            "**1. Substantive criminal law:** The alleged conduct occurred on "
-            f"{plan.offence_date.strftime('%d %B %Y').lstrip('0')}, before commencement on "
-            "1 July 2024. The Indian Penal Code (IPC) therefore governs substantive criminal "
+            "**1. Substantive criminal law:** The alleged conduct occurred "
+            f"{timing}. The Indian Penal Code (IPC) therefore governs substantive criminal "
             "liability; a later "
             "FIR, investigation, or trial does not retrospectively replace that offence with "
             f"its BNS counterpart ({theft_citations}BNS section 358)."

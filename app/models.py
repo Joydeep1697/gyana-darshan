@@ -50,6 +50,23 @@ class DocumentListResponse(BaseModel):
     limit: int = 100
 
 
+class DocumentQuestionRequest(BaseModel):
+    question: str = Field(..., min_length=3, max_length=3000)
+    document_ids: list[str] = Field(..., min_length=1, max_length=3)
+
+
+class DocumentQuestionSource(BaseModel):
+    document_id: str
+    filename: str
+    page: int
+    snippet: str
+
+
+class DocumentQuestionResponse(BaseModel):
+    answer: str
+    sources: list[DocumentQuestionSource]
+
+
 # ── Entities ──────────────────────────────────────────────────────
 
 class EntityItem(BaseModel):

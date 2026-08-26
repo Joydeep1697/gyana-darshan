@@ -22,6 +22,24 @@ class EvidenceRecordSchema(BaseModel):
     source: str
     text_snippet: str
     provenance: str
+    supporting_claim: Optional[str] = None
+
+
+class AnswerFeedbackRequest(BaseModel):
+    rating: str = Field(..., pattern="^(helpful|not_helpful)$")
+    reason: Optional[str] = Field(
+        default=None,
+        pattern="^(incorrect_section|missing_issue|unsupported_citation|unclear|other)$",
+    )
+    comment: Optional[str] = Field(default=None, max_length=1000)
+
+
+class AnswerFeedbackResponse(BaseModel):
+    message_id: str
+    rating: str
+    reason: Optional[str] = None
+    comment: Optional[str] = None
+    updated_at: str
 
 class LegalAnswerSchema(BaseModel):
     id: Optional[str] = None
@@ -65,3 +83,5 @@ class SendMessageResponse(BaseModel):
     corpus_version: str
     evidence: List[EvidenceRecordSchema]
     remaining_quota: int
+    response_type: str = "answer"
+    clarification_questions: List[str] = Field(default_factory=list)

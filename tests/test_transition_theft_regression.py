@@ -161,3 +161,25 @@ def test_source_parser_handles_plural_prefix_and_postfix_citations():
     assert extract_citation_keys(answer) == [
         ("IPC", "378"), ("IPC", "379"), ("BSA", "62"), ("BSA", "63")
     ]
+
+
+def test_generic_pre_commencement_question_does_not_become_electronic_fir_advice():
+    query = (
+        "An offence occurred before 1 July 2024, but the FIR came later. "
+        "Which criminal codes govern?"
+    )
+    plan = build_reasoning_plan(query)
+    categories = {issue.category for issue in plan.issues}
+    retriever = AuthoritativeLegalRetriever()
+    pack = retriever.retrieve_evidence_pack(query, top_k=6)
+    answer = deterministic_grounded_answer(query, retriever.format_evidence_context(pack))
+
+    assert plan.is_pre_commencement_offence
+    assert "statutory_transition" in categories
+    assert "procedural_transition" in categories
+    assert "electronic_fir_registration" not in categories
+    assert answer is not None
+    assert "Indian Penal Code (IPC)" in answer
+    assert "BNSS section 531" in answer
+    assert "BNSS section 173" not in answer
+    assert "facts do not say whether" in answer

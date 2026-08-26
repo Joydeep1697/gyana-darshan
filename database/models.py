@@ -77,12 +77,28 @@ CREATE TABLE IF NOT EXISTS evidence_records (
     heading TEXT NOT NULL,
     source TEXT NOT NULL,
     text_snippet TEXT NOT NULL,
-    provenance TEXT NOT NULL
+    provenance TEXT NOT NULL,
+    supporting_claim TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_evidence_answer ON evidence_records(legal_answer_id);
 CREATE INDEX IF NOT EXISTS idx_evidence_section ON evidence_records(statute, section);
 
--- 7. Usage Events Table (Quota & Rate Limit Auditing)
+-- 7. Structured Answer Feedback
+CREATE TABLE IF NOT EXISTS answer_feedback (
+    id TEXT PRIMARY KEY,
+    message_id TEXT NOT NULL REFERENCES messages(id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    rating TEXT NOT NULL CHECK (rating IN ('helpful', 'not_helpful')),
+    reason TEXT CHECK (reason IN ('incorrect_section', 'missing_issue', 'unsupported_citation', 'unclear', 'other') OR reason IS NULL),
+    comment TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    UNIQUE(message_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_feedback_message ON answer_feedback(message_id);
+CREATE INDEX IF NOT EXISTS idx_feedback_user ON answer_feedback(user_id);
+
+-- 8. Usage Events Table (Quota & Rate Limit Auditing)
 CREATE TABLE IF NOT EXISTS usage_events (
     id TEXT PRIMARY KEY,
     user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
@@ -94,7 +110,7 @@ CREATE TABLE IF NOT EXISTS usage_events (
 CREATE INDEX IF NOT EXISTS idx_usage_user ON usage_events(user_id);
 CREATE INDEX IF NOT EXISTS idx_usage_created ON usage_events(created_at);
 
--- 8. Audit Events Table (Security & Governance Trail)
+-- 9. Audit Events Table (Security & Governance Trail)
 CREATE TABLE IF NOT EXISTS audit_events (
     id TEXT PRIMARY KEY,
     user_id TEXT REFERENCES users(id) ON DELETE SET NULL,

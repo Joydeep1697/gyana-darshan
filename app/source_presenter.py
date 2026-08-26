@@ -103,6 +103,20 @@ def _clean_excerpt(value: Any, max_chars: int = 900) -> str:
     return candidate.rstrip(" ,;:") + " …"
 
 
+def _supporting_claim(answer: str, statute: str, section: str) -> str:
+    """Return the concise answer passage that cites this source."""
+    normalized = re.sub(r"\s+", " ", answer).strip()
+    pattern = re.compile(
+        rf"[^.!?]*(?:{STATUTE_PATTERNS.get(statute, re.escape(statute))})[^.!?]*"
+        rf"(?:sections?|secs?\.?|§)\s*{re.escape(section)}[^.!?]*[.!?]?",
+        re.IGNORECASE,
+    )
+    match = pattern.search(normalized)
+    if not match:
+        return ""
+    return match.group(0).strip()[:420]
+
+
 def format_cited_evidence(answer: str, evidence_pack: dict[str, Any]) -> list[dict[str, Any]]:
     """Return clean, deduplicated evidence records cited by the enforced answer."""
     by_key: dict[tuple[str, str], dict[str, Any]] = {}
@@ -137,5 +151,6 @@ def format_cited_evidence(answer: str, evidence_pack: dict[str, Any]) -> list[di
             "source": record.get("source", "Official statutory source"),
             "text_snippet": _clean_excerpt(record.get("text")),
             "provenance": record.get("source", "Official statutory source"),
+            "supporting_claim": _supporting_claim(answer, code, section),
         })
     return result

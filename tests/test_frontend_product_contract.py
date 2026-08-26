@@ -88,6 +88,11 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/conversations/${encodeURIComponent(state.activeConversation.id)}/messages" in source
     assert "/api/auth/google/config" in source
     assert "application/pdf,.pdf" in source
+    assert "/api/vault/documents/ask" in source
+    assert "/feedback" in source
+    assert "/export?format=" in source
+    assert "Select up to three PDFs" in source
+    assert "supporting_claim" in source
 
 
 def test_frontend_does_not_reintroduce_mock_operational_claims_or_reasoning_theatre():

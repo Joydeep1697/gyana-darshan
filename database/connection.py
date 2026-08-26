@@ -41,3 +41,8 @@ def init_db():
     from database.models import SCHEMA_DDL
     with get_db_connection() as conn:
         conn.executescript(SCHEMA_DDL)
+        evidence_columns = {
+            row["name"] for row in conn.execute("PRAGMA table_info(evidence_records)")
+        }
+        if "supporting_claim" not in evidence_columns:
+            conn.execute("ALTER TABLE evidence_records ADD COLUMN supporting_claim TEXT")

@@ -6,10 +6,10 @@ Nyaya Darshana retrieves relevant statutory provisions before generation, separa
 
 ## What is implemented
 
-- Authenticated, persistent legal consultations with source cards and verification status.
+- Authenticated, persistent legal consultations with claim-linked source cards, answer feedback, and professional Markdown/DOCX exports.
 - Transition-aware analysis across the IPC/BNS, CrPC/BNSS, and IEA/BSA commencement boundaries.
 - A claim-verification firewall that blocks or corrects unsupported material assertions.
-- A tenant-isolated Knowledge Vault for PDF upload, classification, metadata search, and cached summaries.
+- A tenant-isolated Knowledge Vault for PDF upload, classification, metadata search, cached summaries, and page-cited questions across up to three documents.
 - Centralized NVIDIA model routing with startup validation, bounded fallback, circuit cooldowns, and visible degraded-state health.
 - Email/password authentication, optional Google OAuth, quota reporting, and optional Razorpay access activation.
 - Production health/readiness checks, explicit CORS policy, secret validation, persistent SQLite storage, and a non-root Docker image.
@@ -50,11 +50,11 @@ Tesseract is optional and is used only when OCR is available for scanned PDFs.
 |---|---|
 | `app/static/index.html` | Responsive public site and authenticated workspace |
 | `api/auth` | Accounts, JWT sessions, quotas, and optional Google OAuth |
-| `api/conversations` | Persistent consultations, evidence records, and ownership checks |
+| `api/conversations` | Persistent consultations, evidence records, feedback, exports, and ownership checks |
 | `retrieval` | Deterministic statutory retrieval and transition routing |
 | `verification` | Claim grounding and answer enforcement |
 | `app/intelligence/ai_provider.py` | Provider calls, model fallback, lifecycle handling, and safe AI health state |
-| `app/routers/vault.py` | Tenant-isolated PDF upload, metadata search, summaries, and deletion |
+| `app/routers/vault.py` | Tenant-isolated PDF upload, metadata search, summaries, page-cited document questions, and deletion |
 | `corpus_integrity` | Runtime statutory text and cross-mapping data |
 | `database` / `app/database.py` | SQLite persistence for identity, conversations, evidence, billing, and Vault metadata |
 
@@ -90,7 +90,7 @@ Production startup fails closed when required secrets are absent, origins are in
 
 ## Product truth
 
-Nyaya Darshana presents retrieved sources, corpus versions, and verification results. It does not expose private chain-of-thought, invent customer activity, or imply that a procedural defect automatically determines innocence or acquittal without supporting authority.
+Nyaya Darshana presents retrieved sources, the claims they support, and verification results. Source-version metadata is retained internally for auditability without adding implementation jargon to the workspace. The product does not expose private chain-of-thought, invent customer activity, or imply that a procedural defect automatically determines innocence or acquittal without supporting authority.
 
 ## License
 

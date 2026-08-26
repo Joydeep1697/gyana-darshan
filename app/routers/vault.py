@@ -7,10 +7,16 @@ from typing import Optional
 from fastapi import APIRouter, Depends, UploadFile, File, BackgroundTasks, HTTPException, WebSocket, WebSocketDisconnect, Query
 from fastapi.responses import JSONResponse
 from app.database import get_db, Database
-from app.models import DocumentResponse, SearchResponse, SearchRequest
+from app.models import (
+    DocumentResponse, SearchResponse, SearchRequest,
+    DocumentQuestionRequest, DocumentQuestionResponse,
+)
 from app.config import RAW_DIR
 from app.intelligence.ai_provider import AIProviderError
 from app.intelligence.summarizer import generate_summary
+from app.intelligence.document_grounding import (
+    answer_from_documents, extract_pdf_pages, select_relevant_pages,
+)
 from api.auth.dependencies import get_current_user
 from api.auth.service import decode_jwt_token
 
@@ -171,6 +177,49 @@ async def list_documents(status: Optional[str] = None, category: Optional[str] =
     """List documents with optional filters and pagination."""
     docs = db.list_documents(status=status, category=category, domain=domain, limit=limit, offset=offset, owner_id=user["id"])
     return {"documents": [_public_document(doc) for doc in docs]}
+
+
+@router.post("/documents/ask", response_model=DocumentQuestionResponse)
+async def ask_documents(
+    request: DocumentQuestionRequest,
+    db: Database = Depends(get_db),
+    user: dict = Depends(get_current_user),
+):
+    """Answer from one to three owned PDFs with page-level source excerpts."""
+    unique_ids = list(dict.fromkeys(request.document_ids))
+    if len(unique_ids) != len(request.document_ids):
+        raise HTTPException(400, "Choose each document only once")
+    prepared = []
+    for doc_id in unique_ids:
+        document = _owned_document(db, doc_id, user["id"])
+        raw_value = document.get("raw_path")
+        if not raw_value:
+            raise HTTPException(409, f"{document['filename']} is not available for questions")
+        raw_path = Path(raw_value).resolve()
+        if not raw_path.is_relative_to(RAW_DIR.resolve()):
+            logger.error("Refusing to read a document outside the upload directory: %s", doc_id)
+            raise HTTPException(500, "Document storage configuration is invalid")
+        if not raw_path.is_file():
+            raise HTTPException(404, f"{document['filename']} is no longer available")
+        pages = await asyncio.to_thread(extract_pdf_pages, raw_path)
+        if not pages:
+            raise HTTPException(422, f"No readable text was found in {document['filename']}")
+        prepared.append({"id": doc_id, "filename": document["filename"], "pages": pages})
+    selected = select_relevant_pages(request.question, prepared)
+    try:
+        answer = await answer_from_documents(request.question, selected)
+    except AIProviderError as exc:
+        raise HTTPException(503, str(exc)) from exc
+    sources = [
+        {
+            "document_id": page["doc_id"],
+            "filename": page["filename"],
+            "page": page["page"],
+            "snippet": page["text"][:700],
+        }
+        for page in selected
+    ]
+    return DocumentQuestionResponse(answer=answer, sources=sources)
 
 @router.get("/documents/{doc_id}")
 async def get_document(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):

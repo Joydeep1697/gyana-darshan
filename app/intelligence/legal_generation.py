@@ -109,7 +109,7 @@ def _is_complex_scenario(query: str) -> bool:
 def _can_answer_transition_scenario_deterministically(query: str) -> bool:
     """Use the statutory template only when every detected issue has audited logic."""
     plan = build_reasoning_plan(query)
-    if not (plan.offence_date and plan.offence_date < COMMENCEMENT_DATE):
+    if not plan.is_pre_commencement_offence:
         return False
     categories = {issue.category for issue in plan.issues}
     allowed = {
@@ -122,7 +122,7 @@ def _can_answer_transition_scenario_deterministically(query: str) -> bool:
         "electronic_evidence_current", "electronic_evidence_current_branch",
         "electronic_evidence_legacy", "electronic_evidence_legacy_branch",
     }
-    core = {"statutory_transition", "legacy_theft", "procedural_transition"}
+    core = {"statutory_transition", "procedural_transition"}
     return core.issubset(categories) and categories.issubset(allowed)
 
 
@@ -148,7 +148,7 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
         not complex_scenario or _can_answer_transition_scenario_deterministically(query)
     ):
         logger.info("Answered an audited statutory scenario locally without a cloud model request.")
-        return direct_answer
+        return _enforce_guardrails(query, direct_answer, evidence_context)
     key = _cache_key(query, evidence_context)
     cached = _get_cached(key)
     if cached is not None:
@@ -158,7 +158,9 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
     max_words = config.LEGAL_SCENARIO_MAX_WORDS if complex_scenario else 160
     instructions = (
         f"Answer in at most {max_words} words. Apply every deterministic safeguard. "
-        "Use only supplied excerpts and cite each material conclusion."
+        "Use only supplied excerpts and cite each material conclusion. "
+        "Answer every explicit part of the question. Give the conclusion first, then use "
+        "short labeled sections for each independently governed issue."
     )
     if complex_scenario:
         instructions += (

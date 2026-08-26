@@ -37,6 +37,7 @@ PROCEDURE_TERMS = (
 @dataclass(frozen=True)
 class TransitionContext:
     offence_date: date | None = None
+    offence_before_commencement: bool = False
     procedure_start_date: date | None = None
     pending_before_commencement: bool | None = None
     procedure_regime: str = "UNKNOWN"
@@ -46,6 +47,7 @@ class TransitionContext:
     def is_transition_matter(self) -> bool:
         return bool(
             (self.offence_date and self.offence_date < COMMENCEMENT_DATE)
+            or self.offence_before_commencement
             or self.pending_before_commencement is not None
         )
 
@@ -83,6 +85,12 @@ def analyze_transition(query: str) -> TransitionContext:
     """Classify substantive, procedural, and evidence timing without conflating them."""
     lower = query.lower()
     events = _dated_events(query)
+    explicit_pre_commencement_offence = bool(re.search(
+        r"(?:offence|offense|conduct|incident|occurrence|alleged act)"
+        r"[^.\n]{0,80}\b(?:occurred|committed|took place|happened)?[^.\n]{0,30}"
+        r"\bbefore\s+(?:1|01)\s+july\s+2024",
+        lower,
+    ))
 
     offence_candidates: list[date] = []
     procedure_candidates: list[date] = []
@@ -155,6 +163,10 @@ def analyze_transition(query: str) -> TransitionContext:
 
     return TransitionContext(
         offence_date=offence_date,
+        offence_before_commencement=bool(
+            explicit_pre_commencement_offence
+            or (offence_date and offence_date < COMMENCEMENT_DATE)
+        ),
         procedure_start_date=procedure_start,
         pending_before_commencement=pending,
         procedure_regime=procedure_regime,

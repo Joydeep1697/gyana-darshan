@@ -244,9 +244,10 @@ class LegalAnswerRepository:
                 conn.execute(
                     """
                     INSERT INTO evidence_records (
-                        id, legal_answer_id, statute, act_number, section, heading, source, text_snippet, provenance
+                        id, legal_answer_id, statute, act_number, section, heading, source, text_snippet, provenance,
+                        supporting_claim
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         ev_id,
@@ -257,7 +258,8 @@ class LegalAnswerRepository:
                         item.get("heading", ""),
                         item.get("source", "Official Gazette of India"),
                         item.get("text_snippet", "")[:1000],
-                        item.get("provenance", "Official Gazette of India")
+                        item.get("provenance", "Official Gazette of India"),
+                        item.get("supporting_claim", "")[:500],
                     )
                 )
 
@@ -268,6 +270,47 @@ class LegalAnswerRepository:
             "evidence_count": len(evidence_items),
             "engine_version": engine_version
         }
+
+
+class FeedbackRepository:
+    @staticmethod
+    def record_feedback(
+        message_id: str,
+        user_id: str,
+        rating: str,
+        reason: Optional[str] = None,
+        comment: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        feedback_id = str(uuid.uuid4())
+        timestamp = now_iso()
+        with get_db_connection() as conn:
+            conn.execute(
+                """
+                INSERT INTO answer_feedback (
+                    id, message_id, user_id, rating, reason, comment, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(message_id, user_id) DO UPDATE SET
+                    rating = excluded.rating,
+                    reason = excluded.reason,
+                    comment = excluded.comment,
+                    updated_at = excluded.updated_at
+                """,
+                (feedback_id, message_id, user_id, rating, reason, comment, timestamp, timestamp),
+            )
+            row = conn.execute(
+                "SELECT * FROM answer_feedback WHERE message_id = ? AND user_id = ?",
+                (message_id, user_id),
+            ).fetchone()
+        return dict(row)
+
+    @staticmethod
+    def get_user_feedback(message_id: str, user_id: str) -> Optional[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM answer_feedback WHERE message_id = ? AND user_id = ?",
+                (message_id, user_id),
+            ).fetchone()
+        return dict(row) if row else None
 
 class UsageRepository:
     @staticmethod

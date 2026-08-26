@@ -10,25 +10,36 @@
 # GET    /api/conversations/{id}/messages
 
 import time
-import asyncio
+import re
 from datetime import datetime, timezone, timedelta
 from typing import List, Dict, Any, Optional
-from fastapi import APIRouter, HTTPException, Depends, Request, status
+from fastapi import APIRouter, HTTPException, Depends, Request, Query, status
+from fastapi.responses import Response
 
 from api.auth.dependencies import get_current_user, get_user_quota_limits
 from api.conversations.schemas import (
-    CreateConversationRequest, UpdateConversationRequest, SendMessageRequest,
-    SendMessageResponse, ConversationSummary, ConversationDetailResponse,
-    MessageSchema, LegalAnswerSchema, EvidenceRecordSchema
+    AnswerFeedbackRequest,
+    AnswerFeedbackResponse,
+    ConversationDetailResponse,
+    ConversationSummary,
+    CreateConversationRequest,
+    EvidenceRecordSchema,
+    LegalAnswerSchema,
+    MessageSchema,
+    SendMessageRequest,
+    SendMessageResponse,
+    UpdateConversationRequest,
 )
 from database.repository import (
     ConversationRepository, MessageRepository, LegalAnswerRepository,
-    UsageRepository, AuditRepository
+    UsageRepository, AuditRepository, FeedbackRepository
 )
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
 from app.source_presenter import format_cited_evidence
+from app.intelligence.clarification import clarification_questions
+from app.exports.legal_memo import consultation_docx, consultation_markdown
 
 router = APIRouter(prefix="/api/conversations", tags=["Conversations & Consultations"])
 
@@ -119,7 +130,8 @@ async def get_conversation(
                     heading=e.get("heading", ""),
                     source=e.get("source", "Official Gazette of India"),
                     text_snippet=e.get("text_snippet", ""),
-                    provenance=e.get("provenance", "Official Gazette of India")
+                    provenance=e.get("provenance", "Official Gazette of India"),
+                    supporting_claim=e.get("supporting_claim") or None,
                 )
                 for e in m.get("evidence", [])
             ]
@@ -153,6 +165,79 @@ async def get_conversation(
             group_period=compute_group_period(conv["updated_at"])
         ),
         messages=messages
+    )
+
+
+@router.get("/{conversation_id}/export")
+async def export_conversation(
+    conversation_id: str,
+    format: str = Query(default="docx", pattern="^(docx|markdown)$"),
+    current_user: Dict[str, Any] = Depends(get_current_user),
+):
+    """Export an owned consultation as an editable legal research memorandum."""
+    conversation = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    if not conversation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Consultation not found.")
+    messages = MessageRepository.list_conversation_messages(conversation_id)
+    safe_name = re.sub(r"[^A-Za-z0-9_-]+", "-", conversation["title"]).strip("-")[:80] or "consultation"
+    if format == "markdown":
+        payload = consultation_markdown(conversation, messages).encode("utf-8")
+        media_type = "text/markdown; charset=utf-8"
+        extension = "md"
+    else:
+        payload = consultation_docx(conversation, messages)
+        media_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        extension = "docx"
+    return Response(
+        content=payload,
+        media_type=media_type,
+        headers={"Content-Disposition": f'attachment; filename="{safe_name}.{extension}"'},
+    )
+
+
+@router.put(
+    "/{conversation_id}/messages/{message_id}/feedback",
+    response_model=AnswerFeedbackResponse,
+)
+async def record_answer_feedback(
+    conversation_id: str,
+    message_id: str,
+    feedback: AnswerFeedbackRequest,
+    request: Request,
+    current_user: Dict[str, Any] = Depends(get_current_user),
+):
+    """Capture structured feedback only for an assistant answer owned by the user."""
+    conversation = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    if not conversation:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Consultation not found.")
+    message = next(
+        (
+            item for item in MessageRepository.list_conversation_messages(conversation_id)
+            if item["id"] == message_id and item["role"] == "assistant"
+        ),
+        None,
+    )
+    if not message:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Answer not found.")
+    saved = FeedbackRepository.record_feedback(
+        message_id=message_id,
+        user_id=current_user["id"],
+        rating=feedback.rating,
+        reason=feedback.reason,
+        comment=feedback.comment.strip() if feedback.comment else None,
+    )
+    AuditRepository.log_audit(
+        event_type="ANSWER_FEEDBACK_RECORDED",
+        user_id=current_user["id"],
+        client_ip=request.client.host if request.client else "127.0.0.1",
+        metadata={"conversation_id": conversation_id, "message_id": message_id, "rating": feedback.rating},
+    )
+    return AnswerFeedbackResponse(
+        message_id=message_id,
+        rating=saved["rating"],
+        reason=saved.get("reason"),
+        comment=saved.get("comment"),
+        updated_at=saved["updated_at"],
     )
 
 @router.patch("/{conversation_id}", response_model=ConversationSummary)
@@ -210,6 +295,32 @@ async def send_message(
 
     t0 = time.perf_counter()
     query = req.content.strip()
+
+    questions = clarification_questions(query)
+    if questions:
+        if conv["title"] == "New Legal Consultation":
+            auto_title = query[:45].strip() + ("..." if len(query) > 45 else "")
+            ConversationRepository.update_title(conversation_id, auto_title, current_user["id"])
+        MessageRepository.add_message(conversation_id, role="user", content=query, latency_ms=0.0)
+        clarification = "I need one legally material detail before I can route this reliably:\n\n" + "\n".join(
+            f"{index}. {question}" for index, question in enumerate(questions, start=1)
+        )
+        assistant = MessageRepository.add_message(
+            conversation_id, role="assistant", content=clarification, latency_ms=0.0
+        )
+        return SendMessageResponse(
+            message_id=assistant["id"],
+            role="assistant",
+            answer=clarification,
+            grounding_status="CLARIFICATION_REQUIRED",
+            latency_ms=0.0,
+            engine_version=ENGINE_VERSION,
+            corpus_version=CORPUS_VERSION,
+            evidence=[],
+            remaining_quota=quota["remaining"],
+            response_type="clarification",
+            clarification_questions=questions,
+        )
 
     # 2. Invoke Frozen Legal Grounding Engine
     evidence_pack = retriever.retrieve_evidence_pack(query, top_k=req.top_k)
