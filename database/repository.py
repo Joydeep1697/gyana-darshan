@@ -28,6 +28,18 @@ class UserRepository:
                 """,
                 (user_id, email.lower().strip(), password_hash, full_name.strip(), role.upper(), created_at, created_at)
             )
+            personal_org_id = f"personal-{user_id}"
+            conn.execute(
+                """INSERT INTO organizations
+                   (id, name, slug, is_personal, created_by, created_at, updated_at)
+                   VALUES (?, ?, ?, 1, ?, ?, ?)""",
+                (personal_org_id, f"{full_name.strip()}'s workspace", personal_org_id, user_id, created_at, created_at),
+            )
+            conn.execute(
+                """INSERT INTO organization_members
+                   (organization_id, user_id, role, created_at) VALUES (?, ?, 'OWNER', ?)""",
+                (personal_org_id, user_id, created_at),
+            )
         return UserRepository.get_by_id(user_id) # type: ignore
 
     @staticmethod
@@ -49,6 +61,92 @@ class UserRepository:
         with get_db_connection() as conn:
             cursor = conn.execute("SELECT COUNT(*) FROM users")
             return cursor.fetchone()[0]
+
+
+class OrganizationRepository:
+    """Organization membership and retention-policy persistence."""
+
+    @staticmethod
+    def personal_organization_id(user_id: str) -> str:
+        return f"personal-{user_id}"
+
+    @staticmethod
+    def create(name: str, slug: str, owner_id: str) -> Dict[str, Any]:
+        organization_id = str(uuid.uuid4())
+        timestamp = now_iso()
+        with get_db_connection() as conn:
+            conn.execute(
+                """INSERT INTO organizations
+                   (id, name, slug, is_personal, created_by, created_at, updated_at)
+                   VALUES (?, ?, ?, 0, ?, ?, ?)""",
+                (organization_id, name.strip(), slug.strip().lower(), owner_id, timestamp, timestamp),
+            )
+            conn.execute(
+                """INSERT INTO organization_members
+                   (organization_id, user_id, role, created_at) VALUES (?, ?, 'OWNER', ?)""",
+                (organization_id, owner_id, timestamp),
+            )
+        return OrganizationRepository.get_for_member(organization_id, owner_id)  # type: ignore[return-value]
+
+    @staticmethod
+    def list_for_user(user_id: str) -> List[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            rows = conn.execute(
+                """SELECT o.*, om.role AS membership_role
+                   FROM organizations o JOIN organization_members om ON om.organization_id = o.id
+                   WHERE om.user_id = ? ORDER BY o.is_personal DESC, o.name COLLATE NOCASE""",
+                (user_id,),
+            ).fetchall()
+        return [dict(row) for row in rows]
+
+    @staticmethod
+    def get_for_member(organization_id: str, user_id: str) -> Optional[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            row = conn.execute(
+                """SELECT o.*, om.role AS membership_role
+                   FROM organizations o JOIN organization_members om ON om.organization_id = o.id
+                   WHERE o.id = ? AND om.user_id = ?""",
+                (organization_id, user_id),
+            ).fetchone()
+        return dict(row) if row else None
+
+    @staticmethod
+    def list_members(organization_id: str) -> List[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            rows = conn.execute(
+                """SELECT u.id, u.email, u.full_name, om.role, om.created_at
+                   FROM organization_members om JOIN users u ON u.id = om.user_id
+                   WHERE om.organization_id = ? ORDER BY om.role, u.full_name COLLATE NOCASE""",
+                (organization_id,),
+            ).fetchall()
+        return [dict(row) for row in rows]
+
+    @staticmethod
+    def upsert_member(organization_id: str, user_id: str, role: str) -> None:
+        with get_db_connection() as conn:
+            conn.execute(
+                """INSERT INTO organization_members (organization_id, user_id, role, created_at)
+                   VALUES (?, ?, ?, ?)
+                   ON CONFLICT(organization_id, user_id) DO UPDATE SET role = excluded.role""",
+                (organization_id, user_id, role, now_iso()),
+            )
+
+    @staticmethod
+    def remove_member(organization_id: str, user_id: str) -> bool:
+        with get_db_connection() as conn:
+            result = conn.execute(
+                "DELETE FROM organization_members WHERE organization_id = ? AND user_id = ? AND role != 'OWNER'",
+                (organization_id, user_id),
+            )
+        return result.rowcount > 0
+
+    @staticmethod
+    def set_retention(organization_id: str, retention_days: Optional[int]) -> None:
+        with get_db_connection() as conn:
+            conn.execute(
+                "UPDATE organizations SET retention_days = ?, updated_at = ? WHERE id = ?",
+                (retention_days, now_iso(), organization_id),
+            )
 
 class SessionRepository:
     @staticmethod
@@ -98,23 +196,25 @@ class SessionRepository:
 
 class ConversationRepository:
     @staticmethod
-    def create_conversation(user_id: str, title: str = "New Legal Consultation") -> Dict[str, Any]:
+    def create_conversation(user_id: str, title: str = "New Legal Consultation", organization_id: Optional[str] = None) -> Dict[str, Any]:
         conv_id = str(uuid.uuid4())
         created_at = now_iso()
         with get_db_connection() as conn:
             conn.execute(
                 """
-                INSERT INTO conversations (id, user_id, title, created_at, updated_at)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO conversations (id, user_id, title, created_at, updated_at, organization_id)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (conv_id, user_id, title, created_at, created_at)
+                (conv_id, user_id, title, created_at, created_at, organization_id or OrganizationRepository.personal_organization_id(user_id))
             )
         return {"id": conv_id, "user_id": user_id, "title": title, "created_at": created_at, "updated_at": created_at}
 
     @staticmethod
-    def get_conversation(conv_id: str, user_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    def get_conversation(conv_id: str, user_id: Optional[str] = None, organization_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
         with get_db_connection() as conn:
-            if user_id:
+            if organization_id:
+                cursor = conn.execute("SELECT * FROM conversations WHERE id = ? AND organization_id = ?", (conv_id, organization_id))
+            elif user_id:
                 cursor = conn.execute("SELECT * FROM conversations WHERE id = ? AND user_id = ?", (conv_id, user_id))
             else:
                 cursor = conn.execute("SELECT * FROM conversations WHERE id = ?", (conv_id,))
@@ -136,6 +236,15 @@ class ConversationRepository:
             return [dict(r) for r in cursor.fetchall()]
 
     @staticmethod
+    def list_organization_conversations(organization_id: str, limit: int = 50) -> List[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM conversations WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?",
+                (organization_id, limit),
+            ).fetchall()
+        return [dict(row) for row in rows]
+
+    @staticmethod
     def update_title(conv_id: str, title: str, user_id: str) -> bool:
         with get_db_connection() as conn:
             cursor = conn.execute(
@@ -143,6 +252,15 @@ class ConversationRepository:
                 (title, now_iso(), conv_id, user_id)
             )
             return cursor.rowcount > 0
+
+    @staticmethod
+    def update_title_in_organization(conv_id: str, title: str, organization_id: str) -> bool:
+        with get_db_connection() as conn:
+            result = conn.execute(
+                "UPDATE conversations SET title = ?, updated_at = ? WHERE id = ? AND organization_id = ?",
+                (title, now_iso(), conv_id, organization_id),
+            )
+        return result.rowcount > 0
 
     @staticmethod
     def touch_conversation(conv_id: str) -> None:
@@ -154,6 +272,15 @@ class ConversationRepository:
         with get_db_connection() as conn:
             cursor = conn.execute("DELETE FROM conversations WHERE id = ? AND user_id = ?", (conv_id, user_id))
             return cursor.rowcount > 0
+
+    @staticmethod
+    def delete_in_organization(conv_id: str, organization_id: str) -> bool:
+        with get_db_connection() as conn:
+            result = conn.execute(
+                "DELETE FROM conversations WHERE id = ? AND organization_id = ?",
+                (conv_id, organization_id),
+            )
+        return result.rowcount > 0
 
 class MessageRepository:
     @staticmethod
@@ -360,7 +487,8 @@ class AuditRepository:
         user_id: Optional[str] = None,
         request_id: Optional[str] = None,
         client_ip: Optional[str] = None,
-        metadata: Optional[Dict[str, Any]] = None
+        metadata: Optional[Dict[str, Any]] = None,
+        organization_id: Optional[str] = None,
     ) -> None:
         audit_id = str(uuid.uuid4())
         created_at = now_iso()
@@ -368,8 +496,25 @@ class AuditRepository:
         with get_db_connection() as conn:
             conn.execute(
                 """
-                INSERT INTO audit_events (id, user_id, event_type, request_id, client_ip, metadata_json, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO audit_events (id, user_id, event_type, request_id, client_ip, metadata_json, created_at, organization_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                (audit_id, user_id, event_type, request_id, client_ip, meta_str, created_at)
+                (audit_id, user_id, event_type, request_id, client_ip, meta_str, created_at, organization_id)
             )
+
+    @staticmethod
+    def list_for_organization(organization_id: str, limit: int = 100) -> List[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            rows = conn.execute(
+                """SELECT ae.id, ae.user_id, u.email AS actor_email, ae.event_type,
+                          ae.request_id, ae.client_ip, ae.metadata_json, ae.created_at
+                   FROM audit_events ae LEFT JOIN users u ON u.id = ae.user_id
+                   WHERE ae.organization_id = ? ORDER BY ae.created_at DESC LIMIT ?""",
+                (organization_id, limit),
+            ).fetchall()
+        events = []
+        for row in rows:
+            event = dict(row)
+            event["metadata"] = json.loads(event.pop("metadata_json") or "{}")
+            events.append(event)
+        return events

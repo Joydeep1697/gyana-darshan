@@ -16,7 +16,11 @@ from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, HTTPException, Depends, Request, Query, status
 from fastapi.responses import Response
 
-from api.auth.dependencies import get_current_user, get_user_quota_limits
+from api.auth.dependencies import (
+    get_user_quota_limits,
+    get_workspace_context,
+    require_workspace_writer,
+)
 from api.conversations.schemas import (
     AnswerFeedbackRequest,
     AnswerFeedbackResponse,
@@ -73,11 +77,21 @@ def compute_group_period(dt_str: str) -> str:
 @router.post("", response_model=ConversationSummary, status_code=status.HTTP_201_CREATED)
 async def create_conversation(
     req: CreateConversationRequest,
-    current_user: Dict[str, Any] = Depends(get_current_user)
+    request: Request,
+    workspace: Dict[str, Any] = Depends(require_workspace_writer),
 ):
     """Create a new consultation session for the authenticated user."""
     title = req.title.strip() if req.title and req.title.strip() else "New Legal Consultation"
-    conv = ConversationRepository.create_conversation(current_user["id"], title)
+    current_user = workspace["user"]
+    conv = ConversationRepository.create_conversation(
+        current_user["id"], title, organization_id=workspace["organization"]["id"]
+    )
+    AuditRepository.log_audit(
+        "CONVERSATION_CREATED", user_id=current_user["id"],
+        organization_id=workspace["organization"]["id"],
+        client_ip=request.client.host if request.client else None,
+        metadata={"conversation_id": conv["id"]},
+    )
     return ConversationSummary(
         id=conv["id"],
         user_id=conv["user_id"],
@@ -88,9 +102,9 @@ async def create_conversation(
     )
 
 @router.get("", response_model=List[ConversationSummary])
-async def list_conversations(current_user: Dict[str, Any] = Depends(get_current_user)):
+async def list_conversations(workspace: Dict[str, Any] = Depends(get_workspace_context)):
     """List all consultations for the authenticated user, grouped chronologically."""
-    rows = ConversationRepository.list_user_conversations(current_user["id"])
+    rows = ConversationRepository.list_organization_conversations(workspace["organization"]["id"])
     result = []
     for r in rows:
         result.append(ConversationSummary(
@@ -106,10 +120,12 @@ async def list_conversations(current_user: Dict[str, Any] = Depends(get_current_
 @router.get("/{conversation_id}", response_model=ConversationDetailResponse)
 async def get_conversation(
     conversation_id: str,
-    current_user: Dict[str, Any] = Depends(get_current_user)
+    workspace: Dict[str, Any] = Depends(get_workspace_context),
 ):
     """Retrieve consultation details and message history (with IDOR protection)."""
-    conv = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    conv = ConversationRepository.get_conversation(
+        conversation_id, organization_id=workspace["organization"]["id"]
+    )
     if not conv:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -171,11 +187,14 @@ async def get_conversation(
 @router.get("/{conversation_id}/export")
 async def export_conversation(
     conversation_id: str,
+    request: Request,
     format: str = Query(default="docx", pattern="^(docx|markdown)$"),
-    current_user: Dict[str, Any] = Depends(get_current_user),
+    workspace: Dict[str, Any] = Depends(get_workspace_context),
 ):
     """Export an owned consultation as an editable legal research memorandum."""
-    conversation = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    conversation = ConversationRepository.get_conversation(
+        conversation_id, organization_id=workspace["organization"]["id"]
+    )
     if not conversation:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Consultation not found.")
     messages = MessageRepository.list_conversation_messages(conversation_id)
@@ -188,6 +207,12 @@ async def export_conversation(
         payload = consultation_docx(conversation, messages)
         media_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         extension = "docx"
+    AuditRepository.log_audit(
+        "CONVERSATION_EXPORTED", user_id=workspace["user"]["id"],
+        organization_id=workspace["organization"]["id"],
+        client_ip=request.client.host if request.client else None,
+        metadata={"conversation_id": conversation_id, "format": format},
+    )
     return Response(
         content=payload,
         media_type=media_type,
@@ -204,10 +229,13 @@ async def record_answer_feedback(
     message_id: str,
     feedback: AnswerFeedbackRequest,
     request: Request,
-    current_user: Dict[str, Any] = Depends(get_current_user),
+    workspace: Dict[str, Any] = Depends(require_workspace_writer),
 ):
     """Capture structured feedback only for an assistant answer owned by the user."""
-    conversation = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    current_user = workspace["user"]
+    conversation = ConversationRepository.get_conversation(
+        conversation_id, organization_id=workspace["organization"]["id"]
+    )
     if not conversation:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Consultation not found.")
     message = next(
@@ -231,6 +259,7 @@ async def record_answer_feedback(
         user_id=current_user["id"],
         client_ip=request.client.host if request.client else "127.0.0.1",
         metadata={"conversation_id": conversation_id, "message_id": message_id, "rating": feedback.rating},
+        organization_id=workspace["organization"]["id"],
     )
     return AnswerFeedbackResponse(
         message_id=message_id,
@@ -244,15 +273,23 @@ async def record_answer_feedback(
 async def update_conversation(
     conversation_id: str,
     req: UpdateConversationRequest,
-    current_user: Dict[str, Any] = Depends(get_current_user)
+    request: Request,
+    workspace: Dict[str, Any] = Depends(require_workspace_writer),
 ):
     """Update consultation title (with IDOR protection)."""
-    conv = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    organization_id = workspace["organization"]["id"]
+    conv = ConversationRepository.get_conversation(conversation_id, organization_id=organization_id)
     if not conv:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Consultation not found.")
     
-    ConversationRepository.update_title(conversation_id, req.title.strip(), current_user["id"])
-    updated = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    ConversationRepository.update_title_in_organization(conversation_id, req.title.strip(), organization_id)
+    AuditRepository.log_audit(
+        "CONVERSATION_RENAMED", user_id=workspace["user"]["id"],
+        organization_id=organization_id,
+        client_ip=request.client.host if request.client else None,
+        metadata={"conversation_id": conversation_id},
+    )
+    updated = ConversationRepository.get_conversation(conversation_id, organization_id=organization_id)
     return ConversationSummary(
         id=updated["id"],
         user_id=updated["user_id"],
@@ -265,12 +302,21 @@ async def update_conversation(
 @router.delete("/{conversation_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_conversation(
     conversation_id: str,
-    current_user: Dict[str, Any] = Depends(get_current_user)
+    request: Request,
+    workspace: Dict[str, Any] = Depends(require_workspace_writer),
 ):
     """Delete consultation and all attached messages and evidence (with IDOR protection)."""
-    deleted = ConversationRepository.delete_conversation(conversation_id, current_user["id"])
+    deleted = ConversationRepository.delete_in_organization(
+        conversation_id, workspace["organization"]["id"]
+    )
     if not deleted:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Consultation not found or access denied.")
+    AuditRepository.log_audit(
+        "CONVERSATION_DELETED", user_id=workspace["user"]["id"],
+        organization_id=workspace["organization"]["id"],
+        client_ip=request.client.host if request.client else None,
+        metadata={"conversation_id": conversation_id},
+    )
     return None
 
 @router.post("/{conversation_id}/messages", response_model=SendMessageResponse)
@@ -278,10 +324,12 @@ async def send_message(
     conversation_id: str,
     req: SendMessageRequest,
     request: Request,
-    current_user: Dict[str, Any] = Depends(get_current_user)
+    workspace: Dict[str, Any] = Depends(require_workspace_writer),
 ):
     """Submit a legal inquiry into a consultation, invoke frozen grounding engine, and persist auditable evidence."""
-    conv = ConversationRepository.get_conversation(conversation_id, user_id=current_user["id"])
+    current_user = workspace["user"]
+    organization_id = workspace["organization"]["id"]
+    conv = ConversationRepository.get_conversation(conversation_id, organization_id=organization_id)
     if not conv:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Consultation not found.")
 
@@ -300,7 +348,7 @@ async def send_message(
     if questions:
         if conv["title"] == "New Legal Consultation":
             auto_title = query[:45].strip() + ("..." if len(query) > 45 else "")
-            ConversationRepository.update_title(conversation_id, auto_title, current_user["id"])
+            ConversationRepository.update_title_in_organization(conversation_id, auto_title, organization_id)
         MessageRepository.add_message(conversation_id, role="user", content=query, latency_ms=0.0)
         clarification = "I need one legally material detail before I can route this reliably:\n\n" + "\n".join(
             f"{index}. {question}" for index, question in enumerate(questions, start=1)
@@ -341,7 +389,7 @@ async def send_message(
     # 4. Auto-update Conversation Title if still default
     if conv["title"] == "New Legal Consultation":
         auto_title = query[:45].strip() + ("..." if len(query) > 45 else "")
-        ConversationRepository.update_title(conversation_id, auto_title, current_user["id"])
+        ConversationRepository.update_title_in_organization(conversation_id, auto_title, organization_id)
 
     # 5. Persist User Message, Assistant Message, Legal Answer, and Evidence Records
     MessageRepository.add_message(conversation_id, role="user", content=query, latency_ms=0.0)
@@ -376,7 +424,8 @@ async def send_message(
             "grounding_status": grounding_status,
             "evidence_count": len(formatted_evidence),
             "latency_ms": latency
-        }
+        },
+        organization_id=organization_id,
     )
 
     updated_quota = get_user_quota_limits(current_user)

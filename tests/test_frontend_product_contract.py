@@ -93,6 +93,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/export?format=" in source
     assert "Select up to three PDFs" in source
     assert "supporting_claim" in source
+    assert 'id="workspaceSelect"' in source
+    assert 'id="memberForm"' in source
+    assert "X-Organization-ID" in source
 
 
 def test_frontend_does_not_reintroduce_mock_operational_claims_or_reasoning_theatre():

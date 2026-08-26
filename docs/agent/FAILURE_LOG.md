@@ -1,5 +1,71 @@
 # Agent Failure Log
 
+## Backup snapshots remained locked on Windows
+
+### Problem
+The backup round-trip test could not remove its temporary snapshot database on Windows.
+
+### Evidence
+Cleanup raised `PermissionError [WinError 32]` for the temporary `product.db` after the SQLite backup completed.
+
+### Hypothesis
+The SQLite connection context manager committed transactions but did not close the connection handles.
+
+### Attempt
+The first snapshot helper used `with sqlite3.connect(...)` for source and target connections.
+
+### Result
+The archive was created, but Windows correctly prevented deletion of the still-open temporary database.
+
+### Why it failed
+Python's SQLite connection context protocol manages transactions; it does not guarantee connection closure.
+
+### New information learned
+Portable backup tooling must explicitly close every SQLite connection before archiving or cleaning temporary files.
+
+### Do not repeat
+Do not rely on the SQLite connection context manager alone for resource closure.
+
+### Correct resolution
+Wrap source and target connections with `contextlib.closing` and retain the backup round-trip regression test.
+
+### Relevant files
+- `scripts/backup_data.py`
+- `tests/test_enterprise_operations.py`
+
+## Organization migration indexed columns before upgrading existing tables
+
+### Problem
+Existing databases failed during startup with `sqlite3.OperationalError: no such column: organization_id`.
+
+### Evidence
+The organization schema worked conceptually for new tables, but `executescript` reached new indexes while the pre-existing `conversations` and `audit_events` tables still lacked the added column.
+
+### Hypothesis
+Backward-compatible column additions were being executed after index creation.
+
+### Attempt
+The initial schema placed organization indexes directly in the idempotent base DDL.
+
+### Result
+Test collection failed before application startup on the existing development database.
+
+### Why it failed
+`CREATE TABLE IF NOT EXISTS` does not upgrade an existing table, so its following index referred to a column that had not yet been migrated.
+
+### New information learned
+Indexes involving migrated columns must be created only after explicit column detection and migration.
+
+### Do not repeat
+Do not place an index for a newly migrated column in base DDL unless all supported existing schemas already contain that column.
+
+### Correct resolution
+Move both organization indexes into `init_db()` after their respective `ALTER TABLE` compatibility checks, and verify old and clean database initialization.
+
+### Relevant files
+- `database/models.py`
+- `database/connection.py`
+
 ## Generic transition query returned electronic-FIR-only advice
 
 ### Problem

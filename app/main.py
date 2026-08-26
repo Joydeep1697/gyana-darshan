@@ -169,6 +169,8 @@ from app.routers import vault, chat, classifier, dashboard, knowledge_graph, pro
 from api.auth.router import router as auth_router
 from api.auth.dependencies import get_current_user
 from api.conversations.router import router as conversations_router
+from api.organizations.router import router as organizations_router
+from api.operations.router import router as operations_router
 from database.connection import init_db
 
 # Initialize Relational Database Schema
@@ -176,6 +178,8 @@ init_db()
 
 app.include_router(auth_router)
 app.include_router(conversations_router)
+app.include_router(organizations_router)
+app.include_router(operations_router)
 app.include_router(vault.router, prefix="/api/vault", tags=["Knowledge Vault"])
 app.include_router(chat.router, prefix="/api/chat", tags=["AI Chat"])
 _private_workspace = [Depends(get_current_user)]

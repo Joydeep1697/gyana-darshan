@@ -12,6 +12,8 @@ Nyaya Darshana retrieves relevant statutory provisions before generation, separa
 - A tenant-isolated Knowledge Vault for PDF upload, classification, metadata search, cached summaries, and page-cited questions across up to three documents.
 - Centralized NVIDIA model routing with startup validation, bounded fallback, circuit cooldowns, and visible degraded-state health.
 - Email/password authentication, optional Google OAuth, quota reporting, and optional Razorpay access activation.
+- Organization workspaces with OWNER/ADMIN/MEMBER/VIEWER authorization, organization audit trails, and configurable data retention.
+- Validated backup/restore tooling, guarded retention enforcement, administrative operational status, and operator-owned runbooks.
 - Production health/readiness checks, explicit CORS policy, secret validation, persistent SQLite storage, and a non-root Docker image.
 
 The repository also contains research and experimental training material. No fine-tuned production model is claimed unless its weights and evaluation results are independently verified.
@@ -57,6 +59,8 @@ Tesseract is optional and is used only when OCR is available for scanned PDFs.
 | `app/routers/vault.py` | Tenant-isolated PDF upload, metadata search, summaries, page-cited document questions, and deletion |
 | `corpus_integrity` | Runtime statutory text and cross-mapping data |
 | `database` / `app/database.py` | SQLite persistence for identity, conversations, evidence, billing, and Vault metadata |
+| `api/organizations` | Organization membership, role management, retention policies, and audit access |
+| `api/operations` / `scripts` | Protected operational status, backup/restore, and retention enforcement |
 
 The consultation engine uses the compact statutory corpus in `corpus_integrity`; it does not require FAISS, PyTorch, or sentence-transformers at runtime. The PDF classifier is retained as a separate local processing module.
 
@@ -69,6 +73,8 @@ python -m pytest -q tests app/test_app_endpoints.py
 ```
 
 GitHub Actions runs the same release gates on pull requests and pushes to `main`.
+
+Operational ownership, backup recovery, retention, incident response, access controls, and legal-content release procedures are documented in [`docs/operations/RUNBOOK.md`](docs/operations/RUNBOOK.md).
 
 ## Production deployment
 

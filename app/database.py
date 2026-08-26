@@ -172,7 +172,14 @@ class Database:
             columns = {row["name"] for row in conn.execute("PRAGMA table_info(vault_documents)")}
             if "owner_id" not in columns:
                 conn.execute("ALTER TABLE vault_documents ADD COLUMN owner_id TEXT")
+            if "organization_id" not in columns:
+                conn.execute("ALTER TABLE vault_documents ADD COLUMN organization_id TEXT")
+            conn.execute(
+                """UPDATE vault_documents SET organization_id = 'personal-' || owner_id
+                   WHERE organization_id IS NULL AND owner_id IS NOT NULL"""
+            )
             conn.execute("CREATE INDEX IF NOT EXISTS idx_vault_documents_owner ON vault_documents(owner_id)")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_vault_documents_org ON vault_documents(organization_id)")
 
     @contextmanager
     def connect(self) -> Generator[sqlite3.Connection, None, None]:
@@ -201,14 +208,14 @@ class Database:
 
     # ── Vault Documents ───────────────────────────────────────────
 
-    def create_document(self, filename: str, file_size: int, raw_path: str, owner_id: Optional[str] = None) -> str:
+    def create_document(self, filename: str, file_size: int, raw_path: str, owner_id: Optional[str] = None, organization_id: Optional[str] = None) -> str:
         doc_id = self.new_id()
         with self.connect() as conn:
             conn.execute(
                 """INSERT INTO vault_documents
-                   (id, filename, file_size, status, raw_path, upload_time, owner_id)
-                   VALUES (?, ?, ?, 'uploading', ?, ?, ?)""",
-                (doc_id, filename, file_size, raw_path, self.now(), owner_id),
+                   (id, filename, file_size, status, raw_path, upload_time, owner_id, organization_id)
+                   VALUES (?, ?, ?, 'uploading', ?, ?, ?, ?)""",
+                (doc_id, filename, file_size, raw_path, self.now(), owner_id, organization_id or (f"personal-{owner_id}" if owner_id else None)),
             )
         self.log_activity("upload", f"Uploaded {filename}", doc_id)
         return doc_id
@@ -239,10 +246,14 @@ class Database:
         limit: int = 100,
         offset: int = 0,
         owner_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
     ) -> list[dict]:
         query = "SELECT * FROM vault_documents WHERE 1=1"
         params: list[Any] = []
-        if owner_id is not None:
+        if organization_id is not None:
+            query += " AND organization_id = ?"
+            params.append(organization_id)
+        elif owner_id is not None:
             query += " AND owner_id = ?"
             params.append(owner_id)
         if status:
@@ -264,7 +275,8 @@ class Database:
         self,
         query: str,
         *,
-        owner_id: str,
+        owner_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         category: Optional[str] = None,
         domain: Optional[str] = None,
         limit: int = 20,
@@ -273,7 +285,7 @@ class Database:
         needle = f"%{query.strip()}%"
         sql = """
             SELECT * FROM vault_documents
-            WHERE owner_id = ?
+            WHERE organization_id = ?
               AND (
                 filename LIKE ? COLLATE NOCASE
                 OR COALESCE(category, '') LIKE ? COLLATE NOCASE
@@ -281,7 +293,10 @@ class Database:
                 OR COALESCE(summary, '') LIKE ? COLLATE NOCASE
               )
         """
-        params: list[Any] = [owner_id, needle, needle, needle, needle]
+        scope_id = organization_id or (f"personal-{owner_id}" if owner_id else None)
+        if not scope_id:
+            raise ValueError("A workspace scope is required")
+        params: list[Any] = [scope_id, needle, needle, needle, needle]
         if category:
             sql += " AND category = ?"
             params.append(category)
@@ -311,26 +326,28 @@ class Database:
             self.log_activity("delete", f"Deleted document {doc_id}", doc_id)
         return deleted
 
-    def get_document_stats(self, owner_id: Optional[str] = None) -> dict:
+    def get_document_stats(self, owner_id: Optional[str] = None, organization_id: Optional[str] = None) -> dict:
         with self.connect() as conn:
-            scope = " WHERE owner_id = ?" if owner_id is not None else ""
-            args = (owner_id,) if owner_id is not None else ()
+            scope_column = "organization_id" if organization_id is not None else "owner_id"
+            scope_value = organization_id if organization_id is not None else owner_id
+            scope = f" WHERE {scope_column} = ?" if scope_value is not None else ""
+            args = (scope_value,) if scope_value is not None else ()
             total = conn.execute("SELECT COUNT(*) FROM vault_documents" + scope, args).fetchone()[0]
             indexed = conn.execute(
-                "SELECT COUNT(*) FROM vault_documents WHERE status = 'indexed'" + (" AND owner_id = ?" if owner_id is not None else ""), args
+                "SELECT COUNT(*) FROM vault_documents WHERE status = 'indexed'" + (f" AND {scope_column} = ?" if scope_value is not None else ""), args
             ).fetchone()[0]
             failed = conn.execute(
-                "SELECT COUNT(*) FROM vault_documents WHERE status = 'failed'" + (" AND owner_id = ?" if owner_id is not None else ""), args
+                "SELECT COUNT(*) FROM vault_documents WHERE status = 'failed'" + (f" AND {scope_column} = ?" if scope_value is not None else ""), args
             ).fetchone()[0]
             processing = total - indexed - failed
             cats = conn.execute(
-                "SELECT category, COUNT(*) as cnt FROM vault_documents WHERE category IS NOT NULL" + (" AND owner_id = ?" if owner_id is not None else "") + " GROUP BY category ORDER BY cnt DESC", args
+                "SELECT category, COUNT(*) as cnt FROM vault_documents WHERE category IS NOT NULL" + (f" AND {scope_column} = ?" if scope_value is not None else "") + " GROUP BY category ORDER BY cnt DESC", args
             ).fetchall()
             domains = conn.execute(
-                "SELECT domain, COUNT(*) as cnt FROM vault_documents WHERE domain IS NOT NULL" + (" AND owner_id = ?" if owner_id is not None else "") + " GROUP BY domain ORDER BY cnt DESC", args
+                "SELECT domain, COUNT(*) as cnt FROM vault_documents WHERE domain IS NOT NULL" + (f" AND {scope_column} = ?" if scope_value is not None else "") + " GROUP BY domain ORDER BY cnt DESC", args
             ).fetchall()
             avg_risk = conn.execute(
-                "SELECT AVG(risk_score) FROM vault_documents WHERE risk_score > 0" + (" AND owner_id = ?" if owner_id is not None else ""), args
+                "SELECT AVG(risk_score) FROM vault_documents WHERE risk_score > 0" + (f" AND {scope_column} = ?" if scope_value is not None else ""), args
             ).fetchone()[0] or 0
             total_pages = conn.execute(
                 "SELECT SUM(pages) FROM vault_documents" + scope, args

@@ -35,3 +35,14 @@ This file records product behavior only after automated or runtime verification.
 
 - [PASS] Frontend product contract tests cover accessible controls and approved branding.
 - [PASS] Production preflight, health, authentication, authorization, AI routing, and statutory release checks are automated.
+
+## Enterprise operations
+
+- [PASS] Every account receives a backward-compatible private organization workspace.
+- [PASS] Organization consultations and Vault documents are membership-scoped.
+- [PASS] OWNER, ADMIN, MEMBER, and read-only VIEWER permissions are server-enforced.
+- [PASS] Member, retention, consultation, feedback, upload, deletion, and export actions are auditable.
+- [PASS] Retention enforcement defaults to dry-run and validates upload paths before deletion.
+- [PASS] Backup archives use online SQLite snapshots, checksums, traversal validation, and guarded restoration.
+- [PASS] Account and access UI exposes workspace switching, member review, organization creation, and member invitation.
+- [PASS] Organization controls passed authenticated desktop browser QA with no console warnings or errors.

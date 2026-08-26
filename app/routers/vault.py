@@ -17,8 +17,9 @@ from app.intelligence.summarizer import generate_summary
 from app.intelligence.document_grounding import (
     answer_from_documents, extract_pdf_pages, select_relevant_pages,
 )
-from api.auth.dependencies import get_current_user
+from api.auth.dependencies import get_workspace_context, require_workspace_writer
 from api.auth.service import decode_jwt_token
+from database.repository import AuditRepository, OrganizationRepository
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
@@ -27,12 +28,12 @@ UPLOAD_CHUNK_BYTES = 1024 * 1024
 
 
 def _public_document(document: dict) -> dict:
-    return {key: value for key, value in document.items() if key not in {"raw_path", "category_path", "owner_id"}}
+    return {key: value for key, value in document.items() if key not in {"raw_path", "category_path", "owner_id", "organization_id"}}
 
 
-def _owned_document(db: Database, doc_id: str, owner_id: str) -> dict:
+def _workspace_document(db: Database, doc_id: str, organization_id: str) -> dict:
     document = db.get_document(doc_id)
-    if not document or document.get("owner_id") != owner_id:
+    if not document or document.get("organization_id") != organization_id:
         raise HTTPException(404, "Document not found")
     return document
 
@@ -141,7 +142,7 @@ def process_document(doc_id: str, file_path: str):
         asyncio.run(broadcast_progress(doc_id, {"status": "failed", "error": "Document processing failed"}))
 
 @router.post("/upload")
-async def upload_document(background_tasks: BackgroundTasks, file: UploadFile = File(...), db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def upload_document(background_tasks: BackgroundTasks, file: UploadFile = File(...), db: Database = Depends(get_db), workspace: dict = Depends(require_workspace_writer)):
     """Upload a PDF and start background processing."""
     original_filename = Path(file.filename or "").name
     if not original_filename or len(original_filename) > 200 or Path(original_filename).suffix.lower() != ".pdf":
@@ -168,14 +169,20 @@ async def upload_document(background_tasks: BackgroundTasks, file: UploadFile = 
     finally:
         await file.close()
         
-    doc_id = db.create_document(original_filename, total_size, str(file_path), owner_id=user["id"])
+    user = workspace["user"]
+    organization_id = workspace["organization"]["id"]
+    doc_id = db.create_document(original_filename, total_size, str(file_path), owner_id=user["id"], organization_id=organization_id)
+    AuditRepository.log_audit(
+        "VAULT_DOCUMENT_UPLOADED", user_id=user["id"], organization_id=organization_id,
+        metadata={"document_id": doc_id, "filename": original_filename, "size": total_size},
+    )
     background_tasks.add_task(process_document, doc_id, str(file_path))
     return {"doc_id": doc_id, "status": "processing"}
 
 @router.get("/documents")
-async def list_documents(status: Optional[str] = None, category: Optional[str] = None, domain: Optional[str] = None, limit: int = Query(10, ge=1, le=100), offset: int = Query(0, ge=0), db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def list_documents(status: Optional[str] = None, category: Optional[str] = None, domain: Optional[str] = None, limit: int = Query(10, ge=1, le=100), offset: int = Query(0, ge=0), db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """List documents with optional filters and pagination."""
-    docs = db.list_documents(status=status, category=category, domain=domain, limit=limit, offset=offset, owner_id=user["id"])
+    docs = db.list_documents(status=status, category=category, domain=domain, limit=limit, offset=offset, organization_id=workspace["organization"]["id"])
     return {"documents": [_public_document(doc) for doc in docs]}
 
 
@@ -183,7 +190,7 @@ async def list_documents(status: Optional[str] = None, category: Optional[str] =
 async def ask_documents(
     request: DocumentQuestionRequest,
     db: Database = Depends(get_db),
-    user: dict = Depends(get_current_user),
+    workspace: dict = Depends(get_workspace_context),
 ):
     """Answer from one to three owned PDFs with page-level source excerpts."""
     unique_ids = list(dict.fromkeys(request.document_ids))
@@ -191,7 +198,7 @@ async def ask_documents(
         raise HTTPException(400, "Choose each document only once")
     prepared = []
     for doc_id in unique_ids:
-        document = _owned_document(db, doc_id, user["id"])
+        document = _workspace_document(db, doc_id, workspace["organization"]["id"])
         raw_value = document.get("raw_path")
         if not raw_value:
             raise HTTPException(409, f"{document['filename']} is not available for questions")
@@ -222,15 +229,15 @@ async def ask_documents(
     return DocumentQuestionResponse(answer=answer, sources=sources)
 
 @router.get("/documents/{doc_id}")
-async def get_document(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_document(doc_id: str, db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Get full details of a specific document including entities, clauses, deadlines, and links."""
-    return _public_document(_owned_document(db, doc_id, user["id"]))
+    return _public_document(_workspace_document(db, doc_id, workspace["organization"]["id"]))
 
 
 @router.post("/documents/{doc_id}/summary")
-async def generate_document_summary(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def generate_document_summary(doc_id: str, db: Database = Depends(get_db), workspace: dict = Depends(require_workspace_writer)):
     """Generate and cache a grounded summary for an owned PDF."""
-    document = _owned_document(db, doc_id, user["id"])
+    document = _workspace_document(db, doc_id, workspace["organization"]["id"])
     if document.get("summary"):
         return {"summary": document["summary"], "cached": True}
 
@@ -281,9 +288,11 @@ async def generate_document_summary(doc_id: str, db: Database = Depends(get_db),
     return {"summary": summary, "cached": False}
 
 @router.delete("/documents/{doc_id}")
-async def delete_document(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def delete_document(doc_id: str, db: Database = Depends(get_db), workspace: dict = Depends(require_workspace_writer)):
     """Delete a document from DB and filesystem."""
-    doc = _owned_document(db, doc_id, user["id"])
+    user = workspace["user"]
+    organization_id = workspace["organization"]["id"]
+    doc = _workspace_document(db, doc_id, organization_id)
     if doc.get("raw_path"):
         raw_path = Path(doc["raw_path"]).resolve()
         if not raw_path.is_relative_to(RAW_DIR.resolve()):
@@ -291,14 +300,18 @@ async def delete_document(doc_id: str, db: Database = Depends(get_db), user: dic
             raise HTTPException(500, "Document storage configuration is invalid")
         raw_path.unlink(missing_ok=True)
     db.delete_document(doc_id)
+    AuditRepository.log_audit(
+        "VAULT_DOCUMENT_DELETED", user_id=user["id"], organization_id=organization_id,
+        metadata={"document_id": doc_id, "filename": doc.get("filename")},
+    )
     return {"status": "success"}
 
 @router.post("/search", response_model=SearchResponse)
-async def search(req: SearchRequest, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def search(req: SearchRequest, db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Search metadata and cached summaries within the authenticated user's vault."""
     documents = db.search_documents(
         req.query,
-        owner_id=user["id"],
+        organization_id=workspace["organization"]["id"],
         category=req.category,
         domain=req.domain,
         limit=req.top_k,
@@ -319,16 +332,19 @@ async def search(req: SearchRequest, db: Database = Depends(get_db), user: dict 
     return SearchResponse(results=results, total=len(results))
 
 @router.get("/stats")
-async def get_stats(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_stats(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Return vault statistics from DB."""
-    return db.get_document_stats(owner_id=user["id"])
+    return db.get_document_stats(organization_id=workspace["organization"]["id"])
 
 @router.websocket("/ws/processing")
-async def ws_processing(websocket: WebSocket, doc_id: str = Query(...), token: str = Query("")):
+async def ws_processing(websocket: WebSocket, doc_id: str = Query(...), token: str = Query(""), organization_id: str = Query("")):
     """WebSocket endpoint to stream background processing progress."""
     payload = decode_jwt_token(token) if token else None
-    document = get_db().get_document(doc_id) if payload and payload.get("sub") else None
-    if not document or document.get("owner_id") != payload["sub"]:
+    user_id = payload.get("sub") if payload else None
+    scope_id = organization_id or (f"personal-{user_id}" if user_id else "")
+    membership = OrganizationRepository.get_for_member(scope_id, user_id) if user_id else None
+    document = get_db().get_document(doc_id) if membership else None
+    if not document or document.get("organization_id") != scope_id:
         await websocket.close(code=1008, reason="Authentication required")
         return
     await websocket.accept()

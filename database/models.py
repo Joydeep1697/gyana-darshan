@@ -17,6 +17,26 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
 
+-- Organizations and explicit workspace membership
+CREATE TABLE IF NOT EXISTS organizations (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    slug TEXT UNIQUE NOT NULL,
+    is_personal INTEGER NOT NULL DEFAULT 0,
+    created_by TEXT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+    retention_days INTEGER CHECK (retention_days IS NULL OR retention_days >= 30),
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS organization_members (
+    organization_id TEXT NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    role TEXT NOT NULL CHECK (role IN ('OWNER', 'ADMIN', 'MEMBER', 'VIEWER')),
+    created_at TEXT NOT NULL,
+    PRIMARY KEY (organization_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_org_members_user ON organization_members(user_id);
+
 -- 2. Sessions Table
 CREATE TABLE IF NOT EXISTS sessions (
     id TEXT PRIMARY KEY,
@@ -35,7 +55,8 @@ CREATE TABLE IF NOT EXISTS conversations (
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title TEXT NOT NULL,
     created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
+    updated_at TEXT NOT NULL,
+    organization_id TEXT REFERENCES organizations(id) ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS idx_conversations_user ON conversations(user_id);
 CREATE INDEX IF NOT EXISTS idx_conversations_updated ON conversations(updated_at DESC);
@@ -118,7 +139,8 @@ CREATE TABLE IF NOT EXISTS audit_events (
     request_id TEXT,
     client_ip TEXT,
     metadata_json TEXT,
-    created_at TEXT NOT NULL
+    created_at TEXT NOT NULL,
+    organization_id TEXT REFERENCES organizations(id) ON DELETE SET NULL
 );
 CREATE INDEX IF NOT EXISTS idx_audit_user ON audit_events(user_id);
 CREATE INDEX IF NOT EXISTS idx_audit_type ON audit_events(event_type);

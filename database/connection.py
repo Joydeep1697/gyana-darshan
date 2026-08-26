@@ -4,6 +4,7 @@
 
 import os
 import sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 from contextlib import contextmanager
 from typing import Generator
@@ -46,3 +47,40 @@ def init_db():
         }
         if "supporting_claim" not in evidence_columns:
             conn.execute("ALTER TABLE evidence_records ADD COLUMN supporting_claim TEXT")
+        conversation_columns = {
+            row["name"] for row in conn.execute("PRAGMA table_info(conversations)")
+        }
+        if "organization_id" not in conversation_columns:
+            conn.execute("ALTER TABLE conversations ADD COLUMN organization_id TEXT")
+        conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_conversations_org ON conversations(organization_id, updated_at DESC)"
+        )
+        audit_columns = {
+            row["name"] for row in conn.execute("PRAGMA table_info(audit_events)")
+        }
+        if "organization_id" not in audit_columns:
+            conn.execute("ALTER TABLE audit_events ADD COLUMN organization_id TEXT")
+        conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_audit_org ON audit_events(organization_id, created_at DESC)"
+        )
+
+        # Existing accounts receive private workspaces without changing ownership semantics.
+        users = conn.execute("SELECT id, full_name FROM users").fetchall()
+        for user in users:
+            org_id = f"personal-{user['id']}"
+            timestamp = datetime.now(timezone.utc).isoformat()
+            conn.execute(
+                """INSERT OR IGNORE INTO organizations
+                   (id, name, slug, is_personal, created_by, created_at, updated_at)
+                   VALUES (?, ?, ?, 1, ?, ?, ?)""",
+                (org_id, f"{user['full_name']}'s workspace", org_id, user["id"], timestamp, timestamp),
+            )
+            conn.execute(
+                """INSERT OR IGNORE INTO organization_members
+                   (organization_id, user_id, role, created_at) VALUES (?, ?, 'OWNER', ?)""",
+                (org_id, user["id"], timestamp),
+            )
+            conn.execute(
+                "UPDATE conversations SET organization_id = ? WHERE user_id = ? AND organization_id IS NULL",
+                (org_id, user["id"]),
+            )

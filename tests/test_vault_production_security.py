@@ -61,8 +61,9 @@ class VaultDatabaseSecurityTests(unittest.TestCase):
         with patch.dict(sys.modules, {"gyana_darshan_classifier": extractor}), patch(
             "app.routers.vault.RAW_DIR", raw_dir
         ), patch("app.routers.vault.generate_summary", return_value="Grounded summary") as summarise:
-            first = asyncio.run(generate_document_summary(document_id, db=self.database, user={"id": "owner"}))
-            second = asyncio.run(generate_document_summary(document_id, db=self.database, user={"id": "owner"}))
+            workspace = {"user": {"id": "owner"}, "organization": {"id": "personal-owner"}, "role": "OWNER"}
+            first = asyncio.run(generate_document_summary(document_id, db=self.database, workspace=workspace))
+            second = asyncio.run(generate_document_summary(document_id, db=self.database, workspace=workspace))
 
         self.assertEqual(first, {"summary": "Grounded summary", "cached": False})
         self.assertEqual(second, {"summary": "Grounded summary", "cached": True})
@@ -85,7 +86,8 @@ class VaultDatabaseSecurityTests(unittest.TestCase):
             side_effect=AIProviderUnavailable("The AI provider is temporarily unavailable."),
         ):
             with self.assertRaises(HTTPException) as raised:
-                asyncio.run(generate_document_summary(document_id, db=self.database, user={"id": "owner"}))
+                workspace = {"user": {"id": "owner"}, "organization": {"id": "personal-owner"}, "role": "OWNER"}
+                asyncio.run(generate_document_summary(document_id, db=self.database, workspace=workspace))
 
         self.assertEqual(raised.exception.status_code, 503)
 

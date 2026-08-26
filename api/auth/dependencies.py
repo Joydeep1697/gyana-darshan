@@ -1,11 +1,11 @@
 # dependencies.py — FastAPI Authentication & Role-Based Access Guards
 
 from typing import Optional, Dict, Any
-from fastapi import Depends, HTTPException, Security, status
+from fastapi import Depends, Header, HTTPException, Security, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from api.auth.service import decode_jwt_token
-from database.repository import UserRepository, UsageRepository
+from database.repository import OrganizationRepository, UserRepository, UsageRepository
 
 http_bearer = HTTPBearer(auto_error=False)
 
@@ -71,6 +71,26 @@ def require_superadmin(user: Dict[str, Any] = Depends(get_current_user)) -> Dict
             detail="Forbidden: Superadmin privileges required."
         )
     return user
+
+
+def get_workspace_context(
+    organization_id: Optional[str] = Header(default=None, alias="X-Organization-ID"),
+    user: Dict[str, Any] = Depends(get_current_user),
+) -> Dict[str, Any]:
+    """Resolve an authenticated organization scope; default to the private workspace."""
+    selected_id = organization_id or OrganizationRepository.personal_organization_id(user["id"])
+    organization = OrganizationRepository.get_for_member(selected_id, user["id"])
+    if not organization:
+        raise HTTPException(status_code=404, detail="Workspace not found")
+    return {"user": user, "organization": organization, "role": organization["membership_role"]}
+
+
+def require_workspace_writer(
+    workspace: Dict[str, Any] = Depends(get_workspace_context),
+) -> Dict[str, Any]:
+    if workspace["role"] == "VIEWER":
+        raise HTTPException(status_code=403, detail="Workspace is read-only for this member")
+    return workspace
 
 def get_user_quota_limits(user: Optional[Dict[str, Any]]) -> Dict[str, int]:
     """Calculate daily limits and remaining quota based on user role."""
