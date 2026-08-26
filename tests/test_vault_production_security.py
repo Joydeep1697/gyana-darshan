@@ -7,8 +7,10 @@ import sys
 from types import ModuleType, SimpleNamespace
 from pathlib import Path
 from unittest.mock import patch
+from fastapi import HTTPException
 
 from app.database import Database
+from app.intelligence.ai_provider import AIProviderUnavailable
 from app.routers.vault import generate_document_summary
 
 
@@ -66,6 +68,26 @@ class VaultDatabaseSecurityTests(unittest.TestCase):
         self.assertEqual(second, {"summary": "Grounded summary", "cached": True})
         self.assertEqual(self.database.get_document(document_id)["summary"], "Grounded summary")
         summarise.assert_called_once()
+
+    def test_summary_provider_failure_returns_service_unavailable(self):
+        raw_dir = Path(self.directory.name) / "uploads"
+        raw_dir.mkdir()
+        pdf_path = raw_dir / "source.pdf"
+        pdf_path.write_bytes(b"%PDF-test")
+        document_id = self.database.create_document("source.pdf", 9, str(pdf_path), owner_id="owner")
+        extractor = ModuleType("gyana_darshan_classifier")
+        extractor.extract_pdf = lambda *_args: SimpleNamespace(text="Authoritative source text")
+
+        with patch.dict(sys.modules, {"gyana_darshan_classifier": extractor}), patch(
+            "app.routers.vault.RAW_DIR", raw_dir
+        ), patch(
+            "app.routers.vault.generate_summary",
+            side_effect=AIProviderUnavailable("The AI provider is temporarily unavailable."),
+        ):
+            with self.assertRaises(HTTPException) as raised:
+                asyncio.run(generate_document_summary(document_id, db=self.database, user={"id": "owner"}))
+
+        self.assertEqual(raised.exception.status_code, 503)
 
     def test_analytics_and_graph_compatibility_methods_are_available(self):
         document_id = self.database.create_document("safe.pdf", 10, "/tmp/safe.pdf", owner_id="owner")

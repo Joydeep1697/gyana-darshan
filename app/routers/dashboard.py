@@ -1,19 +1,23 @@
 import logging
-import asyncio
 import json
 import time
 from pathlib import Path
 from fastapi import APIRouter, Depends
-import openai
+from fastapi.responses import JSONResponse
 from app.database import get_db, Database
-from app.config import get_llm_client_kwargs, LLM_MODEL, INDEX_DIR
+from app.config import INDEX_DIR
+from app.intelligence.ai_provider import (
+    AIProviderError,
+    complete_text,
+    get_ai_status,
+)
 from api.auth.dependencies import get_current_user
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 # Simple cache for daily briefing
-_briefing_cache = {"data": None, "time": 0}
+_briefing_cache = {"data": None, "time": 0, "status": None, "model": None}
 
 @router.get("/stats")
 async def get_stats(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
@@ -24,31 +28,48 @@ async def get_stats(db: Database = Depends(get_db), user: dict = Depends(get_cur
 async def get_briefing(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
     """AI-generated daily briefing, cached for 1 hour."""
     if _briefing_cache["data"] and _briefing_cache.get("owner_id") == user["id"] and (time.time() - _briefing_cache["time"] < 3600):
-        return {"briefing": _briefing_cache["data"]}
+        return {
+            "status": _briefing_cache["status"],
+            "briefing": _briefing_cache["data"],
+            "model": _briefing_cache["model"],
+        }
         
     stats = db.get_document_stats(owner_id=user["id"])
     
-    def generate_briefing():
-        client = openai.OpenAI(**get_llm_client_kwargs())
-        prompt = f"Write a short 3-paragraph executive legal briefing based on these stats: {stats}"
-        response = client.chat.completions.create(
-            model=LLM_MODEL,
+    prompt = f"Write a short 3-paragraph executive legal briefing based only on these stats: {stats}"
+    try:
+        completion = await complete_text(
             messages=[
                 {"role": "system", "content": "You are a concise Indian legal AI advisor."},
                 {"role": "user", "content": prompt}
-            ]
+            ],
+            max_tokens=320,
+            temperature=0.0,
+            purpose="dashboard-briefing",
         )
-        return response.choices[0].message.content
-
-    try:
-        briefing = await asyncio.to_thread(generate_briefing)
+        briefing = completion.content
         _briefing_cache["data"] = briefing
         _briefing_cache["time"] = time.time()
         _briefing_cache["owner_id"] = user["id"]
-        return {"briefing": briefing}
-    except Exception as e:
-        logger.error(f"Briefing generation failed: {e}")
-        return {"briefing": "Unable to generate briefing at this time."}
+        _briefing_cache["status"] = "available" if not completion.fallback_used else "degraded"
+        _briefing_cache["model"] = completion.model
+        return {
+            "status": _briefing_cache["status"],
+            "briefing": briefing,
+            "model": completion.model,
+        }
+    except AIProviderError:
+        logger.warning("Dashboard briefing unavailable because every eligible AI model failed")
+        return JSONResponse(
+            status_code=503,
+            headers={"Retry-After": "60"},
+            content={
+                "status": "degraded",
+                "briefing": None,
+                "detail": "AI-generated briefing is temporarily unavailable.",
+                "ai": get_ai_status(),
+            },
+        )
 
 @router.get("/risk-heatmap")
 async def get_risk_heatmap(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):

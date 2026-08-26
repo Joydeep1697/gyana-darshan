@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 from app.database import get_db, Database
 from app.models import DocumentResponse, SearchResponse, SearchRequest
 from app.config import RAW_DIR
+from app.intelligence.ai_provider import AIProviderError
 from app.intelligence.summarizer import generate_summary
 from api.auth.dependencies import get_current_user
 from api.auth.service import decode_jwt_token
@@ -208,8 +209,7 @@ async def generate_document_summary(doc_id: str, db: Database = Depends(get_db),
             "domain": document.get("domain"),
             "pages": document.get("pages"),
         }
-        summary = await asyncio.to_thread(
-            generate_summary,
+        summary = await generate_summary(
             text,
             document.get("category") or "Legal document",
             metadata,
@@ -219,6 +219,9 @@ async def generate_document_summary(doc_id: str, db: Database = Depends(get_db),
     except ImportError:
         logger.exception("PDF extraction backend is unavailable")
         raise HTTPException(503, "PDF extraction is temporarily unavailable")
+    except AIProviderError as exc:
+        logger.warning("Vault summary unavailable because the AI provider route failed")
+        raise HTTPException(503, str(exc)) from exc
     except Exception:
         logger.exception("Summary extraction failed for document %s", doc_id)
         raise HTTPException(500, "The document could not be summarised")

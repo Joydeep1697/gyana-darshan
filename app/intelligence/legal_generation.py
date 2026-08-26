@@ -2,22 +2,18 @@
 
 from __future__ import annotations
 
-import asyncio
 import hashlib
-import json
 import logging
 import re
 import time
 from collections import OrderedDict
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
-
-try:
-    from openai import AsyncOpenAI
-except ImportError:  # Deterministic statutory answers and stdlib HTTPS remain available.
-    AsyncOpenAI = None
 
 from app import config
+from app.intelligence.ai_provider import (
+    AIConfigurationError,
+    AIProviderError,
+    complete_text,
+)
 from retrieval.legal_reasoning import (
     build_reasoning_plan,
     citation_is_grounded,
@@ -43,11 +39,12 @@ SYSTEM_PROMPT = (
 )
 
 _cache: OrderedDict[str, tuple[float, str]] = OrderedDict()
-_semaphore: asyncio.Semaphore | None = None
 
 
 def _cache_key(query: str, evidence_context: str) -> str:
-    return hashlib.sha256(f"{query}\0{evidence_context}\0{config.LLM_MODEL}".encode()).hexdigest()
+    return hashlib.sha256(
+        f"{query}\0{evidence_context}\0{config.ai_model_signature()}".encode()
+    ).hexdigest()
 
 
 def _get_cached(key: str) -> str | None:
@@ -67,63 +64,6 @@ def _store_cached(key: str, answer: str) -> None:
     _cache.move_to_end(key)
     while len(_cache) > 512:
         _cache.popitem(last=False)
-
-
-def _provider_semaphore() -> asyncio.Semaphore:
-    global _semaphore
-    if _semaphore is None:
-        _semaphore = asyncio.Semaphore(config.LEGAL_MAX_CONCURRENCY)
-    return _semaphore
-
-
-def _retryable(exc: Exception) -> bool:
-    status = getattr(exc, "status_code", getattr(exc, "code", None))
-    return status in {408, 409, 429, 500, 502, 503, 504} or isinstance(
-        exc, (TimeoutError, asyncio.TimeoutError, ConnectionError, URLError)
-    ) or type(exc).__name__ in {"APIConnectionError", "APITimeoutError"}
-
-
-def _provider_failure_message(exc: Exception | None) -> str:
-    status = getattr(exc, "status_code", getattr(exc, "code", None))
-    if status in {401, 403}:
-        return "NVIDIA rejected the API key. Check NVIDIA_API_KEY in your .env file."
-    if status == 404:
-        return "The NVIDIA model was not found. Check NVIDIA_LLM_MODEL in your .env file."
-    if status == 429:
-        return "NVIDIA is temporarily rate-limiting requests. Please retry shortly."
-    if isinstance(exc, (TimeoutError, asyncio.TimeoutError)) or type(exc).__name__ == "APITimeoutError":
-        return "NVIDIA took too long to answer. Retry or increase LEGAL_MODEL_TIMEOUT."
-    if isinstance(exc, (ConnectionError, URLError)) or type(exc).__name__ == "APIConnectionError":
-        return "Nyaya Darshana could not reach NVIDIA. Check your internet, proxy, or firewall."
-    return "The legal AI provider is temporarily unavailable."
-
-
-async def _generate_with_standard_http(
-    client_kwargs: dict, messages: list[dict], max_tokens: int | None = None
-) -> str:
-    """Bypass a broken OpenAI/httpx installation using Python's HTTPS client."""
-    payload = json.dumps({
-        "model": config.LLM_MODEL,
-        "messages": messages,
-        "temperature": 0.0,
-        "max_tokens": max_tokens or config.LEGAL_MAX_TOKENS,
-    }).encode("utf-8")
-    endpoint = client_kwargs["base_url"].rstrip("/") + "/chat/completions"
-    request = Request(
-        endpoint, data=payload,
-        headers={
-            "Authorization": "Bearer " + client_kwargs["api_key"],
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
-
-    def request_answer() -> str:
-        with urlopen(request, timeout=config.LEGAL_MODEL_TIMEOUT) as response:
-            result = json.loads(response.read())
-        return (result["choices"][0]["message"]["content"] or "").strip()
-
-    return await asyncio.to_thread(request_answer)
 
 
 def _enforce_guardrails(query: str, answer: str, evidence_context: str = "") -> str:
@@ -209,22 +149,11 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
     ):
         logger.info("Answered an audited statutory scenario locally without a cloud model request.")
         return direct_answer
-    try:
-        client_kwargs = config.get_llm_client_kwargs()
-    except RuntimeError as exc:
-        if config.IS_PRODUCTION:
-            raise LegalGenerationError("The legal AI provider is not configured.") from exc
-        logger.info("Legal AI is not configured; returning retrieved evidence only.")
-        return _evidence_only_response(query, evidence_context)
-
     key = _cache_key(query, evidence_context)
     cached = _get_cached(key)
     if cached is not None:
         return cached
 
-    client = AsyncOpenAI(
-        **client_kwargs, timeout=config.LEGAL_MODEL_TIMEOUT, max_retries=0
-    ) if AsyncOpenAI is not None else None
     max_tokens = config.LEGAL_SCENARIO_MAX_TOKENS if complex_scenario else config.LEGAL_MAX_TOKENS
     max_words = config.LEGAL_SCENARIO_MAX_WORDS if complex_scenario else 160
     instructions = (
@@ -248,53 +177,22 @@ async def generate_grounded_legal_answer(query: str, evidence_context: str) -> s
             f"{instructions}"
         )},
     ]
-    if client is None:
-        try:
-            answer = await _generate_with_standard_http(client_kwargs, messages, max_tokens=max_tokens)
-            if not answer:
-                raise LegalGenerationError("The legal AI provider returned an empty answer.")
-            answer = _enforce_guardrails(query, answer, evidence_context)
-            _store_cached(key, answer)
-            return answer
-        except LegalGenerationError:
-            raise
-        except Exception as fallback_error:
-            logger.error("NVIDIA HTTPS request failed: %s", type(fallback_error).__name__)
-            raise LegalGenerationError(_provider_failure_message(fallback_error)) from fallback_error
-
-    last_error: Exception | None = None
-    async with _provider_semaphore():
-        for attempt in range(config.LEGAL_MAX_RETRIES + 1):
-            try:
-                completion = await client.chat.completions.create(
-                    model=config.LLM_MODEL,
-                    messages=messages,
-                    temperature=0.0,
-                    max_tokens=max_tokens,
-                )
-                answer = (completion.choices[0].message.content or "").strip()
-                if not answer:
-                    raise LegalGenerationError("The legal AI provider returned an empty answer.")
-                answer = _enforce_guardrails(query, answer, evidence_context)
-                _store_cached(key, answer)
-                return answer
-            except LegalGenerationError:
-                raise
-            except Exception as exc:
-                last_error = exc
-                if attempt >= config.LEGAL_MAX_RETRIES or not _retryable(exc):
-                    break
-                await asyncio.sleep(min(0.5 * (2 ** attempt), 2.0))
-    logger.warning("Primary NVIDIA client failed: %s; trying standard HTTPS fallback.", type(last_error).__name__)
     try:
-        answer = await _generate_with_standard_http(client_kwargs, messages, max_tokens=max_tokens)
-        if not answer:
-            raise LegalGenerationError("The legal AI provider returned an empty answer.")
+        completion = await complete_text(
+            messages,
+            max_tokens=max_tokens,
+            temperature=0.0,
+            timeout=config.LEGAL_MODEL_TIMEOUT,
+            purpose="grounded-legal-answer",
+        )
+        answer = completion.content
         answer = _enforce_guardrails(query, answer, evidence_context)
         _store_cached(key, answer)
         return answer
-    except LegalGenerationError:
-        raise
-    except Exception as fallback_error:
-        logger.error("NVIDIA HTTPS fallback failed: %s", type(fallback_error).__name__)
-        raise LegalGenerationError(_provider_failure_message(fallback_error)) from fallback_error
+    except AIConfigurationError as exc:
+        if config.IS_PRODUCTION:
+            raise LegalGenerationError("The legal AI provider is not configured.") from exc
+        logger.info("Legal AI is not configured; returning retrieved evidence only.")
+        return _evidence_only_response(query, evidence_context)
+    except AIProviderError as exc:
+        raise LegalGenerationError(str(exc)) from exc
