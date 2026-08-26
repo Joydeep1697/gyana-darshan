@@ -1,4 +1,4 @@
-# Production Dockerfile for Nyaya Darshan
+# Production Dockerfile for Nyaya Darshana
 FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -31,6 +31,7 @@ RUN groupadd --system --gid 10001 nyaya \
     && mkdir -p /var/lib/nyaya/uploads /var/lib/nyaya/logs \
     && chown -R nyaya:nyaya /var/lib/nyaya /app
 COPY --chown=nyaya:nyaya . .
+RUN python scripts/release_preflight.py --repository-only
 
 USER nyaya
 

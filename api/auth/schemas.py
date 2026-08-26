@@ -2,14 +2,14 @@
 
 import re
 from typing import Optional, Dict, Any
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 class UserRegisterRequest(BaseModel):
     email: str = Field(..., min_length=5, max_length=255, description="User email address")
     password: str = Field(..., min_length=8, max_length=128, description="Strong password (min 8 chars)")
     full_name: str = Field(..., min_length=2, max_length=128, description="Full name of the account holder")
 
-    @validator("email")
+    @field_validator("email")
     def validate_email_format(cls, v):
         clean = v.strip().lower()
         if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", clean):

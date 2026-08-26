@@ -31,7 +31,7 @@ router = APIRouter(prefix="/api/auth", tags=["User Authentication & Accounts"])
 
 @router.post("/register", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED)
 async def register(req: UserRegisterRequest, request: Request):
-    """Register a new Nyaya Darshan user account."""
+    """Register a new Nyaya Darshana user account."""
     client_ip = request.client.host if request.client else "127.0.0.1"
     user, error = AuthService.register_user(
         email=req.email,

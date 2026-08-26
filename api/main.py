@@ -1,4 +1,4 @@
-# main.py — Nyaya Legal OS Production API Server
+# main.py — Nyaya Darshana production grounding API
 #
 # Objective:
 # Provide high-throughput, sub-25ms authoritative legal query routing, RAG retrieval,
@@ -10,7 +10,7 @@ import time
 import asyncio
 from pathlib import Path
 from typing import Dict, List, Any, Optional
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from fastapi import FastAPI, HTTPException, Request, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -40,8 +40,8 @@ from api.conversations.router import router as conversations_router
 init_db()
 
 app = FastAPI(
-    title="Nyaya Legal OS — Production Statutory API",
-    description="Authoritative, Gazette-grounded legal query engine with field-level verification firewall.",
+    title="Nyaya Darshana — Statutory Grounding API",
+    description="Authoritative statutory retrieval with field-level legal claim verification.",
     version="2.0.0"
 )
 
@@ -96,7 +96,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         clean_errors.append(err_dict)
 
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=422,
         content={
             "type": "https://nyayadarshana.com/errors/validation-error",
             "title": "Unprocessable Entity",
@@ -142,7 +142,7 @@ class LegalQueryRequest(BaseModel):
     session_id: Optional[str] = Field(default=None, max_length=128, description="Client session identifier.")
     top_k: Optional[int] = Field(default=4, ge=1, le=10, description="Number of statutory sections to retrieve.")
 
-    @validator("query")
+    @field_validator("query")
     def validate_query_content(cls, v):
         cleaned = v.strip()
         if not cleaned:
@@ -177,7 +177,7 @@ def health_check():
     """System health check endpoint."""
     return {
         "status": "HEALTHY",
-        "engine": "Nyaya Legal OS Grounding Engine",
+        "engine": "Nyaya Darshana Grounding Engine",
         "corpus_loaded_sections": len(retriever.corpus),
         "timestamp": time.time()
     }
@@ -267,7 +267,7 @@ async def process_legal_query(
     )
 
     # Sanitize output against any internal filesystem leakage
-    return sanitize_response_data(response_payload.dict())
+    return sanitize_response_data(response_payload.model_dump())
 
 if __name__ == "__main__":
     import uvicorn
