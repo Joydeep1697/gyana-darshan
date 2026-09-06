@@ -140,15 +140,24 @@ def _evidence_only_response(query: str, evidence_context: str) -> str:
     )
 
 
-async def generate_grounded_legal_answer(query: str, evidence_context: str) -> str:
-    """Generate a cited answer, with an explicit evidence-only development mode."""
+def deterministic_answer_for_evidence(query: str, evidence_context: str) -> str | None:
+    """Return the exact audited deterministic answer for a covered scenario."""
     complex_scenario = _is_complex_scenario(query)
     direct_answer = deterministic_grounded_answer(query, evidence_context)
     if direct_answer and (
         not complex_scenario or _can_answer_transition_scenario_deterministically(query)
     ):
-        logger.info("Answered an audited statutory scenario locally without a cloud model request.")
         return _enforce_guardrails(query, direct_answer, evidence_context)
+    return None
+
+
+async def generate_grounded_legal_answer(query: str, evidence_context: str) -> str:
+    """Generate a cited answer, with an explicit evidence-only development mode."""
+    complex_scenario = _is_complex_scenario(query)
+    direct_answer = deterministic_answer_for_evidence(query, evidence_context)
+    if direct_answer:
+        logger.info("Answered an audited statutory scenario locally without a cloud model request.")
+        return direct_answer
     key = _cache_key(query, evidence_context)
     cached = _get_cached(key)
     if cached is not None:

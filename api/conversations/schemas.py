@@ -12,6 +12,8 @@ class UpdateConversationRequest(BaseModel):
 class SendMessageRequest(BaseModel):
     content: str = Field(..., min_length=2, max_length=4096, description="Legal question or scenario")
     top_k: Optional[int] = Field(default=4, ge=1, le=10)
+    request_id: Optional[str] = Field(default=None, min_length=8, max_length=128)
+    attempt_id: Optional[str] = Field(default=None, min_length=8, max_length=128)
 
 class EvidenceRecordSchema(BaseModel):
     id: Optional[str] = None
@@ -44,6 +46,10 @@ class AnswerFeedbackResponse(BaseModel):
 class LegalAnswerSchema(BaseModel):
     id: Optional[str] = None
     grounding_status: str
+    recorded_grounding_status: Optional[str] = None
+    review_recommended: bool = False
+    review_priority: Optional[str] = None
+    review_reason: Optional[str] = None
     firewall_status: str
     intervention_count: int
     engine_version: str = "1.0.0"
@@ -85,3 +91,8 @@ class SendMessageResponse(BaseModel):
     remaining_quota: int
     response_type: str = "answer"
     clarification_questions: List[str] = Field(default_factory=list)
+    review_recommended: bool = False
+    review_priority: Optional[str] = None
+    review_reason: Optional[str] = None
+    request_id: Optional[str] = None
+    attempt_id: Optional[str] = None

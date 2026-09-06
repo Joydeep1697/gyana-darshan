@@ -11,7 +11,7 @@ from app.intelligence.ai_provider import (
     complete_text,
     get_ai_status,
 )
-from api.auth.dependencies import get_current_user
+from api.auth.dependencies import get_workspace_context
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
@@ -20,21 +20,22 @@ router = APIRouter()
 _briefing_cache = {"data": None, "time": 0, "status": None, "model": None}
 
 @router.get("/stats")
-async def get_stats(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_stats(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Return DashboardStats."""
-    return db.get_document_stats(owner_id=user["id"])
+    return db.get_document_stats(organization_id=workspace["organization"]["id"])
 
 @router.get("/briefing")
-async def get_briefing(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_briefing(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """AI-generated daily briefing, cached for 1 hour."""
-    if _briefing_cache["data"] and _briefing_cache.get("owner_id") == user["id"] and (time.time() - _briefing_cache["time"] < 3600):
+    organization_id = workspace["organization"]["id"]
+    if _briefing_cache["data"] and _briefing_cache.get("organization_id") == organization_id and (time.time() - _briefing_cache["time"] < 3600):
         return {
             "status": _briefing_cache["status"],
             "briefing": _briefing_cache["data"],
             "model": _briefing_cache["model"],
         }
         
-    stats = db.get_document_stats(owner_id=user["id"])
+    stats = db.get_document_stats(organization_id=organization_id)
     
     prompt = f"Write a short 3-paragraph executive legal briefing based only on these stats: {stats}"
     try:
@@ -50,7 +51,7 @@ async def get_briefing(db: Database = Depends(get_db), user: dict = Depends(get_
         briefing = completion.content
         _briefing_cache["data"] = briefing
         _briefing_cache["time"] = time.time()
-        _briefing_cache["owner_id"] = user["id"]
+        _briefing_cache["organization_id"] = organization_id
         _briefing_cache["status"] = "available" if not completion.fallback_used else "degraded"
         _briefing_cache["model"] = completion.model
         return {
@@ -72,24 +73,24 @@ async def get_briefing(db: Database = Depends(get_db), user: dict = Depends(get_
         )
 
 @router.get("/risk-heatmap")
-async def get_risk_heatmap(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_risk_heatmap(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Risk levels across domains."""
-    return {"heatmap": db.get_risk_heatmap(owner_id=user["id"])}
+    return {"heatmap": db.get_risk_heatmap(organization_id=workspace["organization"]["id"])}
 
 @router.get("/coverage")
-async def get_coverage(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_coverage(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Corpus coverage analysis per domain."""
-    return {"coverage": db.get_domain_counts(owner_id=user["id"])}
+    return {"coverage": db.get_domain_counts(organization_id=workspace["organization"]["id"])}
 
 @router.get("/activity")
-async def get_activity(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_activity(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Recent activity from activity log."""
-    return {"activity": db.get_recent_activity(owner_id=user["id"])}
+    return {"activity": db.get_recent_activity(organization_id=workspace["organization"]["id"])}
 
 @router.get("/trends")
-async def get_trends(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_trends(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Upload timeline data grouped by date."""
-    return {"trends": db.get_upload_trends(owner_id=user["id"])}
+    return {"trends": db.get_upload_trends(organization_id=workspace["organization"]["id"])}
 
 @router.get("/index-info")
 async def get_index_info():

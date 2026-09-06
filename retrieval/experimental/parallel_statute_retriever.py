@@ -195,6 +195,10 @@ class ParallelStatuteRetriever:
                     "heading": rec.get("heading"),
                     "text": rec.get("text"),
                     "branch_score": 120.0,
+                    # `score` was the original public branch-result contract.
+                    # Keep it as an alias while downstream ranking code uses the
+                    # more explicit `branch_score` name.
+                    "score": 120.0,
                     "is_deterministic": True
                 }
                 if st.upper() not in branch_results:
@@ -238,6 +242,8 @@ class ParallelStatuteRetriever:
                     "heading": r.get("heading"),
                     "text": r.get("text"),
                     "branch_score": round(sc, 2),
+                    # Backward-compatible alias for branch-result consumers.
+                    "score": round(sc, 2),
                     "is_deterministic": False
                 }
                 branch_results[statute].append(cand_item)

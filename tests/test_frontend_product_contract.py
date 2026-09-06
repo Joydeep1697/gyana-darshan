@@ -80,6 +80,11 @@ def test_frontend_uses_the_approved_scales_brand_assets():
     assert 'class="mark"' not in source
 
 
+def test_visible_website_copy_does_not_use_em_dashes():
+    source, _ = _parsed()
+    assert "—" not in source
+
+
 def test_frontend_uses_real_product_routes_and_current_response_shapes():
     source, _ = _parsed()
     assert "documents.documents||[]" in source
@@ -96,6 +101,21 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="workspaceSelect"' in source
     assert 'id="memberForm"' in source
     assert "X-Organization-ID" in source
+    assert "Premise needs correction" in source
+    assert "presentationStatus" in source
+    assert "Grounded · verified" not in source
+    assert "Verified · corrected" not in source
+    assert "<b>Supports:</b>" not in source
+    assert "<b>Cited by:</b>" in source
+    assert "Insufficient evidence" in source
+    assert "Evidence status per answer" in source
+    assert ">Evidence-grounded<" not in source
+    assert "Please wait for the current consultation response" in source
+    assert 'id="cancelQuestionButton"' in source
+    assert "AbortController" in source
+    assert "request_id:request.requestId" in source
+    assert "response.request_id!==request.requestId" in source
+    assert "TIMED_OUT" in source
 
 
 def test_frontend_does_not_reintroduce_mock_operational_claims_or_reasoning_theatre():

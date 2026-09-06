@@ -140,6 +140,7 @@ CREATE INDEX IF NOT EXISTS idx_activity_time ON activity_log(timestamp);
 -- Compliance gaps
 CREATE TABLE IF NOT EXISTS compliance_gaps (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    organization_id TEXT,
     domain          TEXT NOT NULL,
     gap_description TEXT NOT NULL,
     severity        TEXT DEFAULT 'medium',      -- low/medium/high/critical
@@ -180,6 +181,10 @@ class Database:
             )
             conn.execute("CREATE INDEX IF NOT EXISTS idx_vault_documents_owner ON vault_documents(owner_id)")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_vault_documents_org ON vault_documents(organization_id)")
+            gap_columns = {row["name"] for row in conn.execute("PRAGMA table_info(compliance_gaps)")}
+            if "organization_id" not in gap_columns:
+                conn.execute("ALTER TABLE compliance_gaps ADD COLUMN organization_id TEXT")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_compliance_gaps_org ON compliance_gaps(organization_id)")
 
     @contextmanager
     def connect(self) -> Generator[sqlite3.Connection, None, None]:
@@ -414,10 +419,19 @@ class Database:
                 ],
             )
 
-    def get_deadlines(self, status: Optional[str] = None, doc_id: Optional[str] = None, owner_id: Optional[str] = None) -> list[dict]:
+    def get_deadlines(
+        self,
+        status: Optional[str] = None,
+        doc_id: Optional[str] = None,
+        owner_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> list[dict]:
         query = "SELECT d.*, v.filename FROM document_deadlines d JOIN vault_documents v ON d.doc_id = v.id WHERE 1=1"
         params: list[Any] = []
-        if owner_id is not None:
+        if organization_id is not None:
+            query += " AND v.organization_id = ?"
+            params.append(organization_id)
+        elif owner_id is not None:
             query += " AND v.owner_id = ?"
             params.append(owner_id)
         if status:
@@ -442,23 +456,47 @@ class Database:
                 (source_id, target_id, relationship, source_ref, target_ref, confidence),
             )
 
-    def get_document_links(self, doc_id: str) -> list[dict]:
+    def get_document_links(self, doc_id: str, organization_id: Optional[str] = None) -> list[dict]:
         with self.connect() as conn:
+            scope = ""
+            params: list[Any] = [doc_id, doc_id]
+            if organization_id is not None:
+                scope = " AND source.organization_id = ? AND (target.organization_id = ? OR kg.target_doc_id IS NULL)"
+                params.extend([organization_id, organization_id])
             rows = conn.execute(
-                """SELECT kg.*, v.filename as target_filename
+                f"""SELECT kg.*, target.filename as target_filename
                    FROM knowledge_graph kg
-                   LEFT JOIN vault_documents v ON kg.target_doc_id = v.id
-                   WHERE kg.source_doc_id = ? OR kg.target_doc_id = ?""",
-                (doc_id, doc_id),
+                   JOIN vault_documents source ON source.id = kg.source_doc_id
+                   LEFT JOIN vault_documents target ON kg.target_doc_id = target.id
+                   WHERE (kg.source_doc_id = ? OR kg.target_doc_id = ?){scope}""",
+                params,
             ).fetchall()
             return [dict(r) for r in rows]
 
-    def get_full_graph(self, owner_id: Optional[str] = None) -> dict:
+    def get_full_graph(self, owner_id: Optional[str] = None, organization_id: Optional[str] = None) -> dict:
         with self.connect() as conn:
+            node_scope = ""
+            node_params: tuple[Any, ...] = ()
+            edge_scope = ""
+            edge_params: tuple[Any, ...] = ()
+            if organization_id is not None:
+                node_scope = " AND organization_id = ?"
+                node_params = (organization_id,)
+                edge_scope = " WHERE source.organization_id = ? AND (target.organization_id = ? OR kg.target_doc_id IS NULL)"
+                edge_params = (organization_id, organization_id)
+            elif owner_id is not None:
+                node_scope = " AND owner_id = ?"
+                node_params = (owner_id,)
+                edge_scope = " WHERE source.owner_id = ? AND (target.owner_id = ? OR kg.target_doc_id IS NULL)"
+                edge_params = (owner_id, owner_id)
             nodes = conn.execute(
-                "SELECT id, filename, category, domain, risk_score FROM vault_documents WHERE status = 'indexed'" + (" AND owner_id = ?" if owner_id is not None else ""), (owner_id,) if owner_id is not None else ()
+                "SELECT id, filename, category, domain, risk_score FROM vault_documents WHERE status = 'indexed'" + node_scope,
+                node_params,
             ).fetchall()
-            edges = conn.execute("SELECT kg.source_doc_id, kg.target_doc_id, kg.relationship, kg.confidence FROM knowledge_graph kg JOIN vault_documents source ON source.id = kg.source_doc_id LEFT JOIN vault_documents target ON target.id = kg.target_doc_id" + (" WHERE source.owner_id = ? AND (target.owner_id = ? OR kg.target_doc_id IS NULL)" if owner_id is not None else ""), (owner_id, owner_id) if owner_id is not None else ()).fetchall()
+            edges = conn.execute(
+                "SELECT kg.source_doc_id, kg.target_doc_id, kg.relationship, kg.confidence FROM knowledge_graph kg JOIN vault_documents source ON source.id = kg.source_doc_id LEFT JOIN vault_documents target ON target.id = kg.target_doc_id" + edge_scope,
+                edge_params,
+            ).fetchall()
             return {
                 "nodes": [dict(n) for n in nodes],
                 "edges": [dict(e) for e in edges],
@@ -474,14 +512,27 @@ class Database:
                 [(e["ref"], doc_id, e.get("context_type", "citing"), e.get("snippet")) for e in entries],
             )
 
-    def search_section(self, ref: str, owner_id: Optional[str] = None) -> list[dict]:
+    def search_section(
+        self,
+        ref: str,
+        owner_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> list[dict]:
         with self.connect() as conn:
+            scope = ""
+            params: tuple[Any, ...] = (f"%{ref}%",)
+            if organization_id is not None:
+                scope = " AND v.organization_id = ?"
+                params = (f"%{ref}%", organization_id)
+            elif owner_id is not None:
+                scope = " AND v.owner_id = ?"
+                params = (f"%{ref}%", owner_id)
             rows = conn.execute(
                 """SELECT si.*, v.filename, v.category
                    FROM section_index si
                    JOIN vault_documents v ON si.doc_id = v.id
-                   WHERE si.section_ref LIKE ?""" + (" AND v.owner_id = ?" if owner_id is not None else "") + " ORDER BY si.context_type",
-                (f"%{ref}%", owner_id) if owner_id is not None else (f"%{ref}%",),
+                   WHERE si.section_ref LIKE ?""" + scope + " ORDER BY si.context_type",
+                params,
             ).fetchall()
             return [dict(r) for r in rows]
 
@@ -562,62 +613,144 @@ class Database:
                 (action, detail, doc_id, self.now()),
             )
 
-    def get_recent_activity(self, limit: int = 20, owner_id: Optional[str] = None) -> list[dict]:
+    def get_recent_activity(
+        self,
+        limit: int = 20,
+        owner_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> list[dict]:
         with self.connect() as conn:
+            scope = ""
+            params: tuple[Any, ...] = (limit,)
+            if organization_id is not None:
+                scope = " JOIN vault_documents ON vault_documents.id = activity_log.doc_id WHERE vault_documents.organization_id = ?"
+                params = (organization_id, limit)
+            elif owner_id is not None:
+                scope = " JOIN vault_documents ON vault_documents.id = activity_log.doc_id WHERE vault_documents.owner_id = ?"
+                params = (owner_id, limit)
             rows = conn.execute(
-                "SELECT activity_log.* FROM activity_log" + (" JOIN vault_documents ON vault_documents.id = activity_log.doc_id WHERE vault_documents.owner_id = ?" if owner_id is not None else "") + " ORDER BY activity_log.timestamp DESC LIMIT ?",
-                (owner_id, limit) if owner_id is not None else (limit,),
+                "SELECT activity_log.* FROM activity_log" + scope + " ORDER BY activity_log.timestamp DESC LIMIT ?",
+                params,
             ).fetchall()
             return [dict(r) for r in rows]
 
     # ── Compliance Gaps ───────────────────────────────────────────
 
-    def add_compliance_gap(self, domain: str, description: str, severity: str = "medium") -> None:
+    def add_compliance_gap(
+        self,
+        domain: str,
+        description: str,
+        severity: str = "medium",
+        organization_id: Optional[str] = None,
+    ) -> None:
         with self.connect() as conn:
             conn.execute(
-                "INSERT INTO compliance_gaps (domain, gap_description, severity, detected_at) VALUES (?, ?, ?, ?)",
-                (domain, description, severity, self.now()),
+                "INSERT INTO compliance_gaps (organization_id, domain, gap_description, severity, detected_at) VALUES (?, ?, ?, ?, ?)",
+                (organization_id, domain, description, severity, self.now()),
             )
 
-    def get_compliance_gaps(self, gap_type: Optional[str] = None) -> list[dict]:
+    def get_compliance_gaps(
+        self,
+        gap_type: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> list[dict]:
         with self.connect() as conn:
+            filters = []
+            params: list[Any] = []
             if gap_type:
-                rows = conn.execute("SELECT * FROM compliance_gaps WHERE domain = ? OR gap_description LIKE ? ORDER BY detected_at DESC", (gap_type, f"%{gap_type}%")).fetchall()
-            else:
-                rows = conn.execute("SELECT * FROM compliance_gaps ORDER BY detected_at DESC").fetchall()
+                filters.append("(domain = ? OR gap_description LIKE ?)")
+                params.extend([gap_type, f"%{gap_type}%"])
+            if organization_id is not None:
+                filters.append("organization_id = ?")
+                params.append(organization_id)
+            where = " WHERE " + " AND ".join(filters) if filters else ""
+            rows = conn.execute("SELECT * FROM compliance_gaps" + where + " ORDER BY detected_at DESC", params).fetchall()
             return [dict(r) for r in rows]
 
     def update_document_classification(self, doc_id: str, category: str, domain: str) -> None:
         self.update_document(doc_id, category=category, domain=domain)
 
-    def get_domain_counts(self, owner_id: Optional[str] = None) -> list[dict]:
+    def get_domain_counts(self, owner_id: Optional[str] = None, organization_id: Optional[str] = None) -> list[dict]:
         with self.connect() as conn:
-            return [dict(row) for row in conn.execute("SELECT domain, COUNT(*) AS count FROM vault_documents WHERE domain IS NOT NULL" + (" AND owner_id = ?" if owner_id is not None else "") + " GROUP BY domain ORDER BY count DESC", (owner_id,) if owner_id is not None else ()).fetchall()]
+            scope = ""
+            params: tuple[Any, ...] = ()
+            if organization_id is not None:
+                scope = " AND organization_id = ?"
+                params = (organization_id,)
+            elif owner_id is not None:
+                scope = " AND owner_id = ?"
+                params = (owner_id,)
+            return [dict(row) for row in conn.execute("SELECT domain, COUNT(*) AS count FROM vault_documents WHERE domain IS NOT NULL" + scope + " GROUP BY domain ORDER BY count DESC", params).fetchall()]
 
-    def get_risk_heatmap(self, owner_id: Optional[str] = None) -> list[dict]:
+    def get_risk_heatmap(self, owner_id: Optional[str] = None, organization_id: Optional[str] = None) -> list[dict]:
         with self.connect() as conn:
-            return [dict(row) for row in conn.execute("SELECT COALESCE(domain, 'Unclassified') AS domain, COUNT(*) AS document_count, ROUND(AVG(risk_score), 1) AS average_risk, MAX(risk_score) AS maximum_risk FROM vault_documents" + (" WHERE owner_id = ?" if owner_id is not None else "") + " GROUP BY domain ORDER BY average_risk DESC", (owner_id,) if owner_id is not None else ()).fetchall()]
+            scope = ""
+            params: tuple[Any, ...] = ()
+            if organization_id is not None:
+                scope = " WHERE organization_id = ?"
+                params = (organization_id,)
+            elif owner_id is not None:
+                scope = " WHERE owner_id = ?"
+                params = (owner_id,)
+            return [dict(row) for row in conn.execute("SELECT COALESCE(domain, 'Unclassified') AS domain, COUNT(*) AS document_count, ROUND(AVG(risk_score), 1) AS average_risk, MAX(risk_score) AS maximum_risk FROM vault_documents" + scope + " GROUP BY domain ORDER BY average_risk DESC", params).fetchall()]
 
-    def get_upload_trends(self, days: int = 30, owner_id: Optional[str] = None) -> list[dict]:
+    def get_upload_trends(self, days: int = 30, owner_id: Optional[str] = None, organization_id: Optional[str] = None) -> list[dict]:
         days = max(1, min(days, 365))
         with self.connect() as conn:
-            return [dict(row) for row in conn.execute("SELECT DATE(upload_time) AS date, COUNT(*) AS count FROM vault_documents WHERE DATE(upload_time) >= DATE('now', ?)" + (" AND owner_id = ?" if owner_id is not None else "") + " GROUP BY DATE(upload_time) ORDER BY date", (f"-{days} days", owner_id) if owner_id is not None else (f"-{days} days",)).fetchall()]
+            scope = ""
+            params: tuple[Any, ...] = (f"-{days} days",)
+            if organization_id is not None:
+                scope = " AND organization_id = ?"
+                params = (f"-{days} days", organization_id)
+            elif owner_id is not None:
+                scope = " AND owner_id = ?"
+                params = (f"-{days} days", owner_id)
+            return [dict(row) for row in conn.execute("SELECT DATE(upload_time) AS date, COUNT(*) AS count FROM vault_documents WHERE DATE(upload_time) >= DATE('now', ?)" + scope + " GROUP BY DATE(upload_time) ORDER BY date", params).fetchall()]
 
-    def get_docs_by_section(self, ref: str, owner_id: Optional[str] = None) -> list[dict]:
-        return self.search_section(ref, owner_id=owner_id)
+    def get_docs_by_section(
+        self,
+        ref: str,
+        owner_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> list[dict]:
+        return self.search_section(ref, owner_id=owner_id, organization_id=organization_id)
 
-    def get_section_impact(self, ref: str, owner_id: Optional[str] = None) -> list[dict]:
-        return self.search_section(ref, owner_id=owner_id)
+    def get_section_impact(
+        self,
+        ref: str,
+        owner_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> list[dict]:
+        return self.search_section(ref, owner_id=owner_id, organization_id=organization_id)
 
-    def get_related_documents(self, doc_id: str, limit: int = 20) -> list[dict]:
+    def get_related_documents(
+        self,
+        doc_id: str,
+        limit: int = 20,
+        organization_id: Optional[str] = None,
+    ) -> list[dict]:
         with self.connect() as conn:
-            return [dict(row) for row in conn.execute("SELECT DISTINCT v.id, v.filename, v.category, v.domain, kg.relationship, kg.confidence AS relevance FROM knowledge_graph kg JOIN vault_documents v ON v.id = CASE WHEN kg.source_doc_id = ? THEN kg.target_doc_id ELSE kg.source_doc_id END WHERE kg.source_doc_id = ? OR kg.target_doc_id = ? ORDER BY kg.confidence DESC LIMIT ?", (doc_id, doc_id, doc_id, max(1, min(limit, 100)))).fetchall()]
+            scope = ""
+            params: list[Any] = [doc_id, doc_id, doc_id]
+            if organization_id is not None:
+                scope = " AND v.organization_id = ?"
+                params.append(organization_id)
+            params.append(max(1, min(limit, 100)))
+            return [dict(row) for row in conn.execute("SELECT DISTINCT v.id, v.filename, v.category, v.domain, kg.relationship, kg.confidence AS relevance FROM knowledge_graph kg JOIN vault_documents v ON v.id = CASE WHEN kg.source_doc_id = ? THEN kg.target_doc_id ELSE kg.source_doc_id END WHERE (kg.source_doc_id = ? OR kg.target_doc_id = ?)" + scope + " ORDER BY kg.confidence DESC LIMIT ?", params).fetchall()]
 
-    def check_staleness(self, owner_id: Optional[str] = None) -> list[dict]:
+    def check_staleness(self, owner_id: Optional[str] = None, organization_id: Optional[str] = None) -> list[dict]:
         obsolete_references = ("Indian Penal Code", "Code of Criminal Procedure", "Indian Evidence Act")
         with self.connect() as conn:
             references = tuple(f"%{ref}%" for ref in obsolete_references)
-            return [dict(row) for row in conn.execute("SELECT DISTINCT v.id, v.filename, v.category, v.domain, si.section_ref AS outdated_reference FROM vault_documents v JOIN section_index si ON si.doc_id = v.id WHERE (si.section_ref LIKE ? OR si.section_ref LIKE ? OR si.section_ref LIKE ?)" + (" AND v.owner_id = ?" if owner_id is not None else "") + " ORDER BY v.upload_time DESC", references + ((owner_id,) if owner_id is not None else ())).fetchall()]
+            scope = ""
+            params = references
+            if organization_id is not None:
+                scope = " AND v.organization_id = ?"
+                params = references + (organization_id,)
+            elif owner_id is not None:
+                scope = " AND v.owner_id = ?"
+                params = references + (owner_id,)
+            return [dict(row) for row in conn.execute("SELECT DISTINCT v.id, v.filename, v.category, v.domain, si.section_ref AS outdated_reference FROM vault_documents v JOIN section_index si ON si.doc_id = v.id WHERE (si.section_ref LIKE ? OR si.section_ref LIKE ? OR si.section_ref LIKE ?)" + scope + " ORDER BY v.upload_time DESC", params).fetchall()]
 
     # ── Search Analytics ──────────────────────────────────────────
 

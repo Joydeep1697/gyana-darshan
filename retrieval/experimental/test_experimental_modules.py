@@ -56,6 +56,10 @@ def test_pipeline():
 
     assert len(decomp["issues"]) > 0
     assert len(parallel_res["candidates"]) > 0
+    # Branch consumers historically read `score`; ranking consumers read the
+    # explicit `branch_score`. Both must remain present and semantically equal.
+    for candidate in parallel_res["candidates"]:
+        assert candidate["score"] == candidate["branch_score"]
     assert len(reranked) > 0
     print("\n✅ All Experimental Unit Tests Passed Successfully!")
 

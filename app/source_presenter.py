@@ -134,8 +134,6 @@ def format_cited_evidence(answer: str, evidence_pack: dict[str, Any]) -> list[di
 
     cited = extract_citation_keys(answer)
     selected_keys = [key for key in cited if key in by_key]
-    if not selected_keys:
-        selected_keys = order[:3]
 
     result = []
     for key in selected_keys:

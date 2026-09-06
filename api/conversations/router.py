@@ -41,8 +41,11 @@ from database.repository import (
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from app.intelligence.grounding_verdict import assess_grounding, historical_grounding_verdict
+from app.intelligence.human_review import recommend_human_review
 from app.source_presenter import format_cited_evidence
 from app.intelligence.clarification import clarification_questions
+from app.intelligence.query_safety import assess_legal_intake
 from app.exports.legal_memo import consultation_docx, consultation_markdown
 
 router = APIRouter(prefix="/api/conversations", tags=["Conversations & Consultations"])
@@ -137,6 +140,8 @@ async def get_conversation(
     for m in msg_rows:
         la_schema = None
         if m.get("legal_answer_id"):
+            historical_verdict = historical_grounding_verdict(m["content"], m["grounding_status"])
+            historical_review = recommend_human_review(historical_verdict)
             ev_list = [
                 EvidenceRecordSchema(
                     id=e.get("id"),
@@ -153,7 +158,11 @@ async def get_conversation(
             ]
             la_schema = LegalAnswerSchema(
                 id=m["legal_answer_id"],
-                grounding_status=m["grounding_status"],
+                grounding_status=historical_verdict.status,
+                recorded_grounding_status=m["grounding_status"],
+                review_recommended=historical_review.required,
+                review_priority=historical_review.priority,
+                review_reason=historical_review.reason,
                 firewall_status=m["firewall_status"],
                 intervention_count=m["intervention_count"],
                 engine_version=m.get("engine_version", ENGINE_VERSION),
@@ -344,6 +353,30 @@ async def send_message(
     t0 = time.perf_counter()
     query = req.content.strip()
 
+    finding = assess_legal_intake(query)
+    if finding:
+        if conv["title"] == "New Legal Consultation":
+            auto_title = query[:45].strip() + ("..." if len(query) > 45 else "")
+            ConversationRepository.update_title_in_organization(conversation_id, auto_title, organization_id)
+        MessageRepository.add_message(conversation_id, role="user", content=query, latency_ms=0.0)
+        assistant = MessageRepository.add_message(
+            conversation_id, role="assistant", content=finding.message, latency_ms=0.0
+        )
+        return SendMessageResponse(
+            message_id=assistant["id"],
+            role="assistant",
+            answer=finding.message,
+            grounding_status="INPUT_NEEDS_CORRECTION",
+            latency_ms=0.0,
+            engine_version=ENGINE_VERSION,
+            corpus_version=CORPUS_VERSION,
+            evidence=[],
+            remaining_quota=quota["remaining"],
+            response_type="input_correction",
+            request_id=req.request_id,
+            attempt_id=req.attempt_id,
+        )
+
     questions = clarification_questions(query)
     if questions:
         if conv["title"] == "New Legal Consultation":
@@ -368,6 +401,8 @@ async def send_message(
             remaining_quota=quota["remaining"],
             response_type="clarification",
             clarification_questions=questions,
+            request_id=req.request_id,
+            attempt_id=req.attempt_id,
         )
 
     # 2. Invoke Frozen Legal Grounding Engine
@@ -381,7 +416,12 @@ async def send_message(
 
     passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
     latency = round((time.perf_counter() - t0) * 1000, 2)
-    grounding_status = "GROUNDED_AND_VERIFIED" if passed_fw else "AUTO_CORRECTED_BY_FIREWALL"
+    grounding_verdict = assess_grounding(
+        query, enforced_answer, evidence_ctx, passed_fw,
+        evidence_records=evidence_pack.get("retrieved_sections", []),
+    )
+    grounding_status = grounding_verdict.status
+    review = recommend_human_review(grounding_verdict)
 
     # 3. Format Evidence Items
     formatted_evidence = format_cited_evidence(enforced_answer, evidence_pack)
@@ -413,7 +453,7 @@ async def send_message(
         user_id=current_user["id"],
         endpoint="/api/conversations/messages",
         tokens=1,
-        metadata={"latency_ms": latency, "grounding_status": grounding_status}
+        metadata={"latency_ms": latency, "grounding_status": grounding_status, "request_id": req.request_id, "attempt_id": req.attempt_id}
     )
     AuditRepository.log_audit(
         event_type="LEGAL_CONSULTATION_QUERY",
@@ -423,10 +463,26 @@ async def send_message(
             "conversation_id": conversation_id,
             "grounding_status": grounding_status,
             "evidence_count": len(formatted_evidence),
-            "latency_ms": latency
+            "latency_ms": latency,
+            "request_id": req.request_id,
+            "attempt_id": req.attempt_id,
         },
         organization_id=organization_id,
     )
+    if review.required:
+        AuditRepository.log_audit(
+            event_type="LEGAL_REVIEW_RECOMMENDED",
+            user_id=current_user["id"],
+            client_ip=client_ip,
+            metadata={
+                "conversation_id": conversation_id,
+                "message_id": asst_msg["id"],
+                "grounding_status": grounding_status,
+                "priority": review.priority,
+                "reason": review.reason,
+            },
+            organization_id=organization_id,
+        )
 
     updated_quota = get_user_quota_limits(current_user)
 
@@ -439,5 +495,10 @@ async def send_message(
         engine_version=ENGINE_VERSION,
         corpus_version=CORPUS_VERSION,
         evidence=[EvidenceRecordSchema(**e) for e in formatted_evidence],
-        remaining_quota=updated_quota["remaining"]
+        remaining_quota=updated_quota["remaining"],
+        review_recommended=review.required,
+        review_priority=review.priority,
+        review_reason=review.reason,
+        request_id=req.request_id,
+        attempt_id=req.attempt_id,
     )

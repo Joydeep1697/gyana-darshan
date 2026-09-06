@@ -158,6 +158,10 @@ class ReasoningStep(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+    grounding_status: str = "INSUFFICIENT_EVIDENCE"
+    review_recommended: bool = True
+    review_priority: Optional[str] = None
+    review_reason: Optional[str] = None
     sources: list[ChatSource] = []
     reasoning_steps: list[ReasoningStep] = []
     follow_ups: list[str] = []

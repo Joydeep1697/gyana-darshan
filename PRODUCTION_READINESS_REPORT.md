@@ -4,6 +4,8 @@
 
 **Deployment infrastructure is prepared; production approval remains blocked until real hosting, rotated credentials, CI, and live end-to-end checks succeed.** This report does not certify historical benchmark values, unpublished test counts, provider availability, or payment processing.
 
+Benchmark numbers in this repository are self-reported by project-owned scripts unless a report explicitly cites an external, independent auditor and reproducible validation package.
+
 ## Release controls
 
 | Area | Implemented control | Required independent evidence |

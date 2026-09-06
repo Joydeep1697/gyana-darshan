@@ -27,6 +27,8 @@ from retrieval.procedural_rules_registry import ProceduralRulesRegistry
 from retrieval.statute_scope_classifier import StatuteScopeClassifier
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
 from app.intelligence.ai_provider import get_ai_status
+from app.intelligence.grounding_verdict import assess_grounding
+from app.intelligence.human_review import recommend_human_review
 from app.source_presenter import format_cited_evidence
 from app import config
 from api.security import (
@@ -172,6 +174,9 @@ class LegalQueryResponse(BaseModel):
     retrieved_sections: List[EvidenceSection]
     verification_firewall: VerificationDetails
     latency_ms: float
+    review_recommended: bool = False
+    review_priority: Optional[str] = None
+    review_reason: Optional[str] = None
 
 @app.get("/health", tags=["System Health"])
 def health_check():
@@ -220,9 +225,13 @@ async def process_legal_query(
                     text_snippet=s.get("text_snippet", "")
                 ))
 
-            return passed_fw, enforced_answer, claims, evidence_pack, formatted_sections
+            verdict = assess_grounding(
+                query, enforced_answer, evidence_ctx, passed_fw,
+                evidence_records=evidence_pack.get("retrieved_sections", []),
+            )
+            return passed_fw, enforced_answer, claims, evidence_pack, formatted_sections, verdict
 
-        passed_fw, enforced_answer, claims, evidence_pack, formatted_sections = await asyncio.wait_for(
+        passed_fw, enforced_answer, claims, evidence_pack, formatted_sections, verdict = await asyncio.wait_for(
             _execute_pipeline(), timeout=config.LEGAL_REQUEST_TIMEOUT
         )
 
@@ -235,7 +244,8 @@ async def process_legal_query(
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
 
     latency = round((time.perf_counter() - t0) * 1000, 2)
-    grounding_status = "GROUNDED_AND_VERIFIED" if passed_fw else "AUTO_CORRECTED_BY_FIREWALL"
+    grounding_status = verdict.status
+    review = recommend_human_review(verdict)
 
     # Log structured audit event
     log_audit_event(
@@ -263,9 +273,13 @@ async def process_legal_query(
             passed_clean=passed_fw,
             interventions_count=len(claims),
             claims_verified=claims,
-            provenance_verified=True
+            # Source labels/excerpts do not establish a verified provenance chain.
+            provenance_verified=False
         ),
-        latency_ms=latency
+        latency_ms=latency,
+        review_recommended=review.required,
+        review_priority=review.priority,
+        review_reason=review.reason,
     )
 
     # Sanitize output against any internal filesystem leakage

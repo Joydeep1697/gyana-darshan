@@ -4,16 +4,17 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException
 from app.database import get_db, Database
 from app.config import CATEGORY_DIR
-from api.auth.dependencies import get_current_user
+from api.auth.dependencies import get_workspace_context, require_workspace_writer
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 
 @router.post("/classify/{doc_id}")
-async def reclassify_document(doc_id: str, db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def reclassify_document(doc_id: str, db: Database = Depends(get_db), workspace: dict = Depends(require_workspace_writer)):
     """Re-classify a document by running extract_pdf + classify_rules + detect_domain."""
+    organization_id = workspace["organization"]["id"]
     doc = db.get_document(doc_id)
-    if not doc or doc.get("owner_id") != user["id"]:
+    if not doc or doc.get("organization_id") != organization_id:
         raise HTTPException(404, "Document not found")
         
     def do_reclassify():
@@ -49,12 +50,12 @@ async def list_categories():
     return {"categories": categories}
 
 @router.get("/domains")
-async def list_domains(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def list_domains(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """List all domains with document counts."""
-    return {"domains": db.get_domain_counts(owner_id=user["id"])}
+    return {"domains": db.get_domain_counts(organization_id=workspace["organization"]["id"])}
 
 @router.get("/stats")
-async def get_classification_stats(db: Database = Depends(get_db), user: dict = Depends(get_current_user)):
+async def get_classification_stats(db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
     """Get classification statistics from classification reports."""
-    stats = db.get_document_stats(owner_id=user["id"])
+    stats = db.get_document_stats(organization_id=workspace["organization"]["id"])
     return {"accuracy": None, "total_classified": stats["indexed"], "total_documents": stats["total_documents"], "categories": stats["categories"]}

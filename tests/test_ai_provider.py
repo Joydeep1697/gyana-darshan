@@ -110,8 +110,8 @@ class TestAIProvider(unittest.IsolatedAsyncioTestCase):
 
         class FakeDatabase:
             @staticmethod
-            def get_document_stats(owner_id):
-                return {"owner": owner_id, "documents": 2}
+            def get_document_stats(organization_id):
+                return {"organization": organization_id, "documents": 2}
 
         with patch.object(
             dashboard,
@@ -119,7 +119,10 @@ class TestAIProvider(unittest.IsolatedAsyncioTestCase):
             new_callable=AsyncMock,
             side_effect=AIProviderUnavailable("The AI provider is temporarily unavailable."),
         ):
-            response = await dashboard.get_briefing(FakeDatabase(), {"id": "user-1"})
+            response = await dashboard.get_briefing(
+                FakeDatabase(),
+                {"organization": {"id": "personal-user-1"}},
+            )
 
         self.assertEqual(response.status_code, 503)
         payload = json.loads(response.body)

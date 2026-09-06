@@ -7,7 +7,7 @@
   <meta name="description" content="Nyaya Darshana is source-grounded Indian legal intelligence for statutory research, transition analysis, and private document work.">
   <link rel="icon" type="image/png" sizes="64x64" href="/static/favicon-scales.png">
   <link rel="apple-touch-icon" href="/static/logo-scales-v2.png">
-  <title>Nyaya Darshana — Indian law, reasoned from the source</title>
+  <title>Nyaya Darshana: Indian law, reasoned from the source</title>
   <style>
     :root{
       --paper:#f6f2e8;--paper-2:#fbf9f4;--surface:#fffdfa;--ink:#122039;--ink-2:#334158;
@@ -36,7 +36,7 @@
     .container{width:min(1180px,calc(100% - 40px));margin-inline:auto}
     .eyebrow{display:flex;align-items:center;gap:9px;color:var(--copper);font-weight:750;font-size:12px;letter-spacing:.13em;text-transform:uppercase}
     .eyebrow:before{content:"";width:28px;height:1px;background:currentColor}
-    .button{min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:999px;padding:0 20px;background:var(--navy);color:#fff;font-weight:720;cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease}
+    .button{min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:999px;padding:0 20px;background:var(--navy);color:#fff;font-weight:720;cursor:pointer;white-space:nowrap;transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease}
     .button:hover{background:var(--navy-2);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
     .button.secondary{background:transparent;color:var(--navy);border-color:var(--line-strong)}
     .button.secondary:hover{background:rgba(255,255,255,.65);box-shadow:none}
@@ -53,23 +53,25 @@
     .brand small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:-3px}
 
     /* Public experience */
-    .public-shell{min-height:100vh;position:relative;overflow:hidden}
+    .public-shell{min-height:100vh;position:relative;overflow:hidden;isolation:isolate}
     .public-shell:before{content:"";position:absolute;inset:0 0 auto;height:760px;pointer-events:none;background:radial-gradient(circle at 76% 22%,rgba(217,152,47,.13),transparent 29%),radial-gradient(circle at 18% 8%,rgba(164,93,53,.08),transparent 23%),linear-gradient(180deg,#fbf8f0 0%,var(--paper) 100%)}
     .public-nav{height:78px;position:relative;z-index:10;display:flex;align-items:center;border-bottom:1px solid rgba(201,193,178,.58);background:rgba(246,242,232,.8);backdrop-filter:blur(14px)}
     .public-nav .container{display:flex;align-items:center;justify-content:space-between}
     .public-links{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:650;color:var(--ink-2)}
     .public-links a:hover{color:var(--copper)}
-    .nav-actions{display:flex;align-items:center;gap:8px}
+    .nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
     .mobile-public-menu{display:none}
-    .hero{position:relative;padding:92px 0 62px}
+    .hero{position:relative;padding:112px 0 78px}
+    .hero:after{content:"";position:absolute;right:4%;top:130px;width:260px;height:260px;border:1px solid rgba(164,93,53,.16);border-radius:50%;box-shadow:0 0 0 28px rgba(164,93,53,.035),0 0 0 56px rgba(164,93,53,.025);transform:rotate(18deg);pointer-events:none}
     .hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);gap:72px;align-items:center}
-    .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(50px,6.2vw,86px);line-height:.96;letter-spacing:-.055em;margin:22px 0 26px;max-width:780px}
+    .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(50px,6.2vw,86px);line-height:.96;letter-spacing:-.055em;margin:22px 0 26px;max-width:780px;text-shadow:0 2px 0 #fff,0 16px 34px rgba(16,33,61,.12)}
     .hero h1 em{font-style:normal;color:var(--copper)}
     .hero-copy>p{font-size:18px;line-height:1.7;color:var(--ink-2);max-width:650px;margin:0 0 30px}
     .hero-actions{display:flex;gap:11px;flex-wrap:wrap}
     .hero-note{margin-top:22px;color:var(--muted);font-size:12px;display:flex;align-items:center;gap:8px}
     .hero-note .dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 0 4px rgba(31,107,80,.1)}
-    .consult-preview{background:rgba(255,253,250,.86);border:1px solid rgba(201,193,178,.9);border-radius:26px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .consult-preview{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(246,240,229,.8));border:1px solid rgba(255,255,255,.9);border-radius:26px;box-shadow:24px 30px 80px rgba(27,38,55,.16),inset 0 1px 0 #fff;overflow:hidden;position:relative;transform:perspective(1100px) rotateY(-8deg) rotateX(3deg) rotateZ(1deg);transition:transform .35s ease,box-shadow .35s ease}
+    .consult-preview:hover{transform:perspective(1100px) rotateY(-2deg) rotateX(1deg);box-shadow:30px 38px 95px rgba(27,38,55,.2)}
     .consult-preview:before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--copper),var(--saffron),var(--green))}
     .preview-top{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
     .preview-title{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2)}
@@ -107,7 +109,8 @@
     .product-section .section-heading p{color:#b9c2cf}
     .product-section .eyebrow{color:#e5ac56}
     .capability-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:18px}
-    .capability-card{min-height:360px;border:1px solid rgba(255,255,255,.13);border-radius:22px;background:rgba(255,255,255,.045);padding:30px;display:flex;flex-direction:column;justify-content:space-between}
+    .capability-card{min-height:360px;border:1px solid rgba(255,255,255,.13);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));padding:30px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:14px 20px 44px rgba(8,18,34,.16),inset 0 1px 0 rgba(255,255,255,.14);transition:transform .25s ease,box-shadow .25s ease}
+    .capability-card:hover{transform:translateY(-6px);box-shadow:18px 28px 55px rgba(8,18,34,.24),inset 0 1px 0 rgba(255,255,255,.18)}
     .capability-card.small{min-height:171px}
     .capability-stack{display:grid;gap:18px}
     .capability-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:#e4ad5b;font-weight:750}
@@ -309,7 +312,7 @@
       .vault-layout{grid-template-columns:1fr}.vault-side{grid-row:1}.account-grid{grid-template-columns:1fr}.workspace-create{grid-template-columns:1fr}.workspace-toolbar,.workspace-member-form{align-items:stretch;flex-direction:column}
     }
     @media(max-width:720px){
-      .container{width:min(100% - 28px,1180px)}.public-nav{height:68px}.brand{font-size:18px}.nav-actions .button.secondary{display:none}.nav-actions .button{min-height:40px;padding-inline:15px;font-size:12px}
+      .container{width:min(100% - 28px,1180px)}.public-nav{height:68px}.brand{font-size:18px}.nav-actions .button.secondary{display:inline-flex}.nav-actions .button{min-height:40px;padding-inline:12px;font-size:12px}.nav-actions{gap:5px}
       .hero{padding:58px 0 48px}.hero-grid{gap:34px}.hero h1{font-size:clamp(46px,15vw,67px)}.hero-copy>p{font-size:16px}.hero-actions{display:grid;grid-template-columns:1fr}.hero-actions .button{width:100%}.preview-body{padding:17px}.source-row{grid-template-columns:1fr}.mini-source:nth-child(n+3){display:none}
       .trust-grid{grid-template-columns:1fr}.trust-item{min-height:88px;border-right:0;border-bottom:1px solid var(--line);padding:19px 5px}.trust-item:last-child{border-bottom:0}.section{padding:76px 0}.section-heading{margin-bottom:36px}.method-grid{grid-template-columns:1fr}.method-card{border-right:0!important;border-bottom:1px solid var(--line)!important;padding:25px 7px}.method-card:last-child{border-bottom:0!important}.method-number{margin-bottom:21px}.capability-card{min-height:310px;padding:22px}.trust-layout{gap:30px}.site-footer .container{align-items:flex-start;flex-direction:column}
       .auth-card{padding:24px 18px}.app-topbar{padding:0 12px;height:60px;flex-basis:60px}
@@ -317,7 +320,51 @@
       .page{width:calc(100% - 24px);padding:26px 0 46px}.page-head{display:block}.page-head h2{font-size:32px}.page-head .button{margin-top:16px}.vault-toolbar,.vault-question-form{display:grid}.stats-grid{grid-template-columns:repeat(2,1fr)}.document-row{grid-template-columns:36px minmax(0,1fr)}.doc-status{grid-column:2;justify-self:start}.profile-card{padding:18px}.drawer-body{padding:17px}.drawer-actions{flex-wrap:wrap}.drawer-actions .button{flex:1}
     }
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+    /* Public palette: restrained red and gold */
+    #publicShell{--paper:#fffaf2;--paper-2:#f8efe2;--surface:#fffdf8;--ink:#241313;--ink-2:#533738;--muted:#806d6a;--line:#ead9cd;--line-strong:#c9a89a;--navy:#641d25;--navy-2:#43131a;--copper:#a3262f;--saffron:#c8952e;--copper-soft:#f5dfd7}
+    #publicShell .public-nav{background:rgba(255,250,242,.92);border-bottom-color:rgba(100,29,37,.12)}
+    #publicShell .public-links a:hover{color:#a3262f}
+    #publicShell .button{background:#641d25;box-shadow:0 10px 26px rgba(100,29,37,.16)}
+    #publicShell .button:hover{background:#43131a}
+    #publicShell .button.secondary{color:#641d25;border-color:#c9a89a}
+    #publicShell .button.secondary:hover{background:#f8efe2}
+    #publicShell .hero{background:radial-gradient(circle at 84% 18%,rgba(200,149,46,.15),transparent 25%)}
+    #publicShell .hero h1 em{color:#a3262f}
+    #publicShell .consult-preview:before{background:linear-gradient(90deg,#a3262f,#c8952e,#7d3337)}
+    #publicShell .trust-strip{background:#641d25;color:#fff;border-color:#641d25}
+    #publicShell .trust-strip .trust-item b,#publicShell .trust-strip .trust-item span{color:#fff}
+    #publicShell .trust-strip .trust-index{color:#edc66e}
+    #publicShell .final-cta{background:#641d25;color:#fff}
+    #publicShell .final-cta h2,#publicShell .final-cta p{color:#fff}
+    #publicShell .final-cta .button{background:#edc66e;color:#43131a}
+    #publicShell .final-cta .button:hover{background:#f5d993}
+
+    /* Public palette: white and light chocolate */
+    #publicShell{--paper:#fffefa;--paper-2:#fbf5ee;--surface:#ffffff;--ink:#47332a;--ink-2:#755d4e;--muted:#a18c7e;--line:#eee3d9;--line-strong:#d9c5b4;--navy:#8a624b;--navy-2:#6f4b38;--copper:#a87958;--saffron:#caa477;--copper-soft:#f1e4d9}
+    #publicShell .public-nav{background:rgba(255,254,250,.94);border-bottom-color:rgba(74,45,34,.12)}
+    #publicShell .public-links a:hover{color:#8b5a3c}
+    #publicShell .button{background:#8a624b;box-shadow:0 10px 26px rgba(138,98,75,.14)}
+    #publicShell .button:not(.secondary):not(.ghost){color:#fff!important}
+    #publicShell .button:hover{background:#6f4b38}
+    #publicShell .button.secondary{background:#fff!important;color:#6f4b38!important;border-color:#c9ad98}
+    #publicShell .button.secondary:hover{background:#f7f0e8}
+    #publicShell .hero{background:radial-gradient(circle at 84% 18%,rgba(185,138,82,.14),transparent 25%)}
+    #publicShell .hero h1 em{color:#8b5a3c}
+    #publicShell .consult-preview:before{background:linear-gradient(90deg,#4a2d22,#b98a52,#8b5a3c)}
+    #publicShell .trust-strip{background:#fbf5ee;color:#8a624b;border-color:#eee3d9}
+    #publicShell .trust-strip .trust-item b{color:#75503d}
+    #publicShell .trust-strip .trust-item span{color:#89776c}
+    #publicShell .trust-strip .trust-index{color:#8b5a3c}
+    #publicShell .final-cta{background:#ead9c9;color:#47332a}
+    #publicShell .final-cta h2,#publicShell .final-cta p{color:#47332a}
+    #publicShell .final-cta .button{background:#8a624b;color:#fff}
+    #publicShell .final-cta .button:hover{background:#6f4b38}
+
   </style>
+  <link rel="stylesheet" href="/static/public-site.css">
+  <script src="/static/public-site.js" defer></script>
+  <noscript><style>#publicShell .public-links{display:flex}#publicShell .site-menu-toggle{display:none}</style></noscript>
 </head>
 <body>
   <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -326,12 +373,13 @@
   <div id="publicShell" class="public-shell">
     <header class="public-nav">
       <div class="container">
-        <a class="brand" href="#top" aria-label="Nyaya Darshana home">
+        <a class="brand" href="/#top" aria-label="Nyaya Darshana home">
           <img class="brand-logo" src="/static/logo-scales-v2.png" alt="" width="42" height="42">
           <span>Nyaya Darshana<small>Indian legal intelligence</small></span>
         </a>
-        <nav class="public-links" aria-label="Primary navigation">
-          <a href="#product">Product</a><a href="#method">How it works</a><a href="#trust">Trust</a>
+        <button id="publicMenuToggle" class="button secondary site-menu-toggle" type="button" aria-controls="publicNavigation" aria-expanded="false">Menu</button>
+        <nav id="publicNavigation" class="public-links" aria-label="Primary navigation">
+          <a href="/#top">Home</a><a href="/about">About Us</a><a href="/services">Research Services</a><a href="/use-cases">Use Cases</a><a href="/pricing">Pricing</a><a href="/contact">Contact &amp; Support</a>
         </nav>
         <div class="nav-actions">
           <button class="button secondary" type="button" data-auth-open="login">Sign in</button>
@@ -346,7 +394,7 @@
           <div class="hero-copy">
             <div class="eyebrow">Source-grounded legal research</div>
             <h1>Indian law,<br><em>reasoned from</em><br>the source.</h1>
-            <p>Nyaya Darshana retrieves authoritative statutory text, separates substantive, procedural, and evidence-law timelines, and verifies material claims before presenting an answer.</p>
+            <p>Nyaya Darshana retrieves statutory text, separates substantive, procedural, and evidence-law timelines, and checks citations. Legal conclusions require independent review.</p>
             <div class="hero-actions">
               <button class="button" type="button" data-auth-open="register">Start a grounded consultation
                 <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
@@ -378,18 +426,18 @@
         <div class="container trust-grid">
           <div class="trust-item"><span class="trust-index">01</span><div><b>Authoritative statutory text</b><span>Answers begin with retrieved provisions, not memory.</span></div></div>
           <div class="trust-item"><span class="trust-index">02</span><div><b>Transition-aware analysis</b><span>Offence, procedure, and evidence timelines stay distinct.</span></div></div>
-          <div class="trust-item"><span class="trust-index">03</span><div><b>Claim-level verification</b><span>Unsupported material claims are blocked or corrected.</span></div></div>
+          <div class="trust-item"><span class="trust-index">03</span><div><b>Citation checks and review</b><span>Automated checks do not establish every legal conclusion.</span></div></div>
         </div>
       </section>
 
       <section id="method" class="section">
         <div class="container">
-          <div class="section-heading"><div class="eyebrow">A disciplined method</div><h2>From question to cited answer, without the black box.</h2><p>The system exposes its sources and verification status—not private chain-of-thought—so every material conclusion can be checked.</p></div>
+          <div class="section-heading"><div class="eyebrow">A disciplined method</div><h2>From question to cited answer, without the black box.</h2><p>The system exposes its sources and verification status, not private chain-of-thought, so every material conclusion can be checked.</p></div>
           <div class="method-grid">
             <article class="method-card"><div class="method-number">01 / Retrieve</div><h3>Find the governing text</h3><p>Queries are mapped to relevant statutes, sections, savings clauses, and transition provisions.</p></article>
             <article class="method-card"><div class="method-number">02 / Route</div><h3>Separate the timelines</h3><p>Substantive liability, procedure, and evidence law are analysed on their own commencement rules.</p></article>
             <article class="method-card"><div class="method-number">03 / Reason</div><h3>Answer within authority</h3><p>The generation layer is constrained by the retrieved evidence pack and the question actually asked.</p></article>
-            <article class="method-card"><div class="method-number">04 / Verify</div><h3>Check every material claim</h3><p>A legal claim firewall tests citations and can correct the answer before it reaches the user.</p></article>
+            <article class="method-card"><div class="method-number">04 / Review</div><h3>Check citations; review conclusions</h3><p>A legal claim firewall checks known citation errors. Review the cited text before relying on a legal conclusion.</p></article>
           </div>
         </div>
       </section>
@@ -400,7 +448,7 @@
           <div class="capability-grid">
             <article class="capability-card">
               <div><div class="capability-kicker">Grounded consultation</div><h3>Ask complex Indian-law scenarios in plain language.</h3><p>Persistent conversations combine statutory retrieval, transition routing, grounded generation, and an auditable evidence record.</p></div>
-              <div class="capability-proof"><span class="proof-chip">Persistent history</span><span class="proof-chip">Verified status</span><span class="proof-chip">Source cards</span><span class="proof-chip">Quota visibility</span></div>
+              <div class="capability-proof"><span class="proof-chip">Persistent history</span><span class="proof-chip">Evidence status</span><span class="proof-chip">Source cards</span><span class="proof-chip">Quota visibility</span></div>
             </article>
             <div class="capability-stack">
               <article class="capability-card small"><div><div class="capability-kicker">Knowledge Vault</div><h3>Private PDF intelligence.</h3><p>Upload, classify, search metadata, and generate a cached legal summary within your account boundary.</p></div></article>
@@ -421,11 +469,30 @@
         </div>
       </section>
 
+      <section class="section site-directory" aria-labelledby="exploreTitle"><div class="container">
+        <div class="section-heading"><div class="eyebrow">Explore Nyaya Darshana</div><h2 id="exploreTitle">Find the right place to begin.</h2><p>Understand the product, choose a research workflow, or find help with your workspace.</p></div>
+        <div class="site-grid">
+          <a class="site-card" href="/about"><div class="eyebrow">01 / About us</div><h3>The story and the standards</h3><p>Our approach to research, team information and careers.</p><span>Meet the product →</span></a>
+          <a class="site-card" href="/services"><div class="eyebrow">02 / Research services</div><h3>Questions, statutes and PDFs</h3><p>Consultations, statutory transitions, document research and team workspaces.</p><span>Explore services →</span></a>
+          <a class="site-card" href="/use-cases"><div class="eyebrow">03 / Use cases</div><h3>See a workflow before you start</h3><p>Illustrative research examples, with inputs and review steps made clear.</p><span>See the examples →</span></a>
+          <a class="site-card" href="/pricing"><div class="eyebrow">04 / Pricing</div><h3>Know your access</h3><p>Current features, payment availability and answers to common questions.</p><span>Review access →</span></a>
+          <a class="site-card site-wide" href="/contact"><div class="eyebrow">05 / Contact &amp; support</div><h3>Help with the next step</h3><p>Sign-in and document troubleshooting, contact details and official links.</p><span>Find support →</span></a>
+        </div>
+      </div></section>
+
       <section class="final-cta">
         <div class="container"><div class="eyebrow" style="justify-content:center">Begin with a real question</div><h2>Put the statute back at the centre of legal AI.</h2><p>Create a private workspace and test Nyaya Darshana against a scenario whose answer you can independently verify.</p><button class="button" type="button" data-auth-open="register">Create your workspace <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></button></div>
       </section>
     </main>
-    <footer class="site-footer"><div class="container"><a class="brand" href="#top"><img class="brand-logo" src="/static/logo-scales-v2.png" alt="" width="42" height="42"><span>Nyaya Darshana</span></a><span>Research assistance only · Verify current law and obtain professional advice where required.</span><span>© <span id="year"></span> Nyaya Darshana</span></div></footer>
+    <footer class="site-footer"><div class="container">
+      <div class="site-footer-grid">
+        <div><a class="brand" href="/#top"><img class="brand-logo" src="/static/logo-scales-v2.png" alt="" width="42" height="42"><span>Nyaya Darshana</span></a><p>Indian legal research with visible sources and room for independent review.</p></div>
+        <nav aria-label="Company links"><strong>About</strong><a href="/about#our-story">Our story</a><a href="/about#team">Team</a><a href="/about#careers">Careers</a><a href="/contact#get-in-touch">Get in touch</a></nav>
+        <nav aria-label="Research links"><strong>Research</strong><a href="/services">Research services</a><a href="/use-cases">Use cases</a><a href="/use-cases#case-studies">Case studies &amp; feedback</a><a href="/pricing#plans">Plans &amp; features</a><a href="/pricing#faq">FAQ</a></nav>
+        <nav aria-label="Support and legal links"><strong>Support &amp; legal</strong><a href="/contact#support">Support</a><a href="/contact#locations">Locations</a><a href="/privacy">Privacy information</a><a href="/terms">Terms of use</a><a href="/contact#social">Social links</a></nav>
+      </div>
+      <div class="site-footer-bottom"><span>Research assistance only · Verify current law and obtain professional advice where required.</span><span>© <span id="year"></span> Nyaya Darshana</span></div>
+    </div></footer>
   </div>
 
   <section id="appShell" class="app-shell" hidden>
@@ -439,7 +506,7 @@
         <button type="button" data-view="account"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>Account &amp; access</button>
       </nav>
       <div class="sidebar-foot">
-        <div class="quota-label"><span>Daily consultations</span><span id="quotaText">—</span></div><div class="quota-track"><div id="quotaFill" class="quota-fill"></div></div>
+        <div class="quota-label"><span>Daily consultations</span><span id="quotaText">Not available</span></div><div class="quota-track"><div id="quotaFill" class="quota-fill"></div></div>
         <div class="sidebar-user"><div id="sidebarAvatar" class="avatar">N</div><div class="sidebar-user-copy"><b id="sidebarName">Workspace</b><span id="sidebarEmail">Loading account…</span></div></div>
       </div>
     </aside>
@@ -451,9 +518,9 @@
       <section id="consultationView" class="view consultation-view active" aria-label="Legal consultation">
         <aside class="conversation-rail" aria-label="Consultation history"><div class="rail-head"><button id="newConversationButton" class="button small rail-new" type="button"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>New consultation</button></div><div id="conversationList" class="conversation-list"></div></aside>
         <div class="chat-workspace">
-          <header class="chat-header"><div id="chatTitle" class="chat-title">New legal consultation</div><div class="chat-actions"><button id="exportMarkdownButton" class="button secondary" type="button" disabled>Export .md</button><button id="exportDocxButton" class="button secondary" type="button" disabled>Export .docx</button><div class="verified-label"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>Evidence-grounded</div></div></header>
+          <header class="chat-header"><div id="chatTitle" class="chat-title">New legal consultation</div><div class="chat-actions"><button id="exportMarkdownButton" class="button secondary" type="button" disabled>Export .md</button><button id="exportDocxButton" class="button secondary" type="button" disabled>Export .docx</button><div class="verified-label neutral"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>Evidence status per answer</div></div></header>
           <div id="messageScroll" class="message-scroll"><div id="messages" class="messages"></div></div>
-          <div class="composer-wrap"><form id="composer" class="composer"><label class="sr-only" for="questionInput">Ask a legal question</label><textarea id="questionInput" rows="1" maxlength="4096" placeholder="Describe the legal question, dates, and procedural posture…"></textarea><button id="sendButton" class="send-button" type="submit" aria-label="Send question"><svg class="icon"><use href="#i-arrow-up"></use></svg></button></form><div class="composer-note">Nyaya Darshana can make mistakes. Check cited provisions and current amendments.</div></div>
+          <div class="composer-wrap"><form id="composer" class="composer"><label class="sr-only" for="questionInput">Ask a legal question</label><textarea id="questionInput" rows="1" maxlength="4096" placeholder="Describe the legal question, dates, and procedural posture…"></textarea><button id="cancelQuestionButton" class="button secondary" type="button" hidden aria-label="Cancel consultation request">Cancel</button><button id="sendButton" class="send-button" type="submit" aria-label="Send question"><svg class="icon"><use href="#i-arrow-up"></use></svg></button></form><div class="composer-note">Nyaya Darshana can make mistakes. Check cited provisions and current amendments.</div></div>
         </div>
       </section>
 
@@ -474,7 +541,7 @@
         <div class="page">
           <div class="page-head"><div><h2>Account &amp; access</h2><p>Identity, daily usage, and deployment-backed access status in one place.</p></div><button id="logoutButton" class="button secondary small" type="button"><svg class="icon"><use href="#i-logout"></use></svg>Sign out</button></div>
           <div class="account-grid">
-            <section class="panel profile-card"><div class="profile-hero"><div id="profileAvatar" class="avatar">N</div><div><h3 id="profileName">—</h3><p id="profileEmail">—</p></div></div><div class="detail-list"><div class="detail-row"><span>Account role</span><b id="profileRole">—</b></div><div class="detail-row"><span>Daily allowance</span><b id="profileQuota">—</b></div><div class="detail-row"><span>Account created</span><b id="profileCreated">—</b></div><div class="detail-row"><span>Identity status</span><b id="profileVerified">—</b></div></div></section>
+            <section class="panel profile-card"><div class="profile-hero"><div id="profileAvatar" class="avatar">N</div><div><h3 id="profileName">Not available</h3><p id="profileEmail">Not available</p></div></div><div class="detail-list"><div class="detail-row"><span>Account role</span><b id="profileRole">Not available</b></div><div class="detail-row"><span>Daily allowance</span><b id="profileQuota">Not available</b></div><div class="detail-row"><span>Account created</span><b id="profileCreated">Not available</b></div><div class="detail-row"><span>Identity status</span><b id="profileVerified">Not available</b></div></div></section>
             <div style="display:grid;gap:18px"><section class="panel access-card"><div class="eyebrow">Current access</div><h3 id="accessPlan">Free</h3><p id="accessCopy">Your account includes grounded consultations and a private document Vault within the displayed daily allowance.</p><div id="billingActions"></div></section><section class="panel account-note"><h3>Security posture</h3><ul><li>Authenticated ownership checks protect conversations and Vault files.</li><li>Source paths and account identifiers are not exposed in document responses.</li><li>Production startup rejects weak secrets and wildcard origins.</li></ul></section></div>
             <section class="panel workspace-card"><div class="eyebrow">Workspace access</div><h3 style="font-family:var(--serif);margin:5px 0 15px">Organizations and members</h3><div class="workspace-toolbar"><div class="field"><label for="workspaceSelect">Active workspace</label><select id="workspaceSelect" class="input"></select></div><button id="refreshMembersButton" class="button secondary small" type="button">View members</button></div><div id="workspaceMembers" class="workspace-members"></div><form id="memberForm" class="workspace-member-form" hidden><div class="field" style="flex:1"><label for="memberEmail">Existing member email</label><input id="memberEmail" class="input" type="email" maxlength="255"></div><div class="field"><label for="memberRole">Role</label><select id="memberRole" class="input"><option>MEMBER</option><option>VIEWER</option><option>ADMIN</option></select></div><button class="button small" type="submit">Add member</button></form><form id="workspaceCreateForm" class="workspace-create"><div class="field"><label for="workspaceName">New organization name</label><input id="workspaceName" class="input" minlength="2" maxlength="100"></div><div class="field"><label for="workspaceSlug">Workspace slug</label><input id="workspaceSlug" class="input" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxlength="60"></div><button class="button small" type="submit">Create workspace</button></form></section>
           </div>
@@ -510,7 +577,7 @@
       accessToken: localStorage.getItem('nyaya_access_token') || '',
       refreshToken: localStorage.getItem('nyaya_refresh_token') || '',
       organizationId: localStorage.getItem('nyaya_organization_id') || '', organizations: [],
-      user: null, conversations: [], activeConversation: null, messages: [],
+      user: null, conversations: [], activeConversation: null, messages: [], consultationRequest: null,
       vaultDocuments: [], vaultStats: null, activeDocument: null, selectedDocumentIds: new Set(), sending: false,
       authMode: 'login', pendingPrompt: sessionStorage.getItem('nyaya_pending_prompt') || ''
     };
@@ -522,7 +589,7 @@
     ];
 
     function escapeHtml(value = '') { return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
-    function formatDate(value) { if (!value) return '—'; const date = new Date(value); return Number.isNaN(date.getTime()) ? '—' : new Intl.DateTimeFormat('en-IN',{day:'numeric',month:'short',year:'numeric'}).format(date); }
+    function formatDate(value) { if (!value) return 'Not available'; const date = new Date(value); return Number.isNaN(date.getTime()) ? 'Not available' : new Intl.DateTimeFormat('en-IN',{day:'numeric',month:'short',year:'numeric'}).format(date); }
     function fileSize(bytes = 0) { if (!bytes) return '0 KB'; const units=['B','KB','MB','GB']; const index=Math.min(Math.floor(Math.log(bytes)/Math.log(1024)),3); return `${(bytes/1024**index).toFixed(index ? 1 : 0)} ${units[index]}`; }
     function initials(name = 'N') { return name.trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase() || 'N'; }
     function detailFrom(data, fallback = 'Something went wrong.') { const detail=data?.detail; if (typeof detail === 'string') return detail; if (Array.isArray(detail)) return detail.map(x=>x.msg||String(x)).join(' '); return fallback; }
@@ -575,11 +642,11 @@
       const tokens=await api('/api/auth/login',{method:'POST',auth:false,body:JSON.stringify(credentials)}); state.accessToken=tokens.access_token;state.refreshToken=tokens.refresh_token;localStorage.setItem('nyaya_access_token',state.accessToken);localStorage.setItem('nyaya_refresh_token',state.refreshToken);closeAuth();await enterApp();
     }catch(error){$('#authError').textContent=error.message;$('#authError').hidden=false;}finally{submit.disabled=false;setBusy(false);}}
 
-    async function enterApp(){setBusy(true);try{state.user=await api('/api/auth/me');await loadOrganizations();$('#publicShell').hidden=true;$('#appShell').hidden=false;renderProfile();await loadConversations();setView('consultation');if(state.pendingPrompt){const prompt=state.pendingPrompt;state.pendingPrompt='';sessionStorage.removeItem('nyaya_pending_prompt');$('#questionInput').value=prompt;resizeComposer();setTimeout(()=>$('#questionInput').focus(),50);}}catch(error){clearSession();$('#publicShell').hidden=false;$('#appShell').hidden=true;if(error.status!==401)toast(error.message,'error');}finally{setBusy(false);}}
+    async function enterApp(){const requestedView=location.hash.slice(1);setBusy(true);try{state.user=await api('/api/auth/me');await loadOrganizations();$('#publicShell').hidden=true;$('#appShell').hidden=false;renderProfile();await loadConversations();setView(['consultation','vault','account'].includes(requestedView)?requestedView:'consultation');if(state.pendingPrompt){const prompt=state.pendingPrompt;state.pendingPrompt='';sessionStorage.removeItem('nyaya_pending_prompt');$('#questionInput').value=prompt;resizeComposer();setTimeout(()=>$('#questionInput').focus(),50);}}catch(error){clearSession();$('#publicShell').hidden=false;$('#appShell').hidden=true;if(error.status===401)openAuth('login');else toast(error.message,'error');}finally{setBusy(false);}}
     function clearSession(){state.accessToken='';state.refreshToken='';state.user=null;state.organizationId='';state.organizations=[];localStorage.removeItem('nyaya_access_token');localStorage.removeItem('nyaya_refresh_token');localStorage.removeItem('nyaya_organization_id');}
-    async function logout(){try{if(state.refreshToken)await api('/api/auth/logout',{method:'POST',body:JSON.stringify({refresh_token:state.refreshToken})});}catch{}clearSession();state.conversations=[];state.activeConversation=null;$('#appShell').hidden=true;$('#publicShell').hidden=false;location.hash='top';toast('Signed out safely.','success');}
+    async function logout(){try{if(state.refreshToken)await api('/api/auth/logout',{method:'POST',body:JSON.stringify({refresh_token:state.refreshToken})});}catch{}clearSession();state.conversations=[];state.activeConversation=null;$('#appShell').hidden=true;$('#publicShell').hidden=false;location.replace('/');}
     function renderProfile(){const user=state.user;if(!user)return;const name=user.full_name||user.email;const avatar=initials(name);$('#sidebarName').textContent=name;$('#sidebarEmail').textContent=user.email;$('#sidebarAvatar').textContent=avatar;$('#profileAvatar').textContent=avatar;$('#profileName').textContent=name;$('#profileEmail').textContent=user.email;$('#profileRole').textContent=(user.role||'User').replaceAll('_',' ');$('#profileQuota').textContent=`${user.daily_quota_remaining} of ${user.daily_quota_limit} remaining today`;$('#profileCreated').textContent=formatDate(user.created_at);$('#profileVerified').textContent=user.is_verified?'Verified account':'Unverified';$('#quotaText').textContent=`${user.daily_quota_remaining} / ${user.daily_quota_limit}`;const used=Math.max(0,user.daily_quota_limit-user.daily_quota_remaining);$('#quotaFill').style.width=`${Math.min(100,(used/user.daily_quota_limit)*100)}%`;}
-    function setView(view){const titles={consultation:'Consultation',vault:'Knowledge Vault',account:'Account & access'};$$('.view').forEach(x=>x.classList.remove('active'));$(`#${view}View`).classList.add('active');$$('[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===view));$('#viewTitle').textContent=titles[view];$('#appShell').classList.remove('sidebar-open');location.hash=view;if(view==='vault')loadVault();if(view==='account')loadAccount();}
+    function setView(view){const titles={consultation:'Consultation',vault:'Knowledge Vault',account:'Account & access'};$$('.view').forEach(x=>x.classList.remove('active'));$(`#${view}View`).classList.add('active');$$('[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===view));$('#viewTitle').textContent=titles[view];$('#appShell').classList.remove('sidebar-open');history.replaceState(null,'',`/#${view}`);document.title=`${titles[view]} | Nyaya Darshana`;if(view==='vault')loadVault();if(view==='account')loadAccount();}
 
     async function loadOrganizations(){const data=await api('/api/organizations',{workspace:false});state.organizations=data.organizations||[];if(!state.organizations.some(item=>item.id===state.organizationId)){state.organizationId=state.organizations.find(item=>item.is_personal)?.id||state.organizations[0]?.id||'';}if(state.organizationId)localStorage.setItem('nyaya_organization_id',state.organizationId);renderWorkspaceSelector();}
     function activeOrganization(){return state.organizations.find(item=>item.id===state.organizationId);}
@@ -592,14 +659,19 @@
 
     async function loadConversations(){try{state.conversations=await api('/api/conversations');renderConversationList();if(state.activeConversation&&state.conversations.some(c=>c.id===state.activeConversation.id))await selectConversation(state.activeConversation.id);else{state.activeConversation=null;state.messages=[];renderMessages();}}catch(error){toast(error.message,'error');renderConversationList();renderMessages();}}
     function renderConversationList(){const root=$('#conversationList');if(!state.conversations.length){root.innerHTML='<div class="empty-box"><b>No consultations yet</b><p>Your first legal question will start one.</p></div>';return;}let group='';root.innerHTML=state.conversations.map(item=>{const next=item.group_period||'Older';const heading=next!==group?(group=next,`<div class="conversation-group">${escapeHtml(next)}</div>`):'';return `${heading}<div class="conversation-item ${state.activeConversation?.id===item.id?'active':''}"><button class="conversation-open" type="button" data-conversation="${escapeHtml(item.id)}"><b>${escapeHtml(item.title)}</b><span>${formatDate(item.updated_at)}</span></button><button class="conversation-delete" type="button" data-delete-conversation="${escapeHtml(item.id)}" aria-label="Delete ${escapeHtml(item.title)}"><svg class="icon"><use href="#i-close"></use></svg></button></div>`;}).join('');}
-    async function createConversation(){setBusy(true);try{const item=await api('/api/conversations',{method:'POST',body:JSON.stringify({title:'New Legal Consultation'})});state.conversations.unshift(item);state.activeConversation=item;state.messages=[];renderConversationList();renderMessages();$('#questionInput').focus();return item;}catch(error){toast(error.message,'error');return null;}finally{setBusy(false);}}
-    async function selectConversation(id){setBusy(true);try{const detail=await api(`/api/conversations/${encodeURIComponent(id)}`);state.activeConversation=detail.conversation;state.messages=detail.messages||[];renderConversationList();renderMessages();}catch(error){toast(error.message,'error');}finally{setBusy(false);}}
+    async function createConversation(){if(state.sending){toast('Please wait for the current consultation response.','error');return null;}setBusy(true);try{const item=await api('/api/conversations',{method:'POST',body:JSON.stringify({title:'New Legal Consultation'})});state.conversations.unshift(item);state.activeConversation=item;state.messages=[];renderConversationList();renderMessages();$('#questionInput').focus();return item;}catch(error){toast(error.message,'error');return null;}finally{setBusy(false);}}
+    async function selectConversation(id){if(state.sending){toast('Please wait for the current consultation response.','error');return;}setBusy(true);try{const detail=await api(`/api/conversations/${encodeURIComponent(id)}`);state.activeConversation=detail.conversation;state.messages=detail.messages||[];renderConversationList();renderMessages();}catch(error){toast(error.message,'error');}finally{setBusy(false);}}
     async function deleteConversation(id){if(!confirm('Delete this consultation and its evidence record?'))return;try{await api(`/api/conversations/${encodeURIComponent(id)}`,{method:'DELETE'});state.conversations=state.conversations.filter(c=>c.id!==id);if(state.activeConversation?.id===id){state.activeConversation=null;state.messages=[];}renderConversationList();renderMessages();toast('Consultation deleted.','success');}catch(error){toast(error.message,'error');}}
-    function renderMessages(){const root=$('#messages');$('#chatTitle').textContent=state.activeConversation?.title||'New legal consultation';$('#exportMarkdownButton').disabled=!state.activeConversation||!state.messages.length;$('#exportDocxButton').disabled=!state.activeConversation||!state.messages.length;if(!state.messages.length&&!state.sending){root.innerHTML=`<div class="welcome-state"><div class="eyebrow">Grounded legal consultation</div><h2>What legal question are you working through?</h2><p>Include the relevant dates, alleged conduct, and procedural posture. That detail matters when old and new criminal codes overlap.</p><div class="prompt-grid">${examplePrompts.map(([label,prompt])=>`<button class="prompt-card" type="button" data-prompt="${escapeHtml(prompt)}"><span>${escapeHtml(label)}</span><b>${escapeHtml(prompt)}</b></button>`).join('')}</div></div>`;return;}root.innerHTML=state.messages.map(renderMessage).join('')+(state.sending?`<article class="message assistant"><div class="message-avatar">N</div><div><div class="message-label">Nyaya Darshana</div><div class="typing" aria-label="Analysing sources"><i></i><i></i><i></i></div></div></article>`:'');requestAnimationFrame(()=>{$('#messageScroll').scrollTop=$('#messageScroll').scrollHeight;});}
-    function renderMessage(message){const assistant=message.role==='assistant';const legal=message.legal_answer;const evidence=legal?.evidence||message.evidence||[];const status=legal?.grounding_status||message.grounding_status;const clarification=status==='CLARIFICATION_REQUIRED';return `<article class="message ${assistant?'assistant':'user'}"><div class="message-avatar">${assistant?'N':'You'}</div><div><div class="message-label">${assistant?'Nyaya Darshana':'You'}</div><div class="message-body">${assistant?renderMarkdown(message.content||message.answer):`<p>${escapeHtml(message.content)}</p>`}</div>${assistant&&status&&!clarification?`<div class="answer-meta"><span class="status-pill ${status.includes('CORRECTED')?'corrected':''}">${status.includes('CORRECTED')?'Verified · corrected':'Grounded · verified'}</span></div>`:''}${assistant&&evidence.length?`<details class="evidence-disclosure"><summary><svg class="icon"><use href="#i-folder"></use></svg>${evidence.length} cited source${evidence.length===1?'':'s'}</summary><div class="evidence-list">${evidence.map(renderEvidence).join('')}</div></details>`:''}${assistant&&!clarification&&!String(message.id).startsWith('optimistic-')?`<div class="answer-feedback"><span>Was this useful?</span><button type="button" data-feedback="helpful" data-message-id="${escapeHtml(message.id)}">Yes</button><button type="button" data-feedback="not_helpful" data-message-id="${escapeHtml(message.id)}">Needs work</button></div>`:''}</div></article>`;}
-    function renderEvidence(item){const title=[item.statute,item.section?`Section ${item.section}`:''].filter(Boolean).join(' · ');return `<article class="evidence-card"><div class="evidence-provenance">${escapeHtml(item.provenance||item.source||'Authoritative source')}</div><h4>${escapeHtml(title||item.heading||'Statutory source')}</h4>${item.heading?`<b style="font-size:10px">${escapeHtml(item.heading)}</b>`:''}${item.supporting_claim?`<p class="supporting-claim"><b>Supports:</b> ${escapeHtml(item.supporting_claim)}</p>`:''}<p>${escapeHtml(item.text_snippet||'Source excerpt retained with the consultation record.')}</p></article>`;}
+    function renderMessages(){const root=$('#messages');$('#chatTitle').textContent=state.activeConversation?.title||'New legal consultation';$('#exportMarkdownButton').disabled=!state.activeConversation||!state.messages.length;$('#exportDocxButton').disabled=!state.activeConversation||!state.messages.length;$('#newConversationButton').disabled=state.sending;if(!state.messages.length&&!state.sending){root.innerHTML=`<div class="welcome-state"><div class="eyebrow">Grounded legal consultation</div><h2>What legal question are you working through?</h2><p>Include the relevant dates, alleged conduct, and procedural posture. That detail matters when old and new criminal codes overlap.</p><div class="prompt-grid">${examplePrompts.map(([label,prompt])=>`<button class="prompt-card" type="button" data-prompt="${escapeHtml(prompt)}"><span>${escapeHtml(label)}</span><b>${escapeHtml(prompt)}</b></button>`).join('')}</div></div>`;return;}root.innerHTML=state.messages.map(renderMessage).join('')+(state.sending?`<article class="message assistant"><div class="message-avatar">N</div><div><div class="message-label">Nyaya Darshana</div><div class="typing" aria-label="Analysing authoritative sources"><i></i><i></i><i></i></div><small aria-live="polite">Analysing authoritative sources. Please keep this consultation open.</small></div></article>`:'');requestAnimationFrame(()=>{$('#messageScroll').scrollTop=$('#messageScroll').scrollHeight;});}
+    function presentationStatus(status){return ['INPUT_NEEDS_CORRECTION','CLARIFICATION_REQUIRED','EVIDENCE_CONFLICT','INSUFFICIENT_EVIDENCE'].includes(status)?status:'INSUFFICIENT_EVIDENCE';}
+    function renderMessage(message){const assistant=message.role==='assistant';const legal=message.legal_answer;const evidence=legal?.evidence||message.evidence||[];const status=presentationStatus(legal?.grounding_status||message.grounding_status);const clarification=status==='CLARIFICATION_REQUIRED';const correction=status==='INPUT_NEEDS_CORRECTION';const labels={INPUT_NEEDS_CORRECTION:'Premise needs correction',INSUFFICIENT_EVIDENCE:'Insufficient evidence',EVIDENCE_CONFLICT:'Evidence conflict'};const label=labels[status]||'Evidence status unavailable';const caution=correction||['PARTIALLY_GROUNDED','INSUFFICIENT_EVIDENCE','EVIDENCE_CONFLICT','AUTO_CORRECTED_BY_FIREWALL'].includes(status);const review=assistant&&!clarification&&!correction;const reviewReason=legal?.review_reason||message.review_reason||'Confirm the cited authorities with a qualified legal professional before relying on this answer.';return `<article class="message ${assistant?'assistant':'user'}"><div class="message-avatar">${assistant?'N':'You'}</div><div><div class="message-label">${assistant?'Nyaya Darshana':'You'}</div><div class="message-body">${assistant?renderMarkdown(message.content||message.answer):`<p>${escapeHtml(message.content)}</p>`}</div>${assistant&&status&&!clarification?`<div class="answer-meta"><span class="status-pill ${caution?'corrected':''}">${label}</span></div>`:''}${assistant&&review?`<p class="answer-meta">Human legal review recommended: ${escapeHtml(reviewReason)}</p>`:''}${assistant&&evidence.length?`<details class="evidence-disclosure"><summary><svg class="icon"><use href="#i-folder"></use></svg>${evidence.length} cited source${evidence.length===1?'':'s'}</summary><div class="evidence-list">${evidence.map(renderEvidence).join('')}</div></details>`:''}${assistant&&!clarification&&!correction&&!String(message.id).startsWith('optimistic-')?`<div class="answer-feedback"><span>Was this useful?</span><button type="button" data-feedback="helpful" data-message-id="${escapeHtml(message.id)}">Yes</button><button type="button" data-feedback="not_helpful" data-message-id="${escapeHtml(message.id)}">Needs work</button></div>`:''}</div></article>`;}
+    function renderEvidence(item){const title=[item.statute,item.section?`Section ${item.section}`:''].filter(Boolean).join(' · ');return `<article class="evidence-card"><div class="evidence-provenance">${escapeHtml(item.provenance||item.source||'Source attribution unavailable')}</div><h4>${escapeHtml(title||item.heading||'Statutory source')}</h4>${item.heading?`<b style="font-size:10px">${escapeHtml(item.heading)}</b>`:''}${item.supporting_claim?`<p class="supporting-claim"><b>Cited by:</b> ${escapeHtml(item.supporting_claim)}</p>`:''}<p>${escapeHtml(item.text_snippet||'Source excerpt retained with the consultation record.')}</p></article>`;}
     function usePrompt(prompt){$('#questionInput').value=prompt;resizeComposer();$('#questionInput').focus();}
-    async function sendQuestion(event){event?.preventDefault();const input=$('#questionInput');const content=input.value.trim();if(!content||state.sending)return;if(content.length<2){toast('Please enter a complete legal question.','error');return;}if(!state.activeConversation&&!(await createConversation()))return;state.sending=true;$('#sendButton').disabled=true;state.messages.push({id:`optimistic-${Date.now()}`,role:'user',content,created_at:new Date().toISOString()});input.value='';resizeComposer();renderMessages();try{const response=await api(`/api/conversations/${encodeURIComponent(state.activeConversation.id)}/messages`,{method:'POST',body:JSON.stringify({content,top_k:6})});state.messages.push({id:response.message_id,role:'assistant',content:response.answer,created_at:new Date().toISOString(),legal_answer:{grounding_status:response.grounding_status,engine_version:response.engine_version,evidence:response.evidence}});if(state.user){state.user.daily_quota_remaining=response.remaining_quota;renderProfile();}await loadConversations();}catch(error){state.messages=state.messages.filter(m=>!String(m.id).startsWith('optimistic-'));input.value=content;resizeComposer();toast(error.message,'error');}finally{state.sending=false;$('#sendButton').disabled=false;renderMessages();}}
+    function requestIdentity(){return globalThis.crypto?.randomUUID?.()||`request-${Date.now()}-${Math.random().toString(16).slice(2)}`;}
+    function finishConsultationRequest(request){if(state.consultationRequest!==request)return false;clearTimeout(request.timeoutId);state.consultationRequest=null;state.sending=false;$('#sendButton').disabled=false;$('#cancelQuestionButton').hidden=true;return true;}
+    function abandonConsultationRequest(reason){const request=state.consultationRequest;if(!request)return;request.controller.abort();if(!finishConsultationRequest(request))return;state.messages=state.messages.filter(message=>message.id!==request.optimisticId);$('#questionInput').value=request.content;resizeComposer();renderMessages();toast(reason==='TIMED_OUT'?'This request timed out. Your question is ready to retry.':'Request cancelled. Your question is ready to retry.',reason==='TIMED_OUT'?'error':'');}
+    function cancelQuestion(){abandonConsultationRequest('CANCELLED');}
+    async function sendQuestion(event){event?.preventDefault();const input=$('#questionInput');const content=input.value.trim();if(!content||state.consultationRequest)return;if(content.length<2){toast('Please enter a complete legal question.','error');return;}if(!state.activeConversation&&!(await createConversation()))return;const request={requestId:requestIdentity(),attemptId:requestIdentity(),conversationId:state.activeConversation.id,content,controller:new AbortController(),timeoutId:null,optimisticId:`optimistic-${Date.now()}`};state.consultationRequest=request;state.sending=true;$('#sendButton').disabled=true;$('#cancelQuestionButton').hidden=false;state.messages.push({id:request.optimisticId,role:'user',content,created_at:new Date().toISOString()});input.value='';resizeComposer();renderMessages();request.timeoutId=setTimeout(()=>abandonConsultationRequest('TIMED_OUT'),90000);try{const response=await api(`/api/conversations/${encodeURIComponent(request.conversationId)}/messages`,{method:'POST',signal:request.controller.signal,body:JSON.stringify({content,top_k:6,request_id:request.requestId,attempt_id:request.attemptId})});if(state.consultationRequest!==request||response.request_id!==request.requestId||response.attempt_id!==request.attemptId)return;state.messages.push({id:response.message_id,role:'assistant',content:response.answer,created_at:new Date().toISOString(),legal_answer:{grounding_status:response.grounding_status,engine_version:response.engine_version,evidence:response.evidence,review_recommended:response.review_recommended,review_priority:response.review_priority,review_reason:response.review_reason}});if(state.user){state.user.daily_quota_remaining=response.remaining_quota;renderProfile();}await loadConversations();}catch(error){if(error.name==='AbortError'||state.consultationRequest!==request)return;state.messages=state.messages.filter(message=>message.id!==request.optimisticId);input.value=content;resizeComposer();toast(error.message,'error');}finally{finishConsultationRequest(request);renderMessages();}}
     function resizeComposer(){const input=$('#questionInput');input.style.height='auto';input.style.height=`${Math.min(input.scrollHeight,150)}px`;}
 
     async function loadVault(){setBusy(true);try{const [documents,stats]=await Promise.all([api('/api/vault/documents?limit=100'),api('/api/vault/stats')]);state.vaultDocuments=documents.documents||[];state.vaultStats=stats;renderVault();}catch(error){toast(error.message,'error');}finally{setBusy(false);}}
@@ -612,7 +684,7 @@
     async function pollDocument(id,attempt=0){if(attempt>15)return;setTimeout(async()=>{try{const doc=await api(`/api/vault/documents/${encodeURIComponent(id)}`);await loadVault();if(!['indexed','failed'].includes(doc.status))pollDocument(id,attempt+1);}catch{}},3000);}
     async function openDocument(id){setBusy(true);try{state.activeDocument=await api(`/api/vault/documents/${encodeURIComponent(id)}`);renderDocumentDrawer();$('#drawerBackdrop').hidden=false;$('#documentDrawer').hidden=false;document.body.classList.add('modal-open');}catch(error){toast(error.message,'error');}finally{setBusy(false);}}
     function closeDrawer(){state.activeDocument=null;$('#drawerBackdrop').hidden=true;$('#documentDrawer').hidden=true;document.body.classList.remove('modal-open');}
-    function renderDocumentDrawer(){const doc=state.activeDocument;if(!doc)return;$('#drawerTitle').textContent=doc.filename;$('#drawerBody').innerHTML=`<div class="doc-hero"><span class="document-icon">PDF</span><h3>${escapeHtml(doc.filename)}</h3><p>${fileSize(doc.file_size)} · ${doc.pages||0} pages · uploaded ${formatDate(doc.upload_time)}</p></div><div class="detail-list"><div class="detail-row"><span>Processing status</span><b>${escapeHtml(doc.status||'—')}</b></div><div class="detail-row"><span>Category</span><b>${escapeHtml(doc.category||'Not classified')}</b></div><div class="detail-row"><span>Legal domain</span><b>${escapeHtml(doc.domain||'Not identified')}</b></div><div class="detail-row"><span>Clauses detected</span><b>${doc.clauses_count||0}</b></div></div>${doc.summary?`<div class="summary-box"><h4>Grounded summary</h4><p>${escapeHtml(doc.summary)}</p></div>`:''}`;$('#summaryButton').textContent=doc.summary?'Summary generated':'Generate summary';$('#summaryButton').disabled=!canWriteWorkspace()||Boolean(doc.summary)||doc.status==='failed';$('#deleteDocumentButton').disabled=!canWriteWorkspace();renderVaultSelection();}
+    function renderDocumentDrawer(){const doc=state.activeDocument;if(!doc)return;$('#drawerTitle').textContent=doc.filename;$('#drawerBody').innerHTML=`<div class="doc-hero"><span class="document-icon">PDF</span><h3>${escapeHtml(doc.filename)}</h3><p>${fileSize(doc.file_size)} · ${doc.pages||0} pages · uploaded ${formatDate(doc.upload_time)}</p></div><div class="detail-list"><div class="detail-row"><span>Processing status</span><b>${escapeHtml(doc.status||'Not available')}</b></div><div class="detail-row"><span>Category</span><b>${escapeHtml(doc.category||'Not classified')}</b></div><div class="detail-row"><span>Legal domain</span><b>${escapeHtml(doc.domain||'Not identified')}</b></div><div class="detail-row"><span>Clauses detected</span><b>${doc.clauses_count||0}</b></div></div>${doc.summary?`<div class="summary-box"><h4>Grounded summary</h4><p>${escapeHtml(doc.summary)}</p></div>`:''}`;$('#summaryButton').textContent=doc.summary?'Summary generated':'Generate summary';$('#summaryButton').disabled=!canWriteWorkspace()||Boolean(doc.summary)||doc.status==='failed';$('#deleteDocumentButton').disabled=!canWriteWorkspace();renderVaultSelection();}
     async function generateDocumentSummary(){const doc=state.activeDocument;if(!doc)return;const button=$('#summaryButton');button.disabled=true;button.textContent='Generating…';setBusy(true);try{const result=await api(`/api/vault/documents/${encodeURIComponent(doc.id)}/summary`,{method:'POST'});doc.summary=result.summary;renderDocumentDrawer();state.vaultDocuments=state.vaultDocuments.map(x=>x.id===doc.id?{...x,summary:result.summary}:x);toast(result.cached?'Cached summary loaded.':'Summary generated and saved.','success');}catch(error){toast(error.message,'error');button.disabled=false;button.textContent='Generate summary';}finally{setBusy(false);}}
     function requestDocumentDelete(){if(!state.activeDocument)return;$('#confirmModal').hidden=false;}
     async function confirmDocumentDelete(){const doc=state.activeDocument;if(!doc)return;$('#confirmDelete').disabled=true;try{await api(`/api/vault/documents/${encodeURIComponent(doc.id)}`,{method:'DELETE'});$('#confirmModal').hidden=true;closeDrawer();await loadVault();toast('Document removed from your Vault.','success');}catch(error){toast(error.message,'error');}finally{$('#confirmDelete').disabled=false;}}
@@ -622,11 +694,14 @@
     async function startCheckout(plan){setBusy(true);try{const order=await api('/api/billing/orders',{method:'POST',body:JSON.stringify({plan})});await loadRazorpay();new Razorpay({key:order.key_id,amount:order.amount,currency:order.currency,name:'Nyaya Darshana',description:`${plan} access activation`,order_id:order.order_id,handler:async response=>{await api('/api/billing/verify',{method:'POST',body:JSON.stringify(response)});toast('Access activated.','success');loadAccount();},theme:{color:'#10213d'}}).open();}catch(error){toast(error.message,'error');}finally{setBusy(false);}}
 
     function bindEvents(){
-      $$('[data-auth-open]').forEach(button=>button.addEventListener('click',()=>state.user?enterApp():openAuth(button.dataset.authOpen)));
+      window.addEventListener('hashchange',()=>{const view=location.hash.slice(1);if(['consultation','vault','account'].includes(view)){if(!$('#appShell').hidden)setView(view);else if(state.accessToken)enterApp();else openAuth('login');}});
+      $$('[data-site-prompt]').forEach(button=>button.addEventListener('click',()=>{state.pendingPrompt=button.dataset.sitePrompt;sessionStorage.setItem('nyaya_pending_prompt',state.pendingPrompt);if(state.accessToken)enterApp();else openAuth('register');}));
+
+      $$('[data-auth-open]').forEach(button=>button.addEventListener('click',()=>state.accessToken?enterApp():openAuth(button.dataset.authOpen)));
       $('#authClose').addEventListener('click',closeAuth);$('#authModal').addEventListener('click',e=>{if(e.target===$('#authModal'))closeAuth();});$('#loginTab').addEventListener('click',()=>setAuthMode('login'));$('#registerTab').addEventListener('click',()=>setAuthMode('register'));$('#authForm').addEventListener('submit',submitAuth);$('#googleButton').addEventListener('click',()=>location.assign('/api/auth/google'));
       $$('[data-view]').forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));$('#mobileSidebarToggle').addEventListener('click',()=>$('#appShell').classList.add('sidebar-open'));$('#sidebarScrim').addEventListener('click',()=>$('#appShell').classList.remove('sidebar-open'));
       $('#newConversationButton').addEventListener('click',createConversation);$('#conversationList').addEventListener('click',event=>{const open=event.target.closest('[data-conversation]');const remove=event.target.closest('[data-delete-conversation]');if(open)selectConversation(open.dataset.conversation);if(remove)deleteConversation(remove.dataset.deleteConversation);});
-      $('#messages').addEventListener('click',event=>{const prompt=event.target.closest('[data-prompt]');const feedback=event.target.closest('[data-feedback]');if(prompt)usePrompt(prompt.dataset.prompt);if(feedback)submitAnswerFeedback(feedback);});$('#composer').addEventListener('submit',sendQuestion);$('#questionInput').addEventListener('input',resizeComposer);$('#questionInput').addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing){event.preventDefault();sendQuestion();}});$('#exportMarkdownButton').addEventListener('click',()=>downloadConsultation('markdown').catch(error=>toast(error.message,'error')));$('#exportDocxButton').addEventListener('click',()=>downloadConsultation('docx').catch(error=>toast(error.message,'error')));
+      $('#messages').addEventListener('click',event=>{const prompt=event.target.closest('[data-prompt]');const feedback=event.target.closest('[data-feedback]');if(prompt)usePrompt(prompt.dataset.prompt);if(feedback)submitAnswerFeedback(feedback);});$('#composer').addEventListener('submit',sendQuestion);$('#cancelQuestionButton').addEventListener('click',cancelQuestion);$('#questionInput').addEventListener('input',resizeComposer);$('#questionInput').addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing){event.preventDefault();sendQuestion();}});$('#exportMarkdownButton').addEventListener('click',()=>downloadConsultation('markdown').catch(error=>toast(error.message,'error')));$('#exportDocxButton').addEventListener('click',()=>downloadConsultation('docx').catch(error=>toast(error.message,'error')));
       $('#selectPdfButton').addEventListener('click',()=>$('#pdfInput').click());$('#dropZone').addEventListener('click',()=>$('#pdfInput').click());$('#dropZone').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#pdfInput').click();}});$('#pdfInput').addEventListener('change',e=>uploadPdf(e.target.files[0]));['dragenter','dragover'].forEach(type=>$('#dropZone').addEventListener(type,e=>{e.preventDefault();$('#dropZone').classList.add('dragging');}));['dragleave','drop'].forEach(type=>$('#dropZone').addEventListener(type,e=>{e.preventDefault();$('#dropZone').classList.remove('dragging');}));$('#dropZone').addEventListener('drop',e=>uploadPdf(e.dataTransfer.files[0]));$('#vaultSearchForm').addEventListener('submit',searchVault);$('#documentList').addEventListener('click',e=>{const doc=e.target.closest('[data-document]');if(doc)openDocument(doc.dataset.document);});
       $('#drawerClose').addEventListener('click',closeDrawer);$('#drawerBackdrop').addEventListener('click',closeDrawer);$('#selectForQuestionButton').addEventListener('click',toggleActiveDocumentSelection);$('#summaryButton').addEventListener('click',generateDocumentSummary);$('#deleteDocumentButton').addEventListener('click',requestDocumentDelete);$('#vaultQuestionForm').addEventListener('submit',askSelectedDocuments);$('#clearVaultSelection').addEventListener('click',()=>{state.selectedDocumentIds.clear();$('#vaultAnswer').hidden=true;renderVaultSelection();});$('#confirmCancel').addEventListener('click',()=>$('#confirmModal').hidden=true);$('#confirmDelete').addEventListener('click',confirmDocumentDelete);$('#logoutButton').addEventListener('click',logout);$('#billingActions').addEventListener('click',e=>{const button=e.target.closest('[data-checkout]');if(button)startCheckout(button.dataset.checkout);});
       $('#workspaceSelect').addEventListener('change',event=>switchWorkspace(event.target.value));$('#refreshMembersButton').addEventListener('click',()=>loadWorkspaceMembers().catch(error=>toast(error.message,'error')));$('#workspaceCreateForm').addEventListener('submit',createWorkspace);$('#memberForm').addEventListener('submit',addWorkspaceMember);
@@ -634,7 +709,7 @@
     }
     async function init(){
       $('#year').textContent=new Date().getFullYear();bindEvents();resizeComposer();
-      const hash=location.hash.replace('#','');if(state.accessToken)await enterApp();else if(['consultation','vault','account'].includes(hash))openAuth('login');
+      const hash=location.hash.slice(1);const appRoute=['consultation','vault','account'].includes(hash);if(state.accessToken&&((location.pathname==='/'&&!hash)||appRoute))await enterApp();else if(appRoute)openAuth('login');
     }
     init();
   })();

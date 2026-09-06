@@ -267,12 +267,14 @@ def run_multi_agent_audit():
     print("  --> Agent 9 Verdict: PASS (All 5 Architectural Safety Layers Verified)")
 
     # -------------------------------------------------------------
-    # AGENT 10: Final Independent Production Auditor Sign-Off
+    # AGENT 10: Final internal production-readiness review
     # -------------------------------------------------------------
-    print("\n[*] AGENT 10: Final Independent Auditor Production Evaluation...")
+    print("\n[*] AGENT 10: Final internal production-readiness evaluation...")
     all_agents_pass = all(v["status"] == "PASS" for k, v in audit_results.items())
-    audit_results["Agent_10_Final_Independent_Signoff"] = {
-        "final_verdict": "PRODUCTION_READINESS_APPROVED" if all_agents_pass else "ACTION_REQUIRED",
+    audit_results["Agent_10_Final_Internal_Review"] = {
+        "final_verdict": "INTERNAL_READINESS_CHECKS_COMPLETED" if all_agents_pass else "ACTION_REQUIRED",
+        "external_validation": "NOT_PERFORMED",
+        "public_claim_status": "Internal benchmark output only; external validation required before public accuracy or production-readiness claims.",
         "grounded_accuracy_benchmark_v3": "96.36% (1060 / 1100 Records)",
         "false_correction_rate": "0.00% (Zero Tolerance Passed)",
         "adversarial_trap_resistance": "75.0% - 100.0%",
@@ -280,14 +282,15 @@ def run_multi_agent_audit():
         "statutory_conversion_accuracy": "100.0%",
         "signoff_timestamp": "2026-08-18T18:13:00Z"
     }
-    print(f"  --> Agent 10 Final Verdict: {audit_results['Agent_10_Final_Independent_Signoff']['final_verdict']}")
+    print(f"  --> Agent 10 Final Verdict: {audit_results['Agent_10_Final_Internal_Review']['final_verdict']}")
 
     # Save JSON Report
     with open(AUDIT_REPORT_JSON, "w", encoding="utf-8") as f:
         json.dump(audit_results, f, indent=2, ensure_ascii=False)
 
     # Save Markdown Report
-    md = "# Nyaya Legal OS — Multi-Agent Independent Audit Report\n\n"
+    md = "# Nyaya Legal OS - Multi-Agent Internal Audit Report\n\n"
+    md += "This report is generated from repository-owned scripts and internal test artifacts. Its metrics are self-reported engineering evidence, not an independent external audit, production certification, legal-accuracy guarantee, or launch approval.\n\n"
     md += "## 1. 10-Role Multi-Agent Audit Summary Matrix\n\n"
     md += "| Agent / Role | Focus Area | Status | Key Metric / Result |\n"
     md += "|:---|:---|:---:|:---|\n"
@@ -300,10 +303,10 @@ def run_multi_agent_audit():
     md += f"| **Agent 7** | Regression Test Suite | **PASS** | 0.0% Regression Rate Across Statute Conversions |\n"
     md += f"| **Agent 8** | Performance & Latency | **PASS** | p50: {p50}ms, p95: {p95}ms, p99: {p99}ms |\n"
     md += f"| **Agent 9** | Architecture & Safety Review | **PASS** | 5-Layer Deterministic Isolation Verified |\n"
-    md += f"| **Agent 10** | **Final Independent Auditor** | **PASS** | **PRODUCTION_READINESS_APPROVED** |\n\n"
+    md += f"| **Agent 10** | Final internal auditor | **PASS** | Internal readiness checks completed |\n\n"
 
     md += "---\n\n## 2. Production Grounding Safety Summary\n\n"
-    md += "- **Benchmark V3 Accuracy**: **96.36% (1,060 / 1,100 Questions)**\n"
+    md += "- **Benchmark V3 Accuracy**: **96.36% (1,060 / 1,100 Questions)** from internal repository scripts; requires external validation before it can be used as a public accuracy claim.\n"
     md += "- **Procedural Timelines & Bail Accuracy**: **100.0%**\n"
     md += "- **Cross-Statute Conversions (IPC, CrPC, IEA)**: **100.0%**\n"
     md += "- **False Correction Count**: **0 (Zero Tolerance Gate Met)**\n"

@@ -20,6 +20,21 @@ The repository also contains research and experimental training material. No fin
 
 ## Run locally
 
+The public website has dedicated pages at `/about`, `/services`, `/use-cases`,
+`/pricing`, `/contact`, `/privacy` and `/terms`. They share the existing application
+shell, brand assets and responsive navigation. Subsections use addressable anchors;
+workspace links preserve Consultation, Vault or Account as the destination through
+sign-in. Page content lives in `app/static/pages`; `app/routers/public_site.py`
+renders it without a frontend build step.
+
+Optional `PUBLIC_CONTACT_EMAIL`, `PUBLIC_LINKEDIN_URL` and `PUBLIC_GITHUB_URL`
+settings publish verified contact details. Blank values show explicit unavailable
+states; no messages are collected or silently discarded. Public pricing reads the
+existing server plan amounts and checkout configuration. Activation does not
+currently change role-based query limits. The privacy and terms pages are product
+information, not finalized operator policies. Real team details, contact channels,
+customer case studies and operator-approved legal policies remain publication inputs.
+
 Use Python 3.11 or newer. There is no root-level `app.py`; start the product with `run.py` or Uvicorn.
 
 ```powershell
@@ -97,6 +112,8 @@ Production startup fails closed when required secrets are absent, origins are in
 ## Product truth
 
 Nyaya Darshana presents retrieved sources, the claims they support, and verification results. Source-version metadata is retained internally for auditability without adding implementation jargon to the workspace. The product does not expose private chain-of-thought, invent customer activity, or imply that a procedural defect automatically determines innocence or acquittal without supporting authority.
+
+Legal consultations, legacy `/api/chat/ask`, and both `/api/v1/query` entry points report insufficient evidence for generated propositions unless an evidence conflict is detected. Independent proposition verification is not yet implemented: a template match, firewall pass, retrieved citation, or matching quote cannot establish a legal conclusion. Source identity, quote/pinpoint, jurisdiction, and lifecycle checks remain separate diagnostics. Generated answers retain their citations and receive a human-review recommendation; this does not mean a reviewer has been assigned. History responses conservatively project old verification labels and restore review guidance, while retaining `recorded_grounding_status` and leaving the original database record unchanged. This projection is not retroactive legal verification. Source cards show citation associations rather than claiming support. Public APIs leave `provenance_verified` false until a verifiable provenance chain exists.
 
 ## License
 

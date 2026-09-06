@@ -32,6 +32,9 @@ from app import config
 from app.database import get_db
 from app.intelligence.ai_provider import AIProviderError, get_ai_status, probe_ai_provider
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from app.intelligence.grounding_verdict import assess_grounding
+from app.intelligence.human_review import recommend_human_review
+from app.intelligence.query_safety import assess_legal_intake
 from app.source_presenter import format_cited_evidence
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
@@ -189,6 +192,9 @@ app.include_router(knowledge_graph.router, prefix="/api/graph", tags=["Knowledge
 app.include_router(proactive.router, prefix="/api/proactive", tags=["Proactive Intelligence"], dependencies=_private_workspace)
 app.include_router(billing.router, prefix="/api/billing", tags=["Billing"])
 
+from app.routers.public_site import router as public_site_router
+app.include_router(public_site_router)
+
 # ── Production Dual-Panel Evidence API ────────────────────────────
 
 class LegalQueryRequest(BaseModel):
@@ -225,6 +231,9 @@ class LegalQueryResponse(BaseModel):
     retrieved_sections: List[EvidenceSection]
     verification_firewall: VerificationDetails
     latency_ms: float
+    review_recommended: bool = False
+    review_priority: Optional[str] = None
+    review_reason: Optional[str] = None
 
 @app.post("/api/v1/query", response_model=LegalQueryResponse, tags=["Production Grounding API"])
 async def process_legal_query(
@@ -235,6 +244,24 @@ async def process_legal_query(
     t0 = time.perf_counter()
     query = req.query
     client_ip = request.client.host if request.client else "127.0.0.1"
+
+    finding = assess_legal_intake(query)
+    if finding:
+        return LegalQueryResponse(
+            query=query,
+            answer=finding.message,
+            grounding_status="INPUT_NEEDS_CORRECTION",
+            statute_scope=None,
+            evidence_pack={"authoritative_facts": [], "source_authority": "No authority was used because the input premise needs correction."},
+            retrieved_sections=[],
+            verification_firewall=VerificationDetails(
+                passed_clean=False,
+                interventions_count=1,
+                claims_verified=[{"type": finding.code, "truth": finding.message}],
+                provenance_verified=False,
+            ),
+            latency_ms=round((time.perf_counter() - t0) * 1000, 2),
+        )
 
     try:
         async def _execute_pipeline():
@@ -255,9 +282,13 @@ async def process_legal_query(
                     text_snippet=s.get("text_snippet", "")
                 ))
 
-            return passed_fw, enforced_answer, claims, evidence_pack, formatted_sections
+            grounding_verdict = assess_grounding(
+                query, enforced_answer, evidence_ctx, passed_fw,
+                evidence_records=evidence_pack.get("retrieved_sections", []),
+            )
+            return passed_fw, enforced_answer, claims, evidence_pack, formatted_sections, grounding_verdict
 
-        passed_fw, enforced_answer, claims, evidence_pack, formatted_sections = await asyncio.wait_for(
+        passed_fw, enforced_answer, claims, evidence_pack, formatted_sections, grounding_verdict = await asyncio.wait_for(
             _execute_pipeline(), timeout=config.LEGAL_REQUEST_TIMEOUT
         )
 
@@ -270,7 +301,8 @@ async def process_legal_query(
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
 
     latency = round((time.perf_counter() - t0) * 1000, 2)
-    grounding_status = "GROUNDED_AND_VERIFIED" if passed_fw else "AUTO_CORRECTED_BY_FIREWALL"
+    grounding_status = grounding_verdict.status
+    review = recommend_human_review(grounding_verdict)
 
     log_audit_event(
         endpoint="/api/v1/query",
@@ -297,9 +329,13 @@ async def process_legal_query(
             passed_clean=passed_fw,
             interventions_count=len(claims),
             claims_verified=claims,
-            provenance_verified=True
+            # Source labels/excerpts do not establish a verified provenance chain.
+            provenance_verified=False
         ),
-        latency_ms=latency
+        latency_ms=latency,
+        review_recommended=review.required,
+        review_priority=review.priority,
+        review_reason=review.reason,
     )
 
     return sanitize_response_data(response_payload.model_dump())

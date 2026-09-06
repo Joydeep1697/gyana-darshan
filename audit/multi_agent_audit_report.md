@@ -1,4 +1,6 @@
-# Nyaya Legal OS — Multi-Agent Independent Audit Report
+# Nyaya Legal OS - Multi-Agent Internal Audit Report
+
+This report is generated from repository-owned scripts and internal test artifacts. Its metrics are self-reported engineering evidence, not an independent external audit, production certification, legal-accuracy guarantee, or launch approval.
 
 ## 1. 10-Role Multi-Agent Audit Summary Matrix
 
@@ -13,13 +15,13 @@
 | **Agent 7** | Regression Test Suite | **PASS** | 0.0% Regression Rate Across Statute Conversions |
 | **Agent 8** | Performance & Latency | **PASS** | p50: 18.9ms, p95: 24.86ms, p99: 26.42ms |
 | **Agent 9** | Architecture & Safety Review | **PASS** | 5-Layer Deterministic Isolation Verified |
-| **Agent 10** | **Final Independent Auditor** | **PASS** | **PRODUCTION_READINESS_APPROVED** |
+| **Agent 10** | Final internal auditor | **PASS** | Internal readiness checks completed |
 
 ---
 
 ## 2. Production Grounding Safety Summary
 
-- **Benchmark V3 Accuracy**: **96.36% (1,060 / 1,100 Questions)**
+- **Benchmark V3 Accuracy**: **96.36% (1,060 / 1,100 Questions)** from internal repository scripts; requires external validation before it can be used as a public accuracy claim.
 - **Procedural Timelines & Bail Accuracy**: **100.0%**
 - **Cross-Statute Conversions (IPC, CrPC, IEA)**: **100.0%**
 - **False Correction Count**: **0 (Zero Tolerance Gate Met)**

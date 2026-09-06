@@ -78,6 +78,54 @@ def test_organization_roles_scope_shared_consultations_and_audit_events():
     }
 
 
+def test_workspace_intelligence_routes_are_organization_scoped():
+    client = TestClient(app)
+    owner_headers, _ = _account(client, "graph-owner")
+    viewer_headers, viewer_email = _account(client, "graph-viewer")
+    outsider_headers, _ = _account(client, "graph-outsider")
+
+    created = client.post(
+        "/api/organizations",
+        json={"name": "Graph Chambers", "slug": f"graph-{uuid.uuid4().hex[:8]}"},
+        headers=owner_headers,
+    )
+    assert created.status_code == 201
+    organization_id = created.json()["id"]
+    assert client.post(
+        f"/api/organizations/{organization_id}/members",
+        json={"email": viewer_email, "role": "VIEWER"},
+        headers=owner_headers,
+    ).status_code == 201
+
+    db = Database()
+    source_id = db.create_document("shared-source.pdf", 10, "/tmp/shared-source.pdf", "owner", organization_id)
+    target_id = db.create_document("shared-target.pdf", 10, "/tmp/shared-target.pdf", "owner", organization_id)
+    other_id = db.create_document("outside.pdf", 10, "/tmp/outside.pdf", "owner", "other-org")
+    db.update_document(source_id, status="indexed", category="Judgment", domain="Criminal", risk_score=75)
+    db.update_document(target_id, status="indexed", category="Brief", domain="Criminal", risk_score=25)
+    db.update_document(other_id, status="indexed", category="Judgment", domain="Criminal", risk_score=99)
+    db.add_graph_edge(source_id, target_id, "cites", "Section 302 IPC", "Section 302 IPC", 0.91)
+    db.add_graph_edge(source_id, other_id, "cites", "Section 302 IPC", "Section 302 IPC", 0.99)
+    db.add_section_entries(source_id, [{"ref": "Section 302 IPC", "context_type": "citing", "snippet": "shared"}])
+    db.add_section_entries(other_id, [{"ref": "Section 302 IPC", "context_type": "citing", "snippet": "outside"}])
+    db.add_deadlines(source_id, [{"type": "filing", "date": "2026-09-30", "description": "Shared filing"}])
+    db.add_deadlines(other_id, [{"type": "filing", "date": "2026-09-30", "description": "Outside filing"}])
+    db.add_compliance_gap("Criminal", "shared contradiction", organization_id=organization_id)
+    db.add_compliance_gap("Criminal", "outside contradiction", organization_id="other-org")
+
+    viewer_workspace = {**viewer_headers, "X-Organization-ID": organization_id}
+    outsider_workspace = {**outsider_headers, "X-Organization-ID": organization_id}
+
+    assert client.get(f"/api/graph/document/{source_id}/links", headers=viewer_workspace).json()["links"][0]["target_doc_id"] == target_id
+    assert [item["id"] for item in client.get(f"/api/graph/document/{source_id}/related", headers=viewer_workspace).json()["related"]] == [target_id]
+    assert [item["doc_id"] for item in client.get("/api/graph/section/302", headers=viewer_workspace).json()["documents"]] == [source_id]
+    assert {item["id"] for item in client.get("/api/graph/network", headers=viewer_workspace).json()["nodes"]} == {source_id, target_id}
+    assert [item["gap_description"] for item in client.get("/api/graph/contradictions", headers=viewer_workspace).json()["contradictions"]] == ["shared contradiction"]
+    assert [item["gap_description"] for item in client.get("/api/proactive/compliance-gaps", headers=viewer_workspace).json()["gaps"]] == ["shared contradiction"]
+    assert [item["doc_id"] for item in client.get("/api/proactive/deadlines", headers=viewer_workspace).json()["deadlines"]] == [source_id]
+    assert client.get(f"/api/graph/document/{source_id}/links", headers=outsider_workspace).status_code == 404
+
+
 def test_private_workspace_remains_default_and_tenant_isolated():
     client = TestClient(app)
     first_headers, _ = _account(client, "private-first")

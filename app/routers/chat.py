@@ -9,6 +9,8 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from app.database import get_db, Database
 from app.models import ChatResponse, ChatRequest
 from app.intelligence.legal_generation import LegalGenerationError, generate_grounded_legal_answer
+from app.intelligence.grounding_verdict import assess_grounding
+from app.intelligence.human_review import recommend_human_review
 from api.auth.dependencies import get_current_user
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
@@ -51,6 +53,11 @@ async def ask(req: ChatRequest, db: Database = Depends(get_db), user: dict = Dep
 
     # 3. Field-Level Verification & Firewall Enforcement
     passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
+    verdict = assess_grounding(
+        query, enforced_answer, evidence_ctx, passed_fw,
+        evidence_records=evidence_pack.get("retrieved_sections", []),
+    )
+    review = recommend_human_review(verdict)
 
     # Show unique authorities cited in the enforced answer, not every retrieved
     # candidate.  This keeps the source count meaningful and avoids duplicate OCR titles.
@@ -60,17 +67,12 @@ async def ask(req: ChatRequest, db: Database = Depends(get_db), user: dict = Dep
             "title": f"{source['statute']} § {source['section']} — {source['heading']}",
             "snippet": source["text_snippet"],
             "category": source["statute"],
-            "relevance": 1.0,
         })
 
     elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
 
     reasoning_steps = [
-        {"step": "Statute Scope & Jurisdiction Classification", "status": "done", "ms": 4},
-        {"step": f"Authoritative Gazette RAG & Deterministic Index Lookup ({len(evidence_pack.get('retrieved_sections', []))} verified sections)", "status": "done", "ms": 8},
-        {"step": "Procedural Law & Timeline Verification (BNSS/BNS/BSA)", "status": "done", "ms": 3},
-        {"step": f"Field-Level Claim Verification Firewall ({'Clean Pass' if passed_fw else 'Auto-Corrected'})", "status": "done", "ms": 2},
-        {"step": f"Grounding Final Synthesis ({elapsed_ms}ms total)", "status": "done", "ms": int(elapsed_ms)}
+        {"step": "Response prepared; legal review required", "status": "done", "ms": int(elapsed_ms)}
     ]
 
     follow_ups = [
@@ -81,6 +83,10 @@ async def ask(req: ChatRequest, db: Database = Depends(get_db), user: dict = Dep
 
     return ChatResponse(
         answer=enforced_answer,
+        grounding_status=verdict.status,
+        review_recommended=review.required,
+        review_priority=review.priority,
+        review_reason=review.reason,
         sources=sources,
         reasoning_steps=reasoning_steps,
         follow_ups=follow_ups

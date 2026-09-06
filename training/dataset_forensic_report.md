@@ -20,7 +20,7 @@ The **Nyaya Darshana Legal OS Grounding Engine** is frozen at **Benchmark V3 (10
   • Rate Limiting Middleware              : PASS (60 RPM Sliding Window + Headers)
   • Structured Audit Logging              : PASS (logs/nyaya_api_audit.jsonl Active)
   • Latency SLA Benchmark (p50 / p95)     : 26.6ms / 46.0ms (< 50ms SLA)
-  • Multi-Agent Audit Verdict             : PRODUCTION_READINESS_APPROVED ✅
+  • Multi-Agent Audit Verdict             : INTERNAL_READINESS_CHECKS_COMPLETED (external validation not performed)
 =========================================================================
 ```
 

@@ -5,6 +5,7 @@ A release is approved only when every applicable item has current evidence.
 ## Source and build
 
 - [ ] Confirm `.env`, browser profiles, SQLite databases, private uploads, and excluded download metadata are absent from the release commit and container context.
+- [ ] Confirm public git history has no known live credentials or personal artifacts; rotate first, then rewrite history when any exposure is found.
 - [ ] Run `python scripts/release_preflight.py --repository-only` successfully.
 - [ ] Install production dependencies and run `pip check`.
 - [ ] Require the GitHub Actions **Release verification** workflow to pass for the release commit.
