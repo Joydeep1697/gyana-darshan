@@ -106,6 +106,32 @@ CREATE TABLE IF NOT EXISTS section_index (
 CREATE INDEX IF NOT EXISTS idx_sections_ref ON section_index(section_ref);
 CREATE INDEX IF NOT EXISTS idx_sections_doc ON section_index(doc_id);
 
+-- Organization-scoped case-law metadata indexed from uploaded judgments
+CREATE TABLE IF NOT EXISTS case_law_records (
+    id                  TEXT PRIMARY KEY,
+    organization_id     TEXT NOT NULL,
+    document_id         TEXT NOT NULL REFERENCES vault_documents(id) ON DELETE CASCADE,
+    title               TEXT NOT NULL,
+    citation            TEXT DEFAULT '',
+    court               TEXT DEFAULT '',
+    judges_json         TEXT DEFAULT '[]',
+    petitioner          TEXT DEFAULT '',
+    respondent          TEXT DEFAULT '',
+    case_number         TEXT DEFAULT '',
+    decision_date       TEXT DEFAULT '',
+    year                INTEGER,
+    sections_json       TEXT DEFAULT '[]',
+    source_excerpt      TEXT DEFAULT '',
+    source_page         INTEGER DEFAULT 1,
+    created_at          TEXT NOT NULL,
+    updated_at          TEXT NOT NULL,
+    UNIQUE(organization_id, document_id)
+);
+CREATE INDEX IF NOT EXISTS idx_case_law_org ON case_law_records(organization_id);
+CREATE INDEX IF NOT EXISTS idx_case_law_citation ON case_law_records(citation);
+CREATE INDEX IF NOT EXISTS idx_case_law_court ON case_law_records(court);
+CREATE INDEX IF NOT EXISTS idx_case_law_year ON case_law_records(year);
+
 -- Chat sessions
 CREATE TABLE IF NOT EXISTS chat_sessions (
     id              TEXT PRIMARY KEY,
@@ -709,6 +735,112 @@ class Database:
                 params,
             ).fetchall()
             return [dict(r) for r in rows]
+
+    # ── Case-law index ───────────────────────────────────────────
+
+    def upsert_case_law_record(self, organization_id: str, document_id: str, fields: dict[str, Any]) -> dict:
+        now = self.now()
+        judges = fields.get("judges") or []
+        sections = fields.get("sections") or []
+        with self.connect() as conn:
+            existing = conn.execute(
+                "SELECT id FROM case_law_records WHERE organization_id = ? AND document_id = ?",
+                (organization_id, document_id),
+            ).fetchone()
+            values = (
+                fields.get("title") or "Untitled judgment",
+                fields.get("citation") or "",
+                fields.get("court") or "",
+                json.dumps(judges, ensure_ascii=False),
+                fields.get("petitioner") or "",
+                fields.get("respondent") or "",
+                fields.get("case_number") or "",
+                fields.get("decision_date") or "",
+                fields.get("year"),
+                json.dumps(sections, ensure_ascii=False),
+                fields.get("source_excerpt") or "",
+            )
+            if existing:
+                record_id = existing["id"]
+                conn.execute(
+                    """UPDATE case_law_records SET title = ?, citation = ?, court = ?, judges_json = ?,
+                       petitioner = ?, respondent = ?, case_number = ?, decision_date = ?, year = ?,
+                       sections_json = ?, source_excerpt = ?, source_page = ?, updated_at = ? WHERE id = ? AND organization_id = ?""",
+                    (*values, fields.get("source_page") or 1, now, record_id, organization_id),
+                )
+            else:
+                record_id = self.new_id()
+                conn.execute(
+                    """INSERT INTO case_law_records
+                       (id, organization_id, document_id, title, citation, court, judges_json,
+                        petitioner, respondent, case_number, decision_date, year, sections_json,
+                        source_excerpt, source_page, created_at, updated_at)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (record_id, organization_id, document_id, *values, fields.get("source_page") or 1, now, now),
+                )
+            row = conn.execute(
+                """SELECT c.*, v.filename FROM case_law_records c
+                   JOIN vault_documents v ON v.id = c.document_id
+                   WHERE c.id = ? AND c.organization_id = ?""",
+                (record_id, organization_id),
+            ).fetchone()
+        return self._decode_case_law_record(dict(row))
+
+    @staticmethod
+    def _decode_case_law_record(record: dict) -> dict:
+        for field in ("judges_json", "sections_json"):
+            raw = record.pop(field, "[]")
+            try:
+                record[field.removesuffix("_json")] = json.loads(raw or "[]")
+            except (TypeError, json.JSONDecodeError):
+                record[field.removesuffix("_json")] = []
+        record["excerpt"] = record.pop("source_excerpt", "")
+        return record
+
+    def search_case_law_records(
+        self,
+        organization_id: str,
+        query: str,
+        *,
+        court: Optional[str] = None,
+        year_from: Optional[int] = None,
+        year_to: Optional[int] = None,
+        limit: int = 20,
+    ) -> list[dict]:
+        terms = [term.casefold() for term in query.split() if len(term.strip()) >= 2]
+        where = ["c.organization_id = ?"]
+        params: list[Any] = [organization_id]
+        if court:
+            where.append("c.court LIKE ? COLLATE NOCASE")
+            params.append(f"%{court}%")
+        if year_from is not None:
+            where.append("c.year >= ?")
+            params.append(year_from)
+        if year_to is not None:
+            where.append("c.year <= ?")
+            params.append(year_to)
+        with self.connect() as conn:
+            rows = [dict(row) for row in conn.execute(
+                """SELECT c.*, v.filename FROM case_law_records c
+                   JOIN vault_documents v ON v.id = c.document_id
+                   WHERE """ + " AND ".join(where) + " ORDER BY c.updated_at DESC LIMIT 500",
+                params,
+            ).fetchall()]
+        scored = []
+        for row in rows:
+            haystack = " ".join(
+                str(row.get(key) or "")
+                for key in ("title", "citation", "court", "petitioner", "respondent", "case_number", "decision_date", "source_excerpt", "sections_json")
+            ).casefold()
+            score = sum(1.0 for term in terms if term in haystack)
+            if query.casefold().strip() and query.casefold().strip() in haystack:
+                score += 3.0
+            if score > 0 or not terms:
+                row = self._decode_case_law_record(row)
+                row["relevance"] = round(score, 3)
+                scored.append(row)
+        scored.sort(key=lambda item: (-item["relevance"], item.get("updated_at", "")))
+        return scored[: max(1, min(limit, 100))]
 
     # ── Chat Sessions ─────────────────────────────────────────────
 

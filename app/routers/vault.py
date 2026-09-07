@@ -11,7 +11,7 @@ from app.database import get_db, Database
 from app.models import (
     DocumentResponse, SearchResponse, SearchRequest,
     DocumentQuestionRequest, DocumentQuestionResponse, ContractObligationAcceptRequest,
-    ContractObligationAcceptResponse, ContractReviewResponse,
+    ContractObligationAcceptResponse, ContractReviewResponse, PrecedentSearchResponse,
 )
 from app.config import RAW_DIR
 from app.intelligence.ai_provider import AIProviderError
@@ -118,9 +118,28 @@ def process_document(doc_id: str, file_path: str):
             case_num = extract_case_number(text)
             dates = extract_dates(text)
             year = extract_year(text, filename)
-            
-            # Save to DB - assuming appropriate db methods exist
-            # db.save_entities(doc_id, entities=...)
+            neutral_citation, reported_citations = citations
+            organization_id = db.get_document(doc_id).get("organization_id")
+            if organization_id and (court or case_num or neutral_citation or reported_citations):
+                excerpt = re.sub(r"\s+", " ", text).strip()[:2200]
+                db.upsert_case_law_record(
+                    organization_id,
+                    doc_id,
+                    {
+                        "title": title,
+                        "citation": neutral_citation or (reported_citations[0] if reported_citations else ""),
+                        "court": court,
+                        "judges": judges,
+                        "petitioner": parties.get("petitioner_or_appellant"),
+                        "respondent": parties.get("respondent"),
+                        "case_number": case_num,
+                        "decision_date": dates,
+                        "year": year,
+                        "sections": sections,
+                        "source_excerpt": excerpt,
+                        "source_page": 1,
+                    },
+                )
         except Exception as e:
             logger.error(f"Entity extraction failed: {e}")
 
@@ -191,6 +210,30 @@ async def list_documents(status: Optional[str] = None, category: Optional[str] =
     """List documents with optional filters and pagination."""
     docs = db.list_documents(status=status, category=category, domain=domain, limit=limit, offset=offset, organization_id=workspace["organization"]["id"])
     return {"documents": [_public_document(doc) for doc in docs]}
+
+
+@router.get("/precedents", response_model=PrecedentSearchResponse)
+async def search_precedents(
+    q: str = Query(..., min_length=2, max_length=300),
+    court: Optional[str] = Query(default=None, max_length=120),
+    year_from: Optional[int] = Query(default=None, ge=1800, le=2200),
+    year_to: Optional[int] = Query(default=None, ge=1800, le=2200),
+    limit: int = Query(default=20, ge=1, le=100),
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    """Search organization-scoped case-law metadata and source excerpts."""
+    if year_from is not None and year_to is not None and year_from > year_to:
+        raise HTTPException(422, "year_from must be less than or equal to year_to")
+    results = db.search_case_law_records(
+        workspace["organization"]["id"], q.strip(), court=court, year_from=year_from, year_to=year_to, limit=limit,
+    )
+    return PrecedentSearchResponse(
+        results=results,
+        total=len(results),
+        query=q.strip(),
+        filters={"court": court, "year_from": year_from, "year_to": year_to},
+    )
 
 
 @router.post("/documents/ask", response_model=DocumentQuestionResponse)

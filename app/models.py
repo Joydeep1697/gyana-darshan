@@ -67,6 +67,32 @@ class DocumentQuestionResponse(BaseModel):
     sources: list[DocumentQuestionSource]
 
 
+class PrecedentSearchResult(BaseModel):
+    id: str
+    document_id: str
+    filename: str = ""
+    title: str = ""
+    citation: str = ""
+    court: str = ""
+    judges: list[str] = []
+    petitioner: str = ""
+    respondent: str = ""
+    case_number: str = ""
+    decision_date: str = ""
+    year: Optional[int] = None
+    sections: list[str] = []
+    excerpt: str = ""
+    source_page: int = 1
+    relevance: float = 0.0
+
+
+class PrecedentSearchResponse(BaseModel):
+    results: list[PrecedentSearchResult]
+    total: int
+    query: str
+    filters: dict[str, Any] = {}
+
+
 class ContractClauseFinding(BaseModel):
     type: str
     risk: str = "low"
