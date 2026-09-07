@@ -75,6 +75,43 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     )
     assert contract.status_code == 201
 
+    from app.database import Database
+
+    db = Database()
+    document_id = db.create_document("Vendor NDA.pdf", 10, "/tmp/vendor-nda.pdf", "owner", organization_id)
+    db.update_document(document_id, status="indexed", category="Contract", domain="Commercial", summary="Vendor confidentiality agreement")
+    other_document_id = db.create_document("Other NDA.pdf", 10, "/tmp/other-nda.pdf", "owner", "other-org")
+    db.update_document(other_document_id, status="indexed", category="Contract", domain="Commercial")
+
+    assert client.post(
+        f"/api/legal-ops/matters/{matter_id}/documents",
+        json={"document_id": document_id},
+        headers=owner_workspace,
+    ).status_code == 201
+    assert client.post(
+        f"/api/legal-ops/matters/{matter_id}/documents",
+        json={"document_id": other_document_id},
+        headers=owner_workspace,
+    ).status_code == 422
+    note = client.post(
+        f"/api/legal-ops/matters/{matter_id}/notes",
+        json={"body": "Client prefers a mutual NDA and standard carve-outs."},
+        headers=owner_workspace,
+    )
+    assert note.status_code == 201
+
+    detail = client.get(f"/api/legal-ops/matters/{matter_id}", headers=viewer_workspace)
+    assert detail.status_code == 200
+    assert detail.json()["documents"][0]["filename"] == "Vendor NDA.pdf"
+    assert detail.json()["notes"][0]["body"].startswith("Client prefers")
+    assert detail.json()["tasks"][0]["id"] == task_id
+    assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
+
+    search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
+    assert search.status_code == 200
+    assert {item["kind"] for item in search.json()["results"]} >= {"matter", "contract", "document"}
+    assert client.get("/api/legal-ops/search", params={"q": "x"}, headers=viewer_workspace).status_code == 422
+
     updated_task = client.patch(f"/api/legal-ops/tasks/{task_id}", json={"status": "done"}, headers=owner_workspace)
     assert updated_task.status_code == 200
     assert updated_task.json()["status"] == "done"

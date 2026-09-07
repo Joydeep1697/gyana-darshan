@@ -166,6 +166,32 @@ CREATE TABLE IF NOT EXISTS legal_matters (
 CREATE INDEX IF NOT EXISTS idx_legal_matters_org ON legal_matters(organization_id);
 CREATE INDEX IF NOT EXISTS idx_legal_matters_status ON legal_matters(status);
 
+
+
+-- Documents linked to legal matters
+CREATE TABLE IF NOT EXISTS legal_matter_documents (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    matter_id       TEXT NOT NULL REFERENCES legal_matters(id) ON DELETE CASCADE,
+    document_id     TEXT NOT NULL REFERENCES vault_documents(id) ON DELETE CASCADE,
+    created_at      TEXT NOT NULL,
+    UNIQUE(matter_id, document_id)
+);
+CREATE INDEX IF NOT EXISTS idx_legal_matter_documents_org ON legal_matter_documents(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_matter_documents_matter ON legal_matter_documents(matter_id);
+
+-- Matter notes and timeline entries
+CREATE TABLE IF NOT EXISTS legal_matter_notes (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    matter_id       TEXT NOT NULL REFERENCES legal_matters(id) ON DELETE CASCADE,
+    author_user_id  TEXT,
+    body            TEXT NOT NULL,
+    created_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_matter_notes_org ON legal_matter_notes(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_matter_notes_matter ON legal_matter_notes(matter_id);
+
 -- Legal intake requests
 CREATE TABLE IF NOT EXISTS legal_intake_requests (
     id              TEXT PRIMARY KEY,
@@ -886,6 +912,93 @@ class Database:
             if cur.rowcount == 0:
                 return None
         return self.get_matter(matter_id, organization_id)
+
+
+    def link_document_to_matter(self, organization_id: str, matter_id: str, document_id: str) -> dict:
+        if not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        document = self.get_document(document_id)
+        if not document or document.get("organization_id") != organization_id:
+            raise ValueError("Document not found in workspace")
+        link_id = self.new_id()
+        now = self.now()
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT OR IGNORE INTO legal_matter_documents (id, organization_id, matter_id, document_id, created_at)
+                   VALUES (?, ?, ?, ?, ?)""",
+                (link_id, organization_id, matter_id, document_id, now),
+            )
+        return {"id": link_id, "organization_id": organization_id, "matter_id": matter_id, "document_id": document_id, "created_at": now}
+
+    def add_matter_note(self, organization_id: str, matter_id: str, author_user_id: str, body: str) -> dict:
+        if not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        note_id = self.new_id()
+        now = self.now()
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_matter_notes (id, organization_id, matter_id, author_user_id, body, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?)""",
+                (note_id, organization_id, matter_id, author_user_id, body.strip()[:4000], now),
+            )
+            conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, matter_id, organization_id))
+        return {"id": note_id, "organization_id": organization_id, "matter_id": matter_id, "author_user_id": author_user_id, "body": body.strip()[:4000], "created_at": now}
+
+    def get_matter_detail(self, organization_id: str, matter_id: str) -> Optional[dict]:
+        matter = self.get_matter(matter_id, organization_id)
+        if not matter:
+            return None
+        with self.connect() as conn:
+            linked_documents = [dict(row) for row in conn.execute(
+                """SELECT l.id AS link_id, l.created_at AS linked_at, d.id, d.filename, d.category, d.domain, d.status, d.pages, d.file_size
+                   FROM legal_matter_documents l JOIN vault_documents d ON d.id = l.document_id
+                   WHERE l.organization_id = ? AND l.matter_id = ? ORDER BY l.created_at DESC""",
+                (organization_id, matter_id),
+            ).fetchall()]
+            notes = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_matter_notes WHERE organization_id = ? AND matter_id = ? ORDER BY created_at DESC",
+                (organization_id, matter_id),
+            ).fetchall()]
+            tasks = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_tasks WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
+                (organization_id, matter_id),
+            ).fetchall()]
+            contracts = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_contracts WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
+                (organization_id, matter_id),
+            ).fetchall()]
+            intakes = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_intake_requests WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
+                (organization_id, matter_id),
+            ).fetchall()]
+        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "intakes": intakes}
+
+    def search_legal_ops(self, organization_id: str, query: str, limit: int = 30) -> list[dict]:
+        needle = f"%{query.strip()}%"
+        capped = max(1, min(limit, 100))
+        results: list[dict] = []
+        with self.connect() as conn:
+            searches = [
+                ("matter", "SELECT id, title, status, priority AS secondary, description AS snippet, updated_at AS timestamp FROM legal_matters WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR description LIKE ? COLLATE NOCASE OR matter_type LIKE ? COLLATE NOCASE)"),
+                ("intake", "SELECT id, title, status, urgency AS secondary, summary AS snippet, updated_at AS timestamp FROM legal_intake_requests WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR summary LIKE ? COLLATE NOCASE OR request_type LIKE ? COLLATE NOCASE)"),
+                ("task", "SELECT id, title, status, priority AS secondary, '' AS snippet, updated_at AS timestamp FROM legal_tasks WHERE organization_id = ? AND title LIKE ? COLLATE NOCASE"),
+                ("contract", "SELECT id, title, status, risk_level AS secondary, counterparty AS snippet, updated_at AS timestamp FROM legal_contracts WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR counterparty LIKE ? COLLATE NOCASE OR contract_type LIKE ? COLLATE NOCASE)"),
+                ("document", "SELECT id, filename AS title, status, COALESCE(domain, category, '') AS secondary, COALESCE(summary, '') AS snippet, upload_time AS timestamp FROM vault_documents WHERE organization_id = ? AND (filename LIKE ? COLLATE NOCASE OR COALESCE(category, '') LIKE ? COLLATE NOCASE OR COALESCE(domain, '') LIKE ? COLLATE NOCASE OR COALESCE(summary, '') LIKE ? COLLATE NOCASE)"),
+            ]
+            for kind, sql in searches:
+                if kind == "task":
+                    params = [organization_id, needle]
+                elif kind == "document":
+                    params = [organization_id, needle, needle, needle, needle]
+                else:
+                    params = [organization_id, needle, needle, needle]
+                rows = conn.execute(sql + " ORDER BY timestamp DESC LIMIT ?", (*params, capped)).fetchall()
+                for row in rows:
+                    item = dict(row)
+                    item["kind"] = kind
+                    results.append(item)
+        results.sort(key=lambda item: item.get("timestamp") or "", reverse=True)
+        return results[:capped]
 
     def create_intake(self, organization_id: str, requester_user_id: str, title: str, **kwargs: Any) -> dict:
         matter_id = kwargs.get("matter_id")

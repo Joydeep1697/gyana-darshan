@@ -14,8 +14,13 @@ from app.models import (
     LegalIntakeResponse,
     LegalIntakeUpdate,
     LegalMatterCreate,
+    LegalMatterDetailResponse,
+    LegalMatterDocumentLinkCreate,
     LegalMatterResponse,
+    LegalMatterNoteCreate,
+    LegalMatterNoteResponse,
     LegalMatterUpdate,
+    LegalOpsSearchResponse,
     LegalOpsWorkspaceResponse,
     LegalTaskCreate,
     LegalTaskResponse,
@@ -55,6 +60,65 @@ async def get_legal_ops_workspace(
         "tasks": db.list_tasks(organization_id),
         "contracts": db.list_contract_records(organization_id),
     }
+
+
+
+
+@router.get("/search", response_model=LegalOpsSearchResponse)
+async def search_legal_ops(
+    q: str,
+    limit: int = 30,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    query = q.strip()
+    if len(query) < 2:
+        raise HTTPException(status_code=422, detail="Search query must be at least 2 characters")
+    return {"results": db.search_legal_ops(_org_id(workspace), query, limit=limit)}
+
+
+@router.get("/matters/{matter_id}", response_model=LegalMatterDetailResponse)
+async def get_matter_detail(
+    matter_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    detail = db.get_matter_detail(_org_id(workspace), matter_id)
+    if not detail:
+        raise _not_found()
+    return detail
+
+
+@router.post("/matters/{matter_id}/documents", status_code=status.HTTP_201_CREATED)
+async def link_matter_document(
+    matter_id: str,
+    payload: LegalMatterDocumentLinkCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        link = db.link_document_to_matter(organization_id, matter_id, payload.document_id)
+    except ValueError as error:
+        raise _bad_reference(error)
+    AuditRepository.log_audit("LEGAL_MATTER_DOCUMENT_LINKED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "document_id": payload.document_id})
+    return link
+
+
+@router.post("/matters/{matter_id}/notes", response_model=LegalMatterNoteResponse, status_code=status.HTTP_201_CREATED)
+async def add_matter_note(
+    matter_id: str,
+    payload: LegalMatterNoteCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        note = db.add_matter_note(organization_id, matter_id, _user_id(workspace), payload.body)
+    except ValueError as error:
+        raise _bad_reference(error)
+    AuditRepository.log_audit("LEGAL_MATTER_NOTE_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "note_id": note["id"]})
+    return note
 
 
 @router.post("/matters", response_model=LegalMatterResponse, status_code=status.HTTP_201_CREATED)

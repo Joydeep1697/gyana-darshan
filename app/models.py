@@ -303,6 +303,59 @@ class LegalContractResponse(BaseModel):
     updated_at: str
 
 
+
+
+class LegalMatterNoteCreate(BaseModel):
+    body: str = Field(..., min_length=1, max_length=4000)
+
+
+class LegalMatterNoteResponse(BaseModel):
+    id: str
+    organization_id: str
+    matter_id: str
+    author_user_id: Optional[str] = None
+    body: str
+    created_at: str
+
+
+class LegalMatterDocumentLinkCreate(BaseModel):
+    document_id: str
+
+
+class LegalMatterDocumentResponse(BaseModel):
+    link_id: str
+    linked_at: str
+    id: str
+    filename: str
+    category: Optional[str] = None
+    domain: Optional[str] = None
+    status: str = "uploading"
+    pages: int = 0
+    file_size: int = 0
+
+
+class LegalMatterDetailResponse(LegalMatterResponse):
+    documents: list[LegalMatterDocumentResponse] = []
+    notes: list[LegalMatterNoteResponse] = []
+    tasks: list[LegalTaskResponse] = []
+    contracts: list[LegalContractResponse] = []
+    intakes: list[LegalIntakeResponse] = []
+
+
+class LegalOpsSearchResponseItem(BaseModel):
+    kind: str
+    id: str
+    title: str
+    status: str = ""
+    secondary: str = ""
+    snippet: str = ""
+    timestamp: str = ""
+
+
+class LegalOpsSearchResponse(BaseModel):
+    results: list[LegalOpsSearchResponseItem]
+
+
 class LegalOpsSummary(BaseModel):
     matters_by_status: dict[str, int]
     intake_by_status: dict[str, int]
