@@ -409,6 +409,34 @@ class LegalSpendResponse(BaseModel):
 
 
 
+class LegalPlaybookCreate(BaseModel):
+    title: str = Field(..., min_length=2, max_length=180)
+    playbook_type: str = Field(default="general", max_length=80)
+    body: str = Field(default="", max_length=8000)
+    tags: str = Field(default="", max_length=500)
+    status: str = Field(default="active", max_length=30)
+
+
+class LegalPlaybookUpdate(BaseModel):
+    title: Optional[str] = Field(default=None, min_length=2, max_length=180)
+    playbook_type: Optional[str] = Field(default=None, max_length=80)
+    body: Optional[str] = Field(default=None, max_length=8000)
+    tags: Optional[str] = Field(default=None, max_length=500)
+    status: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalPlaybookResponse(BaseModel):
+    id: str
+    organization_id: str
+    title: str
+    playbook_type: str = "general"
+    body: str = ""
+    tags: str = ""
+    status: str = "active"
+    created_at: str
+    updated_at: str
+
+
 class LegalMatterNoteCreate(BaseModel):
     body: str = Field(..., min_length=1, max_length=4000)
 
@@ -466,6 +494,7 @@ class LegalMatterDetailResponse(LegalMatterResponse):
     tasks: list[LegalTaskResponse] = []
     contracts: list[LegalContractResponse] = []
     spend_entries: list[LegalSpendResponse] = []
+    playbooks: list[LegalPlaybookResponse] = []
     intakes: list[LegalIntakeResponse] = []
     activity: list[LegalMatterActivityResponse] = []
 
@@ -497,6 +526,7 @@ class LegalOpsSummary(BaseModel):
     open_spend_total: float = 0
     paid_spend_total: float = 0
     overdue_invoices: int = 0
+    active_playbooks: int = 0
 
 
 class LegalOpsWorkspaceResponse(BaseModel):
@@ -507,6 +537,7 @@ class LegalOpsWorkspaceResponse(BaseModel):
     contracts: list[LegalContractResponse]
     vendors: list[LegalVendorResponse] = []
     spend_entries: list[LegalSpendResponse] = []
+    playbooks: list[LegalPlaybookResponse] = []
     contract_reminders: list[LegalContractReminderResponse] = []
 
 

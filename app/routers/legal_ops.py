@@ -25,6 +25,9 @@ from app.models import (
     LegalMatterNoteResponse,
     LegalMatterUpdate,
     LegalOpsSearchResponse,
+    LegalPlaybookCreate,
+    LegalPlaybookResponse,
+    LegalPlaybookUpdate,
     LegalSpendCreate,
     LegalSpendResponse,
     LegalSpendUpdate,
@@ -71,6 +74,7 @@ async def get_legal_ops_workspace(
         "contracts": db.list_contract_records(organization_id),
         "vendors": db.list_vendors(organization_id),
         "spend_entries": db.list_spend_entries(organization_id),
+        "playbooks": db.list_playbooks(organization_id),
         "contract_reminders": db.list_contract_reminders(organization_id),
     }
 
@@ -268,6 +272,33 @@ async def update_task(
         raise _not_found()
     AuditRepository.log_audit("LEGAL_TASK_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task_id})
     return task
+
+
+@router.post("/playbooks", response_model=LegalPlaybookResponse, status_code=status.HTTP_201_CREATED)
+async def create_playbook(
+    payload: LegalPlaybookCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    playbook = db.create_playbook(organization_id, payload.title, **payload.model_dump(exclude={"title"}))
+    AuditRepository.log_audit("LEGAL_PLAYBOOK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"playbook_id": playbook["id"], "title": playbook["title"]})
+    return playbook
+
+
+@router.patch("/playbooks/{playbook_id}", response_model=LegalPlaybookResponse)
+async def update_playbook(
+    playbook_id: str,
+    payload: LegalPlaybookUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    playbook = db.update_playbook(playbook_id, organization_id, **payload.model_dump(exclude_unset=True))
+    if not playbook:
+        raise _not_found()
+    AuditRepository.log_audit("LEGAL_PLAYBOOK_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"playbook_id": playbook_id, "status": playbook.get("status")})
+    return playbook
 
 
 @router.post("/vendors", response_model=LegalVendorResponse, status_code=status.HTTP_201_CREATED)

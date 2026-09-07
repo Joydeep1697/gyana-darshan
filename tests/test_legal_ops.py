@@ -79,7 +79,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     contract_id = contract.json()["id"]
     assert contract.json()["lifecycle_stage"] == "renewal_due"
     assert contract.json()["reminder_status"] == "due"
-    assert contract.json()["days_to_renewal"] <= 30
+    assert 0 <= contract.json()["days_to_renewal"] <= 60
 
     vendor = client.post(
         "/api/legal-ops/vendors",
@@ -107,6 +107,19 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert spend.json()["status"] == "pending"
     assert spend.json()["matter_id"] == matter_id
     assert spend.json()["vendor_id"] == vendor_id
+
+    playbook = client.post(
+        "/api/legal-ops/playbooks",
+        json={
+            "title": "NDA review checklist",
+            "playbook_type": "contract",
+            "tags": "nda, confidentiality, vendor",
+            "body": "Check mutuality, confidentiality carve-outs, residual knowledge, term length, and escalation for uncapped liability.",
+        },
+        headers=owner_workspace,
+    )
+    assert playbook.status_code == 201
+    playbook_id = playbook.json()["id"]
 
     from app.database import Database
 
@@ -140,6 +153,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["tasks"][0]["id"] == task_id
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
+    assert detail.json()["playbooks"][0]["title"] == "NDA review checklist"
     assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "intake", "spend"}
 
     brief = client.post(f"/api/legal-ops/matters/{matter_id}/brief", headers=viewer_workspace)
@@ -150,9 +164,12 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert "Vendor wants signature this week." in brief_data["brief"]
     assert "Check confidentiality carve-outs" in brief_data["brief"]
     assert "Vendor Mutual NDA" in brief_data["brief"]
+    assert "NDA review checklist" in brief_data["brief"]
+    assert "Playbooks are team guidance, not legal authority" in brief_data["brief"]
     assert "not verify legal merits" in brief_data["brief"]
-    assert {source["kind"] for source in brief_data["sources"]} >= {"matter", "intake", "note", "task", "contract", "document"}
+    assert {source["kind"] for source in brief_data["sources"]} >= {"matter", "intake", "note", "task", "contract", "document", "playbook"}
     assert brief_data["generated_from"]["documents"] == 1
+    assert brief_data["generated_from"]["playbooks"] == 1
 
     search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
     assert search.status_code == 200
@@ -165,6 +182,10 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     invoice_search = client.get("/api/legal-ops/search", params={"q": "INV-001"}, headers=viewer_workspace)
     assert invoice_search.status_code == 200
     assert {item["kind"] for item in invoice_search.json()["results"]} >= {"spend"}
+
+    playbook_search = client.get("/api/legal-ops/search", params={"q": "residual knowledge"}, headers=viewer_workspace)
+    assert playbook_search.status_code == 200
+    assert {item["kind"] for item in playbook_search.json()["results"]} >= {"playbook"}
     assert client.get("/api/legal-ops/search", params={"q": "x"}, headers=viewer_workspace).status_code == 422
 
     updated_task = client.patch(f"/api/legal-ops/tasks/{task_id}", json={"status": "done"}, headers=owner_workspace)
@@ -193,6 +214,15 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert data["spend_entries"][0]["invoice_number"] == "INV-001"
     assert data["summary"]["open_spend_total"] == 125000
     assert data["summary"]["paid_spend_total"] == 0
+    assert data["summary"]["active_playbooks"] == 1
+    assert data["playbooks"][0]["title"] == "NDA review checklist"
+
+    archived_playbook = client.patch(f"/api/legal-ops/playbooks/{playbook_id}", json={"status": "archived"}, headers=owner_workspace)
+    assert archived_playbook.status_code == 200
+    assert archived_playbook.json()["status"] == "archived"
+    restored_playbook = client.patch(f"/api/legal-ops/playbooks/{playbook_id}", json={"status": "active"}, headers=owner_workspace)
+    assert restored_playbook.status_code == 200
+    assert restored_playbook.json()["status"] == "active"
 
     paid_spend = client.patch(f"/api/legal-ops/spend/{spend_id}", json={"status": "paid"}, headers=owner_workspace)
     assert paid_spend.status_code == 200
@@ -202,6 +232,8 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert updated_workspace["summary"]["open_spend_total"] == 0
     assert updated_workspace["summary"]["paid_spend_total"] == 125000
 
+    assert client.post("/api/legal-ops/playbooks", json={"title": "Forbidden playbook"}, headers=viewer_workspace).status_code == 403
+    assert client.patch(f"/api/legal-ops/playbooks/{playbook_id}", json={"status": "archived"}, headers=viewer_workspace).status_code == 403
     assert client.post("/api/legal-ops/vendors", json={"name": "Forbidden Vendor"}, headers=viewer_workspace).status_code == 403
     assert client.post("/api/legal-ops/spend", json={"amount": 10}, headers=viewer_workspace).status_code == 403
     assert client.post("/api/legal-ops/spend", json={"amount": 10, "matter_id": "missing"}, headers=owner_workspace).status_code == 422

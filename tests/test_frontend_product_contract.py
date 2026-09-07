@@ -105,6 +105,11 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="intakeForm"' in source
     assert 'id="taskForm"' in source
     assert 'id="contractRecordForm"' in source
+    assert 'id="playbookForm"' in source
+    assert 'id="playbookList"' in source
+    assert 'id="playbookTitle"' in source
+    assert 'id="playbookBody"' in source
+    assert 'id="opsPlaybookCount"' in source
     assert 'id="vendorForm"' in source
     assert 'id="spendForm"' in source
     assert 'id="vendorList"' in source
@@ -125,6 +130,8 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/legal-ops/tasks" in source
     assert "/api/legal-ops/contracts" in source
     assert "/api/legal-ops/contracts/${encodeURIComponent(id)}" in source
+    assert "/api/legal-ops/playbooks" in source
+    assert "/api/legal-ops/playbooks/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/vendors" in source
     assert "/api/legal-ops/spend" in source
     assert "/api/legal-ops/spend/${encodeURIComponent(id)}" in source

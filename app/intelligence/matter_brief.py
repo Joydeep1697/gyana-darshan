@@ -22,6 +22,7 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     contracts = detail.get("contracts") or []
     documents = detail.get("documents") or []
     notes = detail.get("notes") or []
+    playbooks = detail.get("playbooks") or []
 
     open_tasks = [task for task in tasks if task.get("status") != "done"]
     high_risk_contracts = [
@@ -64,8 +65,12 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
         source_notes.append(
             f"- Vault document: {_compact(document.get('filename'))} ({_compact(document.get('status'), 'unknown')})"
         )
+    for playbook in playbooks[:3]:
+        source_notes.append(
+            f"- Playbook: {_compact(playbook.get('title'))} - {_compact(playbook.get('body'), 'No guidance text')[:280]}"
+        )
     if not source_notes:
-        source_notes.append("- No intake summary, notes, or linked Vault document metadata is recorded.")
+        source_notes.append("- No intake summary, notes, linked Vault document metadata, or relevant playbook is recorded.")
 
     contract_lines = []
     for contract in contracts[:5]:
@@ -88,7 +93,8 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
         "Recommended Follow-Up\n" + "\n".join(next_steps),
         "Source Notes\n" + "\n".join(source_notes),
         "Contract Position\n" + "\n".join(contract_lines),
-        "Limits\n- This brief is assembled from workspace records only. It does not verify legal merits or replace lawyer review.",
+        "Internal Guidance\n" + ("\n".join(f"- {_compact(item.get('title'), 'Untitled playbook')}: {_compact(item.get('playbook_type'), 'general')}" for item in playbooks[:5]) if playbooks else "- No matching active playbook is recorded for this matter type."),
+        "Limits\n- This brief is assembled from workspace records and internal playbooks only. Playbooks are team guidance, not legal authority. This brief does not verify legal merits or replace lawyer review.",
     ])
 
     sources = []
@@ -99,6 +105,7 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     sources.extend({"kind": "task", "id": item["id"], "label": _compact(item.get("title"), "Task")} for item in tasks if item.get("id"))
     sources.extend({"kind": "contract", "id": item["id"], "label": _compact(item.get("title"), "Contract")} for item in contracts if item.get("id"))
     sources.extend({"kind": "document", "id": item["id"], "label": _compact(item.get("filename"), "Vault document")} for item in documents if item.get("id"))
+    sources.extend({"kind": "playbook", "id": item["id"], "label": _compact(item.get("title"), "Playbook")} for item in playbooks if item.get("id"))
 
     return {
         "matter_id": matter.get("id", ""),
@@ -111,5 +118,6 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
             "tasks": len(tasks),
             "contracts": len(contracts),
             "intakes": len(intakes),
+            "playbooks": len(playbooks),
         },
     }

@@ -284,6 +284,22 @@ CREATE INDEX IF NOT EXISTS idx_legal_spend_matter ON legal_spend_entries(matter_
 CREATE INDEX IF NOT EXISTS idx_legal_spend_vendor ON legal_spend_entries(vendor_id);
 CREATE INDEX IF NOT EXISTS idx_legal_spend_status ON legal_spend_entries(status);
 
+-- Legal team playbooks and institutional guidance
+CREATE TABLE IF NOT EXISTS legal_playbooks (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    title           TEXT NOT NULL,
+    playbook_type   TEXT DEFAULT 'general',
+    body            TEXT DEFAULT '',
+    tags            TEXT DEFAULT '',
+    status          TEXT DEFAULT 'active',
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_playbooks_org ON legal_playbooks(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_playbooks_type ON legal_playbooks(playbook_type);
+CREATE INDEX IF NOT EXISTS idx_legal_playbooks_status ON legal_playbooks(status);
+
 -- Search analytics
 CREATE TABLE IF NOT EXISTS search_analytics (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -937,7 +953,7 @@ class Database:
         }
 
     def _get_org_row(self, table: str, item_id: str, organization_id: str) -> Optional[dict]:
-        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_vendors", "legal_spend_entries"}
+        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_vendors", "legal_spend_entries", "legal_playbooks"}
         if table not in allowed:
             raise ValueError("Unsupported legal operations table")
         with self.connect() as conn:
@@ -1054,6 +1070,14 @@ class Database:
                 "SELECT * FROM legal_spend_entries WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
                 (organization_id, matter_id),
             ).fetchall()]
+            playbook_key = f"%{matter.get('matter_type') or ''}%"
+            playbooks = [dict(row) for row in conn.execute(
+                """SELECT * FROM legal_playbooks
+                   WHERE organization_id = ? AND status = 'active'
+                   AND (? = '%%' OR playbook_type LIKE ? COLLATE NOCASE OR title LIKE ? COLLATE NOCASE OR tags LIKE ? COLLATE NOCASE)
+                   ORDER BY updated_at DESC LIMIT 10""",
+                (organization_id, playbook_key, playbook_key, playbook_key, playbook_key),
+            ).fetchall()]
         activity = []
         activity.extend({"kind": "document", "id": row["id"], "label": "Document linked", "detail": row["filename"], "timestamp": row["linked_at"]} for row in linked_documents)
         activity.extend({"kind": "note", "id": row["id"], "label": "Note added", "detail": row["body"], "timestamp": row["created_at"]} for row in notes)
@@ -1062,7 +1086,7 @@ class Database:
         activity.extend({"kind": "intake", "id": row["id"], "label": f"Intake: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in intakes)
         activity.extend({"kind": "spend", "id": row["id"], "label": f"Invoice: {row.get('invoice_number') or 'Unnumbered spend'}", "detail": f"{row['status']} {row['currency']} {float(row['amount']):.2f}", "timestamp": row["updated_at"]} for row in spend_entries)
         activity.sort(key=lambda item: item["timestamp"] or "", reverse=True)
-        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "spend_entries": spend_entries, "intakes": intakes, "activity": activity[:100]}
+        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "spend_entries": spend_entries, "playbooks": playbooks, "intakes": intakes, "activity": activity[:100]}
 
     def search_legal_ops(self, organization_id: str, query: str, limit: int = 30) -> list[dict]:
         needle = f"%{query.strip()}%"
@@ -1076,12 +1100,13 @@ class Database:
                 ("contract", "SELECT id, title, status, risk_level AS secondary, counterparty AS snippet, updated_at AS timestamp FROM legal_contracts WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR counterparty LIKE ? COLLATE NOCASE OR contract_type LIKE ? COLLATE NOCASE)"),
                 ("vendor", "SELECT id, name AS title, status, practice_area AS secondary, contact_email AS snippet, updated_at AS timestamp FROM legal_vendors WHERE organization_id = ? AND (name LIKE ? COLLATE NOCASE OR practice_area LIKE ? COLLATE NOCASE OR vendor_type LIKE ? COLLATE NOCASE OR contact_email LIKE ? COLLATE NOCASE)"),
                 ("spend", "SELECT id, COALESCE(NULLIF(invoice_number, ''), 'Unnumbered spend') AS title, status, currency AS secondary, description AS snippet, updated_at AS timestamp FROM legal_spend_entries WHERE organization_id = ? AND (invoice_number LIKE ? COLLATE NOCASE OR description LIKE ? COLLATE NOCASE OR status LIKE ? COLLATE NOCASE OR currency LIKE ? COLLATE NOCASE)"),
+                ("playbook", "SELECT id, title, status, playbook_type AS secondary, body AS snippet, updated_at AS timestamp FROM legal_playbooks WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR body LIKE ? COLLATE NOCASE OR tags LIKE ? COLLATE NOCASE OR playbook_type LIKE ? COLLATE NOCASE)"),
                 ("document", "SELECT id, filename AS title, status, COALESCE(domain, category, '') AS secondary, COALESCE(summary, '') AS snippet, upload_time AS timestamp FROM vault_documents WHERE organization_id = ? AND (filename LIKE ? COLLATE NOCASE OR COALESCE(category, '') LIKE ? COLLATE NOCASE OR COALESCE(domain, '') LIKE ? COLLATE NOCASE OR COALESCE(summary, '') LIKE ? COLLATE NOCASE)"),
             ]
             for kind, sql in searches:
                 if kind == "task":
                     params = [organization_id, needle]
-                elif kind in {"document", "vendor", "spend"}:
+                elif kind in {"document", "vendor", "spend", "playbook"}:
                     params = [organization_id, needle, needle, needle, needle]
                 else:
                     params = [organization_id, needle, needle, needle]
@@ -1287,6 +1312,55 @@ class Database:
         return self.get_contract_record(contract_id, organization_id)
 
 
+
+    def create_playbook(self, organization_id: str, title: str, **kwargs: Any) -> dict:
+        now = self.now()
+        item_id = self.new_id()
+        status = self._bounded(kwargs.get("status"), "active", {"active", "draft", "archived"})
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_playbooks (id, organization_id, title, playbook_type, body, tags, status, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    item_id,
+                    organization_id,
+                    title.strip()[:180],
+                    (kwargs.get("playbook_type") or "general").strip()[:80],
+                    (kwargs.get("body") or "").strip()[:8000],
+                    (kwargs.get("tags") or "").strip()[:500],
+                    status,
+                    now,
+                    now,
+                ),
+            )
+        return self.get_playbook(item_id, organization_id) or {}
+
+    def get_playbook(self, playbook_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_playbooks", playbook_id, organization_id)
+
+    def list_playbooks(self, organization_id: str, limit: int = 100) -> list[dict]:
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute("SELECT * FROM legal_playbooks WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    def update_playbook(self, playbook_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"title", "playbook_type", "body", "tags", "status"}
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "active", {"active", "draft", "archived"})
+        for key, limit in {"title": 180, "playbook_type": 80, "body": 8000, "tags": 500}.items():
+            if key in fields:
+                fields[key] = str(fields[key]).strip()[:limit]
+        if not fields:
+            return self.get_playbook(playbook_id, organization_id)
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [playbook_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_playbooks SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+        return self.get_playbook(playbook_id, organization_id)
+
     def create_vendor(self, organization_id: str, name: str, **kwargs: Any) -> dict:
         now = self.now()
         item_id = self.new_id()
@@ -1431,6 +1505,7 @@ class Database:
             open_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid'", (organization_id,)).fetchone()[0]
             paid_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status = 'paid'", (organization_id,)).fetchone()[0]
             overdue_invoices = conn.execute("SELECT COUNT(*) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid' AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
+            active_playbooks = conn.execute("SELECT COUNT(*) FROM legal_playbooks WHERE organization_id = ? AND status = 'active'", (organization_id,)).fetchone()[0]
         return {
             "matters_by_status": {row["status"]: row["count"] for row in matter_rows},
             "intake_by_status": {row["status"]: row["count"] for row in intake_rows},
@@ -1444,6 +1519,7 @@ class Database:
             "open_spend_total": float(open_spend or 0),
             "paid_spend_total": float(paid_spend or 0),
             "overdue_invoices": overdue_invoices,
+            "active_playbooks": active_playbooks,
         }
 
     # ── Search Analytics ──────────────────────────────────────────
