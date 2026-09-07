@@ -21,6 +21,7 @@ jobs:
       ENVIRONMENT: development
       HF_HUB_OFFLINE: "1"
       TRANSFORMERS_OFFLINE: "1"
+      PYTHONPATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

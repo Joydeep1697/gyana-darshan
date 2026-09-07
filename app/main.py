@@ -35,7 +35,7 @@ from app.intelligence.legal_generation import LegalGenerationError, generate_gro
 from app.intelligence.grounding_verdict import assess_grounding
 from app.intelligence.human_review import recommend_human_review
 from app.intelligence.query_safety import assess_legal_intake
-from app.source_presenter import format_cited_evidence
+from app.source_presenter import format_cited_evidence, format_retrieved_evidence
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
@@ -273,8 +273,9 @@ async def process_legal_query(
 
             passed_fw, enforced_answer, claims = firewall.verify_and_enforce(generated_answer, evidence_pack)
 
+            display_evidence = format_cited_evidence(enforced_answer, evidence_pack) or format_retrieved_evidence(evidence_pack, limit=req.top_k)
             formatted_sections = []
-            for s in format_cited_evidence(enforced_answer, evidence_pack):
+            for s in display_evidence:
                 formatted_sections.append(EvidenceSection(
                     statute=s.get("statute", ""),
                     section=str(s.get("section", "")),

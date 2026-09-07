@@ -152,3 +152,36 @@ def format_cited_evidence(answer: str, evidence_pack: dict[str, Any]) -> list[di
             "supporting_claim": _supporting_claim(answer, code, section),
         })
     return result
+
+
+def format_retrieved_evidence(evidence_pack: dict[str, Any], limit: int | None = None) -> list[dict[str, Any]]:
+    """Return clean, deduplicated retrieved evidence records without support claims."""
+    by_key: dict[tuple[str, str], dict[str, Any]] = {}
+    order: list[tuple[str, str]] = []
+    for record in evidence_pack.get("retrieved_sections", []):
+        key = (_statute_code(record), _section_root(record.get("section")))
+        if not key[1]:
+            continue
+        if key not in by_key:
+            order.append(key)
+        if key not in by_key or record.get("curation"):
+            by_key[key] = record
+
+    selected = order[:limit] if limit is not None else order
+    result = []
+    for key in selected:
+        record = by_key[key]
+        code, section = key
+        result.append({
+            "id": record.get("id"),
+            "statute": code,
+            "act_number": record.get("act_number", ""),
+            "section": section,
+            "heading": _clean_heading(record.get("heading")),
+            "chapter": record.get("chapter", ""),
+            "source": record.get("source", "Official statutory source"),
+            "text_snippet": _clean_excerpt(record.get("text")),
+            "provenance": record.get("source", "Official statutory source"),
+            "supporting_claim": "",
+        })
+    return result

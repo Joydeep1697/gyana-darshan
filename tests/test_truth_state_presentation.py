@@ -65,6 +65,30 @@ def test_public_api_does_not_certify_unverified_provenance(monkeypatch, entry_po
     assert response.json()["verification_firewall"]["provenance_verified"] is False
 
 
+@pytest.mark.parametrize("entry_point", ["app.main", "api.main"])
+def test_public_api_returns_sanitized_retrieved_evidence_when_answer_cites_nothing(monkeypatch, entry_point):
+    module = importlib.import_module(entry_point)
+    record = {
+        "id": "synthetic-bns-103",
+        "short_name": "BNS",
+        "section": "103",
+        "heading": "Punishment for murder",
+        "chapter": "Offences affecting the human body",
+        "text": "Whoever commits murder shall be punished with death or imprisonment for life.",
+        "source": "Synthetic statutory source",
+    }
+    monkeypatch.setattr(module.retriever, "retrieve_evidence_pack", lambda *a, **kw: {"retrieved_sections": [record]})
+    monkeypatch.setattr(module.retriever, "format_evidence_context", lambda *a: "BNS section 103: " + record["text"])
+    monkeypatch.setattr(module, "generate_grounded_legal_answer", AsyncMock(return_value="The available evidence is insufficient."))
+    monkeypatch.setattr(module.firewall, "verify_and_enforce", lambda *a: (True, "The available evidence is insufficient.", []))
+    response = TestClient(module.app).post("/api/v1/query", json={"query": "What is the punishment for murder?"})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["retrieved_sections"][0]["statute"] == "BNS"
+    assert body["retrieved_sections"][0]["section"] == "103"
+    assert body["verification_firewall"]["provenance_verified"] is False
+
+
 def test_legacy_chat_reports_abstention_and_no_fabricated_verification_steps(monkeypatch):
     module = importlib.import_module("app.routers.chat")
     stub_pipeline(monkeypatch, module, [SOURCE])
