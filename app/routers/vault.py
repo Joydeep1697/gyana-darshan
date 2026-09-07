@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 from app.database import get_db, Database
 from app.models import (
     DocumentResponse, SearchResponse, SearchRequest,
-    DocumentQuestionRequest, DocumentQuestionResponse,
+    DocumentQuestionRequest, DocumentQuestionResponse, ContractReviewResponse,
 )
 from app.config import RAW_DIR
 from app.intelligence.ai_provider import AIProviderError
@@ -17,6 +17,7 @@ from app.intelligence.summarizer import generate_summary
 from app.intelligence.document_grounding import (
     answer_from_documents, extract_pdf_pages, select_relevant_pages,
 )
+from app.intelligence.contract_review import review_contract
 from api.auth.dependencies import get_workspace_context, require_workspace_writer
 from api.auth.service import decode_jwt_token
 from database.repository import AuditRepository, OrganizationRepository
@@ -286,6 +287,37 @@ async def generate_document_summary(doc_id: str, db: Database = Depends(get_db),
         raise HTTPException(503, "Summary generation is temporarily unavailable")
     db.update_document(doc_id, summary=summary)
     return {"summary": summary, "cached": False}
+
+
+@router.post("/documents/{doc_id}/contract-review", response_model=ContractReviewResponse)
+async def review_document_contract(doc_id: str, db: Database = Depends(get_db), workspace: dict = Depends(get_workspace_context)):
+    """Run a document-grounded contract review for a workspace PDF."""
+    document = _workspace_document(db, doc_id, workspace["organization"]["id"])
+    raw_value = document.get("raw_path")
+    if not raw_value:
+        raise HTTPException(409, "The source PDF is not available for contract review")
+    raw_path = Path(raw_value).resolve()
+    if not raw_path.is_relative_to(RAW_DIR.resolve()):
+        logger.error("Refusing to review a document outside the upload directory: %s", doc_id)
+        raise HTTPException(500, "Document storage configuration is invalid")
+    if not raw_path.is_file():
+        raise HTTPException(404, "The source PDF is no longer available")
+
+    try:
+        pages = await asyncio.to_thread(extract_pdf_pages, raw_path)
+    except Exception:
+        logger.exception("Contract review extraction failed for document %s", doc_id)
+        raise HTTPException(500, "The contract could not be reviewed")
+    text = "\n\n".join(page.get("text", "") for page in pages).strip()
+    if not text:
+        raise HTTPException(422, "No readable text could be extracted from this PDF")
+
+    result = review_contract(
+        text,
+        filename=document.get("filename") or "",
+        category=document.get("category") or "",
+    )
+    return ContractReviewResponse(**result)
 
 @router.delete("/documents/{doc_id}")
 async def delete_document(doc_id: str, db: Database = Depends(get_db), workspace: dict = Depends(require_workspace_writer)):

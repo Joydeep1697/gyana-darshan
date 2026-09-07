@@ -94,6 +94,11 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/auth/google/config" in source
     assert "application/pdf,.pdf" in source
     assert "/api/vault/documents/ask" in source
+    assert "/api/vault/documents/${encodeURIComponent(selected)}/contract-review" in source
+    assert 'data-view="contract"' in source
+    assert 'id="contractView"' in source
+    assert 'id="reviewContractButton"' in source
+    assert "Human legal review recommended" in source
     assert "/feedback" in source
     assert "/export?format=" in source
     assert "Select up to three PDFs" in source

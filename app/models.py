@@ -67,6 +67,40 @@ class DocumentQuestionResponse(BaseModel):
     sources: list[DocumentQuestionSource]
 
 
+class ContractClauseFinding(BaseModel):
+    type: str
+    risk: str = "low"
+    page: Optional[int] = None
+    excerpt: str
+
+
+class ContractRiskFinding(BaseModel):
+    level: str
+    title: str
+    explanation: str
+    clause_type: str = ""
+    excerpt: str = ""
+
+
+class NdaReviewProfile(BaseModel):
+    detected: bool = False
+    kind: str = "general_contract"
+    signals: list[str] = []
+    missing: list[str] = []
+
+
+class ContractReviewResponse(BaseModel):
+    filename: str
+    document_type: str = "contract"
+    overall_risk: str = "low"
+    summary: str
+    clauses: list[ContractClauseFinding]
+    risks: list[ContractRiskFinding]
+    nda: NdaReviewProfile
+    review_recommended: bool = True
+    review_reason: str
+
+
 # ── Entities ──────────────────────────────────────────────────────
 
 class EntityItem(BaseModel):

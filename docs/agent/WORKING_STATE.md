@@ -39,6 +39,7 @@ This file records product behavior only after automated or runtime verification.
 - [PASS] Document-grounding prompts treat uploaded content as untrusted evidence.
 - [PASS] Known document prompt-injection, secret-exfiltration, role-override, and tool-execution spans are removed before Vault Q&A and summary provider calls, while surrounding evidence remains available.
 - [PASS] Workspace intelligence routes use organization scope for graph links, related documents, section impact, contradiction gaps, deadlines, classifier stats, dashboard analytics, briefing cache and proactive checks. Shared workspace viewers can read the same intelligence surface as the owner; outsiders cannot read that organization.
+- [PASS] Contract Review reads an owned Vault PDF, returns deterministic NDA profile, clause findings, risk findings and human-review guidance through `/api/vault/documents/{id}/contract-review`. Authenticated desktop browser QA verified document selection and rendered results; 390x844 mobile QA verified no horizontal overflow and no console errors.
 
 ## Exports and feedback
 
