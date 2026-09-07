@@ -971,7 +971,14 @@ class Database:
                 "SELECT * FROM legal_intake_requests WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
                 (organization_id, matter_id),
             ).fetchall()]
-        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "intakes": intakes}
+        activity = []
+        activity.extend({"kind": "document", "id": row["id"], "label": "Document linked", "detail": row["filename"], "timestamp": row["linked_at"]} for row in linked_documents)
+        activity.extend({"kind": "note", "id": row["id"], "label": "Note added", "detail": row["body"], "timestamp": row["created_at"]} for row in notes)
+        activity.extend({"kind": "task", "id": row["id"], "label": f"Task: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in tasks)
+        activity.extend({"kind": "contract", "id": row["id"], "label": f"Contract: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in contracts)
+        activity.extend({"kind": "intake", "id": row["id"], "label": f"Intake: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in intakes)
+        activity.sort(key=lambda item: item["timestamp"] or "", reverse=True)
+        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "intakes": intakes, "activity": activity[:100]}
 
     def search_legal_ops(self, organization_id: str, query: str, limit: int = 30) -> list[dict]:
         needle = f"%{query.strip()}%"

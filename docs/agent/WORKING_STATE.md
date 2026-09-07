@@ -71,3 +71,6 @@ This file records product behavior only after automated or runtime verification.
 - [PASS] Organization controls passed authenticated desktop browser QA with no console warnings or errors.
 - [PASS] Legal Ops workspace supports org-scoped matters, intake requests, tasks, contract lifecycle records and summary metrics. API regressions verified viewer read access, writer-only mutations, outsider isolation and bad-reference rejection. Authenticated desktop browser QA created matter, intake, task and contract records, marked a task done, and verified rendered metrics; 390x844 mobile QA verified no horizontal overflow and no console errors.
 - [PASS] Legal Ops matter detail supports linked Vault documents, matter notes and unified search across matters, intake, tasks, contracts and Vault metadata. API regression verified detail aggregation, same-workspace document linking, cross-workspace link rejection and short-query validation. Authenticated browser QA created a matter, opened details, added a note, linked a Vault document and searched records; 390x844 mobile QA verified no horizontal overflow and no console errors.
+## 2026-09-07
+
+- [PASS] Legal Ops matter detail now includes an organization-scoped activity timeline assembled from linked Vault documents, notes, tasks, contracts, and intake records. API regression and frontend contract tests pass.

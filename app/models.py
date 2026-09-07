@@ -334,12 +334,21 @@ class LegalMatterDocumentResponse(BaseModel):
     file_size: int = 0
 
 
+class LegalMatterActivityResponse(BaseModel):
+    kind: str
+    id: str
+    label: str
+    detail: str = ""
+    timestamp: str
+
+
 class LegalMatterDetailResponse(LegalMatterResponse):
     documents: list[LegalMatterDocumentResponse] = []
     notes: list[LegalMatterNoteResponse] = []
     tasks: list[LegalTaskResponse] = []
     contracts: list[LegalContractResponse] = []
     intakes: list[LegalIntakeResponse] = []
+    activity: list[LegalMatterActivityResponse] = []
 
 
 class LegalOpsSearchResponseItem(BaseModel):

@@ -106,6 +106,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["notes"][0]["body"].startswith("Client prefers")
     assert detail.json()["tasks"][0]["id"] == task_id
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
+    assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "intake"}
 
     search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
     assert search.status_code == 200
