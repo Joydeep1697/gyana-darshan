@@ -369,6 +369,20 @@ class LegalMatterActivityResponse(BaseModel):
     timestamp: str
 
 
+class LegalMatterBriefSource(BaseModel):
+    kind: str
+    id: str
+    label: str
+
+
+class LegalMatterBriefResponse(BaseModel):
+    matter_id: str
+    title: str
+    brief: str
+    sources: list[LegalMatterBriefSource]
+    generated_from: dict[str, int]
+
+
 class LegalMatterDetailResponse(LegalMatterResponse):
     documents: list[LegalMatterDocumentResponse] = []
     notes: list[LegalMatterNoteResponse] = []

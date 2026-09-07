@@ -114,6 +114,18 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
     assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "intake"}
 
+    brief = client.post(f"/api/legal-ops/matters/{matter_id}/brief", headers=viewer_workspace)
+    assert brief.status_code == 200
+    brief_data = brief.json()
+    assert brief_data["matter_id"] == matter_id
+    assert "Matter Brief" in brief_data["brief"]
+    assert "Vendor wants signature this week." in brief_data["brief"]
+    assert "Check confidentiality carve-outs" in brief_data["brief"]
+    assert "Vendor Mutual NDA" in brief_data["brief"]
+    assert "not verify legal merits" in brief_data["brief"]
+    assert {source["kind"] for source in brief_data["sources"]} >= {"matter", "intake", "note", "task", "contract", "document"}
+    assert brief_data["generated_from"]["documents"] == 1
+
     search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
     assert search.status_code == 200
     assert {item["kind"] for item in search.json()["results"]} >= {"matter", "contract", "document"}

@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from api.auth.dependencies import get_workspace_context, require_workspace_writer
 from app.database import Database, get_db
+from app.intelligence.matter_brief import build_matter_brief
 from app.models import (
     LegalContractCreate,
     LegalContractResponse,
@@ -16,6 +17,7 @@ from app.models import (
     LegalIntakeResponse,
     LegalIntakeUpdate,
     LegalMatterCreate,
+    LegalMatterBriefResponse,
     LegalMatterDetailResponse,
     LegalMatterDocumentLinkCreate,
     LegalMatterResponse,
@@ -90,6 +92,19 @@ async def get_matter_detail(
     if not detail:
         raise _not_found()
     return detail
+
+
+@router.post("/matters/{matter_id}/brief", response_model=LegalMatterBriefResponse)
+async def generate_matter_brief(
+    matter_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    detail = db.get_matter_detail(organization_id, matter_id)
+    if not detail:
+        raise _not_found()
+    return build_matter_brief(detail)
 
 
 @router.post("/matters/{matter_id}/documents", status_code=status.HTTP_201_CREATED)

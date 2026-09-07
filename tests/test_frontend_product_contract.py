@@ -118,10 +118,13 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/legal-ops/contracts/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/search?q=" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(id)}" in source
+    assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/brief" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/notes" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/documents" in source
     assert 'id="opsSearchForm"' in source
     assert 'id="matterDetailPanel"' in source
+    assert 'id="matterBriefButton"' in source
+    assert 'id="matterBriefResult"' in source
     assert 'id="matterNoteForm"' in source
     assert 'id="matterDocumentForm"' in source
     assert "/feedback" in source
