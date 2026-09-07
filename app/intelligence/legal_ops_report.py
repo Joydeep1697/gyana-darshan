@@ -67,12 +67,14 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
     intakes = workspace.get("intakes") or []
     tasks = workspace.get("tasks") or []
     contracts = workspace.get("contracts") or []
+    obligations = workspace.get("obligations") or []
     reminders = workspace.get("contract_reminders") or []
     vendors = workspace.get("vendors") or []
     spend_entries = workspace.get("spend_entries") or []
     playbooks = workspace.get("playbooks") or []
 
     open_tasks = [task for task in tasks if task.get("status") != "done"]
+    open_obligations = [item for item in obligations if item.get("status") not in {"done", "waived"}]
     high_priority_matters = [matter for matter in matters if matter.get("priority") in {"high", "critical"} and matter.get("status") != "closed"]
     high_risk_contracts = [contract for contract in contracts if contract.get("risk_level") in {"high", "critical"}]
     open_spend = float(summary.get("open_spend_total") or 0)
@@ -87,6 +89,7 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
             f"- Intake: {len(intakes)} total; {_counts(intakes).get('new', 0)} new.",
             f"- Tasks: {len(tasks)} total; {len(open_tasks)} open or in progress; {summary.get('overdue_tasks', 0)} overdue.",
             f"- Contracts: {len(contracts)} total; {len(high_risk_contracts)} high-risk; {summary.get('renewals_due_60_days', 0)} renewals due within 60 days; {summary.get('pending_signature_contracts', 0)} pending signature.",
+            f"- Obligations: {len(obligations)} total; {len(open_obligations)} open; {summary.get('overdue_contract_obligations', 0)} overdue.",
             f"- Spend: {_money(open_spend)} open; {_money(paid_spend)} paid; {summary.get('overdue_invoices', 0)} overdue invoices.",
             f"- Knowledge: {len(vendors)} vendors; {summary.get('active_playbooks', 0)} active playbooks.",
         ]),
@@ -111,6 +114,14 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
             ]
             or ["- No open tasks are recorded."]
         ),
+        "Contractual Obligations\n"
+        + "\n".join(
+            [
+                f"- {_compact(item.get('title'), 'Untitled obligation')}: {_compact(item.get('status'), 'open')}, {_compact(item.get('priority'), 'medium')} priority, owner {_compact(item.get('owner'), 'not recorded')}, due {_compact(item.get('due_date'), 'not recorded')}"
+                for item in open_obligations[:10]
+            ]
+            or ["- No open contractual obligations are recorded."]
+        ),
         "Vendor Spend\n" + "\n".join(_top_vendors(spend_entries, vendors) or ["- No vendor spend is recorded."]),
         "Playbooks\n"
         + "\n".join(
@@ -131,6 +142,7 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
             "intakes": len(intakes),
             "tasks": len(tasks),
             "contracts": len(contracts),
+            "obligations": len(obligations),
             "vendors": len(vendors),
             "spend_entries": len(spend_entries),
             "playbooks": len(playbooks),

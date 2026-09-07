@@ -20,11 +20,13 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     intakes = detail.get("intakes") or []
     tasks = detail.get("tasks") or []
     contracts = detail.get("contracts") or []
+    obligations = detail.get("obligations") or []
     documents = detail.get("documents") or []
     notes = detail.get("notes") or []
     playbooks = detail.get("playbooks") or []
 
     open_tasks = [task for task in tasks if task.get("status") != "done"]
+    open_obligations = [item for item in obligations if item.get("status") not in {"done", "waived"}]
     high_risk_contracts = [
         contract for contract in contracts
         if contract.get("risk_level") in {"high", "critical"}
@@ -47,6 +49,9 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     for task in open_tasks[:5]:
         due = f", due {task['due_date']}" if task.get("due_date") else ""
         next_steps.append(f"- Task: {_compact(task.get('title'))} ({_compact(task.get('priority'), 'medium')} priority{due})")
+    for obligation in open_obligations[:5]:
+        due = f", due {obligation['due_date']}" if obligation.get("due_date") else ""
+        next_steps.append(f"- Contract obligation: {_compact(obligation.get('title'))} ({_compact(obligation.get('priority'), 'medium')} priority{due})")
     for contract in high_risk_contracts[:3]:
         next_steps.append(f"- Review high-risk contract: {_compact(contract.get('title'))} ({_compact(contract.get('risk_level'))})")
     for contract in renewal_items[:3]:
@@ -87,12 +92,28 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     if not contract_lines:
         contract_lines.append("- No contract records are linked to this matter.")
 
+    obligation_lines = []
+    for obligation in obligations[:8]:
+        obligation_lines.append(
+            "- "
+            + "; ".join([
+                _compact(obligation.get("title"), "Untitled obligation"),
+                f"status {_compact(obligation.get('status'), 'open')}",
+                f"owner {_compact(obligation.get('owner'), 'not recorded')}",
+                f"due {_compact(obligation.get('due_date'), 'not recorded')}",
+                f"source {_compact(obligation.get('source_clause'), 'not recorded')}",
+            ])
+        )
+    if not obligation_lines:
+        obligation_lines.append("- No contractual obligations are linked to this matter.")
+
     brief = "\n\n".join([
         "Matter Brief",
         "Overview\n" + "\n".join(overview),
         "Recommended Follow-Up\n" + "\n".join(next_steps),
         "Source Notes\n" + "\n".join(source_notes),
         "Contract Position\n" + "\n".join(contract_lines),
+        "Contractual Obligations\n" + "\n".join(obligation_lines),
         "Internal Guidance\n" + ("\n".join(f"- {_compact(item.get('title'), 'Untitled playbook')}: {_compact(item.get('playbook_type'), 'general')}" for item in playbooks[:5]) if playbooks else "- No matching active playbook is recorded for this matter type."),
         "Limits\n- This brief is assembled from workspace records and internal playbooks only. Playbooks are team guidance, not legal authority. This brief does not verify legal merits or replace lawyer review.",
     ])
@@ -104,6 +125,7 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     sources.extend({"kind": "note", "id": item["id"], "label": "Matter note"} for item in notes if item.get("id"))
     sources.extend({"kind": "task", "id": item["id"], "label": _compact(item.get("title"), "Task")} for item in tasks if item.get("id"))
     sources.extend({"kind": "contract", "id": item["id"], "label": _compact(item.get("title"), "Contract")} for item in contracts if item.get("id"))
+    sources.extend({"kind": "obligation", "id": item["id"], "label": _compact(item.get("title"), "Obligation")} for item in obligations if item.get("id"))
     sources.extend({"kind": "document", "id": item["id"], "label": _compact(item.get("filename"), "Vault document")} for item in documents if item.get("id"))
     sources.extend({"kind": "playbook", "id": item["id"], "label": _compact(item.get("title"), "Playbook")} for item in playbooks if item.get("id"))
 
@@ -117,6 +139,7 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
             "notes": len(notes),
             "tasks": len(tasks),
             "contracts": len(contracts),
+            "obligations": len(obligations),
             "intakes": len(intakes),
             "playbooks": len(playbooks),
         },

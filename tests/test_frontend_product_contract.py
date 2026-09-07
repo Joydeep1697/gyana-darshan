@@ -105,6 +105,13 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="intakeForm"' in source
     assert 'id="taskForm"' in source
     assert 'id="contractRecordForm"' in source
+    assert 'id="contractEffectiveDate"' in source
+    assert 'id="contractExpiryDate"' in source
+    assert 'id="obligationForm"' in source
+    assert 'id="obligationContractSelect"' in source
+    assert 'id="obligationList"' in source
+    assert 'id="opsObligationCount"' in source
+    assert 'id="opsOverdueObligations"' in source
     assert 'id="playbookForm"' in source
     assert 'id="playbookList"' in source
     assert 'id="playbookTitle"' in source
@@ -134,6 +141,8 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/legal-ops/tasks" in source
     assert "/api/legal-ops/contracts" in source
     assert "/api/legal-ops/contracts/${encodeURIComponent(id)}" in source
+    assert "/api/legal-ops/obligations" in source
+    assert "/api/legal-ops/obligations/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/playbooks" in source
     assert "/api/legal-ops/playbooks/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/vendors" in source
@@ -174,7 +183,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "response.request_id!==request.requestId" in source
     assert "TIMED_OUT" in source
     assert "contract_reminders" in source
+    assert "open_contract_obligations" in source
     assert "data-contract-status" in source
+    assert "data-obligation-status" in source
     assert "data-intake-convert" in source
     assert "data-intake-status" in source
     assert "pending_signature" in source

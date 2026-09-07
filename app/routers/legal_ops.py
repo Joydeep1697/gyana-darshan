@@ -10,6 +10,9 @@ from app.intelligence.matter_brief import build_matter_brief
 from app.intelligence.legal_ops_report import build_legal_ops_report
 from app.models import (
     LegalContractCreate,
+    LegalContractObligationCreate,
+    LegalContractObligationResponse,
+    LegalContractObligationUpdate,
     LegalContractResponse,
     LegalContractUpdate,
     LegalIntakeCreate,
@@ -77,6 +80,7 @@ def _workspace_payload(db: Database, organization_id: str) -> dict:
         "intakes": db.list_intakes(organization_id),
         "tasks": db.list_tasks(organization_id),
         "contracts": db.list_contract_records(organization_id),
+        "obligations": db.list_contract_obligations(organization_id),
         "vendors": db.list_vendors(organization_id),
         "spend_entries": db.list_spend_entries(organization_id),
         "playbooks": db.list_playbooks(organization_id),
@@ -405,3 +409,46 @@ async def update_contract(
         raise _not_found()
     AuditRepository.log_audit("LEGAL_CONTRACT_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"contract_id": contract_id})
     return contract
+
+
+@router.post("/obligations", response_model=LegalContractObligationResponse, status_code=status.HTTP_201_CREATED)
+async def create_contract_obligation(
+    payload: LegalContractObligationCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        obligation = db.create_contract_obligation(organization_id, payload.contract_id, payload.title, **payload.model_dump(exclude={"contract_id", "title"}))
+    except ValueError as error:
+        raise _bad_reference(error)
+    AuditRepository.log_audit(
+        "LEGAL_CONTRACT_OBLIGATION_CREATED",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"obligation_id": obligation["id"], "contract_id": obligation["contract_id"], "matter_id": obligation.get("matter_id")},
+    )
+    return obligation
+
+
+@router.patch("/obligations/{obligation_id}", response_model=LegalContractObligationResponse)
+async def update_contract_obligation(
+    obligation_id: str,
+    payload: LegalContractObligationUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        obligation = db.update_contract_obligation(obligation_id, organization_id, **payload.model_dump(exclude_unset=True))
+    except ValueError as error:
+        raise _bad_reference(error)
+    if not obligation:
+        raise _not_found()
+    AuditRepository.log_audit(
+        "LEGAL_CONTRACT_OBLIGATION_UPDATED",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"obligation_id": obligation_id, "status": obligation.get("status")},
+    )
+    return obligation

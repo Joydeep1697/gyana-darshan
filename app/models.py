@@ -330,6 +330,46 @@ class LegalContractReminderResponse(BaseModel):
     matter_id: Optional[str] = None
 
 
+class LegalContractObligationCreate(BaseModel):
+    contract_id: str
+    matter_id: Optional[str] = None
+    title: str = Field(..., min_length=2, max_length=180)
+    owner: str = Field(default="", max_length=180)
+    category: str = Field(default="general", max_length=80)
+    status: str = Field(default="open", max_length=30)
+    priority: str = Field(default="medium", max_length=30)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+    source_clause: str = Field(default="", max_length=1000)
+
+
+class LegalContractObligationUpdate(BaseModel):
+    contract_id: Optional[str] = None
+    matter_id: Optional[str] = None
+    title: Optional[str] = Field(default=None, min_length=2, max_length=180)
+    owner: Optional[str] = Field(default=None, max_length=180)
+    category: Optional[str] = Field(default=None, max_length=80)
+    status: Optional[str] = Field(default=None, max_length=30)
+    priority: Optional[str] = Field(default=None, max_length=30)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+    source_clause: Optional[str] = Field(default=None, max_length=1000)
+
+
+class LegalContractObligationResponse(BaseModel):
+    id: str
+    organization_id: str
+    contract_id: str
+    matter_id: Optional[str] = None
+    title: str
+    owner: str = ""
+    category: str = "general"
+    status: str = "open"
+    priority: str = "medium"
+    due_date: Optional[str] = None
+    source_clause: str = ""
+    created_at: str
+    updated_at: str
+
+
 class LegalVendorCreate(BaseModel):
     name: str = Field(..., min_length=2, max_length=180)
     vendor_type: str = Field(default="outside_counsel", max_length=60)
@@ -499,6 +539,7 @@ class LegalMatterDetailResponse(LegalMatterResponse):
     notes: list[LegalMatterNoteResponse] = []
     tasks: list[LegalTaskResponse] = []
     contracts: list[LegalContractResponse] = []
+    obligations: list[LegalContractObligationResponse] = []
     spend_entries: list[LegalSpendResponse] = []
     playbooks: list[LegalPlaybookResponse] = []
     intakes: list[LegalIntakeResponse] = []
@@ -529,6 +570,8 @@ class LegalOpsSummary(BaseModel):
     renewals_due_60_days: int = 0
     overdue_contract_renewals: int = 0
     pending_signature_contracts: int = 0
+    open_contract_obligations: int = 0
+    overdue_contract_obligations: int = 0
     open_spend_total: float = 0
     paid_spend_total: float = 0
     overdue_invoices: int = 0
@@ -541,6 +584,7 @@ class LegalOpsWorkspaceResponse(BaseModel):
     intakes: list[LegalIntakeResponse]
     tasks: list[LegalTaskResponse]
     contracts: list[LegalContractResponse]
+    obligations: list[LegalContractObligationResponse] = []
     vendors: list[LegalVendorResponse] = []
     spend_entries: list[LegalSpendResponse] = []
     playbooks: list[LegalPlaybookResponse] = []

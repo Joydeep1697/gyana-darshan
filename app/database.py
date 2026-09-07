@@ -245,6 +245,27 @@ CREATE TABLE IF NOT EXISTS legal_contracts (
 CREATE INDEX IF NOT EXISTS idx_legal_contracts_org ON legal_contracts(organization_id);
 CREATE INDEX IF NOT EXISTS idx_legal_contracts_status ON legal_contracts(status);
 
+-- Contract obligations
+CREATE TABLE IF NOT EXISTS legal_contract_obligations (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    contract_id     TEXT NOT NULL REFERENCES legal_contracts(id) ON DELETE CASCADE,
+    matter_id       TEXT REFERENCES legal_matters(id) ON DELETE SET NULL,
+    title           TEXT NOT NULL,
+    owner           TEXT DEFAULT '',
+    category        TEXT DEFAULT 'general',
+    status          TEXT DEFAULT 'open',
+    priority        TEXT DEFAULT 'medium',
+    due_date        TEXT,
+    source_clause   TEXT DEFAULT '',
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_contract_obligations_org ON legal_contract_obligations(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_contract_obligations_contract ON legal_contract_obligations(contract_id);
+CREATE INDEX IF NOT EXISTS idx_legal_contract_obligations_matter ON legal_contract_obligations(matter_id);
+CREATE INDEX IF NOT EXISTS idx_legal_contract_obligations_status ON legal_contract_obligations(status);
+
 -- Legal vendors and outside counsel
 CREATE TABLE IF NOT EXISTS legal_vendors (
     id              TEXT PRIMARY KEY,
@@ -953,7 +974,7 @@ class Database:
         }
 
     def _get_org_row(self, table: str, item_id: str, organization_id: str) -> Optional[dict]:
-        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_vendors", "legal_spend_entries", "legal_playbooks"}
+        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_contract_obligations", "legal_vendors", "legal_spend_entries", "legal_playbooks"}
         if table not in allowed:
             raise ValueError("Unsupported legal operations table")
         with self.connect() as conn:
@@ -1062,6 +1083,10 @@ class Database:
                 "SELECT * FROM legal_contracts WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
                 (organization_id, matter_id),
             ).fetchall()]
+            obligations = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_contract_obligations WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
+                (organization_id, matter_id),
+            ).fetchall()]
             intakes = [dict(row) for row in conn.execute(
                 "SELECT * FROM legal_intake_requests WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
                 (organization_id, matter_id),
@@ -1083,10 +1108,11 @@ class Database:
         activity.extend({"kind": "note", "id": row["id"], "label": "Note added", "detail": row["body"], "timestamp": row["created_at"]} for row in notes)
         activity.extend({"kind": "task", "id": row["id"], "label": f"Task: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in tasks)
         activity.extend({"kind": "contract", "id": row["id"], "label": f"Contract: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in contracts)
+        activity.extend({"kind": "obligation", "id": row["id"], "label": f"Obligation: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in obligations)
         activity.extend({"kind": "intake", "id": row["id"], "label": f"Intake: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in intakes)
         activity.extend({"kind": "spend", "id": row["id"], "label": f"Invoice: {row.get('invoice_number') or 'Unnumbered spend'}", "detail": f"{row['status']} {row['currency']} {float(row['amount']):.2f}", "timestamp": row["updated_at"]} for row in spend_entries)
         activity.sort(key=lambda item: item["timestamp"] or "", reverse=True)
-        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "spend_entries": spend_entries, "playbooks": playbooks, "intakes": intakes, "activity": activity[:100]}
+        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "obligations": obligations, "spend_entries": spend_entries, "playbooks": playbooks, "intakes": intakes, "activity": activity[:100]}
 
     def search_legal_ops(self, organization_id: str, query: str, limit: int = 30) -> list[dict]:
         needle = f"%{query.strip()}%"
@@ -1098,6 +1124,7 @@ class Database:
                 ("intake", "SELECT id, title, status, urgency AS secondary, summary AS snippet, updated_at AS timestamp FROM legal_intake_requests WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR summary LIKE ? COLLATE NOCASE OR request_type LIKE ? COLLATE NOCASE)"),
                 ("task", "SELECT id, title, status, priority AS secondary, '' AS snippet, updated_at AS timestamp FROM legal_tasks WHERE organization_id = ? AND title LIKE ? COLLATE NOCASE"),
                 ("contract", "SELECT id, title, status, risk_level AS secondary, counterparty AS snippet, updated_at AS timestamp FROM legal_contracts WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR counterparty LIKE ? COLLATE NOCASE OR contract_type LIKE ? COLLATE NOCASE)"),
+                ("obligation", "SELECT id, title, status, priority AS secondary, source_clause AS snippet, updated_at AS timestamp FROM legal_contract_obligations WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR owner LIKE ? COLLATE NOCASE OR category LIKE ? COLLATE NOCASE OR source_clause LIKE ? COLLATE NOCASE)"),
                 ("vendor", "SELECT id, name AS title, status, practice_area AS secondary, contact_email AS snippet, updated_at AS timestamp FROM legal_vendors WHERE organization_id = ? AND (name LIKE ? COLLATE NOCASE OR practice_area LIKE ? COLLATE NOCASE OR vendor_type LIKE ? COLLATE NOCASE OR contact_email LIKE ? COLLATE NOCASE)"),
                 ("spend", "SELECT id, COALESCE(NULLIF(invoice_number, ''), 'Unnumbered spend') AS title, status, currency AS secondary, description AS snippet, updated_at AS timestamp FROM legal_spend_entries WHERE organization_id = ? AND (invoice_number LIKE ? COLLATE NOCASE OR description LIKE ? COLLATE NOCASE OR status LIKE ? COLLATE NOCASE OR currency LIKE ? COLLATE NOCASE)"),
                 ("playbook", "SELECT id, title, status, playbook_type AS secondary, body AS snippet, updated_at AS timestamp FROM legal_playbooks WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR body LIKE ? COLLATE NOCASE OR tags LIKE ? COLLATE NOCASE OR playbook_type LIKE ? COLLATE NOCASE)"),
@@ -1106,7 +1133,7 @@ class Database:
             for kind, sql in searches:
                 if kind == "task":
                     params = [organization_id, needle]
-                elif kind in {"document", "vendor", "spend", "playbook"}:
+                elif kind in {"document", "vendor", "spend", "playbook", "obligation"}:
                     params = [organization_id, needle, needle, needle, needle]
                 else:
                     params = [organization_id, needle, needle, needle]
@@ -1312,6 +1339,93 @@ class Database:
         return self.get_contract_record(contract_id, organization_id)
 
 
+    def create_contract_obligation(self, organization_id: str, contract_id: str, title: str, **kwargs: Any) -> dict:
+        contract = self.get_contract_record(contract_id, organization_id)
+        if not contract:
+            raise ValueError("Contract not found in workspace")
+        matter_id = kwargs.get("matter_id") or contract.get("matter_id")
+        if matter_id and not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        now = self.now()
+        item_id = self.new_id()
+        status = self._bounded(kwargs.get("status"), "open", {"open", "in_progress", "blocked", "done", "waived"})
+        priority = self._bounded(kwargs.get("priority"), "medium", {"low", "medium", "high", "critical"})
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_contract_obligations (id, organization_id, contract_id, matter_id, title, owner, category, status, priority, due_date, source_clause, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    item_id,
+                    organization_id,
+                    contract_id,
+                    matter_id,
+                    title.strip()[:180],
+                    (kwargs.get("owner") or "")[:180],
+                    (kwargs.get("category") or "general")[:80],
+                    status,
+                    priority,
+                    kwargs.get("due_date"),
+                    (kwargs.get("source_clause") or "")[:1000],
+                    now,
+                    now,
+                ),
+            )
+            conn.execute("UPDATE legal_contracts SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, contract_id, organization_id))
+            if matter_id:
+                conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, matter_id, organization_id))
+        return self.get_contract_obligation(item_id, organization_id) or {}
+
+    def get_contract_obligation(self, obligation_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_contract_obligations", obligation_id, organization_id)
+
+    def list_contract_obligations(self, organization_id: str, limit: int = 100) -> list[dict]:
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute("SELECT * FROM legal_contract_obligations WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    def update_contract_obligation(self, obligation_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"contract_id", "matter_id", "title", "owner", "category", "status", "priority", "due_date", "source_clause"}
+        existing = self.get_contract_obligation(obligation_id, organization_id)
+        if not existing:
+            return None
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "contract_id" in fields and fields["contract_id"]:
+            contract = self.get_contract_record(fields["contract_id"], organization_id)
+            if not contract:
+                raise ValueError("Contract not found in workspace")
+            if not fields.get("matter_id") and contract.get("matter_id"):
+                fields["matter_id"] = contract["matter_id"]
+        if "matter_id" in fields and fields["matter_id"] and not self.get_matter(fields["matter_id"], organization_id):
+            raise ValueError("Matter not found in workspace")
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "open", {"open", "in_progress", "blocked", "done", "waived"})
+        if "priority" in fields:
+            fields["priority"] = self._bounded(fields["priority"], "medium", {"low", "medium", "high", "critical"})
+        if "title" in fields:
+            fields["title"] = str(fields["title"]).strip()[:180]
+        if "owner" in fields:
+            fields["owner"] = str(fields["owner"]).strip()[:180]
+        if "category" in fields:
+            fields["category"] = str(fields["category"]).strip()[:80] or "general"
+        if "source_clause" in fields:
+            fields["source_clause"] = str(fields["source_clause"]).strip()[:1000]
+        if not fields:
+            return existing
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [obligation_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_contract_obligations SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+            contract_id = fields.get("contract_id") or existing.get("contract_id")
+            matter_id = fields.get("matter_id") or existing.get("matter_id")
+            if contract_id:
+                conn.execute("UPDATE legal_contracts SET updated_at = ? WHERE id = ? AND organization_id = ?", (fields["updated_at"], contract_id, organization_id))
+            if matter_id:
+                conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (fields["updated_at"], matter_id, organization_id))
+        return self.get_contract_obligation(obligation_id, organization_id)
+
+
 
     def create_playbook(self, organization_id: str, title: str, **kwargs: Any) -> dict:
         now = self.now()
@@ -1502,6 +1616,8 @@ class Database:
             upcoming_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND renewal_date IS NOT NULL AND DATE(renewal_date) BETWEEN DATE('now') AND DATE('now', '+60 days')", (organization_id,)).fetchone()[0]
             overdue_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status NOT IN ('expired', 'signed', 'draft') AND renewal_date IS NOT NULL AND DATE(renewal_date) < DATE('now')", (organization_id,)).fetchone()[0]
             pending_signature = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status = 'approved'", (organization_id,)).fetchone()[0]
+            open_obligations = conn.execute("SELECT COUNT(*) FROM legal_contract_obligations WHERE organization_id = ? AND status NOT IN ('done', 'waived')", (organization_id,)).fetchone()[0]
+            overdue_obligations = conn.execute("SELECT COUNT(*) FROM legal_contract_obligations WHERE organization_id = ? AND status NOT IN ('done', 'waived') AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
             open_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid'", (organization_id,)).fetchone()[0]
             paid_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status = 'paid'", (organization_id,)).fetchone()[0]
             overdue_invoices = conn.execute("SELECT COUNT(*) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid' AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
@@ -1516,6 +1632,8 @@ class Database:
             "renewals_due_60_days": upcoming_contracts,
             "overdue_contract_renewals": overdue_contracts,
             "pending_signature_contracts": pending_signature,
+            "open_contract_obligations": open_obligations,
+            "overdue_contract_obligations": overdue_obligations,
             "open_spend_total": float(open_spend or 0),
             "paid_spend_total": float(paid_spend or 0),
             "overdue_invoices": overdue_invoices,

@@ -81,6 +81,23 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert contract.json()["reminder_status"] == "due"
     assert 0 <= contract.json()["days_to_renewal"] <= 60
 
+    obligation = client.post(
+        "/api/legal-ops/obligations",
+        json={
+            "contract_id": contract_id,
+            "title": "Return confidential material after termination",
+            "owner": "Legal operations",
+            "priority": "critical",
+            "due_date": "2026-09-20",
+            "source_clause": "Confidential materials must be returned or destroyed after termination.",
+        },
+        headers=owner_workspace,
+    )
+    assert obligation.status_code == 201
+    obligation_id = obligation.json()["id"]
+    assert obligation.json()["matter_id"] == matter_id
+    assert obligation.json()["status"] == "open"
+
     vendor = client.post(
         "/api/legal-ops/vendors",
         json={"name": "Acme Legal LLP", "practice_area": "Commercial contracts", "hourly_rate": 7500, "currency": "INR"},
@@ -152,9 +169,10 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["notes"][0]["body"].startswith("Client prefers")
     assert detail.json()["tasks"][0]["id"] == task_id
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
+    assert detail.json()["obligations"][0]["title"] == "Return confidential material after termination"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
     assert detail.json()["playbooks"][0]["title"] == "NDA review checklist"
-    assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "intake", "spend"}
+    assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "obligation", "intake", "spend"}
 
     brief = client.post(f"/api/legal-ops/matters/{matter_id}/brief", headers=viewer_workspace)
     assert brief.status_code == 200
@@ -164,11 +182,13 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert "Vendor wants signature this week." in brief_data["brief"]
     assert "Check confidentiality carve-outs" in brief_data["brief"]
     assert "Vendor Mutual NDA" in brief_data["brief"]
+    assert "Return confidential material after termination" in brief_data["brief"]
     assert "NDA review checklist" in brief_data["brief"]
     assert "Playbooks are team guidance, not legal authority" in brief_data["brief"]
     assert "not verify legal merits" in brief_data["brief"]
-    assert {source["kind"] for source in brief_data["sources"]} >= {"matter", "intake", "note", "task", "contract", "document", "playbook"}
+    assert {source["kind"] for source in brief_data["sources"]} >= {"matter", "intake", "note", "task", "contract", "obligation", "document", "playbook"}
     assert brief_data["generated_from"]["documents"] == 1
+    assert brief_data["generated_from"]["obligations"] == 1
     assert brief_data["generated_from"]["playbooks"] == 1
 
     search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
@@ -186,6 +206,9 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     playbook_search = client.get("/api/legal-ops/search", params={"q": "residual knowledge"}, headers=viewer_workspace)
     assert playbook_search.status_code == 200
     assert {item["kind"] for item in playbook_search.json()["results"]} >= {"playbook"}
+    obligation_search = client.get("/api/legal-ops/search", params={"q": "confidential material"}, headers=viewer_workspace)
+    assert obligation_search.status_code == 200
+    assert {item["kind"] for item in obligation_search.json()["results"]} >= {"obligation"}
     assert client.get("/api/legal-ops/search", params={"q": "x"}, headers=viewer_workspace).status_code == 422
 
     updated_task = client.patch(f"/api/legal-ops/tasks/{task_id}", json={"status": "done"}, headers=owner_workspace)
@@ -208,6 +231,9 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert data["summary"]["tasks_by_status"]["done"] == 1
     assert data["summary"]["renewals_due_60_days"] == 1
     assert data["summary"]["pending_signature_contracts"] == 1
+    assert data["summary"]["open_contract_obligations"] == 1
+    assert data["summary"]["overdue_contract_obligations"] == 0
+    assert data["obligations"][0]["id"] == obligation_id
     assert data["contract_reminders"][0]["id"] == contract_id
     assert data["contract_reminders"][0]["reminder_status"] == "due"
     assert data["vendors"][0]["name"] == "Acme Legal LLP"
@@ -224,8 +250,10 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert "Executive Snapshot" in report_data["report"]
     assert "Matter Status" in report_data["report"]
     assert "Vendor Spend" in report_data["report"]
+    assert "Contractual Obligations" in report_data["report"]
     assert "Playbooks" in report_data["report"]
     assert "Vendor NDA review" in report_data["report"]
+    assert "Return confidential material after termination" in report_data["report"]
     assert "Acme Legal LLP" in report_data["report"]
     assert "NDA review checklist" in report_data["report"]
     assert "not legal advice" in report_data["report"]
@@ -234,6 +262,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
         "intakes": 1,
         "tasks": 1,
         "contracts": 1,
+        "obligations": 1,
         "vendors": 1,
         "spend_entries": 1,
         "playbooks": 1,
@@ -255,12 +284,21 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert updated_workspace["summary"]["open_spend_total"] == 0
     assert updated_workspace["summary"]["paid_spend_total"] == 125000
 
+    completed_obligation = client.patch(f"/api/legal-ops/obligations/{obligation_id}", json={"status": "done"}, headers=owner_workspace)
+    assert completed_obligation.status_code == 200
+    assert completed_obligation.json()["status"] == "done"
+    obligation_workspace = client.get("/api/legal-ops/workspace", headers=viewer_workspace).json()
+    assert obligation_workspace["summary"]["open_contract_obligations"] == 0
+
     assert client.post("/api/legal-ops/playbooks", json={"title": "Forbidden playbook"}, headers=viewer_workspace).status_code == 403
     assert client.patch(f"/api/legal-ops/playbooks/{playbook_id}", json={"status": "archived"}, headers=viewer_workspace).status_code == 403
     assert client.post("/api/legal-ops/vendors", json={"name": "Forbidden Vendor"}, headers=viewer_workspace).status_code == 403
     assert client.post("/api/legal-ops/spend", json={"amount": 10}, headers=viewer_workspace).status_code == 403
+    assert client.post("/api/legal-ops/obligations", json={"contract_id": contract_id, "title": "Forbidden obligation"}, headers=viewer_workspace).status_code == 403
+    assert client.patch(f"/api/legal-ops/obligations/{obligation_id}", json={"status": "waived"}, headers=viewer_workspace).status_code == 403
     assert client.post("/api/legal-ops/spend", json={"amount": 10, "matter_id": "missing"}, headers=owner_workspace).status_code == 422
     assert client.post("/api/legal-ops/spend", json={"amount": 10, "vendor_id": "missing"}, headers=owner_workspace).status_code == 422
+    assert client.post("/api/legal-ops/obligations", json={"contract_id": "missing", "title": "Bad obligation"}, headers=owner_workspace).status_code == 422
 
     assert client.post("/api/legal-ops/tasks", json={"title": "Forbidden"}, headers=viewer_workspace).status_code == 403
     assert client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "signed"}, headers=viewer_workspace).status_code == 403
