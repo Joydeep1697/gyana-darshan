@@ -217,6 +217,29 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert data["summary"]["active_playbooks"] == 1
     assert data["playbooks"][0]["title"] == "NDA review checklist"
 
+    report = client.get("/api/legal-ops/report", headers=viewer_workspace)
+    assert report.status_code == 200
+    report_data = report.json()
+    assert report_data["title"] == "Legal Ops Report"
+    assert "Executive Snapshot" in report_data["report"]
+    assert "Matter Status" in report_data["report"]
+    assert "Vendor Spend" in report_data["report"]
+    assert "Playbooks" in report_data["report"]
+    assert "Vendor NDA review" in report_data["report"]
+    assert "Acme Legal LLP" in report_data["report"]
+    assert "NDA review checklist" in report_data["report"]
+    assert "not legal advice" in report_data["report"]
+    assert report_data["generated_from"] == {
+        "matters": 1,
+        "intakes": 1,
+        "tasks": 1,
+        "contracts": 1,
+        "vendors": 1,
+        "spend_entries": 1,
+        "playbooks": 1,
+    }
+    assert client.get("/api/legal-ops/report", headers=outsider_workspace).status_code == 404
+
     archived_playbook = client.patch(f"/api/legal-ops/playbooks/{playbook_id}", json={"status": "archived"}, headers=owner_workspace)
     assert archived_playbook.status_code == 200
     assert archived_playbook.json()["status"] == "archived"

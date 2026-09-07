@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from api.auth.dependencies import get_workspace_context, require_workspace_writer
 from app.database import Database, get_db
 from app.intelligence.matter_brief import build_matter_brief
+from app.intelligence.legal_ops_report import build_legal_ops_report
 from app.models import (
     LegalContractCreate,
     LegalContractResponse,
@@ -24,6 +25,7 @@ from app.models import (
     LegalMatterNoteCreate,
     LegalMatterNoteResponse,
     LegalMatterUpdate,
+    LegalOpsReportResponse,
     LegalOpsSearchResponse,
     LegalPlaybookCreate,
     LegalPlaybookResponse,
@@ -65,7 +67,10 @@ async def get_legal_ops_workspace(
     db: Database = Depends(get_db),
     workspace: dict = Depends(get_workspace_context),
 ):
-    organization_id = _org_id(workspace)
+    return _workspace_payload(db, _org_id(workspace))
+
+
+def _workspace_payload(db: Database, organization_id: str) -> dict:
     return {
         "summary": db.get_legal_ops_summary(organization_id),
         "matters": db.list_matters(organization_id),
@@ -77,6 +82,14 @@ async def get_legal_ops_workspace(
         "playbooks": db.list_playbooks(organization_id),
         "contract_reminders": db.list_contract_reminders(organization_id),
     }
+
+
+@router.get("/report", response_model=LegalOpsReportResponse)
+async def get_legal_ops_report(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return build_legal_ops_report(_workspace_payload(db, _org_id(workspace)))
 
 
 

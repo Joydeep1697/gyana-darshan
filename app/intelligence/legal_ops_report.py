@@ -1,0 +1,138 @@
+"""Deterministic Legal Ops reporting from workspace records."""
+
+from __future__ import annotations
+
+from collections import Counter, defaultdict
+from datetime import datetime, timezone
+from typing import Any
+
+
+def _compact(value: Any, fallback: str = "") -> str:
+    text = " ".join(str(value or "").split())
+    return text or fallback
+
+
+def _money(amount: Any, currency: str = "INR") -> str:
+    try:
+        numeric = float(amount or 0)
+    except (TypeError, ValueError):
+        numeric = 0.0
+    return f"{currency or 'INR'} {numeric:,.2f}"
+
+
+def _counts(items: list[dict[str, Any]], field: str = "status") -> dict[str, int]:
+    return dict(Counter(_compact(item.get(field), "unknown") for item in items))
+
+
+def _top_vendors(spend_entries: list[dict[str, Any]], vendors: list[dict[str, Any]]) -> list[str]:
+    vendor_names = {vendor["id"]: vendor.get("name") or "Unnamed vendor" for vendor in vendors if vendor.get("id")}
+    totals: dict[str, float] = defaultdict(float)
+    currencies: dict[str, str] = {}
+    for entry in spend_entries:
+        vendor_id = entry.get("vendor_id") or "unassigned"
+        totals[vendor_id] += float(entry.get("amount") or 0)
+        currencies.setdefault(vendor_id, entry.get("currency") or "INR")
+    ranked = sorted(totals.items(), key=lambda item: item[1], reverse=True)
+    return [
+        f"- {_compact(vendor_names.get(vendor_id), 'Unassigned vendor')}: {_money(total, currencies.get(vendor_id, 'INR'))}"
+        for vendor_id, total in ranked[:5]
+    ]
+
+
+def _matter_lines(matters: list[dict[str, Any]], spend_entries: list[dict[str, Any]]) -> list[str]:
+    spend_by_matter: dict[str, float] = defaultdict(float)
+    currency_by_matter: dict[str, str] = {}
+    for entry in spend_entries:
+        matter_id = entry.get("matter_id")
+        if not matter_id:
+            continue
+        spend_by_matter[matter_id] += float(entry.get("amount") or 0)
+        currency_by_matter.setdefault(matter_id, entry.get("currency") or "INR")
+    lines = []
+    for matter in matters[:10]:
+        matter_id = matter.get("id")
+        spend = _money(spend_by_matter.get(matter_id, 0), currency_by_matter.get(matter_id, "INR"))
+        due = f", due {_compact(matter.get('due_date'))}" if matter.get("due_date") else ""
+        lines.append(
+            f"- {_compact(matter.get('title'), 'Untitled matter')} "
+            f"({_compact(matter.get('status'), 'open')}, {_compact(matter.get('priority'), 'medium')} priority{due}) - spend {spend}"
+        )
+    return lines or ["- No matters are recorded."]
+
+
+def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
+    """Build a source-labeled management report without adding legal conclusions."""
+    summary = workspace.get("summary") or {}
+    matters = workspace.get("matters") or []
+    intakes = workspace.get("intakes") or []
+    tasks = workspace.get("tasks") or []
+    contracts = workspace.get("contracts") or []
+    reminders = workspace.get("contract_reminders") or []
+    vendors = workspace.get("vendors") or []
+    spend_entries = workspace.get("spend_entries") or []
+    playbooks = workspace.get("playbooks") or []
+
+    open_tasks = [task for task in tasks if task.get("status") != "done"]
+    high_priority_matters = [matter for matter in matters if matter.get("priority") in {"high", "critical"} and matter.get("status") != "closed"]
+    high_risk_contracts = [contract for contract in contracts if contract.get("risk_level") in {"high", "critical"}]
+    open_spend = float(summary.get("open_spend_total") or 0)
+    paid_spend = float(summary.get("paid_spend_total") or 0)
+
+    report = "\n\n".join([
+        "Legal Ops Report",
+        f"Generated: {datetime.now(timezone.utc).isoformat(timespec='seconds')}",
+        "Executive Snapshot\n"
+        + "\n".join([
+            f"- Matters: {len(matters)} total; {_counts(matters).get('open', 0)} open; {len(high_priority_matters)} high-priority open.",
+            f"- Intake: {len(intakes)} total; {_counts(intakes).get('new', 0)} new.",
+            f"- Tasks: {len(tasks)} total; {len(open_tasks)} open or in progress; {summary.get('overdue_tasks', 0)} overdue.",
+            f"- Contracts: {len(contracts)} total; {len(high_risk_contracts)} high-risk; {summary.get('renewals_due_60_days', 0)} renewals due within 60 days; {summary.get('pending_signature_contracts', 0)} pending signature.",
+            f"- Spend: {_money(open_spend)} open; {_money(paid_spend)} paid; {summary.get('overdue_invoices', 0)} overdue invoices.",
+            f"- Knowledge: {len(vendors)} vendors; {summary.get('active_playbooks', 0)} active playbooks.",
+        ]),
+        "Matter Status\n" + "\n".join(_matter_lines(matters, spend_entries)),
+        "Risk and Renewal Queue\n"
+        + "\n".join(
+            [
+                f"- {_compact(contract.get('title'), 'Untitled contract')}: {_compact(contract.get('risk_level'), 'unknown')} risk, {_compact(contract.get('status'), 'draft')} status"
+                for contract in high_risk_contracts[:8]
+            ]
+            + [
+                f"- Renewal: {_compact(item.get('title'), 'Untitled contract')} due in {item.get('days_to_renewal')} days"
+                for item in reminders[:8]
+            ]
+            or ["- No high-risk contract or renewal reminder is recorded."]
+        ),
+        "Open Work\n"
+        + "\n".join(
+            [
+                f"- {_compact(task.get('title'), 'Untitled task')}: {_compact(task.get('status'), 'open')}, {_compact(task.get('priority'), 'medium')} priority"
+                for task in open_tasks[:10]
+            ]
+            or ["- No open tasks are recorded."]
+        ),
+        "Vendor Spend\n" + "\n".join(_top_vendors(spend_entries, vendors) or ["- No vendor spend is recorded."]),
+        "Playbooks\n"
+        + "\n".join(
+            [
+                f"- {_compact(playbook.get('title'), 'Untitled playbook')}: {_compact(playbook.get('playbook_type'), 'general')} ({_compact(playbook.get('status'), 'active')})"
+                for playbook in playbooks[:10]
+            ]
+            or ["- No playbooks are recorded."]
+        ),
+        "Limits\n- This report is assembled from workspace operational records only. It is not legal advice, financial approval, or an independent audit.",
+    ])
+
+    return {
+        "title": "Legal Ops Report",
+        "report": report,
+        "generated_from": {
+            "matters": len(matters),
+            "intakes": len(intakes),
+            "tasks": len(tasks),
+            "contracts": len(contracts),
+            "vendors": len(vendors),
+            "spend_entries": len(spend_entries),
+            "playbooks": len(playbooks),
+        },
+    }

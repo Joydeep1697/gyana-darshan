@@ -110,6 +110,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="playbookTitle"' in source
     assert 'id="playbookBody"' in source
     assert 'id="opsPlaybookCount"' in source
+    assert 'id="generateOpsReportButton"' in source
+    assert 'id="downloadOpsReportButton"' in source
+    assert 'id="opsReportResult"' in source
     assert 'id="vendorForm"' in source
     assert 'id="spendForm"' in source
     assert 'id="vendorList"' in source
@@ -123,6 +126,7 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="opsRenewalCount"' in source
     assert 'id="opsSignatureCount"' in source
     assert "/api/legal-ops/workspace" in source
+    assert "/api/legal-ops/report" in source
     assert "/api/legal-ops/matters" in source
     assert "/api/legal-ops/intake" in source
     assert "/api/legal-ops/intake/${encodeURIComponent(id)}" in source
@@ -136,6 +140,7 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/legal-ops/spend" in source
     assert "/api/legal-ops/spend/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/search?q=" in source
+    assert "nyaya-legal-ops-report.md" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/brief" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/notes" in source

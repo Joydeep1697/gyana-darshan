@@ -488,6 +488,12 @@ class LegalMatterBriefResponse(BaseModel):
     generated_from: dict[str, int]
 
 
+class LegalOpsReportResponse(BaseModel):
+    title: str
+    report: str
+    generated_from: dict[str, int]
+
+
 class LegalMatterDetailResponse(LegalMatterResponse):
     documents: list[LegalMatterDocumentResponse] = []
     notes: list[LegalMatterNoteResponse] = []
