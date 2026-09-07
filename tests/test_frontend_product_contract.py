@@ -194,6 +194,11 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "data-intake-convert" in source
     assert "data-intake-status" in source
     assert "pending_signature" in source
+    assert 'id="matterDraftButton"' in source
+    assert 'id="matterDraftMarkdownButton"' in source
+    assert 'id="matterDraftDocxButton"' in source
+    assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/draft" in source
+    assert "/draft/export?format=" in source
     assert 'id="precedentSearchForm"' in source
     assert 'id="precedentSearchResults"' in source
     assert "/api/vault/precedents?q=" in source

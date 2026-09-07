@@ -107,3 +107,20 @@ def consultation_docx(conversation: dict, messages: list[dict]) -> bytes:
         archive.writestr("word/styles.xml", styles)
         archive.writestr("word/_rels/document.xml.rels", document_rels)
     return output.getvalue()
+
+
+def matter_draft_markdown(draft: dict) -> str:
+    """Export a grounded matter draft without dropping its review limits."""
+    lines = [f"# {draft.get('title', 'Grounded matter draft')}", "", draft.get("draft", ""), "", "## Evidence record", ""]
+    for source in draft.get("sources") or []:
+        lines.append(f"- **{source.get('label', 'Source')}** ({source.get('citation', '')}; {source.get('status', '')})")
+        if source.get("excerpt"):
+            lines.append(f"  {source['excerpt']}")
+    return "\n".join(lines) + "\n"
+
+
+def matter_draft_docx(draft: dict) -> bytes:
+    return consultation_docx(
+        {"title": draft.get("title", "Grounded matter draft")},
+        [{"role": "assistant", "content": draft.get("draft", ""), "evidence": draft.get("sources") or []}],
+    )

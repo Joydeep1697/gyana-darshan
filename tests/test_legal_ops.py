@@ -191,6 +191,38 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert brief_data["generated_from"]["obligations"] == 1
     assert brief_data["generated_from"]["playbooks"] == 1
 
+    draft = client.post(
+        f"/api/legal-ops/matters/{matter_id}/draft",
+        json={"prompt": "What statutory provisions govern the reported conduct?", "precedent_ids": []},
+        headers=viewer_workspace,
+    )
+    assert draft.status_code == 200
+    draft_data = draft.json()
+    assert draft_data["matter_id"] == matter_id
+    assert "Grounded draft" in draft_data["title"]
+    assert "Recorded matter facts" in draft_data["draft"]
+    assert "Review flags" in draft_data["draft"]
+    assert "Application of the authorities" in draft_data["unsupported_claims"][-1]
+    assert draft_data["generated_from"]["statutes"] >= 0
+
+    markdown = client.post(
+        f"/api/legal-ops/matters/{matter_id}/draft/export?format=markdown",
+        json={"prompt": "What statutory provisions govern the reported conduct?", "precedent_ids": []},
+        headers=viewer_workspace,
+    )
+    assert markdown.status_code == 200
+    assert markdown.headers["content-type"].startswith("text/markdown")
+    assert "Grounded draft" in markdown.text
+
+    docx = client.post(
+        f"/api/legal-ops/matters/{matter_id}/draft/export?format=docx",
+        json={"prompt": "What statutory provisions govern the reported conduct?", "precedent_ids": []},
+        headers=viewer_workspace,
+    )
+    assert docx.status_code == 200
+    assert docx.headers["content-type"].startswith("application/vnd.openxmlformats")
+    assert docx.content.startswith(b"PK")
+
     search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
     assert search.status_code == 200
     assert {item["kind"] for item in search.json()["results"]} >= {"matter", "contract", "document"}

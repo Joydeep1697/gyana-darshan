@@ -583,6 +583,30 @@ class LegalMatterBriefResponse(BaseModel):
     generated_from: dict[str, int]
 
 
+class LegalMatterDraftRequest(BaseModel):
+    prompt: str = Field(default="", max_length=3000)
+    precedent_ids: list[str] = Field(default_factory=list, max_length=20)
+
+
+class LegalMatterDraftEvidence(BaseModel):
+    kind: str
+    id: str
+    label: str
+    citation: str = ""
+    excerpt: str = ""
+    status: str = ""
+
+
+class LegalMatterDraftResponse(BaseModel):
+    matter_id: str
+    title: str
+    question: str
+    draft: str
+    sources: list[LegalMatterDraftEvidence]
+    unsupported_claims: list[str] = []
+    generated_from: dict[str, int]
+
+
 class LegalOpsReportResponse(BaseModel):
     title: str
     report: str

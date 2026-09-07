@@ -916,6 +916,33 @@ class Database:
         scored.sort(key=lambda item: (-item["relevance"], item.get("updated_at", "")))
         return scored[: max(1, min(limit, 100))]
 
+    def get_case_law_records_by_ids(self, organization_id: str, record_ids: list[str]) -> list[dict]:
+        ids = list(dict.fromkeys(item for item in record_ids if item))[:20]
+        if not ids:
+            return []
+        placeholders = ",".join("?" for _ in ids)
+        with self.connect() as conn:
+            uploaded = [dict(row) for row in conn.execute(
+                """SELECT c.*, v.filename FROM case_law_records c JOIN vault_documents v ON v.id = c.document_id
+                   WHERE c.organization_id = ? AND c.id IN (""" + placeholders + ")",
+                [organization_id, *ids],
+            ).fetchall()]
+            curated = [dict(row) for row in conn.execute(
+                "SELECT * FROM case_law_corpus_records WHERE id IN (" + placeholders + ") AND provenance_status != 'retracted'",
+                ids,
+            ).fetchall()]
+        records = []
+        for row in uploaded:
+            decoded = self._decode_case_law_record(row)
+            decoded.update({"scope": "workspace", "source_name": decoded.get("filename", ""), "source_url": "", "provenance_status": "uploaded"})
+            records.append(decoded)
+        for row in curated:
+            decoded = self._decode_case_law_record(row)
+            decoded.update({"scope": "curated", "document_id": "", "filename": decoded.get("source_name", "")})
+            records.append(decoded)
+        order = {record_id: index for index, record_id in enumerate(ids)}
+        return sorted(records, key=lambda item: order.get(item.get("id", ""), len(ids)))
+
     def search_case_law_records(
         self,
         organization_id: str,

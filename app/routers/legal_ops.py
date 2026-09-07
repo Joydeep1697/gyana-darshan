@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi.responses import Response
 
 from api.auth.dependencies import get_workspace_context, require_workspace_writer
 from app.database import Database, get_db
 from app.intelligence.matter_brief import build_matter_brief
+from app.intelligence.legal_brief import build_grounded_matter_draft
 from app.intelligence.legal_ops_report import build_legal_ops_report
+from app.exports.legal_memo import matter_draft_docx, matter_draft_markdown
 from app.models import (
     LegalContractCreate,
     LegalContractObligationCreate,
@@ -22,6 +25,8 @@ from app.models import (
     LegalIntakeUpdate,
     LegalMatterCreate,
     LegalMatterBriefResponse,
+    LegalMatterDraftRequest,
+    LegalMatterDraftResponse,
     LegalMatterDetailResponse,
     LegalMatterDocumentLinkCreate,
     LegalMatterResponse,
@@ -134,6 +139,53 @@ async def generate_matter_brief(
     if not detail:
         raise _not_found()
     return build_matter_brief(detail)
+
+
+@router.post("/matters/{matter_id}/draft", response_model=LegalMatterDraftResponse)
+async def generate_grounded_matter_draft(
+    matter_id: str,
+    payload: LegalMatterDraftRequest | None = None,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    """Assemble a source-labeled draft from matter facts, statutes, and selected precedents."""
+    organization_id = _org_id(workspace)
+    detail = db.get_matter_detail(organization_id, matter_id)
+    if not detail:
+        raise _not_found()
+    request = payload or LegalMatterDraftRequest()
+    precedents = db.get_case_law_records_by_ids(organization_id, request.precedent_ids)
+    draft = build_grounded_matter_draft(detail, question=request.prompt, precedent_records=precedents)
+    AuditRepository.log_audit("LEGAL_MATTER_DRAFT_GENERATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "precedent_count": len(precedents)})
+    return draft
+
+
+@router.post("/matters/{matter_id}/draft/export")
+async def export_grounded_matter_draft(
+    matter_id: str,
+    payload: LegalMatterDraftRequest | None = None,
+    format: str = Query(default="markdown", pattern="^(markdown|docx)$"),
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    detail = db.get_matter_detail(organization_id, matter_id)
+    if not detail:
+        raise _not_found()
+    request = payload or LegalMatterDraftRequest()
+    precedents = db.get_case_law_records_by_ids(organization_id, request.precedent_ids)
+    draft = build_grounded_matter_draft(detail, question=request.prompt, precedent_records=precedents)
+    if format == "docx":
+        return Response(
+            content=matter_draft_docx(draft),
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            headers={"Content-Disposition": 'attachment; filename="nyaya-grounded-draft.docx"'},
+        )
+    return Response(
+        content=matter_draft_markdown(draft),
+        media_type="text/markdown",
+        headers={"Content-Disposition": 'attachment; filename="nyaya-grounded-draft.md"'},
+    )
 
 
 @router.post("/matters/{matter_id}/documents", status_code=status.HTTP_201_CREATED)
