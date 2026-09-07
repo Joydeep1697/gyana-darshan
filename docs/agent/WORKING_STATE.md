@@ -74,3 +74,4 @@ This file records product behavior only after automated or runtime verification.
 ## 2026-09-07
 
 - [PASS] Legal Ops matter detail now includes an organization-scoped activity timeline assembled from linked Vault documents, notes, tasks, contracts, and intake records. API regression and frontend contract tests pass.
+- [PASS] Legal Ops contract lifecycle responses expose computed lifecycle stage, renewal reminder status, and days-to-renewal without a destructive schema migration. Workspace responses include contract reminders, renewal counts, pending-signature counts, writer-only lifecycle transitions, and frontend reminder/action controls. Focused API and frontend contract tests pass.

@@ -105,11 +105,15 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="intakeForm"' in source
     assert 'id="taskForm"' in source
     assert 'id="contractRecordForm"' in source
+    assert 'id="contractReminderList"' in source
+    assert 'id="opsRenewalCount"' in source
+    assert 'id="opsSignatureCount"' in source
     assert "/api/legal-ops/workspace" in source
     assert "/api/legal-ops/matters" in source
     assert "/api/legal-ops/intake" in source
     assert "/api/legal-ops/tasks" in source
     assert "/api/legal-ops/contracts" in source
+    assert "/api/legal-ops/contracts/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/search?q=" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/notes" in source
@@ -140,6 +144,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "request_id:request.requestId" in source
     assert "response.request_id!==request.requestId" in source
     assert "TIMED_OUT" in source
+    assert "contract_reminders" in source
+    assert "data-contract-status" in source
+    assert "pending_signature" in source
 
 
 def test_frontend_does_not_reintroduce_mock_operational_claims_or_reasoning_theatre():

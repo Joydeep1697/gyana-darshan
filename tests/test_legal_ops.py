@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import uuid
+from datetime import date, timedelta
 
 from fastapi.testclient import TestClient
 
@@ -68,12 +69,17 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert task.status_code == 201
     task_id = task.json()["id"]
 
+    renewal_date = (date.today() + timedelta(days=30)).isoformat()
     contract = client.post(
         "/api/legal-ops/contracts",
-        json={"title": "Vendor Mutual NDA", "counterparty": "Vendor Ltd", "contract_type": "nda", "status": "in_review", "risk_level": "high", "matter_id": matter_id, "renewal_date": "2026-10-01"},
+        json={"title": "Vendor Mutual NDA", "counterparty": "Vendor Ltd", "contract_type": "nda", "status": "in_review", "risk_level": "high", "matter_id": matter_id, "renewal_date": renewal_date},
         headers=owner_workspace,
     )
     assert contract.status_code == 201
+    contract_id = contract.json()["id"]
+    assert contract.json()["lifecycle_stage"] == "renewal_due"
+    assert contract.json()["reminder_status"] == "due"
+    assert contract.json()["days_to_renewal"] <= 30
 
     from app.database import Database
 
@@ -117,6 +123,11 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert updated_task.status_code == 200
     assert updated_task.json()["status"] == "done"
 
+    approved_contract = client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "approved"}, headers=owner_workspace)
+    assert approved_contract.status_code == 200
+    assert approved_contract.json()["status"] == "approved"
+    assert approved_contract.json()["reminder_status"] == "due"
+
     workspace = client.get("/api/legal-ops/workspace", headers=viewer_workspace)
     assert workspace.status_code == 200
     data = workspace.json()
@@ -126,7 +137,12 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert [item["title"] for item in data["contracts"]] == ["Vendor Mutual NDA"]
     assert data["summary"]["high_risk_contracts"] == 1
     assert data["summary"]["tasks_by_status"]["done"] == 1
+    assert data["summary"]["renewals_due_60_days"] == 1
+    assert data["summary"]["pending_signature_contracts"] == 1
+    assert data["contract_reminders"][0]["id"] == contract_id
+    assert data["contract_reminders"][0]["reminder_status"] == "due"
 
     assert client.post("/api/legal-ops/tasks", json={"title": "Forbidden"}, headers=viewer_workspace).status_code == 403
+    assert client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "signed"}, headers=viewer_workspace).status_code == 403
     assert client.get("/api/legal-ops/workspace", headers=outsider_workspace).status_code == 404
     assert client.post("/api/legal-ops/tasks", json={"title": "Bad matter", "matter_id": "missing"}, headers=owner_workspace).status_code == 422

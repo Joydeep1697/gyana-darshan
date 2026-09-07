@@ -16,7 +16,7 @@ import json
 import sqlite3
 import uuid
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Generator, Optional
 
@@ -857,6 +857,46 @@ class Database:
         candidate = (value or default).strip().lower().replace(" ", "_")
         return candidate if candidate in allowed else default
 
+    @staticmethod
+    def _parse_iso_date(value: Optional[str]) -> Optional[date]:
+        if not value:
+            return None
+        try:
+            return date.fromisoformat(str(value)[:10])
+        except ValueError:
+            return None
+
+    def _decorate_contract_record(self, contract: dict) -> dict:
+        status = contract.get("status") or "draft"
+        renewal_date = self._parse_iso_date(contract.get("renewal_date"))
+        expiry_date = self._parse_iso_date(contract.get("expiry_date"))
+        today = datetime.now(timezone.utc).date()
+        days_to_renewal = (renewal_date - today).days if renewal_date else None
+
+        lifecycle_stage = status
+        reminder_status = "none"
+        if status == "expired" or (expiry_date and expiry_date < today):
+            lifecycle_stage = "expired"
+        elif days_to_renewal is not None and days_to_renewal < 0 and status not in {"expired", "signed"}:
+            lifecycle_stage = "renewal_overdue"
+            reminder_status = "overdue"
+        elif days_to_renewal is not None and days_to_renewal <= 60 and status not in {"expired", "draft"}:
+            lifecycle_stage = "renewal_due"
+            reminder_status = "due"
+        elif status == "approved":
+            lifecycle_stage = "pending_signature"
+        elif status == "signed":
+            lifecycle_stage = "active"
+        elif status == "in_review":
+            lifecycle_stage = "in_review"
+
+        return {
+            **contract,
+            "lifecycle_stage": lifecycle_stage,
+            "reminder_status": reminder_status,
+            "days_to_renewal": days_to_renewal,
+        }
+
     def _get_org_row(self, table: str, item_id: str, organization_id: str) -> Optional[dict]:
         allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts"}
         if table not in allowed:
@@ -1116,11 +1156,39 @@ class Database:
         return self.get_contract_record(item_id, organization_id) or {}
 
     def get_contract_record(self, contract_id: str, organization_id: str) -> Optional[dict]:
-        return self._get_org_row("legal_contracts", contract_id, organization_id)
+        contract = self._get_org_row("legal_contracts", contract_id, organization_id)
+        return self._decorate_contract_record(contract) if contract else None
 
     def list_contract_records(self, organization_id: str, limit: int = 100) -> list[dict]:
         with self.connect() as conn:
-            return [dict(row) for row in conn.execute("SELECT * FROM legal_contracts WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+            rows = [dict(row) for row in conn.execute("SELECT * FROM legal_contracts WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+        return [self._decorate_contract_record(row) for row in rows]
+
+    def list_contract_reminders(self, organization_id: str, limit: int = 25) -> list[dict]:
+        contracts = self.list_contract_records(organization_id, limit=200)
+        reminders = [
+            contract
+            for contract in contracts
+            if contract.get("renewal_date")
+            and contract.get("days_to_renewal") is not None
+            and contract["days_to_renewal"] <= 60
+            and contract.get("status") not in {"expired", "draft"}
+        ]
+        reminders.sort(key=lambda item: item["days_to_renewal"])
+        return [
+            {
+                "id": item["id"],
+                "title": item["title"],
+                "counterparty": item.get("counterparty") or "",
+                "status": item.get("status") or "draft",
+                "risk_level": item.get("risk_level") or "unknown",
+                "renewal_date": item["renewal_date"],
+                "days_to_renewal": item["days_to_renewal"],
+                "reminder_status": item.get("reminder_status") or "none",
+                "matter_id": item.get("matter_id"),
+            }
+            for item in reminders[: max(1, min(limit, 100))]
+        ]
 
     def update_contract_record(self, contract_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
         permitted = {"document_id", "matter_id", "title", "counterparty", "contract_type", "status", "risk_level", "effective_date", "expiry_date", "renewal_date"}
@@ -1155,6 +1223,8 @@ class Database:
             high_risk = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND risk_level IN ('high', 'critical')", (organization_id,)).fetchone()[0]
             overdue_tasks = conn.execute("SELECT COUNT(*) FROM legal_tasks WHERE organization_id = ? AND status != 'done' AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
             upcoming_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND renewal_date IS NOT NULL AND DATE(renewal_date) BETWEEN DATE('now') AND DATE('now', '+60 days')", (organization_id,)).fetchone()[0]
+            overdue_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status NOT IN ('expired', 'signed', 'draft') AND renewal_date IS NOT NULL AND DATE(renewal_date) < DATE('now')", (organization_id,)).fetchone()[0]
+            pending_signature = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status = 'approved'", (organization_id,)).fetchone()[0]
         return {
             "matters_by_status": {row["status"]: row["count"] for row in matter_rows},
             "intake_by_status": {row["status"]: row["count"] for row in intake_rows},
@@ -1163,6 +1233,8 @@ class Database:
             "high_risk_contracts": high_risk,
             "overdue_tasks": overdue_tasks,
             "renewals_due_60_days": upcoming_contracts,
+            "overdue_contract_renewals": overdue_contracts,
+            "pending_signature_contracts": pending_signature,
         }
 
     # ── Search Analytics ──────────────────────────────────────────

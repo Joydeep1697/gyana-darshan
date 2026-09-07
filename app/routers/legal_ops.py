@@ -59,6 +59,7 @@ async def get_legal_ops_workspace(
         "intakes": db.list_intakes(organization_id),
         "tasks": db.list_tasks(organization_id),
         "contracts": db.list_contract_records(organization_id),
+        "contract_reminders": db.list_contract_reminders(organization_id),
     }
 
 

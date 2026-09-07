@@ -299,8 +299,23 @@ class LegalContractResponse(BaseModel):
     effective_date: Optional[str] = None
     expiry_date: Optional[str] = None
     renewal_date: Optional[str] = None
+    lifecycle_stage: str = "draft"
+    reminder_status: str = "none"
+    days_to_renewal: Optional[int] = None
     created_at: str
     updated_at: str
+
+
+class LegalContractReminderResponse(BaseModel):
+    id: str
+    title: str
+    counterparty: str = ""
+    status: str = "draft"
+    risk_level: str = "unknown"
+    renewal_date: str
+    days_to_renewal: int
+    reminder_status: str
+    matter_id: Optional[str] = None
 
 
 
@@ -373,6 +388,8 @@ class LegalOpsSummary(BaseModel):
     high_risk_contracts: int = 0
     overdue_tasks: int = 0
     renewals_due_60_days: int = 0
+    overdue_contract_renewals: int = 0
+    pending_signature_contracts: int = 0
 
 
 class LegalOpsWorkspaceResponse(BaseModel):
@@ -381,6 +398,7 @@ class LegalOpsWorkspaceResponse(BaseModel):
     intakes: list[LegalIntakeResponse]
     tasks: list[LegalTaskResponse]
     contracts: list[LegalContractResponse]
+    contract_reminders: list[LegalContractReminderResponse] = []
 
 
 # ── Chat ──────────────────────────────────────────────────────────
