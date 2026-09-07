@@ -105,6 +105,15 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="intakeForm"' in source
     assert 'id="taskForm"' in source
     assert 'id="contractRecordForm"' in source
+    assert 'id="vendorForm"' in source
+    assert 'id="spendForm"' in source
+    assert 'id="vendorList"' in source
+    assert 'id="spendList"' in source
+    assert 'id="spendMatterSelect"' in source
+    assert 'id="spendVendorSelect"' in source
+    assert 'id="opsOpenSpend"' in source
+    assert 'id="opsPaidSpend"' in source
+    assert 'id="opsOverdueInvoices"' in source
     assert 'id="contractReminderList"' in source
     assert 'id="opsRenewalCount"' in source
     assert 'id="opsSignatureCount"' in source
@@ -116,6 +125,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/legal-ops/tasks" in source
     assert "/api/legal-ops/contracts" in source
     assert "/api/legal-ops/contracts/${encodeURIComponent(id)}" in source
+    assert "/api/legal-ops/vendors" in source
+    assert "/api/legal-ops/spend" in source
+    assert "/api/legal-ops/spend/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/search?q=" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(id)}" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/brief" in source

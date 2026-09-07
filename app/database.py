@@ -245,6 +245,45 @@ CREATE TABLE IF NOT EXISTS legal_contracts (
 CREATE INDEX IF NOT EXISTS idx_legal_contracts_org ON legal_contracts(organization_id);
 CREATE INDEX IF NOT EXISTS idx_legal_contracts_status ON legal_contracts(status);
 
+-- Legal vendors and outside counsel
+CREATE TABLE IF NOT EXISTS legal_vendors (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    name            TEXT NOT NULL,
+    vendor_type     TEXT DEFAULT 'outside_counsel',
+    contact_email   TEXT DEFAULT '',
+    practice_area   TEXT DEFAULT '',
+    status          TEXT DEFAULT 'active',
+    hourly_rate     REAL DEFAULT 0,
+    currency        TEXT DEFAULT 'INR',
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_vendors_org ON legal_vendors(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_vendors_status ON legal_vendors(status);
+
+-- Legal spend and invoice tracking
+CREATE TABLE IF NOT EXISTS legal_spend_entries (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    matter_id       TEXT REFERENCES legal_matters(id) ON DELETE SET NULL,
+    vendor_id       TEXT REFERENCES legal_vendors(id) ON DELETE SET NULL,
+    invoice_number  TEXT DEFAULT '',
+    description     TEXT DEFAULT '',
+    amount          REAL NOT NULL,
+    currency        TEXT DEFAULT 'INR',
+    status          TEXT DEFAULT 'pending',
+    issue_date      TEXT,
+    due_date        TEXT,
+    paid_date       TEXT,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_spend_org ON legal_spend_entries(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_spend_matter ON legal_spend_entries(matter_id);
+CREATE INDEX IF NOT EXISTS idx_legal_spend_vendor ON legal_spend_entries(vendor_id);
+CREATE INDEX IF NOT EXISTS idx_legal_spend_status ON legal_spend_entries(status);
+
 -- Search analytics
 CREATE TABLE IF NOT EXISTS search_analytics (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -898,7 +937,7 @@ class Database:
         }
 
     def _get_org_row(self, table: str, item_id: str, organization_id: str) -> Optional[dict]:
-        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts"}
+        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_vendors", "legal_spend_entries"}
         if table not in allowed:
             raise ValueError("Unsupported legal operations table")
         with self.connect() as conn:
@@ -1011,14 +1050,19 @@ class Database:
                 "SELECT * FROM legal_intake_requests WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
                 (organization_id, matter_id),
             ).fetchall()]
+            spend_entries = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_spend_entries WHERE organization_id = ? AND matter_id = ? ORDER BY updated_at DESC",
+                (organization_id, matter_id),
+            ).fetchall()]
         activity = []
         activity.extend({"kind": "document", "id": row["id"], "label": "Document linked", "detail": row["filename"], "timestamp": row["linked_at"]} for row in linked_documents)
         activity.extend({"kind": "note", "id": row["id"], "label": "Note added", "detail": row["body"], "timestamp": row["created_at"]} for row in notes)
         activity.extend({"kind": "task", "id": row["id"], "label": f"Task: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in tasks)
         activity.extend({"kind": "contract", "id": row["id"], "label": f"Contract: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in contracts)
         activity.extend({"kind": "intake", "id": row["id"], "label": f"Intake: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in intakes)
+        activity.extend({"kind": "spend", "id": row["id"], "label": f"Invoice: {row.get('invoice_number') or 'Unnumbered spend'}", "detail": f"{row['status']} {row['currency']} {float(row['amount']):.2f}", "timestamp": row["updated_at"]} for row in spend_entries)
         activity.sort(key=lambda item: item["timestamp"] or "", reverse=True)
-        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "intakes": intakes, "activity": activity[:100]}
+        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "spend_entries": spend_entries, "intakes": intakes, "activity": activity[:100]}
 
     def search_legal_ops(self, organization_id: str, query: str, limit: int = 30) -> list[dict]:
         needle = f"%{query.strip()}%"
@@ -1030,12 +1074,14 @@ class Database:
                 ("intake", "SELECT id, title, status, urgency AS secondary, summary AS snippet, updated_at AS timestamp FROM legal_intake_requests WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR summary LIKE ? COLLATE NOCASE OR request_type LIKE ? COLLATE NOCASE)"),
                 ("task", "SELECT id, title, status, priority AS secondary, '' AS snippet, updated_at AS timestamp FROM legal_tasks WHERE organization_id = ? AND title LIKE ? COLLATE NOCASE"),
                 ("contract", "SELECT id, title, status, risk_level AS secondary, counterparty AS snippet, updated_at AS timestamp FROM legal_contracts WHERE organization_id = ? AND (title LIKE ? COLLATE NOCASE OR counterparty LIKE ? COLLATE NOCASE OR contract_type LIKE ? COLLATE NOCASE)"),
+                ("vendor", "SELECT id, name AS title, status, practice_area AS secondary, contact_email AS snippet, updated_at AS timestamp FROM legal_vendors WHERE organization_id = ? AND (name LIKE ? COLLATE NOCASE OR practice_area LIKE ? COLLATE NOCASE OR vendor_type LIKE ? COLLATE NOCASE OR contact_email LIKE ? COLLATE NOCASE)"),
+                ("spend", "SELECT id, COALESCE(NULLIF(invoice_number, ''), 'Unnumbered spend') AS title, status, currency AS secondary, description AS snippet, updated_at AS timestamp FROM legal_spend_entries WHERE organization_id = ? AND (invoice_number LIKE ? COLLATE NOCASE OR description LIKE ? COLLATE NOCASE OR status LIKE ? COLLATE NOCASE OR currency LIKE ? COLLATE NOCASE)"),
                 ("document", "SELECT id, filename AS title, status, COALESCE(domain, category, '') AS secondary, COALESCE(summary, '') AS snippet, upload_time AS timestamp FROM vault_documents WHERE organization_id = ? AND (filename LIKE ? COLLATE NOCASE OR COALESCE(category, '') LIKE ? COLLATE NOCASE OR COALESCE(domain, '') LIKE ? COLLATE NOCASE OR COALESCE(summary, '') LIKE ? COLLATE NOCASE)"),
             ]
             for kind, sql in searches:
                 if kind == "task":
                     params = [organization_id, needle]
-                elif kind == "document":
+                elif kind in {"document", "vendor", "spend"}:
                     params = [organization_id, needle, needle, needle, needle]
                 else:
                     params = [organization_id, needle, needle, needle]
@@ -1240,6 +1286,137 @@ class Database:
                 return None
         return self.get_contract_record(contract_id, organization_id)
 
+
+    def create_vendor(self, organization_id: str, name: str, **kwargs: Any) -> dict:
+        now = self.now()
+        item_id = self.new_id()
+        status = self._bounded(kwargs.get("status"), "active", {"active", "preferred", "inactive"})
+        hourly_rate = max(0.0, float(kwargs.get("hourly_rate") or 0))
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_vendors (id, organization_id, name, vendor_type, contact_email, practice_area, status, hourly_rate, currency, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    item_id,
+                    organization_id,
+                    name.strip()[:180],
+                    (kwargs.get("vendor_type") or "outside_counsel").strip()[:60],
+                    (kwargs.get("contact_email") or "").strip()[:255],
+                    (kwargs.get("practice_area") or "").strip()[:120],
+                    status,
+                    hourly_rate,
+                    (kwargs.get("currency") or "INR").strip().upper()[:10],
+                    now,
+                    now,
+                ),
+            )
+        return self.get_vendor(item_id, organization_id) or {}
+
+    def get_vendor(self, vendor_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_vendors", vendor_id, organization_id)
+
+    def list_vendors(self, organization_id: str, limit: int = 100) -> list[dict]:
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute("SELECT * FROM legal_vendors WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    def update_vendor(self, vendor_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"name", "vendor_type", "contact_email", "practice_area", "status", "hourly_rate", "currency"}
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "active", {"active", "preferred", "inactive"})
+        if "hourly_rate" in fields:
+            fields["hourly_rate"] = max(0.0, float(fields["hourly_rate"] or 0))
+        if "currency" in fields:
+            fields["currency"] = str(fields["currency"] or "INR").strip().upper()[:10]
+        for key, limit in {"name": 180, "vendor_type": 60, "contact_email": 255, "practice_area": 120}.items():
+            if key in fields:
+                fields[key] = str(fields[key]).strip()[:limit]
+        if not fields:
+            return self.get_vendor(vendor_id, organization_id)
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [vendor_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_vendors SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+        return self.get_vendor(vendor_id, organization_id)
+
+    def create_spend_entry(self, organization_id: str, amount: float, **kwargs: Any) -> dict:
+        matter_id = kwargs.get("matter_id")
+        if matter_id and not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        vendor_id = kwargs.get("vendor_id")
+        if vendor_id and not self.get_vendor(vendor_id, organization_id):
+            raise ValueError("Vendor not found in workspace")
+        now = self.now()
+        item_id = self.new_id()
+        status = self._bounded(kwargs.get("status"), "pending", {"pending", "approved", "paid", "disputed", "rejected"})
+        paid_date = kwargs.get("paid_date") or (now[:10] if status == "paid" else None)
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_spend_entries (id, organization_id, matter_id, vendor_id, invoice_number, description, amount, currency, status, issue_date, due_date, paid_date, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    item_id,
+                    organization_id,
+                    matter_id,
+                    vendor_id,
+                    (kwargs.get("invoice_number") or "").strip()[:120],
+                    (kwargs.get("description") or "").strip()[:2000],
+                    float(amount),
+                    (kwargs.get("currency") or "INR").strip().upper()[:10],
+                    status,
+                    kwargs.get("issue_date"),
+                    kwargs.get("due_date"),
+                    paid_date,
+                    now,
+                    now,
+                ),
+            )
+            if matter_id:
+                conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, matter_id, organization_id))
+        return self.get_spend_entry(item_id, organization_id) or {}
+
+    def get_spend_entry(self, spend_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_spend_entries", spend_id, organization_id)
+
+    def list_spend_entries(self, organization_id: str, limit: int = 100) -> list[dict]:
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute("SELECT * FROM legal_spend_entries WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    def update_spend_entry(self, spend_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"matter_id", "vendor_id", "invoice_number", "description", "amount", "currency", "status", "issue_date", "due_date", "paid_date"}
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "matter_id" in fields and fields["matter_id"] and not self.get_matter(fields["matter_id"], organization_id):
+            raise ValueError("Matter not found in workspace")
+        if "vendor_id" in fields and fields["vendor_id"] and not self.get_vendor(fields["vendor_id"], organization_id):
+            raise ValueError("Vendor not found in workspace")
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "pending", {"pending", "approved", "paid", "disputed", "rejected"})
+            if fields["status"] == "paid" and "paid_date" not in fields:
+                fields["paid_date"] = self.now()[:10]
+        if "amount" in fields:
+            fields["amount"] = float(fields["amount"])
+        if "currency" in fields:
+            fields["currency"] = str(fields["currency"] or "INR").strip().upper()[:10]
+        for key, limit in {"invoice_number": 120, "description": 2000}.items():
+            if key in fields:
+                fields[key] = str(fields[key]).strip()[:limit]
+        if not fields:
+            return self.get_spend_entry(spend_id, organization_id)
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [spend_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_spend_entries SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+            matter_id = fields.get("matter_id") or (self.get_spend_entry(spend_id, organization_id) or {}).get("matter_id")
+            if matter_id:
+                conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (fields["updated_at"], matter_id, organization_id))
+        return self.get_spend_entry(spend_id, organization_id)
+
     def get_legal_ops_summary(self, organization_id: str) -> dict:
         with self.connect() as conn:
             matter_rows = conn.execute("SELECT status, COUNT(*) AS count FROM legal_matters WHERE organization_id = ? GROUP BY status", (organization_id,)).fetchall()
@@ -1251,6 +1428,9 @@ class Database:
             upcoming_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND renewal_date IS NOT NULL AND DATE(renewal_date) BETWEEN DATE('now') AND DATE('now', '+60 days')", (organization_id,)).fetchone()[0]
             overdue_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status NOT IN ('expired', 'signed', 'draft') AND renewal_date IS NOT NULL AND DATE(renewal_date) < DATE('now')", (organization_id,)).fetchone()[0]
             pending_signature = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status = 'approved'", (organization_id,)).fetchone()[0]
+            open_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid'", (organization_id,)).fetchone()[0]
+            paid_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status = 'paid'", (organization_id,)).fetchone()[0]
+            overdue_invoices = conn.execute("SELECT COUNT(*) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid' AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
         return {
             "matters_by_status": {row["status"]: row["count"] for row in matter_rows},
             "intake_by_status": {row["status"]: row["count"] for row in intake_rows},
@@ -1261,6 +1441,9 @@ class Database:
             "renewals_due_60_days": upcoming_contracts,
             "overdue_contract_renewals": overdue_contracts,
             "pending_signature_contracts": pending_signature,
+            "open_spend_total": float(open_spend or 0),
+            "paid_spend_total": float(paid_spend or 0),
+            "overdue_invoices": overdue_invoices,
         }
 
     # ── Search Analytics ──────────────────────────────────────────

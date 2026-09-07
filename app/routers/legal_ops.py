@@ -25,6 +25,12 @@ from app.models import (
     LegalMatterNoteResponse,
     LegalMatterUpdate,
     LegalOpsSearchResponse,
+    LegalSpendCreate,
+    LegalSpendResponse,
+    LegalSpendUpdate,
+    LegalVendorCreate,
+    LegalVendorResponse,
+    LegalVendorUpdate,
     LegalOpsWorkspaceResponse,
     LegalTaskCreate,
     LegalTaskResponse,
@@ -63,6 +69,8 @@ async def get_legal_ops_workspace(
         "intakes": db.list_intakes(organization_id),
         "tasks": db.list_tasks(organization_id),
         "contracts": db.list_contract_records(organization_id),
+        "vendors": db.list_vendors(organization_id),
+        "spend_entries": db.list_spend_entries(organization_id),
         "contract_reminders": db.list_contract_reminders(organization_id),
     }
 
@@ -260,6 +268,66 @@ async def update_task(
         raise _not_found()
     AuditRepository.log_audit("LEGAL_TASK_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task_id})
     return task
+
+
+@router.post("/vendors", response_model=LegalVendorResponse, status_code=status.HTTP_201_CREATED)
+async def create_vendor(
+    payload: LegalVendorCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    vendor = db.create_vendor(organization_id, payload.name, **payload.model_dump(exclude={"name"}))
+    AuditRepository.log_audit("LEGAL_VENDOR_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"vendor_id": vendor["id"], "name": vendor["name"]})
+    return vendor
+
+
+@router.patch("/vendors/{vendor_id}", response_model=LegalVendorResponse)
+async def update_vendor(
+    vendor_id: str,
+    payload: LegalVendorUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    vendor = db.update_vendor(vendor_id, organization_id, **payload.model_dump(exclude_unset=True))
+    if not vendor:
+        raise _not_found()
+    AuditRepository.log_audit("LEGAL_VENDOR_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"vendor_id": vendor_id})
+    return vendor
+
+
+@router.post("/spend", response_model=LegalSpendResponse, status_code=status.HTTP_201_CREATED)
+async def create_spend_entry(
+    payload: LegalSpendCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        spend = db.create_spend_entry(organization_id, payload.amount, **payload.model_dump(exclude={"amount"}))
+    except ValueError as error:
+        raise _bad_reference(error)
+    AuditRepository.log_audit("LEGAL_SPEND_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"spend_id": spend["id"], "matter_id": spend.get("matter_id"), "vendor_id": spend.get("vendor_id")})
+    return spend
+
+
+@router.patch("/spend/{spend_id}", response_model=LegalSpendResponse)
+async def update_spend_entry(
+    spend_id: str,
+    payload: LegalSpendUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        spend = db.update_spend_entry(spend_id, organization_id, **payload.model_dump(exclude_unset=True))
+    except ValueError as error:
+        raise _bad_reference(error)
+    if not spend:
+        raise _not_found()
+    AuditRepository.log_audit("LEGAL_SPEND_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"spend_id": spend_id, "status": spend.get("status")})
+    return spend
 
 
 @router.post("/contracts", response_model=LegalContractResponse, status_code=status.HTTP_201_CREATED)

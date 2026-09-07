@@ -330,6 +330,83 @@ class LegalContractReminderResponse(BaseModel):
     matter_id: Optional[str] = None
 
 
+class LegalVendorCreate(BaseModel):
+    name: str = Field(..., min_length=2, max_length=180)
+    vendor_type: str = Field(default="outside_counsel", max_length=60)
+    contact_email: str = Field(default="", max_length=255)
+    practice_area: str = Field(default="", max_length=120)
+    status: str = Field(default="active", max_length=30)
+    hourly_rate: float = Field(default=0, ge=0)
+    currency: str = Field(default="INR", max_length=10)
+
+
+class LegalVendorUpdate(BaseModel):
+    name: Optional[str] = Field(default=None, min_length=2, max_length=180)
+    vendor_type: Optional[str] = Field(default=None, max_length=60)
+    contact_email: Optional[str] = Field(default=None, max_length=255)
+    practice_area: Optional[str] = Field(default=None, max_length=120)
+    status: Optional[str] = Field(default=None, max_length=30)
+    hourly_rate: Optional[float] = Field(default=None, ge=0)
+    currency: Optional[str] = Field(default=None, max_length=10)
+
+
+class LegalVendorResponse(BaseModel):
+    id: str
+    organization_id: str
+    name: str
+    vendor_type: str = "outside_counsel"
+    contact_email: str = ""
+    practice_area: str = ""
+    status: str = "active"
+    hourly_rate: float = 0
+    currency: str = "INR"
+    created_at: str
+    updated_at: str
+
+
+class LegalSpendCreate(BaseModel):
+    matter_id: Optional[str] = None
+    vendor_id: Optional[str] = None
+    invoice_number: str = Field(default="", max_length=120)
+    description: str = Field(default="", max_length=2000)
+    amount: float = Field(..., gt=0)
+    currency: str = Field(default="INR", max_length=10)
+    status: str = Field(default="pending", max_length=30)
+    issue_date: Optional[str] = Field(default=None, max_length=30)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+    paid_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalSpendUpdate(BaseModel):
+    matter_id: Optional[str] = None
+    vendor_id: Optional[str] = None
+    invoice_number: Optional[str] = Field(default=None, max_length=120)
+    description: Optional[str] = Field(default=None, max_length=2000)
+    amount: Optional[float] = Field(default=None, gt=0)
+    currency: Optional[str] = Field(default=None, max_length=10)
+    status: Optional[str] = Field(default=None, max_length=30)
+    issue_date: Optional[str] = Field(default=None, max_length=30)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+    paid_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalSpendResponse(BaseModel):
+    id: str
+    organization_id: str
+    matter_id: Optional[str] = None
+    vendor_id: Optional[str] = None
+    invoice_number: str = ""
+    description: str = ""
+    amount: float
+    currency: str = "INR"
+    status: str = "pending"
+    issue_date: Optional[str] = None
+    due_date: Optional[str] = None
+    paid_date: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
 
 
 class LegalMatterNoteCreate(BaseModel):
@@ -388,6 +465,7 @@ class LegalMatterDetailResponse(LegalMatterResponse):
     notes: list[LegalMatterNoteResponse] = []
     tasks: list[LegalTaskResponse] = []
     contracts: list[LegalContractResponse] = []
+    spend_entries: list[LegalSpendResponse] = []
     intakes: list[LegalIntakeResponse] = []
     activity: list[LegalMatterActivityResponse] = []
 
@@ -416,6 +494,9 @@ class LegalOpsSummary(BaseModel):
     renewals_due_60_days: int = 0
     overdue_contract_renewals: int = 0
     pending_signature_contracts: int = 0
+    open_spend_total: float = 0
+    paid_spend_total: float = 0
+    overdue_invoices: int = 0
 
 
 class LegalOpsWorkspaceResponse(BaseModel):
@@ -424,6 +505,8 @@ class LegalOpsWorkspaceResponse(BaseModel):
     intakes: list[LegalIntakeResponse]
     tasks: list[LegalTaskResponse]
     contracts: list[LegalContractResponse]
+    vendors: list[LegalVendorResponse] = []
+    spend_entries: list[LegalSpendResponse] = []
     contract_reminders: list[LegalContractReminderResponse] = []
 
 

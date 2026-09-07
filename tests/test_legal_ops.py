@@ -81,6 +81,33 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert contract.json()["reminder_status"] == "due"
     assert contract.json()["days_to_renewal"] <= 30
 
+    vendor = client.post(
+        "/api/legal-ops/vendors",
+        json={"name": "Acme Legal LLP", "practice_area": "Commercial contracts", "hourly_rate": 7500, "currency": "INR"},
+        headers=owner_workspace,
+    )
+    assert vendor.status_code == 201
+    vendor_id = vendor.json()["id"]
+
+    spend = client.post(
+        "/api/legal-ops/spend",
+        json={
+            "matter_id": matter_id,
+            "vendor_id": vendor_id,
+            "invoice_number": "INV-001",
+            "description": "NDA negotiation and review",
+            "amount": 125000,
+            "currency": "INR",
+            "due_date": "2026-09-30",
+        },
+        headers=owner_workspace,
+    )
+    assert spend.status_code == 201
+    spend_id = spend.json()["id"]
+    assert spend.json()["status"] == "pending"
+    assert spend.json()["matter_id"] == matter_id
+    assert spend.json()["vendor_id"] == vendor_id
+
     from app.database import Database
 
     db = Database()
@@ -112,7 +139,8 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["notes"][0]["body"].startswith("Client prefers")
     assert detail.json()["tasks"][0]["id"] == task_id
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
-    assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "intake"}
+    assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
+    assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "intake", "spend"}
 
     brief = client.post(f"/api/legal-ops/matters/{matter_id}/brief", headers=viewer_workspace)
     assert brief.status_code == 200
@@ -129,6 +157,14 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
     assert search.status_code == 200
     assert {item["kind"] for item in search.json()["results"]} >= {"matter", "contract", "document"}
+
+    vendor_search = client.get("/api/legal-ops/search", params={"q": "Acme"}, headers=viewer_workspace)
+    assert vendor_search.status_code == 200
+    assert {item["kind"] for item in vendor_search.json()["results"]} >= {"vendor"}
+
+    invoice_search = client.get("/api/legal-ops/search", params={"q": "INV-001"}, headers=viewer_workspace)
+    assert invoice_search.status_code == 200
+    assert {item["kind"] for item in invoice_search.json()["results"]} >= {"spend"}
     assert client.get("/api/legal-ops/search", params={"q": "x"}, headers=viewer_workspace).status_code == 422
 
     updated_task = client.patch(f"/api/legal-ops/tasks/{task_id}", json={"status": "done"}, headers=owner_workspace)
@@ -153,6 +189,23 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert data["summary"]["pending_signature_contracts"] == 1
     assert data["contract_reminders"][0]["id"] == contract_id
     assert data["contract_reminders"][0]["reminder_status"] == "due"
+    assert data["vendors"][0]["name"] == "Acme Legal LLP"
+    assert data["spend_entries"][0]["invoice_number"] == "INV-001"
+    assert data["summary"]["open_spend_total"] == 125000
+    assert data["summary"]["paid_spend_total"] == 0
+
+    paid_spend = client.patch(f"/api/legal-ops/spend/{spend_id}", json={"status": "paid"}, headers=owner_workspace)
+    assert paid_spend.status_code == 200
+    assert paid_spend.json()["status"] == "paid"
+    assert paid_spend.json()["paid_date"]
+    updated_workspace = client.get("/api/legal-ops/workspace", headers=viewer_workspace).json()
+    assert updated_workspace["summary"]["open_spend_total"] == 0
+    assert updated_workspace["summary"]["paid_spend_total"] == 125000
+
+    assert client.post("/api/legal-ops/vendors", json={"name": "Forbidden Vendor"}, headers=viewer_workspace).status_code == 403
+    assert client.post("/api/legal-ops/spend", json={"amount": 10}, headers=viewer_workspace).status_code == 403
+    assert client.post("/api/legal-ops/spend", json={"amount": 10, "matter_id": "missing"}, headers=owner_workspace).status_code == 422
+    assert client.post("/api/legal-ops/spend", json={"amount": 10, "vendor_id": "missing"}, headers=owner_workspace).status_code == 422
 
     assert client.post("/api/legal-ops/tasks", json={"title": "Forbidden"}, headers=viewer_workspace).status_code == 403
     assert client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "signed"}, headers=viewer_workspace).status_code == 403
