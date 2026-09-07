@@ -32,6 +32,59 @@ NEGATED_CARVE_OUT_SIGNALS = re.compile(
 )
 RESIDUALS_SIGNALS = re.compile(r"\bresiduals?\b", re.I)
 INJUNCTIVE_SIGNALS = re.compile(r"\b(injunctive relief|specific performance|irreparable harm)\b", re.I)
+DATE_SIGNAL = re.compile(
+    r"\b(?:on or before|by|no later than|within)\s+("
+    r"\d{4}-\d{2}-\d{2}|"
+    r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|"
+    r"\d{1,2}(?:st|nd|rd|th)?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*,?\s+\d{4}|"
+    r"\d+\s+(?:business\s+)?days?"
+    r")",
+    re.I,
+)
+OBLIGATION_RULES: tuple[tuple[str, str, str, str, re.Pattern[str]], ...] = (
+    (
+        "return_destruction",
+        "high",
+        "Return or destroy confidential material",
+        "Return/destruction duty",
+        re.compile(r"\b(?:return|destroy|delete|erase|destruction)\b.{0,180}\b(?:confidential|material|information|copies|records)\b|\b(?:confidential|material|information|copies|records)\b.{0,180}\b(?:return|destroy|delete|erase|destruction)\b", re.I),
+    ),
+    (
+        "notice",
+        "high",
+        "Track required notice period",
+        "Notice duty",
+        re.compile(r"\b(?:notice|notify|notification)\b.{0,180}\b(?:days?|termination|renewal|breach|written|prior)\b", re.I),
+    ),
+    (
+        "payment",
+        "medium",
+        "Track payment deadline",
+        "Payment duty",
+        re.compile(r"\b(?:pay|payment|invoice|fees?|charges?)\b.{0,180}\b(?:due|within|days?|invoice|receipt)\b", re.I),
+    ),
+    (
+        "reporting",
+        "medium",
+        "Track reporting obligation",
+        "Reporting duty",
+        re.compile(r"\b(?:report|provide|deliver|submit|furnish)\b.{0,180}\b(?:report|statement|certificate|records?|information|documentation)\b", re.I),
+    ),
+    (
+        "approval_consent",
+        "medium",
+        "Track consent or approval requirement",
+        "Consent/approval duty",
+        re.compile(r"\b(?:consent|approval|approve|permission|prior written consent)\b", re.I),
+    ),
+    (
+        "confidentiality",
+        "medium",
+        "Maintain confidentiality obligations",
+        "Confidentiality duty",
+        re.compile(r"\b(?:shall|must|agrees? to|undertakes? to)\b.{0,180}\b(?:confidential|non-disclosure|not disclose|protect)\b", re.I),
+    ),
+)
 
 
 def _normalise_excerpt(text: str, *, limit: int = 900) -> str:
@@ -39,6 +92,65 @@ def _normalise_excerpt(text: str, *, limit: int = 900) -> str:
     if len(compact) <= limit:
         return compact
     return compact[: limit - 1].rstrip() + "..."
+
+
+def _sentences(text: str) -> list[str]:
+    return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text.replace("\n", " ")) if s.strip()]
+
+
+def _extract_due_date_hint(sentence: str) -> str | None:
+    match = DATE_SIGNAL.search(sentence or "")
+    if not match:
+        return None
+    return _normalise_excerpt(match.group(1), limit=80)
+
+
+def extract_obligation_suggestions(text: str, clauses: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Suggest contract obligations only when a matching source sentence is available."""
+    candidates: list[tuple[int, str, str, str, str, str | None, str]] = []
+    for sentence in _sentences(text):
+        excerpt = _normalise_excerpt(sentence, limit=700)
+        if len(excerpt) < 20:
+            continue
+        for category, priority, title, label, pattern in OBLIGATION_RULES:
+            if pattern.search(excerpt):
+                page = 1
+                source_index = text.find(sentence[: min(len(sentence), 40)])
+                if source_index >= 0:
+                    page = text[:source_index].count("\f") + text[:source_index].count("--- Page") + 1
+                candidates.append((page, category, priority, title, label, _extract_due_date_hint(excerpt), excerpt))
+                break
+    for clause in clauses:
+        clause_type = clause.get("type")
+        if clause_type in {"termination", "confidentiality", "data_protection"}:
+            excerpt = _normalise_excerpt(clause.get("text", ""), limit=700)
+            if excerpt and not any(existing[-1] == excerpt for existing in candidates):
+                title = "Track termination obligation" if clause_type == "termination" else "Maintain confidentiality obligations"
+                category = "termination" if clause_type == "termination" else "confidentiality"
+                candidates.append((clause.get("page") or 1, category, clause.get("risk") or "medium", title, "Clause duty", _extract_due_date_hint(excerpt), excerpt))
+
+    seen: set[tuple[str, str]] = set()
+    suggestions: list[dict[str, Any]] = []
+    for page, category, priority, title, label, due_date, excerpt in candidates:
+        key = (category, excerpt.casefold())
+        if key in seen:
+            continue
+        seen.add(key)
+        suggestions.append(
+            {
+                "id": f"obligation-{len(suggestions) + 1}",
+                "title": title,
+                "category": category,
+                "priority": priority if priority in {"low", "medium", "high", "critical"} else "medium",
+                "due_date": due_date,
+                "source_page": page,
+                "source_clause": excerpt,
+                "confidence": "medium" if label == "Clause duty" else "high",
+            }
+        )
+        if len(suggestions) >= 8:
+            break
+    return suggestions
 
 
 def _risk_rank(level: str) -> int:
@@ -201,6 +313,7 @@ def review_contract(text: str, *, filename: str = "", category: str = "") -> dic
             for clause in clauses
         ],
         "risks": risk_order,
+        "obligation_suggestions": extract_obligation_suggestions(source_text, clauses),
         "nda": nda,
         "review_recommended": True,
         "review_reason": "Have a qualified lawyer review the underlying contract text before signing or relying on this triage.",

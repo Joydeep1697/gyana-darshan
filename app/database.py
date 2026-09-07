@@ -1283,6 +1283,14 @@ class Database:
         contract = self._get_org_row("legal_contracts", contract_id, organization_id)
         return self._decorate_contract_record(contract) if contract else None
 
+    def get_contract_record_by_document(self, document_id: str, organization_id: str) -> Optional[dict]:
+        with self.connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM legal_contracts WHERE organization_id = ? AND document_id = ? ORDER BY updated_at DESC LIMIT 1",
+                (organization_id, document_id),
+            ).fetchone()
+        return self._decorate_contract_record(dict(row)) if row else None
+
     def list_contract_records(self, organization_id: str, limit: int = 100) -> list[dict]:
         with self.connect() as conn:
             rows = [dict(row) for row in conn.execute("SELECT * FROM legal_contracts WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]

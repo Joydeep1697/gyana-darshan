@@ -1,6 +1,7 @@
 import logging
 import asyncio
 import os
+import re
 import uuid
 from pathlib import Path
 from typing import Optional
@@ -9,7 +10,8 @@ from fastapi.responses import JSONResponse
 from app.database import get_db, Database
 from app.models import (
     DocumentResponse, SearchResponse, SearchRequest,
-    DocumentQuestionRequest, DocumentQuestionResponse, ContractReviewResponse,
+    DocumentQuestionRequest, DocumentQuestionResponse, ContractObligationAcceptRequest,
+    ContractObligationAcceptResponse, ContractReviewResponse,
 )
 from app.config import RAW_DIR
 from app.intelligence.ai_provider import AIProviderError
@@ -37,6 +39,10 @@ def _workspace_document(db: Database, doc_id: str, organization_id: str) -> dict
     if not document or document.get("organization_id") != organization_id:
         raise HTTPException(404, "Document not found")
     return document
+
+
+def _compact_text(value: str) -> str:
+    return re.sub(r"\s+", " ", value or "").strip()
 
 # WebSocket connections tracking
 _ws_connections: dict[str, list[WebSocket]] = {}
@@ -318,6 +324,81 @@ async def review_document_contract(doc_id: str, db: Database = Depends(get_db), 
         category=document.get("category") or "",
     )
     return ContractReviewResponse(**result)
+
+
+@router.post("/documents/{doc_id}/contract-obligations", response_model=ContractObligationAcceptResponse)
+async def accept_document_contract_obligation(
+    doc_id: str,
+    payload: ContractObligationAcceptRequest,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    """Accept one source-quoted obligation suggestion into Legal Ops."""
+    organization_id = workspace["organization"]["id"]
+    user_id = workspace["user"]["id"]
+    document = _workspace_document(db, doc_id, organization_id)
+    suggestion = payload.suggestion
+    source_clause = _compact_text(suggestion.source_clause)
+    if not source_clause:
+        raise HTTPException(422, "Accepted obligation must include source clause text")
+    raw_value = document.get("raw_path")
+    if not raw_value:
+        raise HTTPException(409, "The source PDF is not available for obligation acceptance")
+    raw_path = Path(raw_value).resolve()
+    if not raw_path.is_relative_to(RAW_DIR.resolve()):
+        logger.error("Refusing to accept obligations from a document outside the upload directory: %s", doc_id)
+        raise HTTPException(500, "Document storage configuration is invalid")
+    if not raw_path.is_file():
+        raise HTTPException(404, "The source PDF is no longer available")
+    try:
+        pages = await asyncio.to_thread(extract_pdf_pages, raw_path)
+    except Exception:
+        logger.exception("Contract obligation source validation failed for document %s", doc_id)
+        raise HTTPException(500, "The contract obligation source could not be validated")
+    document_text = _compact_text(" ".join(page.get("text", "") for page in pages))
+    validation_clause = source_clause[:-3].rstrip() if source_clause.endswith("...") else source_clause
+    if validation_clause not in document_text:
+        raise HTTPException(422, "Accepted obligation source clause was not found in the document text")
+    try:
+        if payload.contract_id:
+            contract = db.get_contract_record(payload.contract_id, organization_id)
+            if not contract:
+                raise ValueError("Contract not found in workspace")
+            if contract.get("document_id") and contract.get("document_id") != doc_id:
+                raise ValueError("Contract is linked to a different document")
+        else:
+            contract = db.get_contract_record_by_document(doc_id, organization_id)
+            if not contract:
+                contract = db.create_contract_record(
+                    organization_id,
+                    document.get("filename") or "Reviewed contract",
+                    document_id=doc_id,
+                    matter_id=payload.matter_id,
+                    contract_type="nda" if "nda" in (document.get("filename") or "").casefold() else "general",
+                    status="in_review",
+                    risk_level=suggestion.priority if suggestion.priority in {"high", "critical"} else "medium",
+                )
+        obligation = db.create_contract_obligation(
+            organization_id,
+            contract["id"],
+            suggestion.title,
+            matter_id=payload.matter_id or contract.get("matter_id"),
+            owner=payload.owner,
+            category=suggestion.category,
+            status="open",
+            priority=suggestion.priority,
+            due_date=suggestion.due_date,
+            source_clause=source_clause,
+        )
+    except ValueError as error:
+        raise HTTPException(422, str(error))
+    AuditRepository.log_audit(
+        "VAULT_CONTRACT_OBLIGATION_ACCEPTED",
+        user_id=user_id,
+        organization_id=organization_id,
+        metadata={"document_id": doc_id, "contract_id": contract["id"], "obligation_id": obligation["id"], "suggestion_id": suggestion.id},
+    )
+    return {"contract": contract, "obligation": obligation}
 
 @router.delete("/documents/{doc_id}")
 async def delete_document(doc_id: str, db: Database = Depends(get_db), workspace: dict = Depends(require_workspace_writer)):

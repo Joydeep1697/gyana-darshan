@@ -82,6 +82,17 @@ class ContractRiskFinding(BaseModel):
     excerpt: str = ""
 
 
+class ContractObligationSuggestion(BaseModel):
+    id: str
+    title: str
+    category: str = "general"
+    priority: str = "medium"
+    due_date: Optional[str] = None
+    source_page: Optional[int] = None
+    source_clause: str
+    confidence: str = "medium"
+
+
 class NdaReviewProfile(BaseModel):
     detected: bool = False
     kind: str = "general_contract"
@@ -96,9 +107,22 @@ class ContractReviewResponse(BaseModel):
     summary: str
     clauses: list[ContractClauseFinding]
     risks: list[ContractRiskFinding]
+    obligation_suggestions: list[ContractObligationSuggestion] = []
     nda: NdaReviewProfile
     review_recommended: bool = True
     review_reason: str
+
+
+class ContractObligationAcceptRequest(BaseModel):
+    suggestion: ContractObligationSuggestion
+    contract_id: Optional[str] = None
+    matter_id: Optional[str] = None
+    owner: str = Field(default="", max_length=180)
+
+
+class ContractObligationAcceptResponse(BaseModel):
+    contract: "LegalContractResponse"
+    obligation: "LegalContractObligationResponse"
 
 
 # ── Entities ──────────────────────────────────────────────────────

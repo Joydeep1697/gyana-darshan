@@ -95,9 +95,14 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "application/pdf,.pdf" in source
     assert "/api/vault/documents/ask" in source
     assert "/api/vault/documents/${encodeURIComponent(selected)}/contract-review" in source
+    assert "/api/vault/documents/${encodeURIComponent(docId)}/contract-obligations" in source
     assert 'data-view="contract"' in source
     assert 'id="contractView"' in source
     assert 'id="reviewContractButton"' in source
+    assert "Obligation suggestions" in source
+    assert "Accept into Legal Ops" in source
+    assert "data-obligation-suggestion" in source
+    assert "activeContractReviewDocumentId" in source
     assert "Human legal review recommended" in source
     assert 'data-view="ops"' in source
     assert 'id="opsView"' in source
