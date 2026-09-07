@@ -165,6 +165,162 @@ class GraphNetwork(BaseModel):
     edges: list[dict[str, Any]]
 
 
+
+
+# ── Legal Operations ──────────────────────────────────────────────
+
+class LegalMatterCreate(BaseModel):
+    title: str = Field(..., min_length=2, max_length=160)
+    matter_type: str = Field(default="general", max_length=60)
+    status: str = Field(default="open", max_length=30)
+    priority: str = Field(default="medium", max_length=30)
+    description: str = Field(default="", max_length=3000)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalMatterUpdate(BaseModel):
+    title: Optional[str] = Field(default=None, min_length=2, max_length=160)
+    matter_type: Optional[str] = Field(default=None, max_length=60)
+    status: Optional[str] = Field(default=None, max_length=30)
+    priority: Optional[str] = Field(default=None, max_length=30)
+    description: Optional[str] = Field(default=None, max_length=3000)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalMatterResponse(BaseModel):
+    id: str
+    organization_id: str
+    title: str
+    matter_type: str = "general"
+    status: str = "open"
+    priority: str = "medium"
+    description: str = ""
+    owner_user_id: Optional[str] = None
+    due_date: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
+class LegalIntakeCreate(BaseModel):
+    title: str = Field(..., min_length=2, max_length=180)
+    request_type: str = Field(default="general", max_length=60)
+    summary: str = Field(default="", max_length=4000)
+    urgency: str = Field(default="medium", max_length=30)
+    matter_id: Optional[str] = None
+
+
+class LegalIntakeUpdate(BaseModel):
+    title: Optional[str] = Field(default=None, min_length=2, max_length=180)
+    request_type: Optional[str] = Field(default=None, max_length=60)
+    summary: Optional[str] = Field(default=None, max_length=4000)
+    urgency: Optional[str] = Field(default=None, max_length=30)
+    status: Optional[str] = Field(default=None, max_length=30)
+    matter_id: Optional[str] = None
+
+
+class LegalIntakeResponse(BaseModel):
+    id: str
+    organization_id: str
+    matter_id: Optional[str] = None
+    requester_user_id: Optional[str] = None
+    request_type: str = "general"
+    title: str
+    summary: str = ""
+    urgency: str = "medium"
+    status: str = "new"
+    created_at: str
+    updated_at: str
+
+
+class LegalTaskCreate(BaseModel):
+    title: str = Field(..., min_length=2, max_length=180)
+    matter_id: Optional[str] = None
+    priority: str = Field(default="medium", max_length=30)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalTaskUpdate(BaseModel):
+    title: Optional[str] = Field(default=None, min_length=2, max_length=180)
+    matter_id: Optional[str] = None
+    status: Optional[str] = Field(default=None, max_length=30)
+    priority: Optional[str] = Field(default=None, max_length=30)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalTaskResponse(BaseModel):
+    id: str
+    organization_id: str
+    matter_id: Optional[str] = None
+    title: str
+    status: str = "open"
+    priority: str = "medium"
+    assignee_user_id: Optional[str] = None
+    due_date: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
+class LegalContractCreate(BaseModel):
+    title: str = Field(..., min_length=2, max_length=180)
+    counterparty: str = Field(default="", max_length=180)
+    contract_type: str = Field(default="general", max_length=80)
+    status: str = Field(default="draft", max_length=30)
+    risk_level: str = Field(default="unknown", max_length=30)
+    matter_id: Optional[str] = None
+    document_id: Optional[str] = None
+    effective_date: Optional[str] = Field(default=None, max_length=30)
+    expiry_date: Optional[str] = Field(default=None, max_length=30)
+    renewal_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalContractUpdate(BaseModel):
+    title: Optional[str] = Field(default=None, min_length=2, max_length=180)
+    counterparty: Optional[str] = Field(default=None, max_length=180)
+    contract_type: Optional[str] = Field(default=None, max_length=80)
+    status: Optional[str] = Field(default=None, max_length=30)
+    risk_level: Optional[str] = Field(default=None, max_length=30)
+    matter_id: Optional[str] = None
+    document_id: Optional[str] = None
+    effective_date: Optional[str] = Field(default=None, max_length=30)
+    expiry_date: Optional[str] = Field(default=None, max_length=30)
+    renewal_date: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalContractResponse(BaseModel):
+    id: str
+    organization_id: str
+    document_id: Optional[str] = None
+    matter_id: Optional[str] = None
+    title: str
+    counterparty: str = ""
+    contract_type: str = "general"
+    status: str = "draft"
+    risk_level: str = "unknown"
+    effective_date: Optional[str] = None
+    expiry_date: Optional[str] = None
+    renewal_date: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
+class LegalOpsSummary(BaseModel):
+    matters_by_status: dict[str, int]
+    intake_by_status: dict[str, int]
+    tasks_by_status: dict[str, int]
+    contracts_by_status: dict[str, int]
+    high_risk_contracts: int = 0
+    overdue_tasks: int = 0
+    renewals_due_60_days: int = 0
+
+
+class LegalOpsWorkspaceResponse(BaseModel):
+    summary: LegalOpsSummary
+    matters: list[LegalMatterResponse]
+    intakes: list[LegalIntakeResponse]
+    tasks: list[LegalTaskResponse]
+    contracts: list[LegalContractResponse]
+
+
 # ── Chat ──────────────────────────────────────────────────────────
 
 class ChatRequest(BaseModel):

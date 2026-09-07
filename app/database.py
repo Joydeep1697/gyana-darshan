@@ -147,6 +147,78 @@ CREATE TABLE IF NOT EXISTS compliance_gaps (
     detected_at     TEXT NOT NULL
 );
 
+
+
+-- Legal operations matters
+CREATE TABLE IF NOT EXISTS legal_matters (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    title           TEXT NOT NULL,
+    matter_type     TEXT DEFAULT 'general',
+    status          TEXT DEFAULT 'open',
+    priority        TEXT DEFAULT 'medium',
+    description     TEXT DEFAULT '',
+    owner_user_id   TEXT,
+    due_date        TEXT,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_matters_org ON legal_matters(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_matters_status ON legal_matters(status);
+
+-- Legal intake requests
+CREATE TABLE IF NOT EXISTS legal_intake_requests (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    matter_id       TEXT REFERENCES legal_matters(id) ON DELETE SET NULL,
+    requester_user_id TEXT,
+    request_type    TEXT DEFAULT 'general',
+    title           TEXT NOT NULL,
+    summary         TEXT DEFAULT '',
+    urgency         TEXT DEFAULT 'medium',
+    status          TEXT DEFAULT 'new',
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_intake_org ON legal_intake_requests(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_intake_status ON legal_intake_requests(status);
+
+-- Legal tasks
+CREATE TABLE IF NOT EXISTS legal_tasks (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    matter_id       TEXT REFERENCES legal_matters(id) ON DELETE SET NULL,
+    title           TEXT NOT NULL,
+    status          TEXT DEFAULT 'open',
+    priority        TEXT DEFAULT 'medium',
+    assignee_user_id TEXT,
+    due_date        TEXT,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_tasks_org ON legal_tasks(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_tasks_matter ON legal_tasks(matter_id);
+
+-- Contract lifecycle records
+CREATE TABLE IF NOT EXISTS legal_contracts (
+    id              TEXT PRIMARY KEY,
+    organization_id TEXT NOT NULL,
+    document_id     TEXT REFERENCES vault_documents(id) ON DELETE SET NULL,
+    matter_id       TEXT REFERENCES legal_matters(id) ON DELETE SET NULL,
+    title           TEXT NOT NULL,
+    counterparty    TEXT DEFAULT '',
+    contract_type   TEXT DEFAULT 'general',
+    status          TEXT DEFAULT 'draft',
+    risk_level      TEXT DEFAULT 'unknown',
+    effective_date  TEXT,
+    expiry_date     TEXT,
+    renewal_date    TEXT,
+    created_at      TEXT NOT NULL,
+    updated_at      TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_contracts_org ON legal_contracts(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_contracts_status ON legal_contracts(status);
+
 -- Search analytics
 CREATE TABLE IF NOT EXISTS search_analytics (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -751,6 +823,227 @@ class Database:
                 scope = " AND v.owner_id = ?"
                 params = references + (owner_id,)
             return [dict(row) for row in conn.execute("SELECT DISTINCT v.id, v.filename, v.category, v.domain, si.section_ref AS outdated_reference FROM vault_documents v JOIN section_index si ON si.doc_id = v.id WHERE (si.section_ref LIKE ? OR si.section_ref LIKE ? OR si.section_ref LIKE ?)" + scope + " ORDER BY v.upload_time DESC", params).fetchall()]
+
+    # ── Legal Operations ─────────────────────────────────────────
+
+    @staticmethod
+    def _bounded(value: Optional[str], default: str, allowed: set[str]) -> str:
+        candidate = (value or default).strip().lower().replace(" ", "_")
+        return candidate if candidate in allowed else default
+
+    def _get_org_row(self, table: str, item_id: str, organization_id: str) -> Optional[dict]:
+        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts"}
+        if table not in allowed:
+            raise ValueError("Unsupported legal operations table")
+        with self.connect() as conn:
+            row = conn.execute(f"SELECT * FROM {table} WHERE id = ? AND organization_id = ?", (item_id, organization_id)).fetchone()
+            return dict(row) if row else None
+
+    def create_matter(self, organization_id: str, title: str, **kwargs: Any) -> dict:
+        now = self.now()
+        item_id = self.new_id()
+        matter_type = (kwargs.get("matter_type") or "general").strip()[:60]
+        status = self._bounded(kwargs.get("status"), "open", {"open", "in_review", "waiting", "closed"})
+        priority = self._bounded(kwargs.get("priority"), "medium", {"low", "medium", "high", "critical"})
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_matters (id, organization_id, title, matter_type, status, priority, description, owner_user_id, due_date, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (item_id, organization_id, title.strip()[:160], matter_type, status, priority, (kwargs.get("description") or "")[:3000], kwargs.get("owner_user_id"), kwargs.get("due_date"), now, now),
+            )
+        return self.get_matter(item_id, organization_id) or {}
+
+    def get_matter(self, matter_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_matters", matter_id, organization_id)
+
+    def list_matters(self, organization_id: str, status: Optional[str] = None, limit: int = 100) -> list[dict]:
+        sql = "SELECT * FROM legal_matters WHERE organization_id = ?"
+        params: list[Any] = [organization_id]
+        if status:
+            sql += " AND status = ?"
+            params.append(status)
+        sql += " ORDER BY updated_at DESC LIMIT ?"
+        params.append(max(1, min(limit, 200)))
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute(sql, params).fetchall()]
+
+    def update_matter(self, matter_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"title", "matter_type", "status", "priority", "description", "owner_user_id", "due_date"}
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "open", {"open", "in_review", "waiting", "closed"})
+        if "priority" in fields:
+            fields["priority"] = self._bounded(fields["priority"], "medium", {"low", "medium", "high", "critical"})
+        if "title" in fields:
+            fields["title"] = str(fields["title"]).strip()[:160]
+        if not fields:
+            return self.get_matter(matter_id, organization_id)
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [matter_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_matters SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+        return self.get_matter(matter_id, organization_id)
+
+    def create_intake(self, organization_id: str, requester_user_id: str, title: str, **kwargs: Any) -> dict:
+        matter_id = kwargs.get("matter_id")
+        if matter_id and not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        now = self.now()
+        item_id = self.new_id()
+        request_type = (kwargs.get("request_type") or "general").strip()[:60]
+        urgency = self._bounded(kwargs.get("urgency"), "medium", {"low", "medium", "high", "critical"})
+        status = self._bounded(kwargs.get("status"), "new", {"new", "triaged", "in_progress", "closed"})
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_intake_requests (id, organization_id, matter_id, requester_user_id, request_type, title, summary, urgency, status, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (item_id, organization_id, matter_id, requester_user_id, request_type, title.strip()[:180], (kwargs.get("summary") or "")[:4000], urgency, status, now, now),
+            )
+        return self.get_intake(item_id, organization_id) or {}
+
+    def get_intake(self, intake_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_intake_requests", intake_id, organization_id)
+
+    def list_intakes(self, organization_id: str, limit: int = 100) -> list[dict]:
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute("SELECT * FROM legal_intake_requests WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    def update_intake(self, intake_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"matter_id", "request_type", "title", "summary", "urgency", "status"}
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "matter_id" in fields and fields["matter_id"] and not self.get_matter(fields["matter_id"], organization_id):
+            raise ValueError("Matter not found in workspace")
+        if "urgency" in fields:
+            fields["urgency"] = self._bounded(fields["urgency"], "medium", {"low", "medium", "high", "critical"})
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "new", {"new", "triaged", "in_progress", "closed"})
+        if not fields:
+            return self.get_intake(intake_id, organization_id)
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [intake_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_intake_requests SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+        return self.get_intake(intake_id, organization_id)
+
+    def create_task(self, organization_id: str, title: str, **kwargs: Any) -> dict:
+        matter_id = kwargs.get("matter_id")
+        if matter_id and not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        now = self.now()
+        item_id = self.new_id()
+        status = self._bounded(kwargs.get("status"), "open", {"open", "in_progress", "done"})
+        priority = self._bounded(kwargs.get("priority"), "medium", {"low", "medium", "high", "critical"})
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_tasks (id, organization_id, matter_id, title, status, priority, assignee_user_id, due_date, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (item_id, organization_id, matter_id, title.strip()[:180], status, priority, kwargs.get("assignee_user_id"), kwargs.get("due_date"), now, now),
+            )
+        return self.get_task(item_id, organization_id) or {}
+
+    def get_task(self, task_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_tasks", task_id, organization_id)
+
+    def list_tasks(self, organization_id: str, limit: int = 100) -> list[dict]:
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute("SELECT * FROM legal_tasks WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    def update_task(self, task_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"matter_id", "title", "status", "priority", "assignee_user_id", "due_date"}
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "matter_id" in fields and fields["matter_id"] and not self.get_matter(fields["matter_id"], organization_id):
+            raise ValueError("Matter not found in workspace")
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "open", {"open", "in_progress", "done"})
+        if "priority" in fields:
+            fields["priority"] = self._bounded(fields["priority"], "medium", {"low", "medium", "high", "critical"})
+        if not fields:
+            return self.get_task(task_id, organization_id)
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [task_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_tasks SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+        return self.get_task(task_id, organization_id)
+
+    def create_contract_record(self, organization_id: str, title: str, **kwargs: Any) -> dict:
+        document_id = kwargs.get("document_id")
+        if document_id:
+            document = self.get_document(document_id)
+            if not document or document.get("organization_id") != organization_id:
+                raise ValueError("Document not found in workspace")
+        matter_id = kwargs.get("matter_id")
+        if matter_id and not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        now = self.now()
+        item_id = self.new_id()
+        status = self._bounded(kwargs.get("status"), "draft", {"draft", "in_review", "approved", "signed", "expired"})
+        risk_level = self._bounded(kwargs.get("risk_level"), "unknown", {"unknown", "low", "medium", "high", "critical"})
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_contracts (id, organization_id, document_id, matter_id, title, counterparty, contract_type, status, risk_level, effective_date, expiry_date, renewal_date, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (item_id, organization_id, document_id, matter_id, title.strip()[:180], (kwargs.get("counterparty") or "")[:180], (kwargs.get("contract_type") or "general")[:80], status, risk_level, kwargs.get("effective_date"), kwargs.get("expiry_date"), kwargs.get("renewal_date"), now, now),
+            )
+        return self.get_contract_record(item_id, organization_id) or {}
+
+    def get_contract_record(self, contract_id: str, organization_id: str) -> Optional[dict]:
+        return self._get_org_row("legal_contracts", contract_id, organization_id)
+
+    def list_contract_records(self, organization_id: str, limit: int = 100) -> list[dict]:
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute("SELECT * FROM legal_contracts WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    def update_contract_record(self, contract_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
+        permitted = {"document_id", "matter_id", "title", "counterparty", "contract_type", "status", "risk_level", "effective_date", "expiry_date", "renewal_date"}
+        fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
+        if "document_id" in fields and fields["document_id"]:
+            document = self.get_document(fields["document_id"])
+            if not document or document.get("organization_id") != organization_id:
+                raise ValueError("Document not found in workspace")
+        if "matter_id" in fields and fields["matter_id"] and not self.get_matter(fields["matter_id"], organization_id):
+            raise ValueError("Matter not found in workspace")
+        if "status" in fields:
+            fields["status"] = self._bounded(fields["status"], "draft", {"draft", "in_review", "approved", "signed", "expired"})
+        if "risk_level" in fields:
+            fields["risk_level"] = self._bounded(fields["risk_level"], "unknown", {"unknown", "low", "medium", "high", "critical"})
+        if not fields:
+            return self.get_contract_record(contract_id, organization_id)
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{k} = ?" for k in fields)
+        vals = list(fields.values()) + [contract_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_contracts SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+        return self.get_contract_record(contract_id, organization_id)
+
+    def get_legal_ops_summary(self, organization_id: str) -> dict:
+        with self.connect() as conn:
+            matter_rows = conn.execute("SELECT status, COUNT(*) AS count FROM legal_matters WHERE organization_id = ? GROUP BY status", (organization_id,)).fetchall()
+            intake_rows = conn.execute("SELECT status, COUNT(*) AS count FROM legal_intake_requests WHERE organization_id = ? GROUP BY status", (organization_id,)).fetchall()
+            task_rows = conn.execute("SELECT status, COUNT(*) AS count FROM legal_tasks WHERE organization_id = ? GROUP BY status", (organization_id,)).fetchall()
+            contract_rows = conn.execute("SELECT status, COUNT(*) AS count FROM legal_contracts WHERE organization_id = ? GROUP BY status", (organization_id,)).fetchall()
+            high_risk = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND risk_level IN ('high', 'critical')", (organization_id,)).fetchone()[0]
+            overdue_tasks = conn.execute("SELECT COUNT(*) FROM legal_tasks WHERE organization_id = ? AND status != 'done' AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
+            upcoming_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND renewal_date IS NOT NULL AND DATE(renewal_date) BETWEEN DATE('now') AND DATE('now', '+60 days')", (organization_id,)).fetchone()[0]
+        return {
+            "matters_by_status": {row["status"]: row["count"] for row in matter_rows},
+            "intake_by_status": {row["status"]: row["count"] for row in intake_rows},
+            "tasks_by_status": {row["status"]: row["count"] for row in task_rows},
+            "contracts_by_status": {row["status"]: row["count"] for row in contract_rows},
+            "high_risk_contracts": high_risk,
+            "overdue_tasks": overdue_tasks,
+            "renewals_due_60_days": upcoming_contracts,
+        }
 
     # ── Search Analytics ──────────────────────────────────────────
 

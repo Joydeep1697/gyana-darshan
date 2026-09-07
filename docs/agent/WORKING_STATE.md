@@ -69,3 +69,4 @@ This file records product behavior only after automated or runtime verification.
 - [PASS] Backup archives use online SQLite snapshots, checksums, traversal validation, and guarded restoration.
 - [PASS] Account and access UI exposes workspace switching, member review, organization creation, and member invitation.
 - [PASS] Organization controls passed authenticated desktop browser QA with no console warnings or errors.
+- [PASS] Legal Ops workspace supports org-scoped matters, intake requests, tasks, contract lifecycle records and summary metrics. API regressions verified viewer read access, writer-only mutations, outsider isolation and bad-reference rejection. Authenticated desktop browser QA created matter, intake, task and contract records, marked a task done, and verified rendered metrics; 390x844 mobile QA verified no horizontal overflow and no console errors.
