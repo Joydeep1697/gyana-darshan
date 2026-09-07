@@ -218,6 +218,13 @@ class LegalIntakeUpdate(BaseModel):
     matter_id: Optional[str] = None
 
 
+class LegalIntakeConvertRequest(BaseModel):
+    matter_title: Optional[str] = Field(default=None, min_length=2, max_length=160)
+    matter_type: Optional[str] = Field(default=None, max_length=60)
+    priority: Optional[str] = Field(default=None, max_length=30)
+    due_date: Optional[str] = Field(default=None, max_length=30)
+
+
 class LegalIntakeResponse(BaseModel):
     id: str
     organization_id: str
@@ -230,6 +237,11 @@ class LegalIntakeResponse(BaseModel):
     status: str = "new"
     created_at: str
     updated_at: str
+
+
+class LegalIntakeConvertResponse(BaseModel):
+    intake: LegalIntakeResponse
+    matter: LegalMatterResponse
 
 
 class LegalTaskCreate(BaseModel):

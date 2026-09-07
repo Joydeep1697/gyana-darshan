@@ -11,6 +11,8 @@ from app.models import (
     LegalContractResponse,
     LegalContractUpdate,
     LegalIntakeCreate,
+    LegalIntakeConvertRequest,
+    LegalIntakeConvertResponse,
     LegalIntakeResponse,
     LegalIntakeUpdate,
     LegalMatterCreate,
@@ -190,6 +192,26 @@ async def update_intake(
         raise _not_found()
     AuditRepository.log_audit("LEGAL_INTAKE_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"intake_id": intake_id})
     return intake
+
+
+@router.post("/intake/{intake_id}/convert", response_model=LegalIntakeConvertResponse)
+async def convert_intake_to_matter(
+    intake_id: str,
+    payload: LegalIntakeConvertRequest,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    converted = db.convert_intake_to_matter(intake_id, organization_id, _user_id(workspace), **payload.model_dump(exclude_unset=True))
+    if not converted:
+        raise _not_found()
+    AuditRepository.log_audit(
+        "LEGAL_INTAKE_CONVERTED_TO_MATTER",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"intake_id": intake_id, "matter_id": converted["matter"]["id"]},
+    )
+    return converted
 
 
 @router.post("/tasks", response_model=LegalTaskResponse, status_code=status.HTTP_201_CREATED)

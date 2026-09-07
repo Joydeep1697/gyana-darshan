@@ -1091,6 +1091,32 @@ class Database:
                 return None
         return self.get_intake(intake_id, organization_id)
 
+    def convert_intake_to_matter(self, intake_id: str, organization_id: str, owner_user_id: str, **kwargs: Any) -> Optional[dict]:
+        intake = self.get_intake(intake_id, organization_id)
+        if not intake:
+            return None
+        if intake.get("matter_id"):
+            matter = self.get_matter(intake["matter_id"], organization_id)
+            return {"intake": intake, "matter": matter} if matter else None
+
+        priority_map = {"low": "low", "medium": "medium", "high": "high", "critical": "critical"}
+        urgency = (intake.get("urgency") or "medium").strip().lower()
+        priority = self._bounded(kwargs.get("priority") or priority_map.get(urgency), "medium", {"low", "medium", "high", "critical"})
+        title = (kwargs.get("matter_title") or intake.get("title") or "Legal matter").strip()[:160]
+        matter_type = (kwargs.get("matter_type") or intake.get("request_type") or "general").strip()[:60]
+        description = (intake.get("summary") or "")[:3000]
+        matter = self.create_matter(
+            organization_id,
+            title,
+            matter_type=matter_type,
+            priority=priority,
+            description=description,
+            owner_user_id=owner_user_id,
+            due_date=kwargs.get("due_date"),
+        )
+        updated = self.update_intake(intake_id, organization_id, matter_id=matter["id"], status="in_progress")
+        return {"intake": updated, "matter": matter} if updated else None
+
     def create_task(self, organization_id: str, title: str, **kwargs: Any) -> dict:
         matter_id = kwargs.get("matter_id")
         if matter_id and not self.get_matter(matter_id, organization_id):

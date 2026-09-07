@@ -146,3 +146,58 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "signed"}, headers=viewer_workspace).status_code == 403
     assert client.get("/api/legal-ops/workspace", headers=outsider_workspace).status_code == 404
     assert client.post("/api/legal-ops/tasks", json={"title": "Bad matter", "matter_id": "missing"}, headers=owner_workspace).status_code == 422
+
+
+def test_legal_ops_intake_can_be_triaged_into_a_matter_once():
+    client = TestClient(app)
+    owner_headers, _ = _account(client, "legal-intake-owner")
+    viewer_headers, viewer_email = _account(client, "legal-intake-viewer")
+
+    created = client.post(
+        "/api/organizations",
+        json={"name": "Intake Conversion Team", "slug": f"intake-conversion-{uuid.uuid4().hex[:8]}"},
+        headers=owner_headers,
+    )
+    assert created.status_code == 201
+    organization_id = created.json()["id"]
+    assert client.post(
+        f"/api/organizations/{organization_id}/members",
+        json={"email": viewer_email, "role": "VIEWER"},
+        headers=owner_headers,
+    ).status_code == 201
+
+    owner_workspace = {**owner_headers, "X-Organization-ID": organization_id}
+    viewer_workspace = {**viewer_headers, "X-Organization-ID": organization_id}
+
+    intake = client.post(
+        "/api/legal-ops/intake",
+        json={"title": "Employee data request", "request_type": "privacy", "summary": "HR needs advice on employee access data.", "urgency": "high"},
+        headers=owner_workspace,
+    )
+    assert intake.status_code == 201
+    intake_id = intake.json()["id"]
+
+    assert client.post(f"/api/legal-ops/intake/{intake_id}/convert", json={}, headers=viewer_workspace).status_code == 403
+
+    converted = client.post(
+        f"/api/legal-ops/intake/{intake_id}/convert",
+        json={"due_date": "2026-09-30"},
+        headers=owner_workspace,
+    )
+    assert converted.status_code == 200
+    payload = converted.json()
+    matter_id = payload["matter"]["id"]
+    assert payload["matter"]["title"] == "Employee data request"
+    assert payload["matter"]["matter_type"] == "privacy"
+    assert payload["matter"]["priority"] == "high"
+    assert payload["matter"]["description"] == "HR needs advice on employee access data."
+    assert payload["intake"]["matter_id"] == matter_id
+    assert payload["intake"]["status"] == "in_progress"
+
+    repeated = client.post(f"/api/legal-ops/intake/{intake_id}/convert", json={"matter_title": "Should not duplicate"}, headers=owner_workspace)
+    assert repeated.status_code == 200
+    assert repeated.json()["matter"]["id"] == matter_id
+
+    workspace = client.get("/api/legal-ops/workspace", headers=owner_workspace).json()
+    assert [matter["id"] for matter in workspace["matters"]].count(matter_id) == 1
+    assert workspace["intakes"][0]["matter_id"] == matter_id
