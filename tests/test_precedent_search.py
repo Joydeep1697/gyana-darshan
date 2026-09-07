@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from pathlib import Path
 
 import pytest
 from fastapi import HTTPException
 
 from app.database import Database
+from app.intelligence.case_law_corpus import ingest_case_law_jsonl, validate_case_law_record
 from app.routers import vault
 
 
@@ -63,3 +65,31 @@ def test_precedent_search_route_rejects_invalid_year_range_and_returns_results(t
     with pytest.raises(HTTPException) as raised:
         asyncio.run(vault.search_precedents("statutory", year_from=2021, year_to=2020, db=db, workspace={"organization": {"id": "org-1"}}))
     assert raised.value.status_code == 422
+
+
+def test_curated_corpus_ingestion_requires_provenance_and_merges_into_workspace_search(tmp_path: Path):
+    db = Database(tmp_path / "precedents.sqlite3")
+    corpus_path = tmp_path / "case-law.jsonl"
+    corpus_path.write_text(json.dumps({
+        "corpus_key": "sc-basic-structure-1973",
+        "title": "Kesavananda Bharati v State of Kerala",
+        "citation": "(1973) 4 SCC 225",
+        "court": "Supreme Court of India",
+        "year": 1973,
+        "source_name": "Supreme Court of India judgments",
+        "source_url": "https://example.test/kesavananda",
+        "provenance_status": "verified",
+        "sections": ["Article 368"],
+        "paragraphs": [{"number": "147", "text": "The basic structure limitation applies to constitutional amendments."}],
+        "source_excerpt": "The basic structure limitation applies to constitutional amendments.",
+    }) + "\n", encoding="utf-8")
+
+    assert ingest_case_law_jsonl(db, corpus_path) == {"records": 1}
+    result = db.search_case_law_records("org-empty", "basic structure")
+    assert result[0]["scope"] == "curated"
+    assert result[0]["provenance_status"] == "verified"
+    assert result[0]["source_name"] == "Supreme Court of India judgments"
+    assert result[0]["paragraphs"][0]["number"] == "147"
+
+    with pytest.raises(ValueError, match="source_name is required"):
+        validate_case_law_record({"corpus_key": "bad", "title": "Bad", "citation": "1 SCC 1", "court": "Court"})

@@ -83,6 +83,11 @@ class PrecedentSearchResult(BaseModel):
     sections: list[str] = []
     excerpt: str = ""
     source_page: int = 1
+    source_name: str = ""
+    source_url: str = ""
+    provenance_status: str = "uploaded"
+    scope: str = "workspace"
+    paragraphs: list[dict[str, Any]] = []
     relevance: float = 0.0
 
 

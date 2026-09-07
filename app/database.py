@@ -132,6 +132,34 @@ CREATE INDEX IF NOT EXISTS idx_case_law_citation ON case_law_records(citation);
 CREATE INDEX IF NOT EXISTS idx_case_law_court ON case_law_records(court);
 CREATE INDEX IF NOT EXISTS idx_case_law_year ON case_law_records(year);
 
+-- Curated case-law corpus records with explicit provenance
+CREATE TABLE IF NOT EXISTS case_law_corpus_records (
+    id                  TEXT PRIMARY KEY,
+    corpus_key          TEXT NOT NULL UNIQUE,
+    title               TEXT NOT NULL,
+    citation            TEXT DEFAULT '',
+    court               TEXT DEFAULT '',
+    judges_json         TEXT DEFAULT '[]',
+    petitioner          TEXT DEFAULT '',
+    respondent          TEXT DEFAULT '',
+    case_number         TEXT DEFAULT '',
+    decision_date       TEXT DEFAULT '',
+    year                INTEGER,
+    sections_json       TEXT DEFAULT '[]',
+    paragraphs_json     TEXT DEFAULT '[]',
+    source_excerpt      TEXT DEFAULT '',
+    source_page         INTEGER DEFAULT 1,
+    source_name         TEXT NOT NULL,
+    source_url          TEXT DEFAULT '',
+    provenance_status   TEXT DEFAULT 'unverified',
+    created_at          TEXT NOT NULL,
+    updated_at          TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_case_law_corpus_citation ON case_law_corpus_records(citation);
+CREATE INDEX IF NOT EXISTS idx_case_law_corpus_court ON case_law_corpus_records(court);
+CREATE INDEX IF NOT EXISTS idx_case_law_corpus_year ON case_law_corpus_records(year);
+CREATE INDEX IF NOT EXISTS idx_case_law_corpus_status ON case_law_corpus_records(provenance_status);
+
 -- Chat sessions
 CREATE TABLE IF NOT EXISTS chat_sessions (
     id              TEXT PRIMARY KEY,
@@ -788,7 +816,7 @@ class Database:
 
     @staticmethod
     def _decode_case_law_record(record: dict) -> dict:
-        for field in ("judges_json", "sections_json"):
+        for field in ("judges_json", "sections_json", "paragraphs_json"):
             raw = record.pop(field, "[]")
             try:
                 record[field.removesuffix("_json")] = json.loads(raw or "[]")
@@ -796,6 +824,97 @@ class Database:
                 record[field.removesuffix("_json")] = []
         record["excerpt"] = record.pop("source_excerpt", "")
         return record
+
+    def upsert_case_law_corpus_record(self, record: dict[str, Any]) -> dict:
+        now = self.now()
+        corpus_key = str(record.get("corpus_key") or "").strip()
+        if not corpus_key:
+            raise ValueError("case-law corpus records require corpus_key")
+        source_name = str(record.get("source_name") or "").strip()
+        if not source_name:
+            raise ValueError("case-law corpus records require source_name")
+        values = (
+            str(record.get("title") or "Untitled judgment").strip(),
+            str(record.get("citation") or "").strip(),
+            str(record.get("court") or "").strip(),
+            json.dumps(record.get("judges") or [], ensure_ascii=False),
+            str(record.get("petitioner") or "").strip(),
+            str(record.get("respondent") or "").strip(),
+            str(record.get("case_number") or "").strip(),
+            str(record.get("decision_date") or "").strip(),
+            record.get("year"),
+            json.dumps(record.get("sections") or [], ensure_ascii=False),
+            json.dumps(record.get("paragraphs") or [], ensure_ascii=False),
+            str(record.get("source_excerpt") or "").strip(),
+            int(record.get("source_page") or 1),
+            source_name,
+            str(record.get("source_url") or "").strip(),
+            str(record.get("provenance_status") or "unverified").strip().lower(),
+        )
+        with self.connect() as conn:
+            existing = conn.execute("SELECT id FROM case_law_corpus_records WHERE corpus_key = ?", (corpus_key,)).fetchone()
+            if existing:
+                record_id = existing["id"]
+                conn.execute(
+                    """UPDATE case_law_corpus_records SET title = ?, citation = ?, court = ?, judges_json = ?,
+                       petitioner = ?, respondent = ?, case_number = ?, decision_date = ?, year = ?, sections_json = ?,
+                       paragraphs_json = ?, source_excerpt = ?, source_page = ?, source_name = ?, source_url = ?,
+                       provenance_status = ?, updated_at = ? WHERE id = ?""",
+                    (*values, now, record_id),
+                )
+            else:
+                record_id = self.new_id()
+                conn.execute(
+                    """INSERT INTO case_law_corpus_records
+                       (id, corpus_key, title, citation, court, judges_json, petitioner, respondent, case_number,
+                        decision_date, year, sections_json, paragraphs_json, source_excerpt, source_page, source_name,
+                        source_url, provenance_status, created_at, updated_at)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (record_id, corpus_key, *values, now, now),
+                )
+            row = conn.execute("SELECT * FROM case_law_corpus_records WHERE id = ?", (record_id,)).fetchone()
+        decoded = self._decode_case_law_record(dict(row))
+        decoded.update({"scope": "curated", "document_id": "", "filename": decoded.get("source_name", "")})
+        return decoded
+
+    def search_case_law_corpus_records(
+        self,
+        query: str,
+        *,
+        court: Optional[str] = None,
+        year_from: Optional[int] = None,
+        year_to: Optional[int] = None,
+        limit: int = 100,
+    ) -> list[dict]:
+        where = ["provenance_status != 'retracted'"]
+        params: list[Any] = []
+        if court:
+            where.append("court LIKE ? COLLATE NOCASE")
+            params.append(f"%{court}%")
+        if year_from is not None:
+            where.append("year >= ?")
+            params.append(year_from)
+        if year_to is not None:
+            where.append("year <= ?")
+            params.append(year_to)
+        with self.connect() as conn:
+            rows = [dict(row) for row in conn.execute(
+                "SELECT * FROM case_law_corpus_records WHERE " + " AND ".join(where) + " ORDER BY updated_at DESC LIMIT 500",
+                params,
+            ).fetchall()]
+        terms = [term.casefold() for term in query.split() if len(term.strip()) >= 2]
+        scored = []
+        for row in rows:
+            haystack = " ".join(str(row.get(key) or "") for key in ("title", "citation", "court", "petitioner", "respondent", "case_number", "decision_date", "source_excerpt", "sections_json", "paragraphs_json")).casefold()
+            score = sum(1.0 for term in terms if term in haystack)
+            if query.casefold().strip() in haystack:
+                score += 3.0
+            if score > 0 or not terms:
+                decoded = self._decode_case_law_record(row)
+                decoded.update({"scope": "curated", "document_id": "", "filename": decoded.get("source_name", ""), "relevance": round(score, 3)})
+                scored.append(decoded)
+        scored.sort(key=lambda item: (-item["relevance"], item.get("updated_at", "")))
+        return scored[: max(1, min(limit, 100))]
 
     def search_case_law_records(
         self,
@@ -837,10 +956,14 @@ class Database:
                 score += 3.0
             if score > 0 or not terms:
                 row = self._decode_case_law_record(row)
+                row.update({"scope": "workspace", "source_name": row.get("filename", ""), "source_url": "", "provenance_status": "uploaded"})
                 row["relevance"] = round(score, 3)
                 scored.append(row)
         scored.sort(key=lambda item: (-item["relevance"], item.get("updated_at", "")))
-        return scored[: max(1, min(limit, 100))]
+        curated = self.search_case_law_corpus_records(query, court=court, year_from=year_from, year_to=year_to, limit=limit)
+        combined = scored + curated
+        combined.sort(key=lambda item: (-item["relevance"], item.get("updated_at", "")))
+        return combined[: max(1, min(limit, 100))]
 
     # ── Chat Sessions ─────────────────────────────────────────────
 
