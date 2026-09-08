@@ -2510,6 +2510,76 @@ class Database:
         alerts.sort(key=self._alert_rank)
         return alerts[: max(1, min(limit, 200))]
 
+    def find_legal_ops_alert(self, organization_id: str, alert_id: str) -> Optional[dict]:
+        for alert in self.list_legal_ops_alerts(organization_id, limit=200):
+            if alert.get("id") == alert_id:
+                return alert
+        return None
+
+    def create_task_from_alert(self, organization_id: str, alert_id: str, assignee_user_id: Optional[str] = None) -> tuple[dict, dict]:
+        alert = self.find_legal_ops_alert(organization_id, alert_id)
+        if not alert:
+            raise ValueError("Alert not found in workspace")
+        if alert.get("source_kind") == "task":
+            task = self.get_task(alert.get("source_id") or "", organization_id)
+            if not task:
+                raise ValueError("Task alert source no longer exists")
+            return alert, task
+        if alert.get("kind") == "deadline":
+            task = self.create_task_from_deadline(organization_id, alert.get("source_kind") or "", alert.get("source_id") or "", assignee_user_id=assignee_user_id)
+            if not task:
+                raise ValueError("Deadline alert could not create a task")
+            return alert, task
+        matter_id = alert.get("matter_id")
+        if not matter_id:
+            raise ValueError("Alert has no matter for task creation")
+        task = self.create_task(
+            organization_id,
+            f"Follow up: {alert.get('title') or 'Legal Ops alert'}",
+            matter_id=matter_id,
+            priority=alert.get("priority") or "medium",
+            assignee_user_id=assignee_user_id,
+            due_date=alert.get("due_date"),
+        )
+        return alert, task
+
+    def add_note_from_alert(self, organization_id: str, alert_id: str, author_user_id: str, body: str = "") -> tuple[dict, dict]:
+        alert = self.find_legal_ops_alert(organization_id, alert_id)
+        if not alert:
+            raise ValueError("Alert not found in workspace")
+        matter_id = alert.get("matter_id")
+        if not matter_id:
+            raise ValueError("Alert has no matter for note creation")
+        note_body = (body or "").strip()
+        if not note_body:
+            note_body = f"Escalation note for {alert.get('title') or 'Legal Ops alert'}: {alert.get('message') or 'Review required.'}"
+        link_kind = alert.get("source_kind") or alert.get("kind") or "deadline"
+        note = self.add_matter_note(
+            organization_id,
+            matter_id,
+            author_user_id,
+            note_body,
+            link_kind=link_kind,
+            link_source_id=alert.get("source_id") or "",
+        )
+        return alert, note
+
+    def resolve_legal_ops_alert(self, organization_id: str, alert_id: str) -> dict:
+        alert = self.find_legal_ops_alert(organization_id, alert_id)
+        if not alert:
+            raise ValueError("Alert not found in workspace")
+        if alert.get("source_kind") == "task":
+            task = self.update_task(alert.get("source_id") or "", organization_id, status="done")
+            if not task:
+                raise ValueError("Task alert source no longer exists")
+            return {"source_kind": "task", "source_id": alert.get("source_id") or "", "status": "resolved", "task": task, "deadline": None}
+        if alert.get("kind") == "deadline":
+            deadline = self.clear_matter_deadline(organization_id, alert.get("source_kind") or "", alert.get("source_id") or "")
+            if not deadline:
+                raise ValueError("Deadline alert could not be resolved")
+            return {"source_kind": alert.get("source_kind") or "deadline", "source_id": alert.get("source_id") or "", "status": "resolved", "task": None, "deadline": deadline}
+        raise ValueError("This alert cannot be resolved directly. Create a task or update the source record instead.")
+
     def get_legal_ops_summary(self, organization_id: str) -> dict:
         with self.connect() as conn:
             matter_rows = conn.execute("SELECT status, COUNT(*) AS count FROM legal_matters WHERE organization_id = ? GROUP BY status", (organization_id,)).fetchall()

@@ -220,8 +220,22 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "action_alerts" in source
     assert "renderActionAlert" in source
     assert "open_action_alerts" in source
+    assert "bindAlertActionButtons" in source
+    assert "data-alert-note-id" in source
+    assert "data-alert-task-id" in source
+    assert "data-alert-resolve-id" in source
+    assert "addNoteFromAlert" in source
+    assert "createTaskFromAlert" in source
+    assert "resolveLegalOpsAlert" in source
+    assert "/api/legal-ops/alerts/${encodeURIComponent(alertId)}/note" in source
+    assert "/api/legal-ops/alerts/${encodeURIComponent(alertId)}/task" in source
+    assert "/api/legal-ops/alerts/${encodeURIComponent(alertId)}/resolve" in source
     assert "assigned tasks" in source.lower()
-    assert '@router.get("/alerts"' in Path("app/routers/legal_ops.py").read_text(encoding="utf-8")
+    router_source = Path("app/routers/legal_ops.py").read_text(encoding="utf-8")
+    assert '@router.get("/alerts"' in router_source
+    assert '@router.post("/alerts/{alert_id}/task"' in router_source
+    assert '@router.post("/alerts/{alert_id}/note"' in router_source
+    assert '@router.post("/alerts/{alert_id}/resolve"' in router_source
     assert 'id="matterDeadlineWindowFilter"' in source
     assert 'id="matterDeadlineKindFilter"' in source
     assert "filteredMatterDeadlines" in source

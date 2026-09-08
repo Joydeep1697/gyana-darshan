@@ -671,6 +671,28 @@ class LegalOpsAlertResponse(BaseModel):
     action_label: str = "Review"
 
 
+class LegalOpsAlertNoteCreate(BaseModel):
+    body: str = Field(default="", max_length=4000)
+
+
+class LegalOpsAlertTaskCreateResponse(BaseModel):
+    alert: LegalOpsAlertResponse
+    task: LegalTaskResponse
+
+
+class LegalOpsAlertNoteCreateResponse(BaseModel):
+    alert: LegalOpsAlertResponse
+    note: LegalMatterNoteResponse
+
+
+class LegalOpsAlertResolveResponse(BaseModel):
+    source_kind: str
+    source_id: str
+    status: str
+    task: Optional[LegalTaskResponse] = None
+    deadline: Optional[LegalMatterDeadlineResponse] = None
+
+
 class LegalMatterDeadlineResponse(BaseModel):
     kind: str
     source_id: str

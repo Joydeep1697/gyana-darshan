@@ -426,12 +426,26 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     signature_alert = next(item for item in alert_data if item["kind"] == "signature")
     assert signature_alert["source_id"] == contract_id
     assert signature_alert["matter_id"] == matter_id
+    assert client.post(f"/api/legal-ops/alerts/{signature_alert['id']}/task", headers=viewer_workspace).status_code == 403
+    signature_note = client.post(f"/api/legal-ops/alerts/{signature_alert['id']}/note", json={"body": "Escalate signature follow-through to commercial lead."}, headers=owner_workspace)
+    assert signature_note.status_code == 201
+    assert signature_note.json()["note"]["matter_id"] == matter_id
+    assert signature_note.json()["note"]["link_kind"] == "contract"
+    assert signature_note.json()["note"]["link_source_id"] == contract_id
+    signature_task = client.post(f"/api/legal-ops/alerts/{signature_alert['id']}/task", headers=owner_workspace)
+    assert signature_task.status_code == 201
+    assert signature_task.json()["task"]["title"].startswith("Follow up: Signature pending")
+    assert signature_task.json()["task"]["assignee_user_id"] == owner_user_id
+    assert client.post(f"/api/legal-ops/alerts/{signature_alert['id']}/resolve", headers=owner_workspace).status_code == 422
+    assigned_resolution = client.post(f"/api/legal-ops/alerts/{assigned_alert['id']}/resolve", headers=owner_workspace)
+    assert assigned_resolution.status_code == 200
+    assert assigned_resolution.json()["source_kind"] == "task"
+    assert assigned_resolution.json()["task"]["status"] == "done"
     high_alerts = client.get("/api/legal-ops/alerts", params={"severity": "high"}, headers=viewer_workspace)
     assert high_alerts.status_code == 200
     assert all(item["severity"] == "high" for item in high_alerts.json())
     viewer_assigned_alerts = client.get("/api/legal-ops/alerts", params={"assigned_to_me": "true"}, headers=viewer_workspace)
     assert viewer_assigned_alerts.status_code == 200
-    assert {item["source_id"] for item in viewer_assigned_alerts.json()} >= {undated_task_id}
     assert task_id not in {item["source_id"] for item in viewer_assigned_alerts.json()}
     owner_assigned_alerts = client.get("/api/legal-ops/alerts", params={"assigned_to_me": "true"}, headers=owner_workspace)
     assert owner_assigned_alerts.status_code == 200
@@ -449,17 +463,20 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert workspace_tasks[task_id]["assignee_name"] == "Legal-Ops-Owner"
     assert {member["email"] for member in data["members"]} >= {viewer_email}
     assert [item["title"] for item in data["contracts"]] == ["Vendor Mutual NDA"]
+    refreshed_detail = client.get(f"/api/legal-ops/matters/{matter_id}", headers=viewer_workspace).json()
+    assert any(note["body"].startswith("Escalate signature") and note["link_kind"] == "contract" for note in refreshed_detail["notes"])
     assert data["summary"]["high_risk_contracts"] == 1
-    assert data["summary"]["tasks_by_status"]["done"] == 1
+    assert data["summary"]["tasks_by_status"]["done"] == 2
     assert data["summary"]["renewals_due_60_days"] == 1
     assert data["summary"]["pending_signature_contracts"] == 1
     assert data["summary"]["open_contract_obligations"] == 1
     assert data["summary"]["overdue_contract_obligations"] == 0
     assert data["summary"]["open_matter_deadlines"] >= 4
     assert data["summary"]["matter_deadlines_due_14_days"] >= 1
-    assert data["summary"]["open_action_alerts"] >= 3
+    assert data["summary"]["open_action_alerts"] >= 2
     assert data["summary"]["high_priority_action_alerts"] >= 1
-    assert {item["kind"] for item in data["action_alerts"]} >= {"deadline", "assigned_task", "signature"}
+    assert {item["kind"] for item in data["action_alerts"]} >= {"deadline", "signature"}
+    assert undated_task_id not in {item["source_id"] for item in data["action_alerts"]}
     assert {item["kind"] for item in data["matter_deadlines"]} >= {"task", "contract_renewal", "obligation", "invoice", "document_deadline"}
     assert any(item["description"] == "File NDA redline response." for item in data["matter_deadlines"])
     assert data["obligations"][0]["id"] == obligation_id
@@ -491,13 +508,13 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert report_data["generated_from"] == {
         "matters": 1,
         "intakes": 1,
-        "tasks": 2,
+        "tasks": 3,
         "contracts": 1,
         "obligations": 1,
         "vendors": 1,
         "spend_entries": 1,
         "playbooks": 1,
-        "matter_deadlines": 5,
+        "matter_deadlines": 6,
     }
     assert client.get("/api/legal-ops/report", headers=outsider_workspace).status_code == 404
 

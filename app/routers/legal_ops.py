@@ -28,6 +28,10 @@ from app.models import (
     LegalMatterDeadlineResponse,
     LegalMatterDeadlineTaskCreateResponse,
     LegalOpsAlertResponse,
+    LegalOpsAlertNoteCreate,
+    LegalOpsAlertNoteCreateResponse,
+    LegalOpsAlertResolveResponse,
+    LegalOpsAlertTaskCreateResponse,
     LegalMatterDraftListResponse,
     LegalMatterDraftRequest,
     LegalMatterDraftReviewUpdate,
@@ -179,6 +183,57 @@ async def list_legal_ops_alerts(
         assigned_user_id=_user_id(workspace) if assigned_to_me else None,
     )
     return [_enrich_alert(alert, members_by_id) for alert in alerts]
+
+
+@router.post("/alerts/{alert_id}/task", response_model=LegalOpsAlertTaskCreateResponse, status_code=status.HTTP_201_CREATED)
+async def create_task_from_legal_ops_alert(
+    alert_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    members_by_id = _member_map(_workspace_members(organization_id))
+    try:
+        alert, task = db.create_task_from_alert(organization_id, alert_id, assignee_user_id=_user_id(workspace))
+    except ValueError as error:
+        raise _bad_reference(error)
+    AuditRepository.log_audit("LEGAL_ALERT_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"alert_id": alert_id, "task_id": task.get("id"), "source_kind": alert.get("source_kind"), "source_id": alert.get("source_id")})
+    return {"alert": _enrich_alert(alert, members_by_id), "task": _enrich_task(task, members_by_id)}
+
+
+@router.post("/alerts/{alert_id}/note", response_model=LegalOpsAlertNoteCreateResponse, status_code=status.HTTP_201_CREATED)
+async def add_note_from_legal_ops_alert(
+    alert_id: str,
+    payload: LegalOpsAlertNoteCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    members_by_id = _member_map(_workspace_members(organization_id))
+    try:
+        alert, note = db.add_note_from_alert(organization_id, alert_id, _user_id(workspace), body=payload.body)
+    except ValueError as error:
+        raise _bad_reference(error)
+    AuditRepository.log_audit("LEGAL_ALERT_NOTE_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"alert_id": alert_id, "note_id": note.get("id"), "source_kind": alert.get("source_kind"), "source_id": alert.get("source_id")})
+    return {"alert": _enrich_alert(alert, members_by_id), "note": _enrich_note(note, members_by_id)}
+
+
+@router.post("/alerts/{alert_id}/resolve", response_model=LegalOpsAlertResolveResponse)
+async def resolve_legal_ops_alert(
+    alert_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    members_by_id = _member_map(_workspace_members(organization_id))
+    try:
+        result = db.resolve_legal_ops_alert(organization_id, alert_id)
+    except ValueError as error:
+        raise _bad_reference(error)
+    if result.get("task"):
+        result["task"] = _enrich_task(result["task"], members_by_id)
+    AuditRepository.log_audit("LEGAL_ALERT_RESOLVED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"alert_id": alert_id, "source_kind": result.get("source_kind"), "source_id": result.get("source_id")})
+    return result
 
 
 @router.get("/report", response_model=LegalOpsReportResponse)
