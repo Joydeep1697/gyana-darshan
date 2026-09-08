@@ -663,6 +663,21 @@ class LegalOpsReportResponse(BaseModel):
     generated_from: dict[str, int]
 
 
+class LegalOpsAnalyticsResponse(BaseModel):
+    title: str
+    generated_at: str
+    limits: str
+    workload: dict[str, Any]
+    intake_conversion: dict[str, Any]
+    deadline_health: dict[str, Any]
+    contract_health: dict[str, Any]
+    spend: dict[str, Any]
+    team_throughput: dict[str, Any]
+    knowledge_assets: dict[str, Any]
+    risk_queue: dict[str, Any]
+    generated_from: dict[str, int]
+
+
 class LegalOpsNotificationDigestResponse(BaseModel):
     title: str
     digest: str

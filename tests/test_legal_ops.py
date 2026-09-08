@@ -531,6 +531,28 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert data["summary"]["active_playbooks"] == 1
     assert data["playbooks"][0]["title"] == "NDA review checklist"
 
+    analytics = client.get("/api/legal-ops/analytics", headers=viewer_workspace)
+    assert analytics.status_code == 200
+    kpis = analytics.json()
+    assert kpis["title"] == "Legal Ops KPI Analytics"
+    assert "not legal advice" in kpis["limits"]
+    assert kpis["workload"]["total_matters"] == 1
+    assert kpis["workload"]["open_tasks"] == 1
+    assert kpis["workload"]["completed_tasks"] == 2
+    assert kpis["intake_conversion"]["total_intake"] == 1
+    assert kpis["intake_conversion"]["converted_intake"] == 1
+    assert kpis["intake_conversion"]["conversion_rate_percent"] == 100
+    assert kpis["deadline_health"]["open_deadlines"] >= 4
+    assert kpis["contract_health"]["high_risk_contracts"] == 1
+    assert kpis["contract_health"]["pending_signature_contracts"] == 1
+    assert kpis["spend"]["open_spend_total"] == 125000
+    assert kpis["spend"]["top_vendors"][0]["vendor_name"] == "Acme Legal LLP"
+    assert kpis["team_throughput"]["completed_tasks"] == 2
+    assert any(row["assignee_name"] == "Legal-Ops-Owner" for row in kpis["team_throughput"]["tasks_by_assignee"])
+    assert kpis["risk_queue"]["open_action_alerts"] >= 2
+    assert kpis["generated_from"]["matter_deadlines"] == 6
+    assert client.get("/api/legal-ops/analytics", headers=outsider_workspace).status_code == 404
+
     report = client.get("/api/legal-ops/report", headers=viewer_workspace)
     assert report.status_code == 200
     report_data = report.json()

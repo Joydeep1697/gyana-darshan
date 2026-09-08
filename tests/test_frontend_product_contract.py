@@ -125,6 +125,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="generateOpsReportButton"' in source
     assert 'id="downloadOpsReportButton"' in source
     assert 'id="opsReportResult"' in source
+    assert 'id="refreshOpsAnalyticsButton"' in source
+    assert 'id="downloadOpsAnalyticsButton"' in source
+    assert 'id="opsAnalyticsResult"' in source
     assert 'id="vendorForm"' in source
     assert 'id="spendForm"' in source
     assert 'id="vendorList"' in source
@@ -249,8 +252,11 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "generateLegalOpsDigest" in source
     assert "downloadLegalOpsDigest" in source
     assert "downloadLegalOpsCalendar" in source
+    assert "refreshLegalOpsAnalytics" in source
+    assert "downloadLegalOpsAnalytics" in source
     assert "/api/legal-ops/notifications/digest" in source
     assert "/api/legal-ops/deadlines/calendar.ics" in source
+    assert "/api/legal-ops/analytics" in source
     assert "Mark partially signed" in source
     assert "Mark sent" in source
     assert "Export matter JSON" in source

@@ -9,6 +9,7 @@ from api.auth.dependencies import get_workspace_context, require_workspace_write
 from app.database import Database, get_db
 from app.intelligence.matter_brief import build_matter_brief
 from app.intelligence.legal_brief import build_grounded_matter_draft
+from app.intelligence.legal_ops_analytics import build_legal_ops_analytics
 from app.intelligence.legal_ops_report import build_legal_ops_report
 from app.intelligence.legal_ops_notifications import build_legal_ops_calendar_ics, build_legal_ops_notification_digest
 from app.exports.legal_memo import matter_draft_docx, matter_draft_markdown
@@ -45,6 +46,7 @@ from app.models import (
     LegalMatterNoteCreate,
     LegalMatterNoteResponse,
     LegalMatterUpdate,
+    LegalOpsAnalyticsResponse,
     LegalOpsReportResponse,
     LegalOpsNotificationDigestResponse,
     LegalOpsSearchResponse,
@@ -246,6 +248,14 @@ async def get_legal_ops_report(
     workspace: dict = Depends(get_workspace_context),
 ):
     return build_legal_ops_report(_workspace_payload(db, _org_id(workspace)))
+
+
+@router.get("/analytics", response_model=LegalOpsAnalyticsResponse)
+async def get_legal_ops_analytics(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return build_legal_ops_analytics(_workspace_payload(db, _org_id(workspace)))
 
 
 @router.get("/notifications/digest", response_model=LegalOpsNotificationDigestResponse)
