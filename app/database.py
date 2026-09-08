@@ -246,6 +246,24 @@ CREATE TABLE IF NOT EXISTS legal_matter_notes (
 CREATE INDEX IF NOT EXISTS idx_legal_matter_notes_org ON legal_matter_notes(organization_id);
 CREATE INDEX IF NOT EXISTS idx_legal_matter_notes_matter ON legal_matter_notes(matter_id);
 
+-- Versioned grounded drafts generated for legal matters
+CREATE TABLE IF NOT EXISTS legal_matter_drafts (
+    id                  TEXT PRIMARY KEY,
+    organization_id     TEXT NOT NULL,
+    matter_id           TEXT NOT NULL REFERENCES legal_matters(id) ON DELETE CASCADE,
+    title               TEXT NOT NULL,
+    question            TEXT DEFAULT '',
+    draft               TEXT NOT NULL,
+    sources_json        TEXT DEFAULT '[]',
+    unsupported_json    TEXT DEFAULT '[]',
+    generated_from_json TEXT DEFAULT '{}',
+    created_by_user_id  TEXT,
+    created_at          TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_matter_drafts_org ON legal_matter_drafts(organization_id);
+CREATE INDEX IF NOT EXISTS idx_legal_matter_drafts_matter ON legal_matter_drafts(matter_id);
+CREATE INDEX IF NOT EXISTS idx_legal_matter_drafts_created ON legal_matter_drafts(created_at);
+
 -- Legal intake requests
 CREATE TABLE IF NOT EXISTS legal_intake_requests (
     id              TEXT PRIMARY KEY,
@@ -1342,6 +1360,71 @@ class Database:
             conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, matter_id, organization_id))
         return {"id": note_id, "organization_id": organization_id, "matter_id": matter_id, "author_user_id": author_user_id, "body": body.strip()[:4000], "created_at": now}
 
+    @staticmethod
+    def _decode_matter_draft(row: dict) -> dict:
+        return {
+            "id": row["id"],
+            "organization_id": row["organization_id"],
+            "matter_id": row["matter_id"],
+            "title": row["title"],
+            "question": row.get("question") or "",
+            "draft": row["draft"],
+            "sources": json.loads(row.get("sources_json") or "[]"),
+            "unsupported_claims": json.loads(row.get("unsupported_json") or "[]"),
+            "generated_from": json.loads(row.get("generated_from_json") or "{}"),
+            "created_by_user_id": row.get("created_by_user_id"),
+            "created_at": row["created_at"],
+        }
+
+    def save_matter_draft(self, organization_id: str, matter_id: str, user_id: str, draft: dict) -> dict:
+        if not self.get_matter(matter_id, organization_id):
+            raise ValueError("Matter not found in workspace")
+        draft_id = self.new_id()
+        now = self.now()
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_matter_drafts
+                   (id, organization_id, matter_id, title, question, draft, sources_json, unsupported_json, generated_from_json, created_by_user_id, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (
+                    draft_id,
+                    organization_id,
+                    matter_id,
+                    str(draft.get("title") or "Grounded matter draft")[:180],
+                    str(draft.get("question") or "")[:3000],
+                    str(draft.get("draft") or ""),
+                    json.dumps(draft.get("sources") or []),
+                    json.dumps(draft.get("unsupported_claims") or []),
+                    json.dumps(draft.get("generated_from") or {}),
+                    user_id,
+                    now,
+                ),
+            )
+            conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, matter_id, organization_id))
+        saved = self.get_matter_draft(organization_id, matter_id, draft_id)
+        return saved or {}
+
+    def get_matter_draft(self, organization_id: str, matter_id: str, draft_id: str) -> Optional[dict]:
+        with self.connect() as conn:
+            row = conn.execute(
+                """SELECT * FROM legal_matter_drafts
+                   WHERE id = ? AND organization_id = ? AND matter_id = ?""",
+                (draft_id, organization_id, matter_id),
+            ).fetchone()
+        return self._decode_matter_draft(dict(row)) if row else None
+
+    def list_matter_drafts(self, organization_id: str, matter_id: str, limit: int = 25) -> list[dict]:
+        if not self.get_matter(matter_id, organization_id):
+            return []
+        with self.connect() as conn:
+            rows = conn.execute(
+                """SELECT * FROM legal_matter_drafts
+                   WHERE organization_id = ? AND matter_id = ?
+                   ORDER BY created_at DESC LIMIT ?""",
+                (organization_id, matter_id, max(1, min(limit, 100))),
+            ).fetchall()
+        return [self._decode_matter_draft(dict(row)) for row in rows]
+
     def get_matter_detail(self, organization_id: str, matter_id: str) -> Optional[dict]:
         matter = self.get_matter(matter_id, organization_id)
         if not matter:
@@ -1385,6 +1468,13 @@ class Database:
                    ORDER BY updated_at DESC LIMIT 10""",
                 (organization_id, playbook_key, playbook_key, playbook_key, playbook_key),
             ).fetchall()]
+            draft_rows = [dict(row) for row in conn.execute(
+                """SELECT * FROM legal_matter_drafts
+                   WHERE organization_id = ? AND matter_id = ?
+                   ORDER BY created_at DESC LIMIT 25""",
+                (organization_id, matter_id),
+            ).fetchall()]
+        drafts = [self._decode_matter_draft(row) for row in draft_rows]
         activity = []
         activity.extend({"kind": "document", "id": row["id"], "label": "Document linked", "detail": row["filename"], "timestamp": row["linked_at"]} for row in linked_documents)
         activity.extend({"kind": "note", "id": row["id"], "label": "Note added", "detail": row["body"], "timestamp": row["created_at"]} for row in notes)
@@ -1393,8 +1483,9 @@ class Database:
         activity.extend({"kind": "obligation", "id": row["id"], "label": f"Obligation: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in obligations)
         activity.extend({"kind": "intake", "id": row["id"], "label": f"Intake: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in intakes)
         activity.extend({"kind": "spend", "id": row["id"], "label": f"Invoice: {row.get('invoice_number') or 'Unnumbered spend'}", "detail": f"{row['status']} {row['currency']} {float(row['amount']):.2f}", "timestamp": row["updated_at"]} for row in spend_entries)
+        activity.extend({"kind": "draft", "id": row["id"], "label": f"Draft: {row['title']}", "detail": row.get("question") or "Grounded matter draft", "timestamp": row["created_at"]} for row in drafts)
         activity.sort(key=lambda item: item["timestamp"] or "", reverse=True)
-        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "obligations": obligations, "spend_entries": spend_entries, "playbooks": playbooks, "intakes": intakes, "activity": activity[:100]}
+        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "obligations": obligations, "spend_entries": spend_entries, "playbooks": playbooks, "intakes": intakes, "drafts": drafts, "activity": activity[:100]}
 
     def search_legal_ops(self, organization_id: str, query: str, limit: int = 30) -> list[dict]:
         needle = f"%{query.strip()}%"

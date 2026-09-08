@@ -25,6 +25,7 @@ from app.models import (
     LegalIntakeUpdate,
     LegalMatterCreate,
     LegalMatterBriefResponse,
+    LegalMatterDraftListResponse,
     LegalMatterDraftRequest,
     LegalMatterDraftResponse,
     LegalMatterDetailResponse,
@@ -156,7 +157,34 @@ async def generate_grounded_matter_draft(
     request = payload or LegalMatterDraftRequest()
     precedents = db.get_case_law_records_by_ids(organization_id, request.precedent_ids)
     draft = build_grounded_matter_draft(detail, question=request.prompt, precedent_records=precedents)
-    AuditRepository.log_audit("LEGAL_MATTER_DRAFT_GENERATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "precedent_count": len(precedents)})
+    saved = db.save_matter_draft(organization_id, matter_id, _user_id(workspace), draft)
+    AuditRepository.log_audit("LEGAL_MATTER_DRAFT_GENERATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "draft_id": saved.get("id"), "precedent_count": len(precedents)})
+    return saved
+
+
+@router.get("/matters/{matter_id}/drafts", response_model=LegalMatterDraftListResponse)
+async def list_grounded_matter_drafts(
+    matter_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    if not db.get_matter(organization_id=organization_id, matter_id=matter_id):
+        raise _not_found()
+    drafts = db.list_matter_drafts(organization_id, matter_id)
+    return {"drafts": drafts, "total": len(drafts)}
+
+
+@router.get("/matters/{matter_id}/drafts/{draft_id}", response_model=LegalMatterDraftResponse)
+async def get_grounded_matter_draft(
+    matter_id: str,
+    draft_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    draft = db.get_matter_draft(_org_id(workspace), matter_id, draft_id)
+    if not draft:
+        raise _not_found()
     return draft
 
 
@@ -164,6 +192,7 @@ async def generate_grounded_matter_draft(
 async def export_grounded_matter_draft(
     matter_id: str,
     payload: LegalMatterDraftRequest | None = None,
+    draft_id: str | None = None,
     format: str = Query(default="markdown", pattern="^(markdown|docx)$"),
     db: Database = Depends(get_db),
     workspace: dict = Depends(get_workspace_context),
@@ -172,9 +201,14 @@ async def export_grounded_matter_draft(
     detail = db.get_matter_detail(organization_id, matter_id)
     if not detail:
         raise _not_found()
-    request = payload or LegalMatterDraftRequest()
-    precedents = db.get_case_law_records_by_ids(organization_id, request.precedent_ids)
-    draft = build_grounded_matter_draft(detail, question=request.prompt, precedent_records=precedents)
+    if draft_id:
+        draft = db.get_matter_draft(organization_id, matter_id, draft_id)
+        if not draft:
+            raise _not_found()
+    else:
+        request = payload or LegalMatterDraftRequest()
+        precedents = db.get_case_law_records_by_ids(organization_id, request.precedent_ids)
+        draft = build_grounded_matter_draft(detail, question=request.prompt, precedent_records=precedents)
     if format == "docx":
         return Response(
             content=matter_draft_docx(draft),

@@ -598,13 +598,22 @@ class LegalMatterDraftEvidence(BaseModel):
 
 
 class LegalMatterDraftResponse(BaseModel):
+    id: Optional[str] = None
     matter_id: str
+    organization_id: Optional[str] = None
     title: str
     question: str
     draft: str
     sources: list[LegalMatterDraftEvidence]
     unsupported_claims: list[str] = []
     generated_from: dict[str, int]
+    created_by_user_id: Optional[str] = None
+    created_at: Optional[str] = None
+
+
+class LegalMatterDraftListResponse(BaseModel):
+    drafts: list[LegalMatterDraftResponse]
+    total: int
 
 
 class LegalOpsReportResponse(BaseModel):
@@ -622,6 +631,7 @@ class LegalMatterDetailResponse(LegalMatterResponse):
     spend_entries: list[LegalSpendResponse] = []
     playbooks: list[LegalPlaybookResponse] = []
     intakes: list[LegalIntakeResponse] = []
+    drafts: list[LegalMatterDraftResponse] = []
     activity: list[LegalMatterActivityResponse] = []
 
 

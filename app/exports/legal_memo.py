@@ -120,7 +120,19 @@ def matter_draft_markdown(draft: dict) -> str:
 
 
 def matter_draft_docx(draft: dict) -> bytes:
+    content = draft.get("draft", "")
+    sources = draft.get("sources") or []
+    if sources:
+        evidence_lines = ["", "Evidence record"]
+        for source in sources:
+            label = source.get("label") or "Source"
+            citation = source.get("citation") or ""
+            status = source.get("status") or ""
+            evidence_lines.append(f"{label} ({citation}; {status})")
+            if source.get("excerpt"):
+                evidence_lines.append(source["excerpt"])
+        content = f"{content}\n" + "\n".join(evidence_lines)
     return consultation_docx(
         {"title": draft.get("title", "Grounded matter draft")},
-        [{"role": "assistant", "content": draft.get("draft", ""), "evidence": draft.get("sources") or []}],
+        [{"role": "assistant", "content": content, "evidence": []}],
     )

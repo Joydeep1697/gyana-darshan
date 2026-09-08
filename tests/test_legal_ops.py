@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import uuid
 from datetime import date, timedelta
+from io import BytesIO
+from zipfile import ZipFile
 
 from fastapi.testclient import TestClient
 
@@ -199,29 +201,54 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert draft.status_code == 200
     draft_data = draft.json()
     assert draft_data["matter_id"] == matter_id
+    assert draft_data["id"]
+    draft_id = draft_data["id"]
+    assert draft_data["organization_id"] == organization_id
     assert "Grounded draft" in draft_data["title"]
     assert "Recorded matter facts" in draft_data["draft"]
     assert "Review flags" in draft_data["draft"]
     assert "Application of the authorities" in draft_data["unsupported_claims"][-1]
     assert draft_data["generated_from"]["statutes"] >= 0
 
+    draft_history = client.get(f"/api/legal-ops/matters/{matter_id}/drafts", headers=viewer_workspace)
+    assert draft_history.status_code == 200
+    assert draft_history.json()["total"] == 1
+    assert draft_history.json()["drafts"][0]["id"] == draft_id
+    assert draft_history.json()["drafts"][0]["sources"] == draft_data["sources"]
+
+    reopened_draft = client.get(f"/api/legal-ops/matters/{matter_id}/drafts/{draft_id}", headers=viewer_workspace)
+    assert reopened_draft.status_code == 200
+    assert reopened_draft.json()["draft"] == draft_data["draft"]
+    assert reopened_draft.json()["generated_from"] == draft_data["generated_from"]
+
+    detail_after_draft = client.get(f"/api/legal-ops/matters/{matter_id}", headers=viewer_workspace)
+    assert detail_after_draft.status_code == 200
+    assert detail_after_draft.json()["drafts"][0]["id"] == draft_id
+    assert "draft" in {item["kind"] for item in detail_after_draft.json()["activity"]}
+
     markdown = client.post(
-        f"/api/legal-ops/matters/{matter_id}/draft/export?format=markdown",
-        json={"prompt": "What statutory provisions govern the reported conduct?", "precedent_ids": []},
+        f"/api/legal-ops/matters/{matter_id}/draft/export?format=markdown&draft_id={draft_id}",
         headers=viewer_workspace,
     )
     assert markdown.status_code == 200
     assert markdown.headers["content-type"].startswith("text/markdown")
     assert "Grounded draft" in markdown.text
+    assert draft_data["draft"] in markdown.text
 
     docx = client.post(
-        f"/api/legal-ops/matters/{matter_id}/draft/export?format=docx",
-        json={"prompt": "What statutory provisions govern the reported conduct?", "precedent_ids": []},
+        f"/api/legal-ops/matters/{matter_id}/draft/export?format=docx&draft_id={draft_id}",
         headers=viewer_workspace,
     )
     assert docx.status_code == 200
     assert docx.headers["content-type"].startswith("application/vnd.openxmlformats")
     assert docx.content.startswith(b"PK")
+    with ZipFile(BytesIO(docx.content)) as archive:
+        document_xml = archive.read("word/document.xml").decode("utf-8")
+    assert "Evidence record" in document_xml
+
+    assert client.get(f"/api/legal-ops/matters/{matter_id}/drafts", headers=outsider_workspace).status_code == 404
+    assert client.get(f"/api/legal-ops/matters/{matter_id}/drafts/{draft_id}", headers=outsider_workspace).status_code == 404
+    assert client.post(f"/api/legal-ops/matters/{matter_id}/draft/export?format=markdown&draft_id={draft_id}", headers=outsider_workspace).status_code == 404
 
     search = client.get("/api/legal-ops/search", params={"q": "Vendor"}, headers=viewer_workspace)
     assert search.status_code == 200
