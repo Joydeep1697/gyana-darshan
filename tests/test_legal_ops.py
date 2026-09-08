@@ -227,6 +227,21 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["obligations"][0]["title"] == "Return confidential material after termination"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
     assert detail.json()["playbooks"][0]["title"] == "NDA review checklist"
+    matter_export_json = client.get(f"/api/legal-ops/matters/{matter_id}/export?format=json", headers=viewer_workspace)
+    assert matter_export_json.status_code == 200
+    assert matter_export_json.headers["content-type"].startswith("application/json")
+    export_payload = matter_export_json.json()
+    assert export_payload["matter_id"] == matter_id
+    assert export_payload["organization_id"] == organization_id
+    assert export_payload["matter"]["contracts"][0]["title"] == "Vendor Mutual NDA"
+    assert export_payload["precedents"][0]["citation"] == "2026 ND 42"
+    assert "not legal advice" in export_payload["limits"]
+    matter_export_markdown = client.get(f"/api/legal-ops/matters/{matter_id}/export?format=markdown", headers=viewer_workspace)
+    assert matter_export_markdown.status_code == 200
+    assert matter_export_markdown.headers["content-type"].startswith("text/markdown")
+    assert "## Source references" in matter_export_markdown.text
+    assert "Vendor Confidentiality Authority v State" in matter_export_markdown.text
+    assert client.get(f"/api/legal-ops/matters/{matter_id}/export?format=json", headers=outsider_workspace).status_code == 404
     deadline_kinds = {item["kind"] for item in detail.json()["deadlines"]}
     assert deadline_kinds >= {"task", "contract_renewal", "obligation", "invoice", "document_deadline"}
     assert any(item["description"] == "File NDA redline response." for item in detail.json()["deadlines"])

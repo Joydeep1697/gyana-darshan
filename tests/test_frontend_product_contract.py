@@ -253,6 +253,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/legal-ops/deadlines/calendar.ics" in source
     assert "Mark partially signed" in source
     assert "Mark sent" in source
+    assert "Export matter JSON" in source
+    assert "Export matter .md" in source
+    assert "/api/legal-ops/matters/" in source and "matter-export" in source
     assert "action_alerts" in source
     assert "renderActionAlert" in source
     assert "open_action_alerts" in source

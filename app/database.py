@@ -1003,6 +1003,18 @@ class Database:
         order = {record_id: index for index, record_id in enumerate(ids)}
         return sorted(records, key=lambda item: order.get(item.get("id", ""), len(ids)))
 
+    def get_case_law_records_for_documents(self, organization_id: str, document_ids: list[str]) -> list[dict]:
+        ids = list(dict.fromkeys(item for item in document_ids if item))[:20]
+        if not ids:
+            return []
+        placeholders = ",".join("?" for _ in ids)
+        with self.connect() as conn:
+            record_ids = [row["id"] for row in conn.execute(
+                "SELECT id FROM case_law_records WHERE organization_id = ? AND document_id IN (" + placeholders + ")",
+                [organization_id, *ids],
+            ).fetchall()]
+        return self.get_case_law_records_by_ids(organization_id, record_ids)
+
     def search_case_law_records(
         self,
         organization_id: str,

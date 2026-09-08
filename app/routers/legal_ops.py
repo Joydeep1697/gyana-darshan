@@ -12,6 +12,7 @@ from app.intelligence.legal_brief import build_grounded_matter_draft
 from app.intelligence.legal_ops_report import build_legal_ops_report
 from app.intelligence.legal_ops_notifications import build_legal_ops_calendar_ics, build_legal_ops_notification_digest
 from app.exports.legal_memo import matter_draft_docx, matter_draft_markdown
+from app.exports.legal_ops_matter import build_matter_export, matter_export_json, matter_export_markdown
 from app.models import (
     LegalContractCreate,
     LegalContractObligationCreate,
@@ -342,6 +343,26 @@ async def get_matter_detail(
     if not detail:
         raise _not_found()
     return _enrich_matter_detail(detail, _workspace_members(_org_id(workspace)))
+
+
+@router.get("/matters/{matter_id}/export")
+async def export_matter_record(
+    matter_id: str,
+    format: str = Query(default="json", pattern="^(json|markdown)$"),
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    detail = db.get_matter_detail(organization_id, matter_id)
+    if not detail:
+        raise _not_found()
+    document_ids = [item.get("id") for item in detail.get("documents") or [] if item.get("id")]
+    precedents = db.get_case_law_records_for_documents(organization_id, document_ids)
+    payload = build_matter_export({**detail, "organization_id": organization_id}, precedents, exported_by=_user_id(workspace))
+    AuditRepository.log_audit("LEGAL_MATTER_EXPORTED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "format": format})
+    if format == "markdown":
+        return Response(content=matter_export_markdown(payload), media_type="text/markdown", headers={"Content-Disposition": 'attachment; filename="nyaya-matter-export.md"'})
+    return Response(content=matter_export_json(payload), media_type="application/json", headers={"Content-Disposition": 'attachment; filename="nyaya-matter-export.json"'})
 
 
 @router.get("/matters/{matter_id}/deadlines", response_model=list[LegalMatterDeadlineResponse])
