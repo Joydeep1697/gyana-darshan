@@ -1260,6 +1260,62 @@ class Database:
         except ValueError:
             return None
 
+    @staticmethod
+    def _deadline_days_until(value: Optional[str]) -> Optional[int]:
+        parsed = Database._parse_iso_date(value)
+        if not parsed:
+            return None
+        return (parsed - datetime.now(timezone.utc).date()).days
+
+    @classmethod
+    def _deadline_status(cls, deadline_date: Optional[str], source_status: str = "", *, closed_statuses: Optional[set[str]] = None) -> str:
+        source = (source_status or "").strip().lower()
+        if closed_statuses and source in closed_statuses:
+            return "cleared"
+        days_until = cls._deadline_days_until(deadline_date)
+        if days_until is None:
+            return "unscheduled"
+        if days_until < 0:
+            return "overdue"
+        if days_until == 0:
+            return "due_today"
+        if days_until <= 14:
+            return "due"
+        if days_until <= 60:
+            return "upcoming"
+        return "scheduled"
+
+    @classmethod
+    def _deadline_item(
+        cls,
+        *,
+        kind: str,
+        source_id: str,
+        title: str,
+        deadline_date: Optional[str],
+        priority: str = "medium",
+        source_label: str = "",
+        source_status: str = "",
+        description: str = "",
+        closed_statuses: Optional[set[str]] = None,
+        matter_id: Optional[str] = None,
+        matter_title: str = "",
+    ) -> dict:
+        return {
+            "kind": kind,
+            "source_id": source_id,
+            "matter_id": matter_id,
+            "matter_title": matter_title,
+            "title": title,
+            "deadline_date": deadline_date,
+            "status": cls._deadline_status(deadline_date, source_status, closed_statuses=closed_statuses),
+            "days_until": cls._deadline_days_until(deadline_date),
+            "priority": priority or "medium",
+            "source_label": source_label or "",
+            "source_status": source_status or "",
+            "description": description or "",
+        }
+
     def _decorate_contract_record(self, contract: dict) -> dict:
         status = contract.get("status") or "draft"
         renewal_date = self._parse_iso_date(contract.get("renewal_date"))
@@ -1476,6 +1532,154 @@ class Database:
             ).fetchall()
         return [self._decode_matter_draft(dict(row)) for row in rows]
 
+    def list_matter_deadlines(self, organization_id: str, matter_id: str, limit: int = 100) -> list[dict]:
+        matter = self.get_matter(matter_id, organization_id)
+        if not matter:
+            return []
+        deadlines: list[dict] = []
+        if matter.get("due_date"):
+            deadlines.append(self._deadline_item(
+                kind="matter",
+                source_id=matter["id"],
+                matter_id=matter["id"],
+                matter_title=matter.get("title") or "",
+                title="Matter due date",
+                deadline_date=matter.get("due_date"),
+                priority=matter.get("priority") or "medium",
+                source_label=matter.get("title") or "",
+                source_status=matter.get("status") or "open",
+                description=matter.get("description") or "",
+                closed_statuses={"closed"},
+            ))
+        with self.connect() as conn:
+            task_rows = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_tasks WHERE organization_id = ? AND matter_id = ? AND due_date IS NOT NULL",
+                (organization_id, matter_id),
+            ).fetchall()]
+            contract_rows = [self._decorate_contract_record(dict(row)) for row in conn.execute(
+                "SELECT * FROM legal_contracts WHERE organization_id = ? AND matter_id = ? AND (renewal_date IS NOT NULL OR expiry_date IS NOT NULL)",
+                (organization_id, matter_id),
+            ).fetchall()]
+            obligation_rows = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_contract_obligations WHERE organization_id = ? AND matter_id = ? AND due_date IS NOT NULL",
+                (organization_id, matter_id),
+            ).fetchall()]
+            spend_rows = [dict(row) for row in conn.execute(
+                "SELECT * FROM legal_spend_entries WHERE organization_id = ? AND matter_id = ? AND due_date IS NOT NULL",
+                (organization_id, matter_id),
+            ).fetchall()]
+            document_deadline_rows = [dict(row) for row in conn.execute(
+                """SELECT dd.*, vd.filename
+                   FROM legal_matter_documents l
+                   JOIN vault_documents vd ON vd.id = l.document_id
+                   JOIN document_deadlines dd ON dd.doc_id = vd.id
+                   WHERE l.organization_id = ? AND l.matter_id = ?
+                   ORDER BY dd.deadline_date ASC""",
+                (organization_id, matter_id),
+            ).fetchall()]
+
+        for task in task_rows:
+            deadlines.append(self._deadline_item(
+                kind="task",
+                source_id=task["id"],
+                matter_id=matter["id"],
+                matter_title=matter.get("title") or "",
+                title=f"Task: {task.get('title') or 'Untitled task'}",
+                deadline_date=task.get("due_date"),
+                priority=task.get("priority") or "medium",
+                source_label=task.get("title") or "",
+                source_status=task.get("status") or "open",
+                closed_statuses={"done"},
+            ))
+        for contract in contract_rows:
+            if contract.get("renewal_date"):
+                deadlines.append(self._deadline_item(
+                    kind="contract_renewal",
+                    source_id=contract["id"],
+                    matter_id=matter["id"],
+                    matter_title=matter.get("title") or "",
+                    title=f"Renewal: {contract.get('title') or 'Untitled contract'}",
+                    deadline_date=contract.get("renewal_date"),
+                    priority=contract.get("risk_level") or "medium",
+                    source_label=contract.get("counterparty") or contract.get("title") or "",
+                    source_status=contract.get("lifecycle_stage") or contract.get("status") or "draft",
+                    closed_statuses={"expired", "draft"},
+                ))
+            if contract.get("expiry_date"):
+                deadlines.append(self._deadline_item(
+                    kind="contract_expiry",
+                    source_id=contract["id"],
+                    matter_id=matter["id"],
+                    matter_title=matter.get("title") or "",
+                    title=f"Expiry: {contract.get('title') or 'Untitled contract'}",
+                    deadline_date=contract.get("expiry_date"),
+                    priority=contract.get("risk_level") or "medium",
+                    source_label=contract.get("counterparty") or contract.get("title") or "",
+                    source_status=contract.get("lifecycle_stage") or contract.get("status") or "draft",
+                    closed_statuses={"expired"},
+                ))
+        for obligation in obligation_rows:
+            deadlines.append(self._deadline_item(
+                kind="obligation",
+                source_id=obligation["id"],
+                matter_id=matter["id"],
+                matter_title=matter.get("title") or "",
+                title=f"Obligation: {obligation.get('title') or 'Untitled obligation'}",
+                deadline_date=obligation.get("due_date"),
+                priority=obligation.get("priority") or "medium",
+                source_label=obligation.get("owner") or obligation.get("category") or "",
+                source_status=obligation.get("status") or "open",
+                description=obligation.get("source_clause") or "",
+                closed_statuses={"done", "waived"},
+            ))
+        for spend in spend_rows:
+            label = spend.get("invoice_number") or "Unnumbered spend"
+            deadlines.append(self._deadline_item(
+                kind="invoice",
+                source_id=spend["id"],
+                matter_id=matter["id"],
+                matter_title=matter.get("title") or "",
+                title=f"Invoice due: {label}",
+                deadline_date=spend.get("due_date"),
+                priority="medium",
+                source_label=label,
+                source_status=spend.get("status") or "pending",
+                description=spend.get("description") or "",
+                closed_statuses={"paid", "rejected"},
+            ))
+        for row in document_deadline_rows:
+            deadline_type = row.get("deadline_type") or "document_deadline"
+            filename = row.get("filename") or "Linked document"
+            source_status = row.get("status") or "upcoming"
+            deadlines.append(self._deadline_item(
+                kind="document_deadline",
+                source_id=str(row.get("id") or f"{row.get('doc_id')}:{deadline_type}:{row.get('deadline_date')}"),
+                matter_id=matter["id"],
+                matter_title=matter.get("title") or "",
+                title=f"{deadline_type.replace('_', ' ').title()}: {filename}",
+                deadline_date=row.get("deadline_date"),
+                priority="medium",
+                source_label=filename,
+                source_status=source_status,
+                description=row.get("description") or "",
+                closed_statuses={"done", "completed", "cleared"},
+            ))
+
+        def sort_key(item: dict) -> tuple[int, str, int]:
+            parsed = self._parse_iso_date(item.get("deadline_date"))
+            priority_rank = {"critical": 0, "high": 1, "medium": 2, "low": 3}.get(item.get("priority") or "medium", 2)
+            return (0 if parsed else 1, parsed.isoformat() if parsed else "9999-12-31", priority_rank)
+
+        deadlines.sort(key=sort_key)
+        return deadlines[: max(1, min(limit, 200))]
+
+    def list_workspace_matter_deadlines(self, organization_id: str, limit: int = 200) -> list[dict]:
+        deadlines: list[dict] = []
+        for matter in self.list_matters(organization_id, limit=200):
+            deadlines.extend(self.list_matter_deadlines(organization_id, matter["id"], limit=50))
+        deadlines.sort(key=lambda item: (self._parse_iso_date(item.get("deadline_date")) or date.max, item.get("matter_title") or ""))
+        return deadlines[: max(1, min(limit, 500))]
+
     def get_matter_detail(self, organization_id: str, matter_id: str) -> Optional[dict]:
         matter = self.get_matter(matter_id, organization_id)
         if not matter:
@@ -1526,6 +1730,7 @@ class Database:
                 (organization_id, matter_id),
             ).fetchall()]
         drafts = [self._decode_matter_draft(row) for row in draft_rows]
+        deadlines = self.list_matter_deadlines(organization_id, matter_id)
         activity = []
         activity.extend({"kind": "document", "id": row["id"], "label": "Document linked", "detail": row["filename"], "timestamp": row["linked_at"]} for row in linked_documents)
         activity.extend({"kind": "note", "id": row["id"], "label": "Note added", "detail": row["body"], "timestamp": row["created_at"]} for row in notes)
@@ -1535,8 +1740,9 @@ class Database:
         activity.extend({"kind": "intake", "id": row["id"], "label": f"Intake: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in intakes)
         activity.extend({"kind": "spend", "id": row["id"], "label": f"Invoice: {row.get('invoice_number') or 'Unnumbered spend'}", "detail": f"{row['status']} {row['currency']} {float(row['amount']):.2f}", "timestamp": row["updated_at"]} for row in spend_entries)
         activity.extend({"kind": "draft", "id": row["id"], "label": f"Draft: {row['title']}", "detail": row.get("question") or "Grounded matter draft", "timestamp": row["created_at"]} for row in drafts)
+        activity.extend({"kind": "deadline", "id": row["source_id"], "label": f"Deadline: {row['title']}", "detail": f"{row['status']} {row.get('deadline_date') or ''}".strip(), "timestamp": row.get("deadline_date") or matter.get("updated_at") or ""} for row in deadlines if row.get("deadline_date"))
         activity.sort(key=lambda item: item["timestamp"] or "", reverse=True)
-        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "obligations": obligations, "spend_entries": spend_entries, "playbooks": playbooks, "intakes": intakes, "drafts": drafts, "activity": activity[:100]}
+        return {**matter, "documents": linked_documents, "notes": notes, "tasks": tasks, "contracts": contracts, "obligations": obligations, "spend_entries": spend_entries, "playbooks": playbooks, "intakes": intakes, "drafts": drafts, "deadlines": deadlines, "activity": activity[:100]}
 
     def search_legal_ops(self, organization_id: str, query: str, limit: int = 30) -> list[dict]:
         needle = f"%{query.strip()}%"
@@ -2054,6 +2260,10 @@ class Database:
             paid_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status = 'paid'", (organization_id,)).fetchone()[0]
             overdue_invoices = conn.execute("SELECT COUNT(*) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid' AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
             active_playbooks = conn.execute("SELECT COUNT(*) FROM legal_playbooks WHERE organization_id = ? AND status = 'active'", (organization_id,)).fetchone()[0]
+        matter_deadlines = self.list_workspace_matter_deadlines(organization_id)
+        open_matter_deadlines = [item for item in matter_deadlines if item.get("status") != "cleared"]
+        due_14_days = [item for item in open_matter_deadlines if isinstance(item.get("days_until"), int) and 0 <= item["days_until"] <= 14]
+        overdue_matter_deadlines = [item for item in open_matter_deadlines if item.get("status") == "overdue"]
         return {
             "matters_by_status": {row["status"]: row["count"] for row in matter_rows},
             "intake_by_status": {row["status"]: row["count"] for row in intake_rows},
@@ -2069,6 +2279,9 @@ class Database:
             "open_spend_total": float(open_spend or 0),
             "paid_spend_total": float(paid_spend or 0),
             "overdue_invoices": overdue_invoices,
+            "open_matter_deadlines": len(open_matter_deadlines),
+            "overdue_matter_deadlines": len(overdue_matter_deadlines),
+            "matter_deadlines_due_14_days": len(due_14_days),
             "active_playbooks": active_playbooks,
         }
 

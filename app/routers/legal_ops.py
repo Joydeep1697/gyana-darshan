@@ -25,6 +25,7 @@ from app.models import (
     LegalIntakeUpdate,
     LegalMatterCreate,
     LegalMatterBriefResponse,
+    LegalMatterDeadlineResponse,
     LegalMatterDraftListResponse,
     LegalMatterDraftRequest,
     LegalMatterDraftReviewUpdate,
@@ -92,6 +93,7 @@ def _workspace_payload(db: Database, organization_id: str) -> dict:
         "spend_entries": db.list_spend_entries(organization_id),
         "playbooks": db.list_playbooks(organization_id),
         "contract_reminders": db.list_contract_reminders(organization_id),
+        "matter_deadlines": db.list_workspace_matter_deadlines(organization_id),
     }
 
 
@@ -128,6 +130,18 @@ async def get_matter_detail(
     if not detail:
         raise _not_found()
     return detail
+
+
+@router.get("/matters/{matter_id}/deadlines", response_model=list[LegalMatterDeadlineResponse])
+async def get_matter_deadlines(
+    matter_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    if not db.get_matter(matter_id, organization_id):
+        raise _not_found()
+    return db.list_matter_deadlines(organization_id, matter_id)
 
 
 @router.post("/matters/{matter_id}/brief", response_model=LegalMatterBriefResponse)

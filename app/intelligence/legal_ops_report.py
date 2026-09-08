@@ -39,6 +39,23 @@ def _top_vendors(spend_entries: list[dict[str, Any]], vendors: list[dict[str, An
     ]
 
 
+def _deadline_lines(deadlines: list[dict[str, Any]]) -> list[str]:
+    actionable = [item for item in deadlines if item.get("status") != "cleared"]
+    ranked = sorted(actionable, key=lambda item: (item.get("deadline_date") or "9999-12-31", item.get("matter_title") or ""))
+    lines = []
+    for item in ranked[:12]:
+        days = item.get("days_until")
+        timing = "overdue" if isinstance(days, int) and days < 0 else f"due in {days} days" if isinstance(days, int) else _compact(item.get("status"), "scheduled")
+        matter = f" for {_compact(item.get('matter_title'))}" if item.get("matter_title") else ""
+        description = f" Description: {_compact(item.get('description'))}." if item.get("description") else ""
+        lines.append(
+            f"- {_compact(item.get('title'), 'Untitled deadline')}{matter}: "
+            f"{_compact(item.get('deadline_date'), 'not dated')}, {_compact(item.get('status'), 'scheduled')}, {timing}."
+            f"{description}"
+        )
+    return lines or ["- No open matter deadline is recorded."]
+
+
 def _matter_lines(matters: list[dict[str, Any]], spend_entries: list[dict[str, Any]]) -> list[str]:
     spend_by_matter: dict[str, float] = defaultdict(float)
     currency_by_matter: dict[str, str] = {}
@@ -72,6 +89,7 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
     vendors = workspace.get("vendors") or []
     spend_entries = workspace.get("spend_entries") or []
     playbooks = workspace.get("playbooks") or []
+    matter_deadlines = workspace.get("matter_deadlines") or []
 
     open_tasks = [task for task in tasks if task.get("status") != "done"]
     open_obligations = [item for item in obligations if item.get("status") not in {"done", "waived"}]
@@ -91,9 +109,11 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
             f"- Contracts: {len(contracts)} total; {len(high_risk_contracts)} high-risk; {summary.get('renewals_due_60_days', 0)} renewals due within 60 days; {summary.get('pending_signature_contracts', 0)} pending signature.",
             f"- Obligations: {len(obligations)} total; {len(open_obligations)} open; {summary.get('overdue_contract_obligations', 0)} overdue.",
             f"- Spend: {_money(open_spend)} open; {_money(paid_spend)} paid; {summary.get('overdue_invoices', 0)} overdue invoices.",
+            f"- Deadlines: {summary.get('open_matter_deadlines', 0)} open; {summary.get('overdue_matter_deadlines', 0)} overdue; {summary.get('matter_deadlines_due_14_days', 0)} due within 14 days.",
             f"- Knowledge: {len(vendors)} vendors; {summary.get('active_playbooks', 0)} active playbooks.",
         ]),
         "Matter Status\n" + "\n".join(_matter_lines(matters, spend_entries)),
+        "Matter Deadlines\n" + "\n".join(_deadline_lines(matter_deadlines)),
         "Risk and Renewal Queue\n"
         + "\n".join(
             [
@@ -146,5 +166,6 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
             "vendors": len(vendors),
             "spend_entries": len(spend_entries),
             "playbooks": len(playbooks),
+            "matter_deadlines": len(matter_deadlines),
         },
     }

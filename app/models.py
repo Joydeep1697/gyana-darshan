@@ -632,6 +632,21 @@ class LegalOpsReportResponse(BaseModel):
     generated_from: dict[str, int]
 
 
+class LegalMatterDeadlineResponse(BaseModel):
+    kind: str
+    source_id: str
+    matter_id: Optional[str] = None
+    matter_title: str = ""
+    title: str
+    deadline_date: Optional[str] = None
+    status: str = "scheduled"
+    days_until: Optional[int] = None
+    priority: str = "medium"
+    source_label: str = ""
+    source_status: str = ""
+    description: str = ""
+
+
 class LegalMatterDetailResponse(LegalMatterResponse):
     documents: list[LegalMatterDocumentResponse] = []
     notes: list[LegalMatterNoteResponse] = []
@@ -642,6 +657,7 @@ class LegalMatterDetailResponse(LegalMatterResponse):
     playbooks: list[LegalPlaybookResponse] = []
     intakes: list[LegalIntakeResponse] = []
     drafts: list[LegalMatterDraftResponse] = []
+    deadlines: list[LegalMatterDeadlineResponse] = []
     activity: list[LegalMatterActivityResponse] = []
 
 
@@ -674,6 +690,9 @@ class LegalOpsSummary(BaseModel):
     open_spend_total: float = 0
     paid_spend_total: float = 0
     overdue_invoices: int = 0
+    open_matter_deadlines: int = 0
+    overdue_matter_deadlines: int = 0
+    matter_deadlines_due_14_days: int = 0
     active_playbooks: int = 0
 
 
@@ -688,6 +707,7 @@ class LegalOpsWorkspaceResponse(BaseModel):
     spend_entries: list[LegalSpendResponse] = []
     playbooks: list[LegalPlaybookResponse] = []
     contract_reminders: list[LegalContractReminderResponse] = []
+    matter_deadlines: list[LegalMatterDeadlineResponse] = []
 
 
 # ── Chat ──────────────────────────────────────────────────────────

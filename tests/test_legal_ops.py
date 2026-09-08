@@ -145,6 +145,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     db = Database()
     document_id = db.create_document("Vendor NDA.pdf", 10, "/tmp/vendor-nda.pdf", "owner", organization_id)
     db.update_document(document_id, status="indexed", category="Contract", domain="Commercial", summary="Vendor confidentiality agreement")
+    db.add_deadlines(document_id, [{"type": "response_deadline", "date": "2026-09-25", "description": "File NDA redline response."}])
     precedent_record = db.upsert_case_law_record(
         organization_id,
         document_id,
@@ -185,7 +186,15 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["obligations"][0]["title"] == "Return confidential material after termination"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
     assert detail.json()["playbooks"][0]["title"] == "NDA review checklist"
-    assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "obligation", "intake", "spend"}
+    deadline_kinds = {item["kind"] for item in detail.json()["deadlines"]}
+    assert deadline_kinds >= {"task", "contract_renewal", "obligation", "invoice", "document_deadline"}
+    assert any(item["description"] == "File NDA redline response." for item in detail.json()["deadlines"])
+    assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "obligation", "intake", "spend", "deadline"}
+
+    deadline_route = client.get(f"/api/legal-ops/matters/{matter_id}/deadlines", headers=viewer_workspace)
+    assert deadline_route.status_code == 200
+    assert {item["kind"] for item in deadline_route.json()} >= deadline_kinds
+    assert client.get(f"/api/legal-ops/matters/{matter_id}/deadlines", headers=outsider_workspace).status_code == 404
 
     brief = client.post(f"/api/legal-ops/matters/{matter_id}/brief", headers=viewer_workspace)
     assert brief.status_code == 200
@@ -196,13 +205,16 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert "Check confidentiality carve-outs" in brief_data["brief"]
     assert "Vendor Mutual NDA" in brief_data["brief"]
     assert "Return confidential material after termination" in brief_data["brief"]
+    assert "Deadline Calendar" in brief_data["brief"]
+    assert "File NDA redline response." in brief_data["brief"]
     assert "NDA review checklist" in brief_data["brief"]
     assert "Playbooks are team guidance, not legal authority" in brief_data["brief"]
     assert "not verify legal merits" in brief_data["brief"]
-    assert {source["kind"] for source in brief_data["sources"]} >= {"matter", "intake", "note", "task", "contract", "obligation", "document", "playbook"}
+    assert {source["kind"] for source in brief_data["sources"]} >= {"matter", "intake", "note", "task", "contract", "obligation", "document", "playbook", "deadline"}
     assert brief_data["generated_from"]["documents"] == 1
     assert brief_data["generated_from"]["obligations"] == 1
     assert brief_data["generated_from"]["playbooks"] == 1
+    assert brief_data["generated_from"]["deadlines"] >= 5
 
     draft = client.post(
         f"/api/legal-ops/matters/{matter_id}/draft",
@@ -358,6 +370,10 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert data["summary"]["pending_signature_contracts"] == 1
     assert data["summary"]["open_contract_obligations"] == 1
     assert data["summary"]["overdue_contract_obligations"] == 0
+    assert data["summary"]["open_matter_deadlines"] >= 4
+    assert data["summary"]["matter_deadlines_due_14_days"] >= 1
+    assert {item["kind"] for item in data["matter_deadlines"]} >= {"task", "contract_renewal", "obligation", "invoice", "document_deadline"}
+    assert any(item["description"] == "File NDA redline response." for item in data["matter_deadlines"])
     assert data["obligations"][0]["id"] == obligation_id
     assert data["contract_reminders"][0]["id"] == contract_id
     assert data["contract_reminders"][0]["reminder_status"] == "due"
@@ -374,6 +390,8 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert report_data["title"] == "Legal Ops Report"
     assert "Executive Snapshot" in report_data["report"]
     assert "Matter Status" in report_data["report"]
+    assert "Matter Deadlines" in report_data["report"]
+    assert "File NDA redline response." in report_data["report"]
     assert "Vendor Spend" in report_data["report"]
     assert "Contractual Obligations" in report_data["report"]
     assert "Playbooks" in report_data["report"]
@@ -391,6 +409,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
         "vendors": 1,
         "spend_entries": 1,
         "playbooks": 1,
+        "matter_deadlines": 5,
     }
     assert client.get("/api/legal-ops/report", headers=outsider_workspace).status_code == 404
 

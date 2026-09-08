@@ -24,6 +24,7 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     documents = detail.get("documents") or []
     notes = detail.get("notes") or []
     playbooks = detail.get("playbooks") or []
+    deadlines = detail.get("deadlines") or []
 
     open_tasks = [task for task in tasks if task.get("status") != "done"]
     open_obligations = [item for item in obligations if item.get("status") not in {"done", "waived"}]
@@ -58,8 +59,30 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
         days = contract.get("days_to_renewal")
         timing = "overdue" if isinstance(days, int) and days < 0 else f"due in {days} days" if isinstance(days, int) else "due"
         next_steps.append(f"- Renewal follow-up: {_compact(contract.get('title'))} ({timing})")
+    urgent_deadlines = [item for item in deadlines if item.get("status") in {"overdue", "due_today", "due"}]
+    for item in urgent_deadlines[:5]:
+        when = _compact(item.get("deadline_date"), "unscheduled")
+        next_steps.append(f"- Deadline: {_compact(item.get('title'), 'Untitled deadline')} ({_compact(item.get('status'), 'scheduled')}, {when})")
     if not next_steps:
-        next_steps.append("- No open task, high-risk contract, or renewal follow-up is recorded.")
+        next_steps.append("- No open task, high-risk contract, renewal follow-up, or urgent deadline is recorded.")
+
+    deadline_lines = []
+    for item in deadlines[:12]:
+        days = item.get("days_until")
+        timing = "overdue" if isinstance(days, int) and days < 0 else f"due in {days} days" if isinstance(days, int) else _compact(item.get("status"), "scheduled")
+        deadline_lines.append(
+            "- "
+            + "; ".join([
+                _compact(item.get("title"), "Untitled deadline"),
+                f"date {_compact(item.get('deadline_date'), 'not recorded')}",
+                f"status {_compact(item.get('status'), 'scheduled')}",
+                f"timing {timing}",
+                f"source {_compact(item.get('source_label'), item.get('kind') or 'record')}",
+                f"description {_compact(item.get('description'), 'not recorded')}",
+            ])
+        )
+    if not deadline_lines:
+        deadline_lines.append("- No dated matter action is recorded.")
 
     source_notes = []
     for intake in intakes[:3]:
@@ -111,6 +134,7 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
         "Matter Brief",
         "Overview\n" + "\n".join(overview),
         "Recommended Follow-Up\n" + "\n".join(next_steps),
+        "Deadline Calendar\n" + "\n".join(deadline_lines),
         "Source Notes\n" + "\n".join(source_notes),
         "Contract Position\n" + "\n".join(contract_lines),
         "Contractual Obligations\n" + "\n".join(obligation_lines),
@@ -128,6 +152,7 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
     sources.extend({"kind": "obligation", "id": item["id"], "label": _compact(item.get("title"), "Obligation")} for item in obligations if item.get("id"))
     sources.extend({"kind": "document", "id": item["id"], "label": _compact(item.get("filename"), "Vault document")} for item in documents if item.get("id"))
     sources.extend({"kind": "playbook", "id": item["id"], "label": _compact(item.get("title"), "Playbook")} for item in playbooks if item.get("id"))
+    sources.extend({"kind": "deadline", "id": str(item["source_id"]), "label": _compact(item.get("title"), "Deadline")} for item in deadlines if item.get("source_id"))
 
     return {
         "matter_id": matter.get("id", ""),
@@ -142,5 +167,6 @@ def build_matter_brief(detail: dict[str, Any]) -> dict[str, Any]:
             "obligations": len(obligations),
             "intakes": len(intakes),
             "playbooks": len(playbooks),
+            "deadlines": len(deadlines),
         },
     }

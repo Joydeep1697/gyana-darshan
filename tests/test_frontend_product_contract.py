@@ -212,6 +212,13 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "Add to draft" in source
     assert "Remove from draft" in source
     assert "selectedMatterDraftPrecedents" in source
+    assert 'id="opsDeadlineCount"' in source
+    assert 'id="matterDeadlineList"' in source
+    assert "Matter deadlines" in source
+    assert "Deadline calendar" in source
+    assert "detail.deadlines" in source
+    assert "matter_deadlines" in source
+    assert '@router.get("/matters/{matter_id}/deadlines"' in Path("app/routers/legal_ops.py").read_text(encoding="utf-8")
     assert "Draft history" in source
     assert "data-matter-draft-id" in source
     assert "data-add-matter-precedent" in source
