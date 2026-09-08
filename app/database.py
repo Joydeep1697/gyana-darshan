@@ -241,6 +241,8 @@ CREATE TABLE IF NOT EXISTS legal_matter_notes (
     matter_id       TEXT NOT NULL REFERENCES legal_matters(id) ON DELETE CASCADE,
     author_user_id  TEXT,
     body            TEXT NOT NULL,
+    link_kind       TEXT DEFAULT '',
+    link_source_id  TEXT DEFAULT '',
     created_at      TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_legal_matter_notes_org ON legal_matter_notes(organization_id);
@@ -449,6 +451,14 @@ class Database:
                     conn.execute(statement)
             conn.execute("UPDATE legal_matter_drafts SET updated_at = created_at WHERE updated_at IS NULL")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_legal_matter_drafts_status ON legal_matter_drafts(review_status)")
+            note_columns = {row["name"] for row in conn.execute("PRAGMA table_info(legal_matter_notes)")}
+            note_migrations = {
+                "link_kind": "ALTER TABLE legal_matter_notes ADD COLUMN link_kind TEXT DEFAULT ''",
+                "link_source_id": "ALTER TABLE legal_matter_notes ADD COLUMN link_source_id TEXT DEFAULT ''",
+            }
+            for column, statement in note_migrations.items():
+                if column not in note_columns:
+                    conn.execute(statement)
 
     @contextmanager
     def connect(self) -> Generator[sqlite3.Connection, None, None]:
@@ -1420,19 +1430,55 @@ class Database:
             )
         return {"id": link_id, "organization_id": organization_id, "matter_id": matter_id, "document_id": document_id, "created_at": now}
 
-    def add_matter_note(self, organization_id: str, matter_id: str, author_user_id: str, body: str) -> dict:
+    def add_matter_note(
+        self,
+        organization_id: str,
+        matter_id: str,
+        author_user_id: str,
+        body: str,
+        link_kind: str = "",
+        link_source_id: str = "",
+    ) -> dict:
         if not self.get_matter(matter_id, organization_id):
             raise ValueError("Matter not found in workspace")
+        allowed_link_kinds = {
+            "",
+            "matter",
+            "task",
+            "contract",
+            "contract_renewal",
+            "contract_expiry",
+            "obligation",
+            "invoice",
+            "document",
+            "document_deadline",
+            "draft",
+            "deadline",
+        }
+        normalized_link_kind = (link_kind or "").strip()[:40]
+        if normalized_link_kind not in allowed_link_kinds:
+            raise ValueError("Unsupported matter note link type")
         note_id = self.new_id()
         now = self.now()
+        note_body = body.strip()[:4000]
+        normalized_link_source_id = (link_source_id or "").strip()[:160]
         with self.connect() as conn:
             conn.execute(
-                """INSERT INTO legal_matter_notes (id, organization_id, matter_id, author_user_id, body, created_at)
-                   VALUES (?, ?, ?, ?, ?, ?)""",
-                (note_id, organization_id, matter_id, author_user_id, body.strip()[:4000], now),
+                """INSERT INTO legal_matter_notes (id, organization_id, matter_id, author_user_id, body, link_kind, link_source_id, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (note_id, organization_id, matter_id, author_user_id, note_body, normalized_link_kind, normalized_link_source_id, now),
             )
             conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, matter_id, organization_id))
-        return {"id": note_id, "organization_id": organization_id, "matter_id": matter_id, "author_user_id": author_user_id, "body": body.strip()[:4000], "created_at": now}
+        return {
+            "id": note_id,
+            "organization_id": organization_id,
+            "matter_id": matter_id,
+            "author_user_id": author_user_id,
+            "body": note_body,
+            "link_kind": normalized_link_kind,
+            "link_source_id": normalized_link_source_id,
+            "created_at": now,
+        }
 
     @staticmethod
     def _decode_matter_draft(row: dict) -> dict:
@@ -1824,7 +1870,7 @@ class Database:
         deadlines = self.list_matter_deadlines(organization_id, matter_id)
         activity = []
         activity.extend({"kind": "document", "id": row["id"], "label": "Document linked", "detail": row["filename"], "timestamp": row["linked_at"]} for row in linked_documents)
-        activity.extend({"kind": "note", "id": row["id"], "label": "Note added", "detail": row["body"], "timestamp": row["created_at"]} for row in notes)
+        activity.extend({"kind": "note", "id": row["id"], "label": "Comment added", "detail": row["body"], "timestamp": row["created_at"], "actor_user_id": row.get("author_user_id"), "link_kind": row.get("link_kind") or "", "link_source_id": row.get("link_source_id") or ""} for row in notes)
         activity.extend({"kind": "task", "id": row["id"], "label": f"Task: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in tasks)
         activity.extend({"kind": "contract", "id": row["id"], "label": f"Contract: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in contracts)
         activity.extend({"kind": "obligation", "id": row["id"], "label": f"Obligation: {row['title']}", "detail": row["status"], "timestamp": row["updated_at"]} for row in obligations)

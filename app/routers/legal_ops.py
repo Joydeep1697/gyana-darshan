@@ -53,7 +53,7 @@ from app.models import (
     LegalTaskResponse,
     LegalTaskUpdate,
 )
-from database.repository import AuditRepository
+from database.repository import AuditRepository, OrganizationRepository
 
 router = APIRouter()
 
@@ -70,6 +70,54 @@ def _not_found() -> HTTPException:
     return HTTPException(status_code=404, detail="Legal operations record not found")
 
 
+def _workspace_members(organization_id: str) -> list[dict]:
+    return OrganizationRepository.list_members(organization_id)
+
+
+def _member_map(members: list[dict]) -> dict[str, dict]:
+    return {member["id"]: member for member in members if member.get("id")}
+
+
+def _validate_assignee(organization_id: str, assignee_user_id: str | None) -> None:
+    if not assignee_user_id:
+        return
+    if assignee_user_id not in _member_map(_workspace_members(organization_id)):
+        raise ValueError("Assignee is not a member of this workspace")
+
+
+def _enrich_task(task: dict, members_by_id: dict[str, dict]) -> dict:
+    assignee = members_by_id.get(task.get("assignee_user_id") or "")
+    return {
+        **task,
+        "assignee_name": (assignee or {}).get("full_name") or "",
+        "assignee_email": (assignee or {}).get("email") or "",
+    }
+
+
+def _enrich_note(note: dict, members_by_id: dict[str, dict]) -> dict:
+    author = members_by_id.get(note.get("author_user_id") or "")
+    return {
+        **note,
+        "author_name": (author or {}).get("full_name") or "",
+        "author_email": (author or {}).get("email") or "",
+    }
+
+
+def _enrich_activity(activity: dict, members_by_id: dict[str, dict]) -> dict:
+    actor = members_by_id.get(activity.get("actor_user_id") or "")
+    return {**activity, "actor_name": (actor or {}).get("full_name") or ""}
+
+
+def _enrich_matter_detail(detail: dict, members: list[dict]) -> dict:
+    members_by_id = _member_map(members)
+    return {
+        **detail,
+        "tasks": [_enrich_task(task, members_by_id) for task in detail.get("tasks") or []],
+        "notes": [_enrich_note(note, members_by_id) for note in detail.get("notes") or []],
+        "activity": [_enrich_activity(item, members_by_id) for item in detail.get("activity") or []],
+    }
+
+
 def _bad_reference(error: ValueError) -> HTTPException:
     return HTTPException(status_code=422, detail=str(error))
 
@@ -83,11 +131,13 @@ async def get_legal_ops_workspace(
 
 
 def _workspace_payload(db: Database, organization_id: str) -> dict:
+    members = _workspace_members(organization_id)
+    members_by_id = _member_map(members)
     return {
         "summary": db.get_legal_ops_summary(organization_id),
         "matters": db.list_matters(organization_id),
         "intakes": db.list_intakes(organization_id),
-        "tasks": db.list_tasks(organization_id),
+        "tasks": [_enrich_task(task, members_by_id) for task in db.list_tasks(organization_id)],
         "contracts": db.list_contract_records(organization_id),
         "obligations": db.list_contract_obligations(organization_id),
         "vendors": db.list_vendors(organization_id),
@@ -95,6 +145,7 @@ def _workspace_payload(db: Database, organization_id: str) -> dict:
         "playbooks": db.list_playbooks(organization_id),
         "contract_reminders": db.list_contract_reminders(organization_id),
         "matter_deadlines": db.list_workspace_matter_deadlines(organization_id),
+        "members": members,
     }
 
 
@@ -170,7 +221,7 @@ async def create_task_from_legal_ops_deadline(
     if not deadline:
         raise _not_found()
     AuditRepository.log_audit("LEGAL_DEADLINE_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"kind": kind, "source_id": source_id, "task_id": task["id"]})
-    return {"deadline": deadline, "task": task}
+    return {"deadline": deadline, "task": _enrich_task(task, _member_map(_workspace_members(organization_id)))}
 
 
 @router.get("/matters/{matter_id}", response_model=LegalMatterDetailResponse)
@@ -182,7 +233,7 @@ async def get_matter_detail(
     detail = db.get_matter_detail(_org_id(workspace), matter_id)
     if not detail:
         raise _not_found()
-    return detail
+    return _enrich_matter_detail(detail, _workspace_members(_org_id(workspace)))
 
 
 @router.get("/matters/{matter_id}/deadlines", response_model=list[LegalMatterDeadlineResponse])
@@ -338,11 +389,11 @@ async def add_matter_note(
 ):
     organization_id = _org_id(workspace)
     try:
-        note = db.add_matter_note(organization_id, matter_id, _user_id(workspace), payload.body)
+        note = db.add_matter_note(organization_id, matter_id, _user_id(workspace), payload.body, link_kind=payload.link_kind, link_source_id=payload.link_source_id)
     except ValueError as error:
         raise _bad_reference(error)
-    AuditRepository.log_audit("LEGAL_MATTER_NOTE_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "note_id": note["id"]})
-    return note
+    AuditRepository.log_audit("LEGAL_MATTER_NOTE_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "note_id": note["id"], "link_kind": note.get("link_kind"), "link_source_id": note.get("link_source_id")})
+    return _enrich_note(note, _member_map(_workspace_members(organization_id)))
 
 
 @router.post("/matters", response_model=LegalMatterResponse, status_code=status.HTTP_201_CREATED)
@@ -442,12 +493,15 @@ async def create_task(
     workspace: dict = Depends(require_workspace_writer),
 ):
     organization_id = _org_id(workspace)
+    task_payload = payload.model_dump(exclude={"title"})
+    task_payload["assignee_user_id"] = task_payload.get("assignee_user_id") or _user_id(workspace)
     try:
-        task = db.create_task(organization_id, payload.title, **payload.model_dump(exclude={"title"}), assignee_user_id=_user_id(workspace))
+        _validate_assignee(organization_id, task_payload.get("assignee_user_id"))
+        task = db.create_task(organization_id, payload.title, **task_payload)
     except ValueError as error:
         raise _bad_reference(error)
     AuditRepository.log_audit("LEGAL_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task["id"], "title": task["title"]})
-    return task
+    return _enrich_task(task, _member_map(_workspace_members(organization_id)))
 
 
 @router.patch("/tasks/{task_id}", response_model=LegalTaskResponse)
@@ -458,14 +512,16 @@ async def update_task(
     workspace: dict = Depends(require_workspace_writer),
 ):
     organization_id = _org_id(workspace)
+    task_payload = payload.model_dump(exclude_unset=True)
     try:
-        task = db.update_task(task_id, organization_id, **payload.model_dump(exclude_unset=True))
+        _validate_assignee(organization_id, task_payload.get("assignee_user_id"))
+        task = db.update_task(task_id, organization_id, **task_payload)
     except ValueError as error:
         raise _bad_reference(error)
     if not task:
         raise _not_found()
     AuditRepository.log_audit("LEGAL_TASK_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task_id})
-    return task
+    return _enrich_task(task, _member_map(_workspace_members(organization_id)))
 
 
 @router.post("/playbooks", response_model=LegalPlaybookResponse, status_code=status.HTTP_201_CREATED)

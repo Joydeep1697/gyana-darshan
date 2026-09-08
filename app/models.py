@@ -303,6 +303,7 @@ class LegalTaskCreate(BaseModel):
     title: str = Field(..., min_length=2, max_length=180)
     matter_id: Optional[str] = None
     priority: str = Field(default="medium", max_length=30)
+    assignee_user_id: Optional[str] = None
     due_date: Optional[str] = Field(default=None, max_length=30)
 
 
@@ -311,6 +312,7 @@ class LegalTaskUpdate(BaseModel):
     matter_id: Optional[str] = None
     status: Optional[str] = Field(default=None, max_length=30)
     priority: Optional[str] = Field(default=None, max_length=30)
+    assignee_user_id: Optional[str] = None
     due_date: Optional[str] = Field(default=None, max_length=30)
 
 
@@ -322,6 +324,8 @@ class LegalTaskResponse(BaseModel):
     status: str = "open"
     priority: str = "medium"
     assignee_user_id: Optional[str] = None
+    assignee_name: str = ""
+    assignee_email: str = ""
     due_date: Optional[str] = None
     created_at: str
     updated_at: str
@@ -534,6 +538,8 @@ class LegalPlaybookResponse(BaseModel):
 
 class LegalMatterNoteCreate(BaseModel):
     body: str = Field(..., min_length=1, max_length=4000)
+    link_kind: str = Field(default="", max_length=40)
+    link_source_id: str = Field(default="", max_length=160)
 
 
 class LegalMatterNoteResponse(BaseModel):
@@ -541,7 +547,11 @@ class LegalMatterNoteResponse(BaseModel):
     organization_id: str
     matter_id: str
     author_user_id: Optional[str] = None
+    author_name: str = ""
+    author_email: str = ""
     body: str
+    link_kind: str = ""
+    link_source_id: str = ""
     created_at: str
 
 
@@ -567,6 +577,10 @@ class LegalMatterActivityResponse(BaseModel):
     label: str
     detail: str = ""
     timestamp: str
+    actor_user_id: Optional[str] = None
+    actor_name: str = ""
+    link_kind: str = ""
+    link_source_id: str = ""
 
 
 class LegalMatterBriefSource(BaseModel):
@@ -701,6 +715,13 @@ class LegalOpsSummary(BaseModel):
     active_playbooks: int = 0
 
 
+class LegalOpsWorkspaceMemberResponse(BaseModel):
+    id: str
+    email: str
+    full_name: str = ""
+    role: str = "VIEWER"
+
+
 class LegalOpsWorkspaceResponse(BaseModel):
     summary: LegalOpsSummary
     matters: list[LegalMatterResponse]
@@ -713,6 +734,7 @@ class LegalOpsWorkspaceResponse(BaseModel):
     playbooks: list[LegalPlaybookResponse] = []
     contract_reminders: list[LegalContractReminderResponse] = []
     matter_deadlines: list[LegalMatterDeadlineResponse] = []
+    members: list[LegalOpsWorkspaceMemberResponse] = []
 
 
 # ── Chat ──────────────────────────────────────────────────────────

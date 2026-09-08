@@ -228,6 +228,24 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "Deadline calendar" in source
     assert "detail.deadlines" in source
     assert "matter_deadlines" in source
+    assert 'id="taskAssigneeSelect"' in source
+    assert "assignee_user_id" in source
+    assert "assignee_name" in source
+    assert "state.ops?.members" in source
+    assert "renderTaskAssigneeOptions" in source
+    assert "Matter comment" in source
+    assert 'id="matterNoteLinkKind"' in source
+    assert 'id="matterNoteLinkSourceId"' in source
+    assert "author_name" in source
+    assert "link_kind" in source
+    assert "link_source_id" in source
+    assert "Activity by date" in source
+    assert "renderMatterActivity" in source
+    assert "actor_name" in source
+    assert "data-deadline-note-kind" in source
+    assert "prepareDeadlineNote" in source
+    assert "bindDeadlineActionButtons" in source
+    assert "Add note" in source
     assert '@router.get("/matters/{matter_id}/deadlines"' in Path("app/routers/legal_ops.py").read_text(encoding="utf-8")
     assert "Draft history" in source
     assert "data-matter-draft-id" in source

@@ -46,6 +46,11 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     owner_workspace = {**owner_headers, "X-Organization-ID": organization_id}
     viewer_workspace = {**viewer_headers, "X-Organization-ID": organization_id}
     outsider_workspace = {**outsider_headers, "X-Organization-ID": organization_id}
+    member_snapshot = client.get("/api/legal-ops/workspace", headers=owner_workspace)
+    assert member_snapshot.status_code == 200
+    members_by_email = {member["email"]: member for member in member_snapshot.json()["members"]}
+    viewer_user_id = members_by_email[viewer_email]["id"]
+    owner_user_id = next(member["id"] for member in member_snapshot.json()["members"] if member["role"] == "OWNER")
 
     matter = client.post(
         "/api/legal-ops/matters",
@@ -63,13 +68,23 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert intake.status_code == 201
     assert intake.json()["matter_id"] == matter_id
 
+    invalid_assignee = client.post(
+        "/api/legal-ops/tasks",
+        json={"title": "Bad assignee", "assignee_user_id": "not-a-workspace-member"},
+        headers=owner_workspace,
+    )
+    assert invalid_assignee.status_code == 422
+
     task = client.post(
         "/api/legal-ops/tasks",
-        json={"title": "Check confidentiality carve-outs", "priority": "high", "matter_id": matter_id, "due_date": "2026-09-10"},
+        json={"title": "Check confidentiality carve-outs", "priority": "high", "matter_id": matter_id, "assignee_user_id": viewer_user_id, "due_date": "2026-09-10"},
         headers=owner_workspace,
     )
     assert task.status_code == 201
     task_id = task.json()["id"]
+    assert task.json()["assignee_user_id"] == viewer_user_id
+    assert task.json()["assignee_email"] == viewer_email
+    assert task.json()["assignee_name"] == "Legal-Ops-Viewer"
 
     renewal_date = (date.today() + timedelta(days=30)).isoformat()
     contract = client.post(
@@ -172,16 +187,29 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     ).status_code == 422
     note = client.post(
         f"/api/legal-ops/matters/{matter_id}/notes",
-        json={"body": "Client prefers a mutual NDA and standard carve-outs."},
+        json={"body": "Client prefers a mutual NDA and standard carve-outs.", "link_kind": "task", "link_source_id": task_id},
         headers=owner_workspace,
     )
     assert note.status_code == 201
+    assert note.json()["author_name"] == "Legal-Ops-Owner"
+    assert note.json()["link_kind"] == "task"
+    assert note.json()["link_source_id"] == task_id
+    assert client.post(
+        f"/api/legal-ops/matters/{matter_id}/notes",
+        json={"body": "Invalid linked note", "link_kind": "unsupported"},
+        headers=owner_workspace,
+    ).status_code == 422
 
     detail = client.get(f"/api/legal-ops/matters/{matter_id}", headers=viewer_workspace)
     assert detail.status_code == 200
     assert detail.json()["documents"][0]["filename"] == "Vendor NDA.pdf"
     assert detail.json()["notes"][0]["body"].startswith("Client prefers")
+    assert detail.json()["notes"][0]["author_name"] == "Legal-Ops-Owner"
+    assert detail.json()["notes"][0]["link_kind"] == "task"
+    assert detail.json()["notes"][0]["link_source_id"] == task_id
     assert detail.json()["tasks"][0]["id"] == task_id
+    assert detail.json()["tasks"][0]["assignee_user_id"] == viewer_user_id
+    assert detail.json()["tasks"][0]["assignee_email"] == viewer_email
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
     assert detail.json()["obligations"][0]["title"] == "Return confidential material after termination"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
@@ -190,6 +218,10 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert deadline_kinds >= {"task", "contract_renewal", "obligation", "invoice", "document_deadline"}
     assert any(item["description"] == "File NDA redline response." for item in detail.json()["deadlines"])
     assert {item["kind"] for item in detail.json()["activity"]} >= {"document", "note", "task", "contract", "obligation", "intake", "spend", "deadline"}
+    note_activity = next(item for item in detail.json()["activity"] if item["kind"] == "note")
+    assert note_activity["actor_name"] == "Legal-Ops-Owner"
+    assert note_activity["link_kind"] == "task"
+    assert note_activity["link_source_id"] == task_id
 
     deadline_route = client.get(f"/api/legal-ops/matters/{matter_id}/deadlines", headers=viewer_workspace)
     assert deadline_route.status_code == 200
@@ -359,6 +391,12 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert {item["kind"] for item in obligation_search.json()["results"]} >= {"obligation"}
     assert client.get("/api/legal-ops/search", params={"q": "x"}, headers=viewer_workspace).status_code == 422
 
+    bad_reassignment = client.patch(f"/api/legal-ops/tasks/{task_id}", json={"assignee_user_id": "not-a-workspace-member"}, headers=owner_workspace)
+    assert bad_reassignment.status_code == 422
+    reassigned_task = client.patch(f"/api/legal-ops/tasks/{task_id}", json={"assignee_user_id": owner_user_id}, headers=owner_workspace)
+    assert reassigned_task.status_code == 200
+    assert reassigned_task.json()["assignee_user_id"] == owner_user_id
+    assert reassigned_task.json()["assignee_name"] == "Legal-Ops-Owner"
     updated_task = client.patch(f"/api/legal-ops/tasks/{task_id}", json={"status": "done"}, headers=owner_workspace)
     assert updated_task.status_code == 200
     assert updated_task.json()["status"] == "done"
@@ -374,6 +412,9 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert [item["title"] for item in data["matters"]] == ["Vendor NDA review"]
     assert [item["title"] for item in data["intakes"]] == ["Need NDA review"]
     assert [item["title"] for item in data["tasks"]] == ["Check confidentiality carve-outs"]
+    assert data["tasks"][0]["assignee_user_id"] == owner_user_id
+    assert data["tasks"][0]["assignee_name"] == "Legal-Ops-Owner"
+    assert {member["email"] for member in data["members"]} >= {viewer_email}
     assert [item["title"] for item in data["contracts"]] == ["Vendor Mutual NDA"]
     assert data["summary"]["high_risk_contracts"] == 1
     assert data["summary"]["tasks_by_status"]["done"] == 1
