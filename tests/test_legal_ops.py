@@ -220,6 +220,10 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail_tasks[task_id]["assignee_email"] == viewer_email
     assert detail_tasks[undated_task_id]["assignee_user_id"] == viewer_user_id
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
+    assert client.patch(f"/api/legal-ops/matters/{matter_id}", json={"status": "waiting"}, headers=viewer_workspace).status_code == 403
+    moved_matter = client.patch(f"/api/legal-ops/matters/{matter_id}", json={"status": "in_review"}, headers=owner_workspace)
+    assert moved_matter.status_code == 200
+    assert moved_matter.json()["status"] == "in_review"
     assert detail.json()["obligations"][0]["title"] == "Return confidential material after termination"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
     assert detail.json()["playbooks"][0]["title"] == "NDA review checklist"
@@ -456,6 +460,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert workspace.status_code == 200
     data = workspace.json()
     assert [item["title"] for item in data["matters"]] == ["Vendor NDA review"]
+    assert data["matters"][0]["status"] == "in_review"
     assert [item["title"] for item in data["intakes"]] == ["Need NDA review"]
     assert {item["title"] for item in data["tasks"]} >= {"Check confidentiality carve-outs", "Confirm signature owner"}
     workspace_tasks = {item["id"]: item for item in data["tasks"]}

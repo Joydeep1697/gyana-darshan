@@ -216,6 +216,19 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="matterDeadlineList"' in source
     assert 'id="opsAlertCount"' in source
     assert 'id="opsAlertList"' in source
+    assert "Workload board" in source
+    assert 'id="workloadBoardFilters"' in source
+    assert 'id="workloadAssigneeFilter"' in source
+    assert 'id="workloadPriorityFilter"' in source
+    assert 'id="matterWorkloadBoard"' in source
+    assert 'id="taskWorkloadBoard"' in source
+    assert "renderWorkloadBoard" in source
+    assert "boardMatchesMatter" in source
+    assert "boardMatchesTask" in source
+    assert "data-board-matter-status" in source
+    assert "data-board-task-status" in source
+    assert "updateLegalMatter" in source
+    assert "/api/legal-ops/matters/${encodeURIComponent(id)}" in source
     assert "Action alerts" in source
     assert "action_alerts" in source
     assert "renderActionAlert" in source
