@@ -741,6 +741,7 @@ async def create_contract(
     workspace: dict = Depends(require_workspace_writer),
 ):
     organization_id = _org_id(workspace)
+    _validate_assignee(organization_id, payload.signature_owner_user_id)
     try:
         contract = db.create_contract_record(organization_id, payload.title, **payload.model_dump(exclude={"title"}))
     except ValueError as error:
@@ -757,6 +758,7 @@ async def update_contract(
     workspace: dict = Depends(require_workspace_writer),
 ):
     organization_id = _org_id(workspace)
+    _validate_assignee(organization_id, payload.signature_owner_user_id)
     try:
         contract = db.update_contract_record(contract_id, organization_id, **payload.model_dump(exclude_unset=True))
     except ValueError as error:
