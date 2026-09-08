@@ -456,6 +456,22 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert task_id not in {item["source_id"] for item in owner_assigned_alerts.json()}
     assert client.get("/api/legal-ops/alerts", headers=outsider_workspace).status_code == 404
 
+    digest = client.get("/api/legal-ops/notifications/digest", headers=owner_workspace)
+    assert digest.status_code == 200
+    digest_payload = digest.json()
+    assert digest_payload["title"] == "Legal Ops Notification Digest"
+    assert "Priority alerts" in digest_payload["digest"]
+    assert "delivery confirmation" in digest_payload["digest"]
+    assert digest_payload["generated_from"]["tasks"] >= 1
+
+    calendar = client.get("/api/legal-ops/deadlines/calendar.ics", headers=viewer_workspace)
+    assert calendar.status_code == 200
+    assert calendar.headers["content-type"].startswith("text/calendar")
+    calendar_text = calendar.text
+    assert "BEGIN:VCALENDAR" in calendar_text
+    assert "BEGIN:VEVENT" in calendar_text
+    assert "SUMMARY:Obligation: Return confidential material after termination" in calendar_text
+
     workspace = client.get("/api/legal-ops/workspace", headers=viewer_workspace)
     assert workspace.status_code == 200
     data = workspace.json()

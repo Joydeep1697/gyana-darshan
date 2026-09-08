@@ -10,6 +10,7 @@ from app.database import Database, get_db
 from app.intelligence.matter_brief import build_matter_brief
 from app.intelligence.legal_brief import build_grounded_matter_draft
 from app.intelligence.legal_ops_report import build_legal_ops_report
+from app.intelligence.legal_ops_notifications import build_legal_ops_calendar_ics, build_legal_ops_notification_digest
 from app.exports.legal_memo import matter_draft_docx, matter_draft_markdown
 from app.models import (
     LegalContractCreate,
@@ -44,6 +45,7 @@ from app.models import (
     LegalMatterNoteResponse,
     LegalMatterUpdate,
     LegalOpsReportResponse,
+    LegalOpsNotificationDigestResponse,
     LegalOpsSearchResponse,
     LegalPlaybookCreate,
     LegalPlaybookResponse,
@@ -245,6 +247,24 @@ async def get_legal_ops_report(
     return build_legal_ops_report(_workspace_payload(db, _org_id(workspace)))
 
 
+@router.get("/notifications/digest", response_model=LegalOpsNotificationDigestResponse)
+async def get_legal_ops_notification_digest(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return build_legal_ops_notification_digest(_workspace_payload(db, _org_id(workspace)))
+
+
+@router.get("/deadlines/calendar.ics")
+async def export_legal_ops_deadline_calendar(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return Response(
+        content=build_legal_ops_calendar_ics(_workspace_payload(db, _org_id(workspace))),
+        media_type="text/calendar",
+        headers={"Content-Disposition": 'attachment; filename="nyaya-legal-ops-calendar.ics"'},
+    )
 
 
 @router.get("/search", response_model=LegalOpsSearchResponse)

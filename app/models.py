@@ -651,6 +651,12 @@ class LegalOpsReportResponse(BaseModel):
     generated_from: dict[str, int]
 
 
+class LegalOpsNotificationDigestResponse(BaseModel):
+    title: str
+    digest: str
+    generated_from: dict[str, int]
+
+
 class LegalMatterDeadlineTaskCreateResponse(BaseModel):
     deadline: LegalMatterDeadlineResponse
     task: LegalTaskResponse

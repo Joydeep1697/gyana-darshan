@@ -241,6 +241,16 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "updateLegalMatter" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(id)}" in source
     assert "Action alerts" in source
+    assert "Notification digest" in source
+    assert 'id="generateOpsDigestButton"' in source
+    assert 'id="downloadOpsDigestButton"' in source
+    assert 'id="downloadOpsCalendarButton"' in source
+    assert 'id="opsDigestResult"' in source
+    assert "generateLegalOpsDigest" in source
+    assert "downloadLegalOpsDigest" in source
+    assert "downloadLegalOpsCalendar" in source
+    assert "/api/legal-ops/notifications/digest" in source
+    assert "/api/legal-ops/deadlines/calendar.ics" in source
     assert "action_alerts" in source
     assert "renderActionAlert" in source
     assert "open_action_alerts" in source
@@ -256,6 +266,8 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/legal-ops/alerts/${encodeURIComponent(alertId)}/resolve" in source
     assert "assigned tasks" in source.lower()
     router_source = Path("app/routers/legal_ops.py").read_text(encoding="utf-8")
+    assert '@router.get("/notifications/digest"' in router_source
+    assert '@router.get("/deadlines/calendar.ics"' in router_source
     assert '@router.get("/alerts"' in router_source
     assert '@router.post("/alerts/{alert_id}/task"' in router_source
     assert '@router.post("/alerts/{alert_id}/note"' in router_source
