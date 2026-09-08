@@ -27,6 +27,7 @@ from app.models import (
     LegalMatterBriefResponse,
     LegalMatterDraftListResponse,
     LegalMatterDraftRequest,
+    LegalMatterDraftReviewUpdate,
     LegalMatterDraftResponse,
     LegalMatterDetailResponse,
     LegalMatterDocumentLinkCreate,
@@ -185,6 +186,29 @@ async def get_grounded_matter_draft(
     draft = db.get_matter_draft(_org_id(workspace), matter_id, draft_id)
     if not draft:
         raise _not_found()
+    return draft
+
+
+@router.patch("/matters/{matter_id}/drafts/{draft_id}", response_model=LegalMatterDraftResponse)
+async def update_grounded_matter_draft_review(
+    matter_id: str,
+    draft_id: str,
+    payload: LegalMatterDraftReviewUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    draft = db.update_matter_draft_review(
+        organization_id,
+        matter_id,
+        draft_id,
+        _user_id(workspace),
+        payload.review_status,
+        payload.reviewer_note,
+    )
+    if not draft:
+        raise _not_found()
+    AuditRepository.log_audit("LEGAL_MATTER_DRAFT_REVIEW_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"matter_id": matter_id, "draft_id": draft_id, "review_status": draft["review_status"]})
     return draft
 
 

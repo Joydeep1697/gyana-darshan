@@ -285,3 +285,36 @@ Restore the helper's call to `deterministic_grounded_answer`, return its guardra
 - `api/conversations/router.py`
 - `app/test_app_endpoints.py`
 - `tests/test_auth_and_conversations.py`
+
+## Draft review migration index ran before column migration
+
+### Problem
+Focused Legal Ops tests failed while initializing the app database after adding draft review lifecycle fields.
+
+### Evidence
+`sqlite3.OperationalError: no such column: review_status` occurred inside `conn.executescript(_SCHEMA)` before compatibility migrations ran.
+
+### Hypothesis
+The schema tried to create an index on a new column for existing databases whose `legal_matter_drafts` table had already been created without that column.
+
+### Attempt
+Added `review_status` and related fields to the `CREATE TABLE IF NOT EXISTS legal_matter_drafts` block, plus guarded `ALTER TABLE` migrations.
+
+### Result
+Older databases still failed before the guarded migrations could run because `_SCHEMA` also tried to create `idx_legal_matter_drafts_status`.
+
+### Why it failed
+`CREATE TABLE IF NOT EXISTS` does not add columns to an existing table, and `CREATE INDEX IF NOT EXISTS ... (review_status)` still requires the column to already exist.
+
+### New information learned
+Indexes on newly migrated columns must be created after the guarded `ALTER TABLE` block when the table may already exist.
+
+### Do not repeat
+Do not add indexes on new columns directly inside `_SCHEMA` for tables that already exist in released local databases.
+
+### Correct resolution
+Move `idx_legal_matter_drafts_status` creation to `_init_schema()` after the guarded draft-column migrations and `updated_at` backfill.
+
+### Relevant files
+- `app/database.py`
+- `tests/test_legal_ops.py`

@@ -111,7 +111,14 @@ def consultation_docx(conversation: dict, messages: list[dict]) -> bytes:
 
 def matter_draft_markdown(draft: dict) -> str:
     """Export a grounded matter draft without dropping its review limits."""
-    lines = [f"# {draft.get('title', 'Grounded matter draft')}", "", draft.get("draft", ""), "", "## Evidence record", ""]
+    lines = [
+        f"# {draft.get('title', 'Grounded matter draft')}",
+        "",
+        f"Review status: {draft.get('review_status', 'draft')}",
+    ]
+    if draft.get("reviewer_note"):
+        lines.extend([f"Reviewer note: {draft['reviewer_note']}"])
+    lines.extend(["", draft.get("draft", ""), "", "## Evidence record", ""])
     for source in draft.get("sources") or []:
         lines.append(f"- **{source.get('label', 'Source')}** ({source.get('citation', '')}; {source.get('status', '')})")
         if source.get("excerpt"):
@@ -120,7 +127,10 @@ def matter_draft_markdown(draft: dict) -> str:
 
 
 def matter_draft_docx(draft: dict) -> bytes:
-    content = draft.get("draft", "")
+    review_lines = [f"Review status: {draft.get('review_status', 'draft')}"]
+    if draft.get("reviewer_note"):
+        review_lines.append(f"Reviewer note: {draft['reviewer_note']}")
+    content = "\n".join(review_lines + ["", draft.get("draft", "")])
     sources = draft.get("sources") or []
     if sources:
         evidence_lines = ["", "Evidence record"]

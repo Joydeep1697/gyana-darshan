@@ -215,6 +215,8 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert draft_data["id"]
     draft_id = draft_data["id"]
     assert draft_data["organization_id"] == organization_id
+    assert draft_data["review_status"] == "draft"
+    assert draft_data["reviewer_note"] == ""
     assert "Grounded draft" in draft_data["title"]
     assert "Recorded matter facts" in draft_data["draft"]
     assert "Review flags" in draft_data["draft"]
@@ -231,20 +233,59 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
         headers=viewer_workspace,
     ).status_code == 403
 
+    reviewed_draft = client.patch(
+        f"/api/legal-ops/matters/{matter_id}/drafts/{draft_id}",
+        json={"review_status": "reviewed", "reviewer_note": "Authorities checked for internal discussion."},
+        headers=owner_workspace,
+    )
+    assert reviewed_draft.status_code == 200
+    assert reviewed_draft.json()["review_status"] == "reviewed"
+    assert reviewed_draft.json()["reviewer_note"] == "Authorities checked for internal discussion."
+    assert reviewed_draft.json()["reviewed_by_user_id"]
+    assert reviewed_draft.json()["reviewed_at"]
+    assert client.patch(
+        f"/api/legal-ops/matters/{matter_id}/drafts/{draft_id}",
+        json={"review_status": "approved", "reviewer_note": "Viewer cannot approve."},
+        headers=viewer_workspace,
+    ).status_code == 403
+
+    approved_draft = client.patch(
+        f"/api/legal-ops/matters/{matter_id}/drafts/{draft_id}",
+        json={"review_status": "approved", "reviewer_note": "Approved for supervised use."},
+        headers=owner_workspace,
+    )
+    assert approved_draft.status_code == 200
+    assert approved_draft.json()["review_status"] == "approved"
+    second_draft = client.post(
+        f"/api/legal-ops/matters/{matter_id}/draft",
+        json={"prompt": "Updated draft with same precedent", "precedent_ids": [precedent_record["id"]]},
+        headers=owner_workspace,
+    )
+    assert second_draft.status_code == 200
+    second_draft_id = second_draft.json()["id"]
+    assert client.patch(
+        f"/api/legal-ops/matters/{matter_id}/drafts/{second_draft_id}",
+        json={"review_status": "approved", "reviewer_note": "New approved version."},
+        headers=owner_workspace,
+    ).status_code == 200
+
     draft_history = client.get(f"/api/legal-ops/matters/{matter_id}/drafts", headers=viewer_workspace)
     assert draft_history.status_code == 200
-    assert draft_history.json()["total"] == 1
-    assert draft_history.json()["drafts"][0]["id"] == draft_id
-    assert draft_history.json()["drafts"][0]["sources"] == draft_data["sources"]
+    assert draft_history.json()["total"] == 2
+    history_by_id = {item["id"]: item for item in draft_history.json()["drafts"]}
+    assert history_by_id[draft_id]["review_status"] == "superseded"
+    assert history_by_id[second_draft_id]["review_status"] == "approved"
+    assert history_by_id[draft_id]["sources"] == draft_data["sources"]
 
     reopened_draft = client.get(f"/api/legal-ops/matters/{matter_id}/drafts/{draft_id}", headers=viewer_workspace)
     assert reopened_draft.status_code == 200
     assert reopened_draft.json()["draft"] == draft_data["draft"]
     assert reopened_draft.json()["generated_from"] == draft_data["generated_from"]
+    assert reopened_draft.json()["review_status"] == "superseded"
 
     detail_after_draft = client.get(f"/api/legal-ops/matters/{matter_id}", headers=viewer_workspace)
     assert detail_after_draft.status_code == 200
-    assert detail_after_draft.json()["drafts"][0]["id"] == draft_id
+    assert {item["id"] for item in detail_after_draft.json()["drafts"]} >= {draft_id, second_draft_id}
     assert "draft" in {item["kind"] for item in detail_after_draft.json()["activity"]}
 
     markdown = client.post(
@@ -256,6 +297,8 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert "Grounded draft" in markdown.text
     assert draft_data["draft"] in markdown.text
     assert "Vendor Confidentiality Authority v State" in markdown.text
+    assert "Review status: superseded" in markdown.text
+    assert "Approved for supervised use." in markdown.text
 
     docx = client.post(
         f"/api/legal-ops/matters/{matter_id}/draft/export?format=docx&draft_id={draft_id}",
@@ -267,6 +310,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     with ZipFile(BytesIO(docx.content)) as archive:
         document_xml = archive.read("word/document.xml").decode("utf-8")
     assert "Evidence record" in document_xml
+    assert "Review status: superseded" in document_xml
 
     assert client.get(f"/api/legal-ops/matters/{matter_id}/drafts", headers=outsider_workspace).status_code == 404
     assert client.get(f"/api/legal-ops/matters/{matter_id}/drafts/{draft_id}", headers=outsider_workspace).status_code == 404

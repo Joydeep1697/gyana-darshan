@@ -197,6 +197,13 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="matterDraftButton"' in source
     assert 'id="matterDraftMarkdownButton"' in source
     assert 'id="matterDraftDocxButton"' in source
+    assert 'id="matterDraftReviewForm"' in source
+    assert 'id="matterDraftReviewStatus"' in source
+    assert 'id="matterDraftReviewerNote"' in source
+    assert "Save review" in source
+    assert "updateMatterDraftReview" in source
+    assert "review_status" in source
+    assert "reviewer_note" in source
     assert 'id="matterPrecedentSearchForm"' in source
     assert 'id="matterPrecedentSearchInput"' in source
     assert 'id="selectedMatterPrecedents"' in source
@@ -213,6 +220,7 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "loadMatterDraft" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/draft" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/drafts/${encodeURIComponent(draftId)}" in source
+    assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/drafts/${encodeURIComponent(draft.id)}" in source
     assert "/draft/export?format=" in source
     assert "&draft_id=${encodeURIComponent(state.activeMatterDraft.id)}" in source
     assert "precedent_ids:state.selectedMatterDraftPrecedents.map(item=>item.id)" in source

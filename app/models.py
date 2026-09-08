@@ -604,16 +604,26 @@ class LegalMatterDraftResponse(BaseModel):
     title: str
     question: str
     draft: str
+    review_status: str = "draft"
+    reviewer_note: str = ""
     sources: list[LegalMatterDraftEvidence]
     unsupported_claims: list[str] = []
     generated_from: dict[str, int]
     created_by_user_id: Optional[str] = None
+    reviewed_by_user_id: Optional[str] = None
+    reviewed_at: Optional[str] = None
     created_at: Optional[str] = None
+    updated_at: Optional[str] = None
 
 
 class LegalMatterDraftListResponse(BaseModel):
     drafts: list[LegalMatterDraftResponse]
     total: int
+
+
+class LegalMatterDraftReviewUpdate(BaseModel):
+    review_status: str = Field(default="reviewed", max_length=30)
+    reviewer_note: str = Field(default="", max_length=4000)
 
 
 class LegalOpsReportResponse(BaseModel):

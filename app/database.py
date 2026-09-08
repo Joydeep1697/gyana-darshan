@@ -254,11 +254,16 @@ CREATE TABLE IF NOT EXISTS legal_matter_drafts (
     title               TEXT NOT NULL,
     question            TEXT DEFAULT '',
     draft               TEXT NOT NULL,
+    review_status       TEXT DEFAULT 'draft',
+    reviewer_note       TEXT DEFAULT '',
     sources_json        TEXT DEFAULT '[]',
     unsupported_json    TEXT DEFAULT '[]',
     generated_from_json TEXT DEFAULT '{}',
     created_by_user_id  TEXT,
-    created_at          TEXT NOT NULL
+    reviewed_by_user_id TEXT,
+    reviewed_at         TEXT,
+    created_at          TEXT NOT NULL,
+    updated_at          TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_legal_matter_drafts_org ON legal_matter_drafts(organization_id);
 CREATE INDEX IF NOT EXISTS idx_legal_matter_drafts_matter ON legal_matter_drafts(matter_id);
@@ -431,6 +436,19 @@ class Database:
             if "organization_id" not in gap_columns:
                 conn.execute("ALTER TABLE compliance_gaps ADD COLUMN organization_id TEXT")
             conn.execute("CREATE INDEX IF NOT EXISTS idx_compliance_gaps_org ON compliance_gaps(organization_id)")
+            draft_columns = {row["name"] for row in conn.execute("PRAGMA table_info(legal_matter_drafts)")}
+            draft_migrations = {
+                "review_status": "ALTER TABLE legal_matter_drafts ADD COLUMN review_status TEXT DEFAULT 'draft'",
+                "reviewer_note": "ALTER TABLE legal_matter_drafts ADD COLUMN reviewer_note TEXT DEFAULT ''",
+                "reviewed_by_user_id": "ALTER TABLE legal_matter_drafts ADD COLUMN reviewed_by_user_id TEXT",
+                "reviewed_at": "ALTER TABLE legal_matter_drafts ADD COLUMN reviewed_at TEXT",
+                "updated_at": "ALTER TABLE legal_matter_drafts ADD COLUMN updated_at TEXT",
+            }
+            for column, statement in draft_migrations.items():
+                if column not in draft_columns:
+                    conn.execute(statement)
+            conn.execute("UPDATE legal_matter_drafts SET updated_at = created_at WHERE updated_at IS NULL")
+            conn.execute("CREATE INDEX IF NOT EXISTS idx_legal_matter_drafts_status ON legal_matter_drafts(review_status)")
 
     @contextmanager
     def connect(self) -> Generator[sqlite3.Connection, None, None]:
@@ -1369,11 +1387,16 @@ class Database:
             "title": row["title"],
             "question": row.get("question") or "",
             "draft": row["draft"],
+            "review_status": row.get("review_status") or "draft",
+            "reviewer_note": row.get("reviewer_note") or "",
             "sources": json.loads(row.get("sources_json") or "[]"),
             "unsupported_claims": json.loads(row.get("unsupported_json") or "[]"),
             "generated_from": json.loads(row.get("generated_from_json") or "{}"),
             "created_by_user_id": row.get("created_by_user_id"),
+            "reviewed_by_user_id": row.get("reviewed_by_user_id"),
+            "reviewed_at": row.get("reviewed_at"),
             "created_at": row["created_at"],
+            "updated_at": row.get("updated_at") or row["created_at"],
         }
 
     def save_matter_draft(self, organization_id: str, matter_id: str, user_id: str, draft: dict) -> dict:
@@ -1384,8 +1407,8 @@ class Database:
         with self.connect() as conn:
             conn.execute(
                 """INSERT INTO legal_matter_drafts
-                   (id, organization_id, matter_id, title, question, draft, sources_json, unsupported_json, generated_from_json, created_by_user_id, created_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                   (id, organization_id, matter_id, title, question, draft, review_status, reviewer_note, sources_json, unsupported_json, generated_from_json, created_by_user_id, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
                     draft_id,
                     organization_id,
@@ -1393,10 +1416,13 @@ class Database:
                     str(draft.get("title") or "Grounded matter draft")[:180],
                     str(draft.get("question") or "")[:3000],
                     str(draft.get("draft") or ""),
+                    "draft",
+                    "",
                     json.dumps(draft.get("sources") or []),
                     json.dumps(draft.get("unsupported_claims") or []),
                     json.dumps(draft.get("generated_from") or {}),
                     user_id,
+                    now,
                     now,
                 ),
             )
@@ -1412,6 +1438,31 @@ class Database:
                 (draft_id, organization_id, matter_id),
             ).fetchone()
         return self._decode_matter_draft(dict(row)) if row else None
+
+    def update_matter_draft_review(self, organization_id: str, matter_id: str, draft_id: str, reviewer_user_id: str, review_status: str, reviewer_note: str = "") -> Optional[dict]:
+        if not self.get_matter(matter_id, organization_id):
+            return None
+        status = self._bounded(review_status, "reviewed", {"draft", "reviewed", "approved", "superseded"})
+        now = self.now()
+        note = (reviewer_note or "").strip()[:4000]
+        with self.connect() as conn:
+            if status == "approved":
+                conn.execute(
+                    """UPDATE legal_matter_drafts
+                       SET review_status = 'superseded', updated_at = ?
+                       WHERE organization_id = ? AND matter_id = ? AND id != ? AND review_status = 'approved'""",
+                    (now, organization_id, matter_id, draft_id),
+                )
+            cur = conn.execute(
+                """UPDATE legal_matter_drafts
+                   SET review_status = ?, reviewer_note = ?, reviewed_by_user_id = ?, reviewed_at = ?, updated_at = ?
+                   WHERE id = ? AND organization_id = ? AND matter_id = ?""",
+                (status, note, reviewer_user_id, now, now, draft_id, organization_id, matter_id),
+            )
+            if cur.rowcount == 0:
+                return None
+            conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (now, matter_id, organization_id))
+        return self.get_matter_draft(organization_id, matter_id, draft_id)
 
     def list_matter_drafts(self, organization_id: str, matter_id: str, limit: int = 25) -> list[dict]:
         if not self.get_matter(matter_id, organization_id):
