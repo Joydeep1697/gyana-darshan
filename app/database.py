@@ -1982,6 +1982,25 @@ class Database:
         updated = self.update_intake(intake_id, organization_id, matter_id=matter["id"], status="in_progress")
         return {"intake": updated, "matter": matter} if updated else None
 
+    def create_task_from_intake(self, organization_id: str, intake_id: str, assignee_user_id: str) -> tuple[dict, dict]:
+        intake = self.get_intake(intake_id, organization_id)
+        if not intake:
+            raise ValueError("Intake request not found in workspace")
+        urgency = (intake.get("urgency") or "medium").strip().lower()
+        priority = self._bounded(urgency, "medium", {"low", "medium", "high", "critical"})
+        title = f"Triage intake: {intake.get('title') or 'Legal request'}"[:180]
+        task = self.create_task(
+            organization_id,
+            title,
+            matter_id=intake.get("matter_id"),
+            priority=priority,
+            assignee_user_id=assignee_user_id,
+        )
+        updated_status = intake.get("status") or "new"
+        if not intake.get("matter_id") and updated_status == "new":
+            intake = self.update_intake(intake_id, organization_id, status="triaged") or intake
+        return intake, task
+
     def create_task(self, organization_id: str, title: str, **kwargs: Any) -> dict:
         matter_id = kwargs.get("matter_id")
         if matter_id and not self.get_matter(matter_id, organization_id):

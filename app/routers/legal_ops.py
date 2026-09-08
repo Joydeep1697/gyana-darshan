@@ -21,6 +21,7 @@ from app.models import (
     LegalIntakeCreate,
     LegalIntakeConvertRequest,
     LegalIntakeConvertResponse,
+    LegalIntakeTaskCreateResponse,
     LegalIntakeResponse,
     LegalIntakeUpdate,
     LegalMatterCreate,
@@ -571,6 +572,21 @@ async def convert_intake_to_matter(
         metadata={"intake_id": intake_id, "matter_id": converted["matter"]["id"]},
     )
     return converted
+
+
+@router.post("/intake/{intake_id}/task", response_model=LegalIntakeTaskCreateResponse, status_code=status.HTTP_201_CREATED)
+async def create_task_from_intake(
+    intake_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        intake, task = db.create_task_from_intake(organization_id, intake_id, assignee_user_id=_user_id(workspace))
+    except ValueError as error:
+        raise _bad_reference(error)
+    AuditRepository.log_audit("LEGAL_INTAKE_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"intake_id": intake_id, "task_id": task.get("id")})
+    return {"intake": intake, "task": _enrich_task(task, _member_map(_workspace_members(organization_id)))}
 
 
 @router.post("/tasks", response_model=LegalTaskResponse, status_code=status.HTTP_201_CREATED)

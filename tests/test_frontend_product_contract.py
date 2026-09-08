@@ -216,6 +216,17 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="matterDeadlineList"' in source
     assert 'id="opsAlertCount"' in source
     assert 'id="opsAlertList"' in source
+    assert "Intake triage board" in source
+    assert 'id="intakeBoardFilters"' in source
+    assert 'id="intakeStatusFilter"' in source
+    assert 'id="intakeUrgencyFilter"' in source
+    assert 'id="intakeTriageBoard"' in source
+    assert "renderIntakeTriageBoard" in source
+    assert "intakeBoardStatus" in source
+    assert "renderIntakeActions" in source
+    assert "data-intake-task" in source
+    assert "createTaskFromIntake" in source
+    assert "/api/legal-ops/intake/${encodeURIComponent(id)}/task" in source
     assert "Workload board" in source
     assert 'id="workloadBoardFilters"' in source
     assert 'id="workloadAssigneeFilter"' in source
@@ -249,6 +260,7 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert '@router.post("/alerts/{alert_id}/task"' in router_source
     assert '@router.post("/alerts/{alert_id}/note"' in router_source
     assert '@router.post("/alerts/{alert_id}/resolve"' in router_source
+    assert '@router.post("/intake/{intake_id}/task"' in router_source
     assert 'id="matterDeadlineWindowFilter"' in source
     assert 'id="matterDeadlineKindFilter"' in source
     assert "filteredMatterDeadlines" in source

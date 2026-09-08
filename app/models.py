@@ -299,6 +299,11 @@ class LegalIntakeConvertResponse(BaseModel):
     matter: LegalMatterResponse
 
 
+class LegalIntakeTaskCreateResponse(BaseModel):
+    intake: LegalIntakeResponse
+    task: "LegalTaskResponse"
+
+
 class LegalTaskCreate(BaseModel):
     title: str = Field(..., min_length=2, max_length=180)
     matter_id: Optional[str] = None

@@ -605,6 +605,15 @@ def test_legal_ops_intake_can_be_triaged_into_a_matter_once():
     assert intake.status_code == 201
     intake_id = intake.json()["id"]
 
+    assert client.post(f"/api/legal-ops/intake/{intake_id}/task", headers=viewer_workspace).status_code == 403
+    triage_task = client.post(f"/api/legal-ops/intake/{intake_id}/task", headers=owner_workspace)
+    assert triage_task.status_code == 201
+    triage_payload = triage_task.json()
+    assert triage_payload["intake"]["status"] == "triaged"
+    assert triage_payload["task"]["title"] == "Triage intake: Employee data request"
+    assert triage_payload["task"]["priority"] == "high"
+    assert triage_payload["task"]["assignee_email"]
+
     assert client.post(f"/api/legal-ops/intake/{intake_id}/convert", json={}, headers=viewer_workspace).status_code == 403
 
     converted = client.post(
@@ -629,3 +638,6 @@ def test_legal_ops_intake_can_be_triaged_into_a_matter_once():
     workspace = client.get("/api/legal-ops/workspace", headers=owner_workspace).json()
     assert [matter["id"] for matter in workspace["matters"]].count(matter_id) == 1
     assert workspace["intakes"][0]["matter_id"] == matter_id
+    assert any(task["title"] == "Triage intake: Employee data request" for task in workspace["tasks"])
+
+    assert client.post("/api/legal-ops/intake/missing/task", headers=owner_workspace).status_code == 422
