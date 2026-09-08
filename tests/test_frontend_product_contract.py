@@ -251,6 +251,8 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "downloadLegalOpsCalendar" in source
     assert "/api/legal-ops/notifications/digest" in source
     assert "/api/legal-ops/deadlines/calendar.ics" in source
+    assert "Mark partially signed" in source
+    assert "Mark sent" in source
     assert "action_alerts" in source
     assert "renderActionAlert" in source
     assert "open_action_alerts" in source

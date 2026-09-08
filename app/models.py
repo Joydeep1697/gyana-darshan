@@ -347,6 +347,10 @@ class LegalContractCreate(BaseModel):
     effective_date: Optional[str] = Field(default=None, max_length=30)
     expiry_date: Optional[str] = Field(default=None, max_length=30)
     renewal_date: Optional[str] = Field(default=None, max_length=30)
+    signature_owner_user_id: Optional[str] = None
+    signature_sent_at: Optional[str] = Field(default=None, max_length=40)
+    signature_completed_at: Optional[str] = Field(default=None, max_length=40)
+    signature_note: str = Field(default="", max_length=4000)
 
 
 class LegalContractUpdate(BaseModel):
@@ -360,6 +364,10 @@ class LegalContractUpdate(BaseModel):
     effective_date: Optional[str] = Field(default=None, max_length=30)
     expiry_date: Optional[str] = Field(default=None, max_length=30)
     renewal_date: Optional[str] = Field(default=None, max_length=30)
+    signature_owner_user_id: Optional[str] = None
+    signature_sent_at: Optional[str] = Field(default=None, max_length=40)
+    signature_completed_at: Optional[str] = Field(default=None, max_length=40)
+    signature_note: Optional[str] = Field(default=None, max_length=4000)
 
 
 class LegalContractResponse(BaseModel):
@@ -378,6 +386,10 @@ class LegalContractResponse(BaseModel):
     lifecycle_stage: str = "draft"
     reminder_status: str = "none"
     days_to_renewal: Optional[int] = None
+    signature_owner_user_id: Optional[str] = None
+    signature_sent_at: Optional[str] = None
+    signature_completed_at: Optional[str] = None
+    signature_note: str = ""
     created_at: str
     updated_at: str
 

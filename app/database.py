@@ -318,6 +318,10 @@ CREATE TABLE IF NOT EXISTS legal_contracts (
     effective_date  TEXT,
     expiry_date     TEXT,
     renewal_date    TEXT,
+    signature_owner_user_id TEXT,
+    signature_sent_at TEXT,
+    signature_completed_at TEXT,
+    signature_note TEXT DEFAULT '',
     created_at      TEXT NOT NULL,
     updated_at      TEXT NOT NULL
 );
@@ -458,6 +462,16 @@ class Database:
             }
             for column, statement in note_migrations.items():
                 if column not in note_columns:
+                    conn.execute(statement)
+            contract_columns = {row["name"] for row in conn.execute("PRAGMA table_info(legal_contracts)")}
+            contract_migrations = {
+                "signature_owner_user_id": "ALTER TABLE legal_contracts ADD COLUMN signature_owner_user_id TEXT",
+                "signature_sent_at": "ALTER TABLE legal_contracts ADD COLUMN signature_sent_at TEXT",
+                "signature_completed_at": "ALTER TABLE legal_contracts ADD COLUMN signature_completed_at TEXT",
+                "signature_note": "ALTER TABLE legal_contracts ADD COLUMN signature_note TEXT DEFAULT ''",
+            }
+            for column, statement in contract_migrations.items():
+                if column not in contract_columns:
                     conn.execute(statement)
 
     @contextmanager
@@ -1337,13 +1351,17 @@ class Database:
         reminder_status = "none"
         if status == "expired" or (expiry_date and expiry_date < today):
             lifecycle_stage = "expired"
+        elif status in {"sent", "partially_signed"}:
+            lifecycle_stage = "pending_signature"
+            if days_to_renewal is not None and days_to_renewal <= 60:
+                reminder_status = "overdue" if days_to_renewal < 0 else "due"
         elif days_to_renewal is not None and days_to_renewal < 0 and status not in {"expired", "signed"}:
             lifecycle_stage = "renewal_overdue"
             reminder_status = "overdue"
         elif days_to_renewal is not None and days_to_renewal <= 60 and status not in {"expired", "draft"}:
             lifecycle_stage = "renewal_due"
             reminder_status = "due"
-        elif status == "approved":
+        elif status in {"approved", "sent", "partially_signed"}:
             lifecycle_stage = "pending_signature"
         elif status == "signed":
             lifecycle_stage = "active"
@@ -2055,13 +2073,13 @@ class Database:
             raise ValueError("Matter not found in workspace")
         now = self.now()
         item_id = self.new_id()
-        status = self._bounded(kwargs.get("status"), "draft", {"draft", "in_review", "approved", "signed", "expired"})
+        status = self._bounded(kwargs.get("status"), "draft", {"draft", "in_review", "approved", "sent", "partially_signed", "signed", "declined", "expired"})
         risk_level = self._bounded(kwargs.get("risk_level"), "unknown", {"unknown", "low", "medium", "high", "critical"})
         with self.connect() as conn:
             conn.execute(
-                """INSERT INTO legal_contracts (id, organization_id, document_id, matter_id, title, counterparty, contract_type, status, risk_level, effective_date, expiry_date, renewal_date, created_at, updated_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (item_id, organization_id, document_id, matter_id, title.strip()[:180], (kwargs.get("counterparty") or "")[:180], (kwargs.get("contract_type") or "general")[:80], status, risk_level, kwargs.get("effective_date"), kwargs.get("expiry_date"), kwargs.get("renewal_date"), now, now),
+                """INSERT INTO legal_contracts (id, organization_id, document_id, matter_id, title, counterparty, contract_type, status, risk_level, effective_date, expiry_date, renewal_date, signature_owner_user_id, signature_sent_at, signature_completed_at, signature_note, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (item_id, organization_id, document_id, matter_id, title.strip()[:180], (kwargs.get("counterparty") or "")[:180], (kwargs.get("contract_type") or "general")[:80], status, risk_level, kwargs.get("effective_date"), kwargs.get("expiry_date"), kwargs.get("renewal_date"), kwargs.get("signature_owner_user_id"), kwargs.get("signature_sent_at"), kwargs.get("signature_completed_at"), (kwargs.get("signature_note") or "")[:4000], now, now),
             )
         return self.get_contract_record(item_id, organization_id) or {}
 
@@ -2109,7 +2127,7 @@ class Database:
         ]
 
     def update_contract_record(self, contract_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
-        permitted = {"document_id", "matter_id", "title", "counterparty", "contract_type", "status", "risk_level", "effective_date", "expiry_date", "renewal_date"}
+        permitted = {"document_id", "matter_id", "title", "counterparty", "contract_type", "status", "risk_level", "effective_date", "expiry_date", "renewal_date", "signature_owner_user_id", "signature_sent_at", "signature_completed_at", "signature_note"}
         fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
         if "document_id" in fields and fields["document_id"]:
             document = self.get_document(fields["document_id"])
@@ -2118,7 +2136,7 @@ class Database:
         if "matter_id" in fields and fields["matter_id"] and not self.get_matter(fields["matter_id"], organization_id):
             raise ValueError("Matter not found in workspace")
         if "status" in fields:
-            fields["status"] = self._bounded(fields["status"], "draft", {"draft", "in_review", "approved", "signed", "expired"})
+            fields["status"] = self._bounded(fields["status"], "draft", {"draft", "in_review", "approved", "sent", "partially_signed", "signed", "declined", "expired"})
         if "risk_level" in fields:
             fields["risk_level"] = self._bounded(fields["risk_level"], "unknown", {"unknown", "low", "medium", "high", "critical"})
         if not fields:
@@ -2469,7 +2487,7 @@ class Database:
             })
 
         for contract in self.list_contract_records(organization_id, limit=200):
-            if contract.get("status") != "approved":
+            if contract.get("status") not in {"approved", "sent", "partially_signed"}:
                 continue
             if assigned_user_id:
                 continue
@@ -2609,7 +2627,7 @@ class Database:
             overdue_tasks = conn.execute("SELECT COUNT(*) FROM legal_tasks WHERE organization_id = ? AND status != 'done' AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
             upcoming_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND renewal_date IS NOT NULL AND DATE(renewal_date) BETWEEN DATE('now') AND DATE('now', '+60 days')", (organization_id,)).fetchone()[0]
             overdue_contracts = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status NOT IN ('expired', 'signed', 'draft') AND renewal_date IS NOT NULL AND DATE(renewal_date) < DATE('now')", (organization_id,)).fetchone()[0]
-            pending_signature = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status = 'approved'", (organization_id,)).fetchone()[0]
+            pending_signature = conn.execute("SELECT COUNT(*) FROM legal_contracts WHERE organization_id = ? AND status IN ('approved', 'sent', 'partially_signed')", (organization_id,)).fetchone()[0]
             open_obligations = conn.execute("SELECT COUNT(*) FROM legal_contract_obligations WHERE organization_id = ? AND status NOT IN ('done', 'waived')", (organization_id,)).fetchone()[0]
             overdue_obligations = conn.execute("SELECT COUNT(*) FROM legal_contract_obligations WHERE organization_id = ? AND status NOT IN ('done', 'waived') AND due_date IS NOT NULL AND DATE(due_date) < DATE('now')", (organization_id,)).fetchone()[0]
             open_spend = conn.execute("SELECT COALESCE(SUM(amount), 0) FROM legal_spend_entries WHERE organization_id = ? AND status != 'paid'", (organization_id,)).fetchone()[0]

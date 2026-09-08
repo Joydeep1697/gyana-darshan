@@ -414,10 +414,16 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert updated_task.status_code == 200
     assert updated_task.json()["status"] == "done"
 
-    approved_contract = client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "approved"}, headers=owner_workspace)
+    approved_contract = client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "approved", "signature_owner_user_id": owner_user_id, "signature_note": "Route through commercial lead."}, headers=owner_workspace)
     assert approved_contract.status_code == 200
     assert approved_contract.json()["status"] == "approved"
     assert approved_contract.json()["reminder_status"] == "due"
+    assert approved_contract.json()["signature_owner_user_id"] == owner_user_id
+    assert approved_contract.json()["signature_note"] == "Route through commercial lead."
+    sent_contract = client.patch(f"/api/legal-ops/contracts/{contract_id}", json={"status": "sent", "signature_sent_at": "2026-09-09T12:00:00Z"}, headers=owner_workspace)
+    assert sent_contract.status_code == 200
+    assert sent_contract.json()["lifecycle_stage"] == "pending_signature"
+    assert sent_contract.json()["signature_sent_at"] == "2026-09-09T12:00:00Z"
 
     alerts = client.get("/api/legal-ops/alerts", headers=viewer_workspace)
     assert alerts.status_code == 200
