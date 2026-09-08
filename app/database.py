@@ -1673,12 +1673,103 @@ class Database:
         deadlines.sort(key=sort_key)
         return deadlines[: max(1, min(limit, 200))]
 
-    def list_workspace_matter_deadlines(self, organization_id: str, limit: int = 200) -> list[dict]:
+    def _filter_matter_deadlines(
+        self,
+        deadlines: list[dict],
+        *,
+        status: Optional[str] = None,
+        kind: Optional[str] = None,
+        matter_id: Optional[str] = None,
+        window: Optional[str] = None,
+    ) -> list[dict]:
+        status_filter = (status or "").strip().lower()
+        kind_filter = (kind or "").strip().lower()
+        window_filter = (window or "").strip().lower()
+        filtered = deadlines
+        if matter_id:
+            filtered = [item for item in filtered if item.get("matter_id") == matter_id]
+        if kind_filter:
+            filtered = [item for item in filtered if item.get("kind") == kind_filter]
+        if status_filter:
+            filtered = [item for item in filtered if item.get("status") == status_filter]
+        if window_filter in {"overdue", "due_today"}:
+            filtered = [item for item in filtered if item.get("status") == window_filter]
+        elif window_filter == "due_14_days":
+            filtered = [item for item in filtered if isinstance(item.get("days_until"), int) and 0 <= item["days_until"] <= 14 and item.get("status") != "cleared"]
+        elif window_filter == "upcoming":
+            filtered = [item for item in filtered if isinstance(item.get("days_until"), int) and item["days_until"] >= 0 and item.get("status") != "cleared"]
+        elif window_filter == "open":
+            filtered = [item for item in filtered if item.get("status") != "cleared"]
+        return filtered
+
+    def list_workspace_matter_deadlines(
+        self,
+        organization_id: str,
+        limit: int = 200,
+        *,
+        status: Optional[str] = None,
+        kind: Optional[str] = None,
+        matter_id: Optional[str] = None,
+        window: Optional[str] = None,
+    ) -> list[dict]:
         deadlines: list[dict] = []
-        for matter in self.list_matters(organization_id, limit=200):
-            deadlines.extend(self.list_matter_deadlines(organization_id, matter["id"], limit=50))
+        matters = [self.get_matter(matter_id, organization_id)] if matter_id else self.list_matters(organization_id, limit=200)
+        for matter in matters:
+            if matter:
+                deadlines.extend(self.list_matter_deadlines(organization_id, matter["id"], limit=50))
+        deadlines = self._filter_matter_deadlines(deadlines, status=status, kind=kind, matter_id=matter_id, window=window)
         deadlines.sort(key=lambda item: (self._parse_iso_date(item.get("deadline_date")) or date.max, item.get("matter_title") or ""))
         return deadlines[: max(1, min(limit, 500))]
+
+    def find_matter_deadline(self, organization_id: str, kind: str, source_id: str) -> Optional[dict]:
+        kind = (kind or "").strip().lower()
+        for item in self.list_workspace_matter_deadlines(organization_id, limit=500, kind=kind):
+            if str(item.get("source_id")) == str(source_id):
+                return item
+        return None
+
+    def clear_matter_deadline(self, organization_id: str, kind: str, source_id: str) -> Optional[dict]:
+        deadline = self.find_matter_deadline(organization_id, kind, source_id)
+        if not deadline:
+            return None
+        kind = deadline.get("kind") or ""
+        if kind == "task":
+            self.update_task(source_id, organization_id, status="done")
+        elif kind == "obligation":
+            self.update_contract_obligation(source_id, organization_id, status="done")
+        elif kind == "invoice":
+            self.update_spend_entry(source_id, organization_id, status="paid")
+        elif kind == "document_deadline":
+            with self.connect() as conn:
+                cur = conn.execute(
+                    """UPDATE document_deadlines
+                       SET status = 'cleared'
+                       WHERE id = ?
+                       AND doc_id IN (SELECT id FROM vault_documents WHERE organization_id = ?)""",
+                    (source_id, organization_id),
+                )
+                if cur.rowcount == 0:
+                    return None
+        else:
+            raise ValueError("This deadline type cannot be cleared directly. Create a task or update the source record instead.")
+        return self.find_matter_deadline(organization_id, kind, source_id)
+
+    def create_task_from_deadline(self, organization_id: str, kind: str, source_id: str, assignee_user_id: Optional[str] = None) -> Optional[dict]:
+        deadline = self.find_matter_deadline(organization_id, kind, source_id)
+        if not deadline:
+            return None
+        matter_id = deadline.get("matter_id")
+        if not matter_id:
+            raise ValueError("Deadline is not linked to a matter")
+        title = f"Follow up: {deadline.get('title') or 'Matter deadline'}"
+        return self.create_task(
+            organization_id,
+            title[:180],
+            matter_id=matter_id,
+            priority=deadline.get("priority") or "medium",
+            due_date=deadline.get("deadline_date"),
+            assignee_user_id=assignee_user_id,
+        )
 
     def get_matter_detail(self, organization_id: str, matter_id: str) -> Optional[dict]:
         matter = self.get_matter(matter_id, organization_id)

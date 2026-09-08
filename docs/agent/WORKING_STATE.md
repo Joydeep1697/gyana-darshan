@@ -93,3 +93,5 @@ This file records product behavior only after automated or runtime verification.
 ## 2026-09-08
 
 - [PASS] Legal Ops matter deadline intelligence aggregates matter due dates, task due dates, contract renewals/expiries, obligation due dates, invoice due dates, and linked Vault document deadlines into org-scoped matter calendars. Matter detail, workspace summary, dedicated matter-deadline API, deterministic matter briefs, Legal Ops reports, and frontend panels expose the calendar. Full suite: 216 tests and 3 subtests passed; focused Legal Ops/frontend checks pass.
+
+- [PASS] Legal Ops deadline queue supports status, timing, and source-type filtering, opens related matters, creates follow-up tasks from deadlines, and safely marks task, obligation, invoice, and linked-document deadlines handled through writer-only actions. Viewer read access and outsider isolation are covered by regression tests. Full suite: 216 tests and 3 subtests passed; focused Legal Ops/frontend checks pass.

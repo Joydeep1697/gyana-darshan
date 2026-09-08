@@ -214,6 +214,16 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "selectedMatterDraftPrecedents" in source
     assert 'id="opsDeadlineCount"' in source
     assert 'id="matterDeadlineList"' in source
+    assert 'id="matterDeadlineWindowFilter"' in source
+    assert 'id="matterDeadlineKindFilter"' in source
+    assert "filteredMatterDeadlines" in source
+    assert "renderDeadlineActions" in source
+    assert "data-deadline-clear-kind" in source
+    assert "data-deadline-task-kind" in source
+    assert "clearMatterDeadline" in source
+    assert "createTaskFromMatterDeadline" in source
+    assert "/api/legal-ops/deadlines/${encodeURIComponent(kind)}/${encodeURIComponent(id)}/clear" in source
+    assert "/api/legal-ops/deadlines/${encodeURIComponent(kind)}/${encodeURIComponent(id)}/task" in source
     assert "Matter deadlines" in source
     assert "Deadline calendar" in source
     assert "detail.deadlines" in source

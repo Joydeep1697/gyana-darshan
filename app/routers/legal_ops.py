@@ -26,6 +26,7 @@ from app.models import (
     LegalMatterCreate,
     LegalMatterBriefResponse,
     LegalMatterDeadlineResponse,
+    LegalMatterDeadlineTaskCreateResponse,
     LegalMatterDraftListResponse,
     LegalMatterDraftRequest,
     LegalMatterDraftReviewUpdate,
@@ -118,6 +119,58 @@ async def search_legal_ops(
     if len(query) < 2:
         raise HTTPException(status_code=422, detail="Search query must be at least 2 characters")
     return {"results": db.search_legal_ops(_org_id(workspace), query, limit=limit)}
+
+
+@router.get("/deadlines", response_model=list[LegalMatterDeadlineResponse])
+async def list_legal_ops_deadlines(
+    status_filter: str | None = Query(default=None, alias="status"),
+    kind: str | None = None,
+    matter_id: str | None = None,
+    window: str | None = None,
+    limit: int = 200,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return db.list_workspace_matter_deadlines(_org_id(workspace), limit=limit, status=status_filter, kind=kind, matter_id=matter_id, window=window)
+
+
+@router.post("/deadlines/{kind}/{source_id}/clear", response_model=LegalMatterDeadlineResponse)
+async def clear_legal_ops_deadline(
+    kind: str,
+    source_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        deadline = db.clear_matter_deadline(organization_id, kind, source_id)
+    except ValueError as error:
+        raise _bad_reference(error)
+    if not deadline:
+        raise _not_found()
+    AuditRepository.log_audit("LEGAL_DEADLINE_CLEARED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"kind": kind, "source_id": source_id})
+    return deadline
+
+
+@router.post("/deadlines/{kind}/{source_id}/task", response_model=LegalMatterDeadlineTaskCreateResponse, status_code=status.HTTP_201_CREATED)
+async def create_task_from_legal_ops_deadline(
+    kind: str,
+    source_id: str,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    try:
+        task = db.create_task_from_deadline(organization_id, kind, source_id, assignee_user_id=_user_id(workspace))
+    except ValueError as error:
+        raise _bad_reference(error)
+    if not task:
+        raise _not_found()
+    deadline = db.find_matter_deadline(organization_id, kind, source_id)
+    if not deadline:
+        raise _not_found()
+    AuditRepository.log_audit("LEGAL_DEADLINE_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"kind": kind, "source_id": source_id, "task_id": task["id"]})
+    return {"deadline": deadline, "task": task}
 
 
 @router.get("/matters/{matter_id}", response_model=LegalMatterDetailResponse)

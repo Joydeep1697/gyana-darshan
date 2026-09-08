@@ -632,6 +632,11 @@ class LegalOpsReportResponse(BaseModel):
     generated_from: dict[str, int]
 
 
+class LegalMatterDeadlineTaskCreateResponse(BaseModel):
+    deadline: LegalMatterDeadlineResponse
+    task: LegalTaskResponse
+
+
 class LegalMatterDeadlineResponse(BaseModel):
     kind: str
     source_id: str

@@ -196,6 +196,17 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert {item["kind"] for item in deadline_route.json()} >= deadline_kinds
     assert client.get(f"/api/legal-ops/matters/{matter_id}/deadlines", headers=outsider_workspace).status_code == 404
 
+    deadline_queue = client.get("/api/legal-ops/deadlines", params={"kind": "document_deadline"}, headers=viewer_workspace)
+    assert deadline_queue.status_code == 200
+    assert [item["kind"] for item in deadline_queue.json()] == ["document_deadline"]
+    assert deadline_queue.json()[0]["description"] == "File NDA redline response."
+    due_queue = client.get("/api/legal-ops/deadlines", params={"window": "due_14_days"}, headers=viewer_workspace)
+    assert due_queue.status_code == 200
+    assert all(0 <= item["days_until"] <= 14 for item in due_queue.json() if item["days_until"] is not None)
+    assert client.get("/api/legal-ops/deadlines", headers=outsider_workspace).status_code == 404
+    document_deadline_id = deadline_queue.json()[0]["source_id"]
+    assert client.post(f"/api/legal-ops/deadlines/document_deadline/{document_deadline_id}/clear", headers=viewer_workspace).status_code == 403
+
     brief = client.post(f"/api/legal-ops/matters/{matter_id}/brief", headers=viewer_workspace)
     assert brief.status_code == 200
     brief_data = brief.json()
@@ -412,6 +423,22 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
         "matter_deadlines": 5,
     }
     assert client.get("/api/legal-ops/report", headers=outsider_workspace).status_code == 404
+
+    renewal_deadline = next(item for item in data["matter_deadlines"] if item["kind"] == "contract_renewal")
+    assert client.post(f"/api/legal-ops/deadlines/contract_renewal/{renewal_deadline['source_id']}/clear", headers=owner_workspace).status_code == 422
+    assert client.post(f"/api/legal-ops/deadlines/contract_renewal/{renewal_deadline['source_id']}/task", headers=viewer_workspace).status_code == 403
+    deadline_task = client.post(f"/api/legal-ops/deadlines/contract_renewal/{renewal_deadline['source_id']}/task", headers=owner_workspace)
+    assert deadline_task.status_code == 201
+    assert deadline_task.json()["deadline"]["kind"] == "contract_renewal"
+    assert deadline_task.json()["task"]["matter_id"] == matter_id
+    assert deadline_task.json()["task"]["title"].startswith("Follow up: Renewal: Vendor Mutual NDA")
+
+    cleared_document_deadline = client.post(f"/api/legal-ops/deadlines/document_deadline/{document_deadline_id}/clear", headers=owner_workspace)
+    assert cleared_document_deadline.status_code == 200
+    assert cleared_document_deadline.json()["status"] == "cleared"
+    document_deadline_after_clear = client.get("/api/legal-ops/deadlines", params={"kind": "document_deadline"}, headers=viewer_workspace)
+    assert document_deadline_after_clear.status_code == 200
+    assert document_deadline_after_clear.json()[0]["status"] == "cleared"
 
     archived_playbook = client.patch(f"/api/legal-ops/playbooks/{playbook_id}", json={"status": "archived"}, headers=owner_workspace)
     assert archived_playbook.status_code == 200
