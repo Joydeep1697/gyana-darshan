@@ -86,6 +86,14 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert task.json()["assignee_email"] == viewer_email
     assert task.json()["assignee_name"] == "Legal-Ops-Viewer"
 
+    undated_task = client.post(
+        "/api/legal-ops/tasks",
+        json={"title": "Confirm signature owner", "priority": "critical", "matter_id": matter_id, "assignee_user_id": viewer_user_id},
+        headers=owner_workspace,
+    )
+    assert undated_task.status_code == 201
+    undated_task_id = undated_task.json()["id"]
+
     renewal_date = (date.today() + timedelta(days=30)).isoformat()
     contract = client.post(
         "/api/legal-ops/contracts",
@@ -207,9 +215,10 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert detail.json()["notes"][0]["author_name"] == "Legal-Ops-Owner"
     assert detail.json()["notes"][0]["link_kind"] == "task"
     assert detail.json()["notes"][0]["link_source_id"] == task_id
-    assert detail.json()["tasks"][0]["id"] == task_id
-    assert detail.json()["tasks"][0]["assignee_user_id"] == viewer_user_id
-    assert detail.json()["tasks"][0]["assignee_email"] == viewer_email
+    detail_tasks = {item["id"]: item for item in detail.json()["tasks"]}
+    assert detail_tasks[task_id]["assignee_user_id"] == viewer_user_id
+    assert detail_tasks[task_id]["assignee_email"] == viewer_email
+    assert detail_tasks[undated_task_id]["assignee_user_id"] == viewer_user_id
     assert detail.json()["contracts"][0]["title"] == "Vendor Mutual NDA"
     assert detail.json()["obligations"][0]["title"] == "Return confidential material after termination"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
@@ -406,14 +415,38 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert approved_contract.json()["status"] == "approved"
     assert approved_contract.json()["reminder_status"] == "due"
 
+    alerts = client.get("/api/legal-ops/alerts", headers=viewer_workspace)
+    assert alerts.status_code == 200
+    alert_data = alerts.json()
+    assert {item["kind"] for item in alert_data} >= {"deadline", "assigned_task", "signature"}
+    assert any(item["kind"] == "deadline" and item["source_kind"] == "obligation" for item in alert_data)
+    assigned_alert = next(item for item in alert_data if item["source_id"] == undated_task_id)
+    assert assigned_alert["kind"] == "assigned_task"
+    assert assigned_alert["severity"] == "high"
+    signature_alert = next(item for item in alert_data if item["kind"] == "signature")
+    assert signature_alert["source_id"] == contract_id
+    assert signature_alert["matter_id"] == matter_id
+    high_alerts = client.get("/api/legal-ops/alerts", params={"severity": "high"}, headers=viewer_workspace)
+    assert high_alerts.status_code == 200
+    assert all(item["severity"] == "high" for item in high_alerts.json())
+    viewer_assigned_alerts = client.get("/api/legal-ops/alerts", params={"assigned_to_me": "true"}, headers=viewer_workspace)
+    assert viewer_assigned_alerts.status_code == 200
+    assert {item["source_id"] for item in viewer_assigned_alerts.json()} >= {undated_task_id}
+    assert task_id not in {item["source_id"] for item in viewer_assigned_alerts.json()}
+    owner_assigned_alerts = client.get("/api/legal-ops/alerts", params={"assigned_to_me": "true"}, headers=owner_workspace)
+    assert owner_assigned_alerts.status_code == 200
+    assert task_id not in {item["source_id"] for item in owner_assigned_alerts.json()}
+    assert client.get("/api/legal-ops/alerts", headers=outsider_workspace).status_code == 404
+
     workspace = client.get("/api/legal-ops/workspace", headers=viewer_workspace)
     assert workspace.status_code == 200
     data = workspace.json()
     assert [item["title"] for item in data["matters"]] == ["Vendor NDA review"]
     assert [item["title"] for item in data["intakes"]] == ["Need NDA review"]
-    assert [item["title"] for item in data["tasks"]] == ["Check confidentiality carve-outs"]
-    assert data["tasks"][0]["assignee_user_id"] == owner_user_id
-    assert data["tasks"][0]["assignee_name"] == "Legal-Ops-Owner"
+    assert {item["title"] for item in data["tasks"]} >= {"Check confidentiality carve-outs", "Confirm signature owner"}
+    workspace_tasks = {item["id"]: item for item in data["tasks"]}
+    assert workspace_tasks[task_id]["assignee_user_id"] == owner_user_id
+    assert workspace_tasks[task_id]["assignee_name"] == "Legal-Ops-Owner"
     assert {member["email"] for member in data["members"]} >= {viewer_email}
     assert [item["title"] for item in data["contracts"]] == ["Vendor Mutual NDA"]
     assert data["summary"]["high_risk_contracts"] == 1
@@ -424,6 +457,9 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert data["summary"]["overdue_contract_obligations"] == 0
     assert data["summary"]["open_matter_deadlines"] >= 4
     assert data["summary"]["matter_deadlines_due_14_days"] >= 1
+    assert data["summary"]["open_action_alerts"] >= 3
+    assert data["summary"]["high_priority_action_alerts"] >= 1
+    assert {item["kind"] for item in data["action_alerts"]} >= {"deadline", "assigned_task", "signature"}
     assert {item["kind"] for item in data["matter_deadlines"]} >= {"task", "contract_renewal", "obligation", "invoice", "document_deadline"}
     assert any(item["description"] == "File NDA redline response." for item in data["matter_deadlines"])
     assert data["obligations"][0]["id"] == obligation_id
@@ -455,7 +491,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert report_data["generated_from"] == {
         "matters": 1,
         "intakes": 1,
-        "tasks": 1,
+        "tasks": 2,
         "contracts": 1,
         "obligations": 1,
         "vendors": 1,

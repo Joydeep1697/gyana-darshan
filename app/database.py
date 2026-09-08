@@ -2380,6 +2380,136 @@ class Database:
                 conn.execute("UPDATE legal_matters SET updated_at = ? WHERE id = ? AND organization_id = ?", (fields["updated_at"], matter_id, organization_id))
         return self.get_spend_entry(spend_id, organization_id)
 
+    @staticmethod
+    def _alert_severity(priority: str = "medium", status: str = "", days_until: Optional[int] = None) -> str:
+        normalized_priority = (priority or "medium").strip().lower()
+        normalized_status = (status or "").strip().lower()
+        if normalized_status == "overdue":
+            return "critical" if normalized_priority in {"critical", "high"} else "high"
+        if normalized_status == "due_today":
+            return "high"
+        if normalized_priority == "critical":
+            return "high"
+        if isinstance(days_until, int) and days_until <= 3:
+            return "high"
+        return "medium"
+
+    @staticmethod
+    def _alert_rank(alert: dict) -> tuple[int, int, str]:
+        severity_rank = {"critical": 0, "high": 1, "medium": 2, "low": 3}.get(alert.get("severity") or "medium", 2)
+        days = alert.get("days_until")
+        due_rank = days if isinstance(days, int) else 9999
+        return (severity_rank, due_rank, alert.get("title") or "")
+
+    def _matter_title_map(self, organization_id: str) -> dict[str, str]:
+        return {matter["id"]: matter.get("title") or "" for matter in self.list_matters(organization_id, limit=200)}
+
+    def list_legal_ops_alerts(
+        self,
+        organization_id: str,
+        limit: int = 100,
+        *,
+        severity: Optional[str] = None,
+        kind: Optional[str] = None,
+        assigned_user_id: Optional[str] = None,
+    ) -> list[dict]:
+        severity_filter = (severity or "").strip().lower()
+        kind_filter = (kind or "").strip().lower()
+        matter_titles = self._matter_title_map(organization_id)
+        alerts: list[dict] = []
+
+        for deadline in self.list_workspace_matter_deadlines(organization_id, limit=500, window="open"):
+            status = deadline.get("status") or "scheduled"
+            days_until = deadline.get("days_until")
+            if status not in {"overdue", "due_today", "due"} and not (isinstance(days_until, int) and 0 <= days_until <= 14):
+                continue
+            assignee_user_id = None
+            if deadline.get("kind") == "task":
+                task = self.get_task(str(deadline.get("source_id")), organization_id)
+                assignee_user_id = (task or {}).get("assignee_user_id")
+            if assigned_user_id and assignee_user_id != assigned_user_id:
+                continue
+            deadline_kind = deadline.get("kind") or "deadline"
+            severity_value = self._alert_severity(deadline.get("priority") or "medium", status, days_until)
+            alerts.append({
+                "id": f"deadline:{deadline_kind}:{deadline.get('source_id')}",
+                "kind": "deadline",
+                "severity": severity_value,
+                "title": deadline.get("title") or "Matter deadline",
+                "message": f"{status.replace('_', ' ')} for {deadline.get('matter_title') or 'matter'}".strip(),
+                "matter_id": deadline.get("matter_id"),
+                "matter_title": deadline.get("matter_title") or "",
+                "source_kind": deadline_kind,
+                "source_id": str(deadline.get("source_id") or ""),
+                "source_status": deadline.get("source_status") or status,
+                "due_date": deadline.get("deadline_date"),
+                "days_until": days_until,
+                "priority": deadline.get("priority") or "medium",
+                "assignee_user_id": assignee_user_id,
+                "action_label": "Open matter",
+            })
+
+        for contract in self.list_contract_records(organization_id, limit=200):
+            if contract.get("status") != "approved":
+                continue
+            if assigned_user_id:
+                continue
+            matter_id = contract.get("matter_id")
+            risk = contract.get("risk_level") or "medium"
+            alerts.append({
+                "id": f"signature:{contract['id']}",
+                "kind": "signature",
+                "severity": "high" if risk in {"critical", "high"} else "medium",
+                "title": f"Signature pending: {contract.get('title') or 'Untitled contract'}",
+                "message": "Approved contract is waiting for signature follow-through.",
+                "matter_id": matter_id,
+                "matter_title": matter_titles.get(matter_id or "", ""),
+                "source_kind": "contract",
+                "source_id": contract["id"],
+                "source_status": contract.get("status") or "approved",
+                "due_date": contract.get("renewal_date") or contract.get("expiry_date"),
+                "days_until": self._deadline_days_until(contract.get("renewal_date") or contract.get("expiry_date")),
+                "priority": risk,
+                "assignee_user_id": None,
+                "action_label": "Update contract",
+            })
+
+        for task in self.list_tasks(organization_id, limit=200):
+            if task.get("status") not in {"open", "in_progress"}:
+                continue
+            assignee_user_id = task.get("assignee_user_id")
+            if assigned_user_id and assignee_user_id != assigned_user_id:
+                continue
+            if task.get("due_date"):
+                continue
+            if not assignee_user_id:
+                continue
+            matter_id = task.get("matter_id")
+            alerts.append({
+                "id": f"assigned_task:{task['id']}",
+                "kind": "assigned_task",
+                "severity": "high" if task.get("priority") == "critical" else "medium",
+                "title": f"Assigned task: {task.get('title') or 'Untitled task'}",
+                "message": "Open assigned task has no due date, so it needs explicit follow-through.",
+                "matter_id": matter_id,
+                "matter_title": matter_titles.get(matter_id or "", ""),
+                "source_kind": "task",
+                "source_id": task["id"],
+                "source_status": task.get("status") or "open",
+                "due_date": None,
+                "days_until": None,
+                "priority": task.get("priority") or "medium",
+                "assignee_user_id": assignee_user_id,
+                "action_label": "Review task",
+            })
+
+        if severity_filter:
+            alerts = [item for item in alerts if item.get("severity") == severity_filter]
+        if kind_filter:
+            alerts = [item for item in alerts if item.get("kind") == kind_filter or item.get("source_kind") == kind_filter]
+        alerts.sort(key=self._alert_rank)
+        return alerts[: max(1, min(limit, 200))]
+
     def get_legal_ops_summary(self, organization_id: str) -> dict:
         with self.connect() as conn:
             matter_rows = conn.execute("SELECT status, COUNT(*) AS count FROM legal_matters WHERE organization_id = ? GROUP BY status", (organization_id,)).fetchall()
@@ -2401,6 +2531,8 @@ class Database:
         open_matter_deadlines = [item for item in matter_deadlines if item.get("status") != "cleared"]
         due_14_days = [item for item in open_matter_deadlines if isinstance(item.get("days_until"), int) and 0 <= item["days_until"] <= 14]
         overdue_matter_deadlines = [item for item in open_matter_deadlines if item.get("status") == "overdue"]
+        action_alerts = self.list_legal_ops_alerts(organization_id)
+        high_priority_action_alerts = [item for item in action_alerts if item.get("severity") in {"critical", "high"}]
         return {
             "matters_by_status": {row["status"]: row["count"] for row in matter_rows},
             "intake_by_status": {row["status"]: row["count"] for row in intake_rows},
@@ -2420,6 +2552,8 @@ class Database:
             "overdue_matter_deadlines": len(overdue_matter_deadlines),
             "matter_deadlines_due_14_days": len(due_14_days),
             "active_playbooks": active_playbooks,
+            "open_action_alerts": len(action_alerts),
+            "high_priority_action_alerts": len(high_priority_action_alerts),
         }
 
     # ── Search Analytics ──────────────────────────────────────────

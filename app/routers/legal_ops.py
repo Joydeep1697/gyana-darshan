@@ -27,6 +27,7 @@ from app.models import (
     LegalMatterBriefResponse,
     LegalMatterDeadlineResponse,
     LegalMatterDeadlineTaskCreateResponse,
+    LegalOpsAlertResponse,
     LegalMatterDraftListResponse,
     LegalMatterDraftRequest,
     LegalMatterDraftReviewUpdate,
@@ -94,6 +95,15 @@ def _enrich_task(task: dict, members_by_id: dict[str, dict]) -> dict:
     }
 
 
+def _enrich_alert(alert: dict, members_by_id: dict[str, dict]) -> dict:
+    assignee = members_by_id.get(alert.get("assignee_user_id") or "")
+    return {
+        **alert,
+        "assignee_name": (assignee or {}).get("full_name") or "",
+        "assignee_email": (assignee or {}).get("email") or "",
+    }
+
+
 def _enrich_note(note: dict, members_by_id: dict[str, dict]) -> dict:
     author = members_by_id.get(note.get("author_user_id") or "")
     return {
@@ -145,8 +155,30 @@ def _workspace_payload(db: Database, organization_id: str) -> dict:
         "playbooks": db.list_playbooks(organization_id),
         "contract_reminders": db.list_contract_reminders(organization_id),
         "matter_deadlines": db.list_workspace_matter_deadlines(organization_id),
+        "action_alerts": [_enrich_alert(alert, members_by_id) for alert in db.list_legal_ops_alerts(organization_id)],
         "members": members,
     }
+
+
+@router.get("/alerts", response_model=list[LegalOpsAlertResponse])
+async def list_legal_ops_alerts(
+    severity: str | None = None,
+    kind: str | None = None,
+    assigned_to_me: bool = False,
+    limit: int = 100,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    members_by_id = _member_map(_workspace_members(organization_id))
+    alerts = db.list_legal_ops_alerts(
+        organization_id,
+        limit=limit,
+        severity=severity,
+        kind=kind,
+        assigned_user_id=_user_id(workspace) if assigned_to_me else None,
+    )
+    return [_enrich_alert(alert, members_by_id) for alert in alerts]
 
 
 @router.get("/report", response_model=LegalOpsReportResponse)

@@ -214,6 +214,14 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "selectedMatterDraftPrecedents" in source
     assert 'id="opsDeadlineCount"' in source
     assert 'id="matterDeadlineList"' in source
+    assert 'id="opsAlertCount"' in source
+    assert 'id="opsAlertList"' in source
+    assert "Action alerts" in source
+    assert "action_alerts" in source
+    assert "renderActionAlert" in source
+    assert "open_action_alerts" in source
+    assert "assigned tasks" in source.lower()
+    assert '@router.get("/alerts"' in Path("app/routers/legal_ops.py").read_text(encoding="utf-8")
     assert 'id="matterDeadlineWindowFilter"' in source
     assert 'id="matterDeadlineKindFilter"' in source
     assert "filteredMatterDeadlines" in source

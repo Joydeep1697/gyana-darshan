@@ -651,6 +651,26 @@ class LegalMatterDeadlineTaskCreateResponse(BaseModel):
     task: LegalTaskResponse
 
 
+class LegalOpsAlertResponse(BaseModel):
+    id: str
+    kind: str
+    severity: str = "medium"
+    title: str
+    message: str = ""
+    matter_id: Optional[str] = None
+    matter_title: str = ""
+    source_kind: str
+    source_id: str
+    source_status: str = ""
+    due_date: Optional[str] = None
+    days_until: Optional[int] = None
+    priority: str = "medium"
+    assignee_user_id: Optional[str] = None
+    assignee_name: str = ""
+    assignee_email: str = ""
+    action_label: str = "Review"
+
+
 class LegalMatterDeadlineResponse(BaseModel):
     kind: str
     source_id: str
@@ -713,6 +733,8 @@ class LegalOpsSummary(BaseModel):
     overdue_matter_deadlines: int = 0
     matter_deadlines_due_14_days: int = 0
     active_playbooks: int = 0
+    open_action_alerts: int = 0
+    high_priority_action_alerts: int = 0
 
 
 class LegalOpsWorkspaceMemberResponse(BaseModel):
@@ -734,6 +756,7 @@ class LegalOpsWorkspaceResponse(BaseModel):
     playbooks: list[LegalPlaybookResponse] = []
     contract_reminders: list[LegalContractReminderResponse] = []
     matter_deadlines: list[LegalMatterDeadlineResponse] = []
+    action_alerts: list[LegalOpsAlertResponse] = []
     members: list[LegalOpsWorkspaceMemberResponse] = []
 
 
