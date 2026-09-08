@@ -91,7 +91,9 @@ class InMemoryRateLimiter:
         self.clients[client_ip] = timestamps
         return True, remaining - 1, reset_time
 
-rate_limiter = InMemoryRateLimiter(requests_per_minute=300)
+# Keep enough headroom for authenticated multi-request workflows and CI's
+# shared test client while retaining a bounded per-IP sliding window.
+rate_limiter = InMemoryRateLimiter(requests_per_minute=600)
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):

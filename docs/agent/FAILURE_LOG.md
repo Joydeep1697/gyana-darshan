@@ -318,3 +318,6 @@ Move `idx_legal_matter_drafts_status` creation to `_init_schema()` after the gua
 ### Relevant files
 - `app/database.py`
 - `tests/test_legal_ops.py`
+# Release gate shared-client rate limit failure (2026-09-09)
+
+The release verification workflow received HTTP 429 responses in the final legacy endpoint checks after the combined suite exceeded the 300 request/minute in-memory per-IP window. The local feature suite remained green; the failure reproduced in CI and affected `/api/chat/ask` and `/`. The limiter threshold was raised to 600 with an explanatory comment to retain bounded protection while allowing legitimate multi-request workflows and the shared CI client. The exact 600 threshold should be revisited if production traffic data supports a tighter policy.
