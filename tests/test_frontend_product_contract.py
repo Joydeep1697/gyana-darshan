@@ -197,13 +197,25 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="matterDraftButton"' in source
     assert 'id="matterDraftMarkdownButton"' in source
     assert 'id="matterDraftDocxButton"' in source
+    assert 'id="matterPrecedentSearchForm"' in source
+    assert 'id="matterPrecedentSearchInput"' in source
+    assert 'id="selectedMatterPrecedents"' in source
+    assert 'id="matterPrecedentSearchResults"' in source
+    assert "Draft precedents" in source
+    assert "Add to draft" in source
+    assert "Remove from draft" in source
+    assert "selectedMatterDraftPrecedents" in source
     assert "Draft history" in source
     assert "data-matter-draft-id" in source
+    assert "data-add-matter-precedent" in source
+    assert "data-remove-matter-precedent" in source
+    assert "searchMatterDraftPrecedents" in source
     assert "loadMatterDraft" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/draft" in source
     assert "/api/legal-ops/matters/${encodeURIComponent(detail.id)}/drafts/${encodeURIComponent(draftId)}" in source
     assert "/draft/export?format=" in source
     assert "&draft_id=${encodeURIComponent(state.activeMatterDraft.id)}" in source
+    assert "precedent_ids:state.selectedMatterDraftPrecedents.map(item=>item.id)" in source
     assert 'id="precedentSearchForm"' in source
     assert 'id="precedentSearchResults"' in source
     assert "/api/vault/precedents?q=" in source

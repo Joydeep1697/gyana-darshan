@@ -145,6 +145,17 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     db = Database()
     document_id = db.create_document("Vendor NDA.pdf", 10, "/tmp/vendor-nda.pdf", "owner", organization_id)
     db.update_document(document_id, status="indexed", category="Contract", domain="Commercial", summary="Vendor confidentiality agreement")
+    precedent_record = db.upsert_case_law_record(
+        organization_id,
+        document_id,
+        {
+            "title": "Vendor Confidentiality Authority v State",
+            "citation": "2026 ND 42",
+            "court": "Supreme Court of India",
+            "year": 2026,
+            "source_excerpt": "Confidential information obligations must be interpreted against the recorded contractual undertaking.",
+        },
+    )
     other_document_id = db.create_document("Other NDA.pdf", 10, "/tmp/other-nda.pdf", "owner", "other-org")
     db.update_document(other_document_id, status="indexed", category="Contract", domain="Commercial")
 
@@ -195,8 +206,8 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
 
     draft = client.post(
         f"/api/legal-ops/matters/{matter_id}/draft",
-        json={"prompt": "What statutory provisions govern the reported conduct?", "precedent_ids": []},
-        headers=viewer_workspace,
+        json={"prompt": "What statutory provisions govern the reported conduct?", "precedent_ids": [precedent_record["id"]]},
+        headers=owner_workspace,
     )
     assert draft.status_code == 200
     draft_data = draft.json()
@@ -207,8 +218,18 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert "Grounded draft" in draft_data["title"]
     assert "Recorded matter facts" in draft_data["draft"]
     assert "Review flags" in draft_data["draft"]
+    assert "Vendor Confidentiality Authority v State" in draft_data["draft"]
+    assert "2026 ND 42" in draft_data["draft"]
     assert "Application of the authorities" in draft_data["unsupported_claims"][-1]
+    assert "No precedent was selected or matched" not in draft_data["unsupported_claims"]
     assert draft_data["generated_from"]["statutes"] >= 0
+    assert draft_data["generated_from"]["precedents"] == 1
+    assert any(source["kind"] == "precedent" and source["id"] == precedent_record["id"] for source in draft_data["sources"])
+    assert client.post(
+        f"/api/legal-ops/matters/{matter_id}/draft",
+        json={"prompt": "Viewer should not persist a draft", "precedent_ids": []},
+        headers=viewer_workspace,
+    ).status_code == 403
 
     draft_history = client.get(f"/api/legal-ops/matters/{matter_id}/drafts", headers=viewer_workspace)
     assert draft_history.status_code == 200
@@ -234,6 +255,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     assert markdown.headers["content-type"].startswith("text/markdown")
     assert "Grounded draft" in markdown.text
     assert draft_data["draft"] in markdown.text
+    assert "Vendor Confidentiality Authority v State" in markdown.text
 
     docx = client.post(
         f"/api/legal-ops/matters/{matter_id}/draft/export?format=docx&draft_id={draft_id}",

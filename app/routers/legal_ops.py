@@ -147,7 +147,7 @@ async def generate_grounded_matter_draft(
     matter_id: str,
     payload: LegalMatterDraftRequest | None = None,
     db: Database = Depends(get_db),
-    workspace: dict = Depends(get_workspace_context),
+    workspace: dict = Depends(require_workspace_writer),
 ):
     """Assemble a source-labeled draft from matter facts, statutes, and selected precedents."""
     organization_id = _org_id(workspace)
