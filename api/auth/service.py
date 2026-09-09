@@ -36,6 +36,7 @@ def get_jwt_secret_key() -> str:
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 # 24 hours
 REFRESH_TOKEN_EXPIRE_DAYS = 30
+NON_REMEMBERED_SESSION_HOURS = 12
 
 def hash_password(password: str) -> str:
     """Hash password using PBKDF2-HMAC-SHA256 with 600,000 iterations and 16-byte random salt."""
@@ -132,35 +133,35 @@ class AuthService:
         return user, None
 
     @staticmethod
-    def authenticate_user(email: str, password: str) -> Tuple[Optional[Dict[str, Any]], Optional[Dict[str, str]], Optional[str]]:
+    def authenticate_user(email: str, password: str, device_id: str, remember_me: bool = False) -> Tuple[Optional[Dict[str, Any]], Optional[Dict[str, str]], Optional[str]]:
         """Validate credentials and issue access + refresh tokens."""
         clean_email = email.lower().strip()
         user = UserRepository.get_by_email(clean_email)
         if not user or not verify_password(password, user["password_hash"]):
             return None, None, "Invalid email or password."
 
-        return user, AuthService.issue_tokens_for_user(user), None
+        if SessionRepository.has_active_other_device_session(user["id"], device_id):
+            return user, None, "This account is already signed in on another device. Sign out there before continuing."
+        return user, AuthService.issue_tokens_for_user(user, device_id, remember_me), None
 
     @staticmethod
-    def issue_tokens_for_user(user: Dict[str, Any]) -> Dict[str, str]:
+    def issue_tokens_for_user(user: Dict[str, Any], device_id: str, remember_me: bool = False) -> Dict[str, str]:
         """Issue the same first-party session tokens for password or verified OAuth login."""
 
         # Create access token
         access_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        refresh_delta = timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS) if remember_me else timedelta(hours=NON_REMEMBERED_SESSION_HOURS)
+        refresh_token = secrets.token_urlsafe(48)
+        refresh_hash = hashlib.sha256(refresh_token.encode('utf-8')).hexdigest()
+        expires_at = (datetime.now(timezone.utc) + refresh_delta).isoformat()
+        session = SessionRepository.create_session(user["id"], refresh_hash, expires_at, device_id)
+
         access_token = create_jwt_token({
             "sub": user["id"],
             "email": user["email"],
             "role": user["role"],
-            "type": "access"
+            "type": "access", "sid": session["id"], "device_id": device_id
         }, access_delta)
-
-        # Create refresh token & record session in DB
-        refresh_delta = timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
-        refresh_token = secrets.token_urlsafe(48)
-        refresh_hash = hashlib.sha256(refresh_token.encode('utf-8')).hexdigest()
-        expires_at = (datetime.now(timezone.utc) + refresh_delta).isoformat()
-        
-        SessionRepository.create_session(user["id"], refresh_hash, expires_at)
 
         tokens = {
             "access_token": access_token,
@@ -171,12 +172,14 @@ class AuthService:
         return tokens
 
     @staticmethod
-    def refresh_access_token(refresh_token: str) -> Tuple[Optional[str], Optional[str]]:
+    def refresh_access_token(refresh_token: str, device_id: str) -> Tuple[Optional[str], Optional[str]]:
         """Validate refresh token and issue a fresh access token."""
         refresh_hash = hashlib.sha256(refresh_token.encode('utf-8')).hexdigest()
         session = SessionRepository.get_active_session(refresh_hash)
         if not session:
             return None, "Invalid or expired refresh token."
+        if session.get("device_id") != device_id:
+            return None, "This session belongs to another device."
 
         user = UserRepository.get_by_id(session["user_id"])
         if not user:
@@ -187,13 +190,16 @@ class AuthService:
             "sub": user["id"],
             "email": user["email"],
             "role": user["role"],
-            "type": "access"
+            "type": "access", "sid": session["id"], "device_id": device_id
         }, access_delta)
 
         return new_access_token, None
 
     @staticmethod
-    def logout(refresh_token: str) -> bool:
+    def logout(refresh_token: str, device_id: str) -> bool:
         """Revoke the active session."""
         refresh_hash = hashlib.sha256(refresh_token.encode('utf-8')).hexdigest()
+        session = SessionRepository.get_active_session(refresh_hash)
+        if not session or session.get("device_id") != device_id:
+            return False
         return SessionRepository.revoke_session(refresh_hash)

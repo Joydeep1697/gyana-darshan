@@ -4,7 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 from datetime import date, datetime
-from enum import StrEnum
+try:
+    from enum import StrEnum
+except ImportError:  # Python 3.10 compatibility for system interpreters.
+    from enum import Enum
+
+    class StrEnum(str, Enum):
+        pass
 import re
 
 from app.source_presenter import STATUTE_PATTERNS, extract_citation_keys

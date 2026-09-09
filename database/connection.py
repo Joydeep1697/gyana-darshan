@@ -63,6 +63,10 @@ def init_db():
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_audit_org ON audit_events(organization_id, created_at DESC)"
         )
+        session_columns = {row["name"] for row in conn.execute("PRAGMA table_info(sessions)")}
+        if "device_id" not in session_columns:
+            conn.execute("ALTER TABLE sessions ADD COLUMN device_id TEXT NOT NULL DEFAULT 'legacy'")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_sessions_device ON sessions(user_id, device_id, revoked_at)")
 
         # Existing accounts receive private workspaces without changing ownership semantics.
         users = conn.execute("SELECT id, full_name FROM users").fetchall()

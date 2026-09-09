@@ -1,4 +1,4 @@
-"""Deterministic matter brief generation for Legal Ops."""
+"""Deterministic matter brief generation for Nyaya Ops."""
 
 from __future__ import annotations
 

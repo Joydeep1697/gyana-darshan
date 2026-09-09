@@ -1,4 +1,4 @@
-"""Legal operations workspace regressions."""
+"""Nyaya Ops workspace regressions."""
 
 from __future__ import annotations
 
@@ -32,7 +32,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
 
     created = client.post(
         "/api/organizations",
-        json={"name": "Legal Ops Team", "slug": f"legal-ops-{uuid.uuid4().hex[:8]}"},
+        json={"name": "Nyaya Ops Team", "slug": f"legal-ops-{uuid.uuid4().hex[:8]}"},
         headers=owner_headers,
     )
     assert created.status_code == 201
@@ -111,7 +111,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
         json={
             "contract_id": contract_id,
             "title": "Return confidential material after termination",
-            "owner": "Legal operations",
+            "owner": "Nyaya Ops",
             "priority": "critical",
             "due_date": "2026-09-20",
             "source_clause": "Confidential materials must be returned or destroyed after termination.",
@@ -486,7 +486,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     digest = client.get("/api/legal-ops/notifications/digest", headers=owner_workspace)
     assert digest.status_code == 200
     digest_payload = digest.json()
-    assert digest_payload["title"] == "Legal Ops Notification Digest"
+    assert digest_payload["title"] == "Nyaya Ops Notification Digest"
     assert "Priority alerts" in digest_payload["digest"]
     assert "delivery confirmation" in digest_payload["digest"]
     assert digest_payload["generated_from"]["tasks"] >= 1
@@ -540,7 +540,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     analytics = client.get("/api/legal-ops/analytics", headers=viewer_workspace)
     assert analytics.status_code == 200
     kpis = analytics.json()
-    assert kpis["title"] == "Legal Ops KPI Analytics"
+    assert kpis["title"] == "Nyaya Ops KPI Analytics"
     assert "not legal advice" in kpis["limits"]
     assert kpis["workload"]["total_matters"] == 1
     assert kpis["workload"]["open_tasks"] == 1
@@ -562,7 +562,7 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     report = client.get("/api/legal-ops/report", headers=viewer_workspace)
     assert report.status_code == 200
     report_data = report.json()
-    assert report_data["title"] == "Legal Ops Report"
+    assert report_data["title"] == "Nyaya Ops Report"
     assert "Executive Snapshot" in report_data["report"]
     assert "Matter Status" in report_data["report"]
     assert "Matter Deadlines" in report_data["report"]
@@ -797,17 +797,66 @@ def test_legal_ops_kpi_snapshots_persist_compare_and_export_history():
     assert exported_json.status_code == 200
     assert exported_json.headers["content-type"].startswith("application/json")
     assert exported_json.json()["snapshot_count"] == 2
-    assert exported_json.json()["comparison"]["title"] == "Legal Ops KPI Trend Comparison"
+    assert exported_json.json()["comparison"]["title"] == "Nyaya Ops KPI Trend Comparison"
     assert "not legal advice" in exported_json.json()["limits"]
 
     exported_markdown = client.get("/api/legal-ops/analytics/snapshots/export?format=markdown", headers=viewer_workspace)
     assert exported_markdown.status_code == 200
     assert exported_markdown.headers["content-type"].startswith("text/markdown")
-    assert "# Legal Ops KPI Snapshot History" in exported_markdown.text
+    assert "# Nyaya Ops KPI Snapshot History" in exported_markdown.text
     assert "Week 2 after intake" in exported_markdown.text
     assert "Latest trend comparison" in exported_markdown.text
     assert "not legal advice" in exported_markdown.text
 
     assert client.get("/api/legal-ops/analytics/snapshots", headers=outsider_workspace).status_code == 404
     assert client.post("/api/legal-ops/analytics/snapshots", json={"label": "outsider"}, headers=outsider_workspace).status_code == 404
+
+
+def test_legal_ops_notification_automation_rules_preferences_and_inbox():
+    client = TestClient(app)
+    owner_headers, _ = _account(client, "notify-owner")
+    viewer_headers, viewer_email = _account(client, "notify-viewer")
+    outsider_headers, _ = _account(client, "notify-outsider")
+    created = client.post("/api/organizations", json={"name": "Notification Team", "slug": f"notify-{uuid.uuid4().hex[:8]}"}, headers=owner_headers)
+    assert created.status_code == 201
+    organization_id = created.json()["id"]
+    assert client.post(f"/api/organizations/{organization_id}/members", json={"email": viewer_email, "role": "VIEWER"}, headers=owner_headers).status_code == 201
+    owner_workspace = {**owner_headers, "X-Organization-ID": organization_id}
+    viewer_workspace = {**viewer_headers, "X-Organization-ID": organization_id}
+    outsider_workspace = {**outsider_headers, "X-Organization-ID": organization_id}
+
+    rules = client.get("/api/legal-ops/notifications/rules", headers=viewer_workspace)
+    assert rules.status_code == 200
+    assert len(rules.json()) == 4
+    preferences = client.get("/api/legal-ops/notifications/preferences", headers=viewer_workspace)
+    assert preferences.status_code == 200
+    assert preferences.json()["frequency"] == "weekly"
+    assert client.patch(f"/api/legal-ops/notifications/rules/{rules.json()[0]['id']}", json={"enabled": False}, headers=viewer_workspace).status_code == 403
+    assert client.put("/api/legal-ops/notifications/preferences", json={"frequency": "weekly"}, headers=viewer_workspace).status_code == 403
+    assert client.post("/api/legal-ops/notifications/generate", headers=viewer_workspace).status_code == 403
+
+    matter = client.post("/api/legal-ops/matters", json={"title": "High risk alert matter", "matter_type": "compliance", "priority": "high"}, headers=owner_workspace)
+    assert matter.status_code == 201
+    updated = client.put("/api/legal-ops/notifications/preferences", json={"frequency": "weekly", "include_spend": False}, headers=owner_workspace)
+    assert updated.status_code == 200
+    assert updated.json()["frequency"] == "weekly"
+    generated = client.post("/api/legal-ops/notifications/generate", headers=owner_workspace)
+    assert generated.status_code == 200
+    assert generated.json()["created_count"] >= 1
+    assert any("High-risk matter" in item["title"] for item in generated.json()["notifications"])
+    repeated = client.post("/api/legal-ops/notifications/generate", headers=owner_workspace)
+    assert repeated.status_code == 200
+    assert repeated.json()["created_count"] == 0
+    inbox = client.get("/api/legal-ops/notifications/inbox", headers=viewer_workspace)
+    assert inbox.status_code == 200
+    notification = inbox.json()[0]
+    assert notification["status"] == "unread"
+    changed = client.patch(f"/api/legal-ops/notifications/inbox/{notification['id']}", json={"status": "read"}, headers=viewer_workspace)
+    assert changed.status_code == 200
+    assert changed.json()["status"] == "read"
+    digest = client.get("/api/legal-ops/notifications/digest", headers=viewer_workspace)
+    assert digest.status_code == 200
+    assert "Digest preferences" in digest.json()["digest"]
+    assert client.get("/api/legal-ops/notifications/rules", headers=outsider_workspace).status_code == 404
+    assert client.get("/api/legal-ops/notifications/inbox", headers=outsider_workspace).status_code == 404
     assert client.get("/api/legal-ops/analytics/snapshots/export?format=json", headers=outsider_workspace).status_code == 404

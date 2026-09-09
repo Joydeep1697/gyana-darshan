@@ -1,4 +1,4 @@
-"""Portable exports for organization-scoped Legal Ops matter records."""
+"""Portable exports for organization-scoped Nyaya Ops matter records."""
 
 from __future__ import annotations
 

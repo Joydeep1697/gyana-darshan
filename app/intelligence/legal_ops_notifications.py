@@ -1,4 +1,4 @@
-"""Deterministic Legal Ops notification and calendar exports."""
+"""Deterministic Nyaya Ops notification and calendar exports."""
 
 from __future__ import annotations
 
@@ -15,27 +15,30 @@ def _ics_text(value: Any) -> str:
     return _compact(value).replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
 
 
-def build_legal_ops_notification_digest(workspace: dict[str, Any]) -> dict[str, Any]:
+def build_legal_ops_notification_digest(workspace: dict[str, Any], preferences: dict[str, Any] | None = None) -> dict[str, Any]:
     """Build an email-ready operational digest from workspace records."""
+    prefs = preferences or {}
     summary = workspace.get("summary") or {}
-    alerts = workspace.get("action_alerts") or []
-    deadlines = [item for item in workspace.get("matter_deadlines") or [] if item.get("status") != "cleared"]
-    tasks = [item for item in workspace.get("tasks") or [] if item.get("status") != "done"]
-    contracts = [item for item in workspace.get("contracts") or [] if item.get("status") == "approved"]
+    alerts = workspace.get("action_alerts") or [] if prefs.get("include_alerts", True) else []
+    deadlines = [item for item in workspace.get("matter_deadlines") or [] if item.get("status") != "cleared"] if prefs.get("include_deadlines", True) else []
+    tasks = [item for item in workspace.get("tasks") or [] if item.get("status") != "done"] if prefs.get("include_tasks", True) else []
+    contracts = [item for item in workspace.get("contracts") or [] if item.get("status") == "approved"] if prefs.get("include_contracts", True) else []
+    spend_entries = [item for item in workspace.get("spend_entries") or [] if item.get("status") != "paid"] if prefs.get("include_spend", True) else []
 
     ranked_alerts = sorted(alerts, key=lambda item: ({"critical": 0, "high": 1, "medium": 2, "low": 3}.get(item.get("severity") or "medium", 2), item.get("due_date") or "9999-12-31"))
     ranked_deadlines = sorted(deadlines, key=lambda item: (item.get("deadline_date") or "9999-12-31", item.get("title") or ""))
     ranked_tasks = sorted(tasks, key=lambda item: ({"critical": 0, "high": 1, "medium": 2, "low": 3}.get(item.get("priority") or "medium", 2), item.get("due_date") or "9999-12-31"))
 
     lines = [
-        "Legal Ops Notification Digest",
+        "Nyaya Ops Notification Digest",
         f"Generated: {datetime.now(timezone.utc).isoformat(timespec='seconds')}",
         "",
         "Snapshot",
         f"- {summary.get('open_action_alerts', len(alerts))} open action alerts.",
         f"- {summary.get('open_matter_deadlines', len(deadlines))} open deadlines; {summary.get('overdue_matter_deadlines', 0)} overdue.",
         f"- {len(tasks)} open or in-progress tasks.",
-        f"- {summary.get('pending_signature_contracts', len(contracts))} contracts pending signature follow-through.",
+        f"- {summary.get('pending_signature_contracts', len(contracts)) if prefs.get('include_contracts', True) else 0} contracts pending signature follow-through.",
+        f"- {len(spend_entries)} open spend records included.",
         "",
         "Priority alerts",
     ]
@@ -62,30 +65,32 @@ def build_legal_ops_notification_digest(workspace: dict[str, Any]) -> dict[str, 
         ]
         or ["- No open task is currently recorded."]
     )
+    lines.extend(["", "Digest preferences", f"- Frequency: {_compact(prefs.get('frequency'), 'weekly')}.", f"- Includes tasks={bool(prefs.get('include_tasks', True))}, deadlines={bool(prefs.get('include_deadlines', True))}, contracts={bool(prefs.get('include_contracts', True))}, spend={bool(prefs.get('include_spend', True))}, alerts={bool(prefs.get('include_alerts', True))}."])
     lines.extend(["", "Limits", "- This digest is assembled from workspace records only. It is not legal advice, delivery confirmation, or proof that external notifications were sent."])
 
     return {
-        "title": "Legal Ops Notification Digest",
+        "title": "Nyaya Ops Notification Digest",
         "digest": "\n".join(lines),
         "generated_from": {
             "action_alerts": len(alerts),
             "matter_deadlines": len(deadlines),
             "tasks": len(tasks),
             "pending_signature_contracts": len(contracts),
+            "open_spend_records": len(spend_entries),
         },
     }
 
 
 def build_legal_ops_calendar_ics(workspace: dict[str, Any]) -> str:
-    """Export open Legal Ops deadlines as an RFC 5545-compatible all-day calendar."""
+    """Export open Nyaya Ops deadlines as an RFC 5545-compatible all-day calendar."""
     now = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     lines = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
-        "PRODID:-//Nyaya Darshana//Legal Ops Calendar//EN",
+        "PRODID:-//Nyaya Darshana//Nyaya Ops Calendar//EN",
         "CALSCALE:GREGORIAN",
         "METHOD:PUBLISH",
-        "X-WR-CALNAME:Nyaya Darshana Legal Ops",
+        "X-WR-CALNAME:Nyaya Darshana Nyaya Ops",
     ]
     deadlines = [item for item in workspace.get("matter_deadlines") or [] if item.get("status") != "cleared" and _compact(item.get("deadline_date"))]
     for item in sorted(deadlines, key=lambda row: (row.get("deadline_date") or "9999-12-31", row.get("title") or ""))[:200]:
@@ -99,7 +104,7 @@ def build_legal_ops_calendar_ics(workspace: dict[str, Any]) -> str:
             f"UID:{_ics_text(uid)}",
             f"DTSTAMP:{now}",
             f"DTSTART;VALUE=DATE:{date_value}",
-            f"SUMMARY:{_ics_text(item.get('title') or 'Legal Ops deadline')}",
+            f"SUMMARY:{_ics_text(item.get('title') or 'Nyaya Ops deadline')}",
             f"DESCRIPTION:{_ics_text(description)}",
             f"CATEGORIES:{_ics_text(item.get('kind') or 'legal_ops')}",
             "END:VEVENT",

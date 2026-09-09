@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS compliance_gaps (
 
 
 
--- Legal operations matters
+-- Nyaya Ops matters
 CREATE TABLE IF NOT EXISTS legal_matters (
     id              TEXT PRIMARY KEY,
     organization_id TEXT NOT NULL,
@@ -404,7 +404,7 @@ CREATE INDEX IF NOT EXISTS idx_legal_playbooks_org ON legal_playbooks(organizati
 CREATE INDEX IF NOT EXISTS idx_legal_playbooks_type ON legal_playbooks(playbook_type);
 CREATE INDEX IF NOT EXISTS idx_legal_playbooks_status ON legal_playbooks(status);
 
--- Saved Legal Ops KPI snapshots
+-- Saved Nyaya Ops KPI snapshots
 CREATE TABLE IF NOT EXISTS legal_ops_kpi_snapshots (
     id                  TEXT PRIMARY KEY,
     organization_id     TEXT NOT NULL,
@@ -414,6 +414,50 @@ CREATE TABLE IF NOT EXISTS legal_ops_kpi_snapshots (
     created_at          TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_legal_ops_kpi_snapshots_org_created ON legal_ops_kpi_snapshots(organization_id, created_at DESC);
+
+-- Nyaya Ops notification automation
+CREATE TABLE IF NOT EXISTS legal_notification_rules (
+    id                  TEXT PRIMARY KEY,
+    organization_id     TEXT NOT NULL,
+    rule_type           TEXT NOT NULL,
+    enabled             INTEGER DEFAULT 1,
+    threshold_days      INTEGER DEFAULT 0,
+    severity            TEXT DEFAULT 'medium',
+    created_by_user_id  TEXT,
+    created_at          TEXT NOT NULL,
+    updated_at          TEXT NOT NULL,
+    UNIQUE(organization_id, rule_type)
+);
+CREATE INDEX IF NOT EXISTS idx_legal_notification_rules_org ON legal_notification_rules(organization_id);
+
+CREATE TABLE IF NOT EXISTS legal_digest_preferences (
+    organization_id         TEXT PRIMARY KEY,
+    frequency               TEXT DEFAULT 'weekly',
+    include_tasks           INTEGER DEFAULT 1,
+    include_deadlines       INTEGER DEFAULT 1,
+    include_contracts       INTEGER DEFAULT 1,
+    include_spend           INTEGER DEFAULT 1,
+    include_alerts          INTEGER DEFAULT 1,
+    updated_by_user_id      TEXT,
+    updated_at              TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS legal_notifications (
+    id                  TEXT PRIMARY KEY,
+    organization_id     TEXT NOT NULL,
+    rule_type           TEXT NOT NULL,
+    source_kind         TEXT NOT NULL,
+    source_id           TEXT NOT NULL,
+    matter_id           TEXT,
+    title               TEXT NOT NULL,
+    message             TEXT DEFAULT '',
+    severity            TEXT DEFAULT 'medium',
+    status              TEXT DEFAULT 'unread',
+    created_at          TEXT NOT NULL,
+    read_at             TEXT,
+    UNIQUE(organization_id, rule_type, source_kind, source_id)
+);
+CREATE INDEX IF NOT EXISTS idx_legal_notifications_org_status ON legal_notifications(organization_id, status, created_at DESC);
 
 -- Search analytics
 CREATE TABLE IF NOT EXISTS search_analytics (
@@ -1291,7 +1335,7 @@ class Database:
                 params = references + (owner_id,)
             return [dict(row) for row in conn.execute("SELECT DISTINCT v.id, v.filename, v.category, v.domain, si.section_ref AS outdated_reference FROM vault_documents v JOIN section_index si ON si.doc_id = v.id WHERE (si.section_ref LIKE ? OR si.section_ref LIKE ? OR si.section_ref LIKE ?)" + scope + " ORDER BY v.upload_time DESC", params).fetchall()]
 
-    # ── Legal Operations ─────────────────────────────────────────
+    # ── Nyaya Ops ─────────────────────────────────────────
 
     @staticmethod
     def _bounded(value: Optional[str], default: str, allowed: set[str]) -> str:
@@ -1399,9 +1443,9 @@ class Database:
         }
 
     def _get_org_row(self, table: str, item_id: str, organization_id: str) -> Optional[dict]:
-        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_contract_obligations", "legal_vendors", "legal_spend_entries", "legal_playbooks", "legal_ops_kpi_snapshots"}
+        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_contract_obligations", "legal_vendors", "legal_spend_entries", "legal_playbooks", "legal_ops_kpi_snapshots", "legal_notification_rules", "legal_notifications"}
         if table not in allowed:
-            raise ValueError("Unsupported legal operations table")
+            raise ValueError("Unsupported nyaya ops table")
         with self.connect() as conn:
             row = conn.execute(f"SELECT * FROM {table} WHERE id = ? AND organization_id = ?", (item_id, organization_id)).fetchone()
             return dict(row) if row else None
@@ -2644,7 +2688,7 @@ class Database:
             raise ValueError("Alert has no matter for task creation")
         task = self.create_task(
             organization_id,
-            f"Follow up: {alert.get('title') or 'Legal Ops alert'}",
+            f"Follow up: {alert.get('title') or 'Nyaya Ops alert'}",
             matter_id=matter_id,
             priority=alert.get("priority") or "medium",
             assignee_user_id=assignee_user_id,
@@ -2661,7 +2705,7 @@ class Database:
             raise ValueError("Alert has no matter for note creation")
         note_body = (body or "").strip()
         if not note_body:
-            note_body = f"Escalation note for {alert.get('title') or 'Legal Ops alert'}: {alert.get('message') or 'Review required.'}"
+            note_body = f"Escalation note for {alert.get('title') or 'Nyaya Ops alert'}: {alert.get('message') or 'Review required.'}"
         link_kind = alert.get("source_kind") or alert.get("kind") or "deadline"
         note = self.add_matter_note(
             organization_id,
@@ -2734,6 +2778,166 @@ class Database:
             "open_action_alerts": len(action_alerts),
             "high_priority_action_alerts": len(high_priority_action_alerts),
         }
+
+    DEFAULT_NOTIFICATION_RULES = (
+        {"rule_type": "overdue_deadlines", "threshold_days": 0, "severity": "high"},
+        {"rule_type": "pending_signature", "threshold_days": 0, "severity": "high"},
+        {"rule_type": "overdue_invoices", "threshold_days": 0, "severity": "high"},
+        {"rule_type": "high_risk_matter", "threshold_days": 0, "severity": "high"},
+    )
+
+    def ensure_legal_notification_defaults(self, organization_id: str, user_id: Optional[str] = None) -> None:
+        now = self.now()
+        with self.connect() as conn:
+            for rule in self.DEFAULT_NOTIFICATION_RULES:
+                conn.execute(
+                    """INSERT OR IGNORE INTO legal_notification_rules
+                       (id, organization_id, rule_type, enabled, threshold_days, severity, created_by_user_id, created_at, updated_at)
+                       VALUES (?, ?, ?, 1, ?, ?, ?, ?, ?)""",
+                    (self.new_id(), organization_id, rule["rule_type"], rule["threshold_days"], rule["severity"], user_id, now, now),
+                )
+            conn.execute(
+                """INSERT OR IGNORE INTO legal_digest_preferences
+                   (organization_id, frequency, include_tasks, include_deadlines, include_contracts, include_spend, include_alerts, updated_by_user_id, updated_at)
+                   VALUES (?, 'weekly', 1, 1, 1, 1, 1, ?, ?)""",
+                (organization_id, user_id, now),
+            )
+
+    def list_legal_notification_rules(self, organization_id: str) -> list[dict[str, Any]]:
+        self.ensure_legal_notification_defaults(organization_id)
+        with self.connect() as conn:
+            rows = conn.execute(
+                "SELECT * FROM legal_notification_rules WHERE organization_id = ? ORDER BY rule_type",
+                (organization_id,),
+            ).fetchall()
+        return [{**dict(row), "enabled": bool(row["enabled"])} for row in rows]
+
+    def update_legal_notification_rule(self, organization_id: str, rule_id: str, **kwargs: Any) -> Optional[dict[str, Any]]:
+        permitted = {"enabled", "threshold_days", "severity"}
+        fields = {key: value for key, value in kwargs.items() if key in permitted and value is not None}
+        if "enabled" in fields:
+            fields["enabled"] = 1 if fields["enabled"] else 0
+        if "threshold_days" in fields:
+            fields["threshold_days"] = max(0, min(int(fields["threshold_days"] or 0), 365))
+        if "severity" in fields:
+            fields["severity"] = self._bounded(fields["severity"], "medium", {"low", "medium", "high", "critical"})
+        if not fields:
+            row = self._get_org_row("legal_notification_rules", rule_id, organization_id)
+            return {**row, "enabled": bool(row["enabled"])} if row else None
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{key} = ?" for key in fields)
+        vals = list(fields.values()) + [rule_id, organization_id]
+        with self.connect() as conn:
+            cur = conn.execute(f"UPDATE legal_notification_rules SET {cols} WHERE id = ? AND organization_id = ?", vals)
+            if cur.rowcount == 0:
+                return None
+        row = self._get_org_row("legal_notification_rules", rule_id, organization_id)
+        return {**row, "enabled": bool(row["enabled"])} if row else None
+
+    def get_legal_digest_preferences(self, organization_id: str) -> dict[str, Any]:
+        self.ensure_legal_notification_defaults(organization_id)
+        with self.connect() as conn:
+            row = conn.execute("SELECT * FROM legal_digest_preferences WHERE organization_id = ?", (organization_id,)).fetchone()
+        data = dict(row) if row else {}
+        for key in ("include_tasks", "include_deadlines", "include_contracts", "include_spend", "include_alerts"):
+            data[key] = bool(data.get(key, 1))
+        return data
+
+    def update_legal_digest_preferences(self, organization_id: str, user_id: str, **kwargs: Any) -> dict[str, Any]:
+        self.ensure_legal_notification_defaults(organization_id, user_id)
+        permitted = {"frequency", "include_tasks", "include_deadlines", "include_contracts", "include_spend", "include_alerts"}
+        fields = {key: value for key, value in kwargs.items() if key in permitted and value is not None}
+        if "frequency" in fields:
+            fields["frequency"] = self._bounded(fields["frequency"], "weekly", {"daily", "weekly", "monthly"})
+        for key in ("include_tasks", "include_deadlines", "include_contracts", "include_spend", "include_alerts"):
+            if key in fields:
+                fields[key] = 1 if fields[key] else 0
+        fields["updated_by_user_id"] = user_id
+        fields["updated_at"] = self.now()
+        cols = ", ".join(f"{key} = ?" for key in fields)
+        with self.connect() as conn:
+            conn.execute(f"UPDATE legal_digest_preferences SET {cols} WHERE organization_id = ?", [*fields.values(), organization_id])
+        return self.get_legal_digest_preferences(organization_id)
+
+    def list_legal_notifications(self, organization_id: str, status: Optional[str] = None, limit: int = 100) -> list[dict[str, Any]]:
+        sql = "SELECT * FROM legal_notifications WHERE organization_id = ?"
+        params: list[Any] = [organization_id]
+        if status in {"unread", "read"}:
+            sql += " AND status = ?"
+            params.append(status)
+        sql += " ORDER BY created_at DESC LIMIT ?"
+        params.append(max(1, min(limit, 200)))
+        with self.connect() as conn:
+            return [dict(row) for row in conn.execute(sql, params).fetchall()]
+
+    def update_legal_notification_status(self, organization_id: str, notification_id: str, status: str = "read") -> Optional[dict[str, Any]]:
+        clean_status = self._bounded(status, "read", {"read", "unread"})
+        read_at = self.now() if clean_status == "read" else None
+        with self.connect() as conn:
+            cur = conn.execute(
+                "UPDATE legal_notifications SET status = ?, read_at = ? WHERE id = ? AND organization_id = ?",
+                (clean_status, read_at, notification_id, organization_id),
+            )
+            if cur.rowcount == 0:
+                return None
+        return self._get_org_row("legal_notifications", notification_id, organization_id)
+
+    def _notification_candidates(self, organization_id: str, rules: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        active = {rule["rule_type"]: rule for rule in rules if rule.get("enabled")}
+        candidates: list[dict[str, Any]] = []
+        if "overdue_deadlines" in active:
+            rule = active["overdue_deadlines"]
+            for deadline in self.list_workspace_matter_deadlines(organization_id, limit=500, window="overdue"):
+                candidates.append({
+                    "rule_type": "overdue_deadlines", "source_kind": deadline.get("kind") or "deadline", "source_id": str(deadline.get("source_id") or ""),
+                    "matter_id": deadline.get("matter_id"), "title": deadline.get("title") or "Overdue deadline",
+                    "message": f"Deadline is overdue for {deadline.get('matter_title') or 'a matter'}.", "severity": rule.get("severity") or "high",
+                })
+        if "pending_signature" in active:
+            rule = active["pending_signature"]
+            for contract in self.list_contract_records(organization_id, limit=500):
+                if contract.get("status") in {"approved", "sent", "partially_signed"}:
+                    candidates.append({
+                        "rule_type": "pending_signature", "source_kind": "contract", "source_id": contract["id"], "matter_id": contract.get("matter_id"),
+                        "title": f"Signature pending: {contract.get('title') or 'Untitled contract'}", "message": "Contract needs signature follow-through.", "severity": rule.get("severity") or "high",
+                    })
+        if "overdue_invoices" in active:
+            rule = active["overdue_invoices"]
+            for spend in self.list_spend_entries(organization_id, limit=500):
+                if spend.get("status") != "paid" and spend.get("due_date") and self._deadline_days_until(spend.get("due_date")) is not None and self._deadline_days_until(spend.get("due_date")) < 0:
+                    label = spend.get("invoice_number") or "Unnumbered spend"
+                    candidates.append({
+                        "rule_type": "overdue_invoices", "source_kind": "invoice", "source_id": spend["id"], "matter_id": spend.get("matter_id"),
+                        "title": f"Overdue invoice: {label}", "message": f"Invoice is overdue with {spend.get('currency') or 'INR'} {float(spend.get('amount') or 0):.2f} recorded.", "severity": rule.get("severity") or "high",
+                    })
+        if "high_risk_matter" in active:
+            rule = active["high_risk_matter"]
+            for matter in self.list_matters(organization_id, limit=500):
+                if matter.get("status") != "closed" and matter.get("priority") in {"critical", "high"}:
+                    candidates.append({
+                        "rule_type": "high_risk_matter", "source_kind": "matter", "source_id": matter["id"], "matter_id": matter["id"],
+                        "title": f"High-risk matter: {matter.get('title') or 'Untitled matter'}", "message": "Matter is open with high or critical priority.", "severity": rule.get("severity") or "high",
+                    })
+        return [item for item in candidates if item.get("source_id")]
+
+    def generate_legal_notifications(self, organization_id: str, user_id: Optional[str] = None) -> dict[str, Any]:
+        self.ensure_legal_notification_defaults(organization_id, user_id)
+        rules = self.list_legal_notification_rules(organization_id)
+        candidates = self._notification_candidates(organization_id, rules)
+        created: list[dict[str, Any]] = []
+        now = self.now()
+        with self.connect() as conn:
+            for item in candidates:
+                notification_id = self.new_id()
+                cur = conn.execute(
+                    """INSERT OR IGNORE INTO legal_notifications
+                       (id, organization_id, rule_type, source_kind, source_id, matter_id, title, message, severity, status, created_at)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'unread', ?)""",
+                    (notification_id, organization_id, item["rule_type"], item["source_kind"], item["source_id"], item.get("matter_id"), item["title"][:220], item.get("message", "")[:1000], item.get("severity") or "medium", now),
+                )
+                if cur.rowcount:
+                    created.append({"id": notification_id, "organization_id": organization_id, **item, "status": "unread", "created_at": now, "read_at": None})
+        return {"created": created, "created_count": len(created), "candidate_count": len(candidates), "notifications": self.list_legal_notifications(organization_id, limit=100)}
 
     # ── Search Analytics ──────────────────────────────────────────
 

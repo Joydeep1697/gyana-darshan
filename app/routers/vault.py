@@ -376,7 +376,7 @@ async def accept_document_contract_obligation(
     db: Database = Depends(get_db),
     workspace: dict = Depends(require_workspace_writer),
 ):
-    """Accept one source-quoted obligation suggestion into Legal Ops."""
+    """Accept one source-quoted obligation suggestion into Nyaya Ops."""
     organization_id = workspace["organization"]["id"]
     user_id = workspace["user"]["id"]
     document = _workspace_document(db, doc_id, organization_id)

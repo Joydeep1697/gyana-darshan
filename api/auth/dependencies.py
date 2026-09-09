@@ -5,9 +5,12 @@ from fastapi import Depends, Header, HTTPException, Security, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from api.auth.service import decode_jwt_token
-from database.repository import OrganizationRepository, UserRepository, UsageRepository
+from database.repository import OrganizationRepository, UserRepository, UsageRepository, SessionRepository
 
 http_bearer = HTTPBearer(auto_error=False)
+FREE_DAILY_CONSULTATION_LIMIT = 10
+ANONYMOUS_DAILY_CONSULTATION_LIMIT = 5
+ADMIN_DAILY_CONSULTATION_LIMIT = 999999
 
 def get_current_user_optional(
     credentials: Optional[HTTPAuthorizationCredentials] = Security(http_bearer)
@@ -22,6 +25,10 @@ def get_current_user_optional(
         return None
     
     user = UserRepository.get_by_id(payload["sub"])
+    if payload.get("sid"):
+        session = SessionRepository.get_active_session_by_id(payload["sid"])
+        if not user or not session or session.get("user_id") != user["id"] or session.get("device_id") != payload.get("device_id"):
+            return None
     return user
 
 def get_current_user(
@@ -52,6 +59,11 @@ def get_current_user(
             headers={"WWW-Authenticate": "Bearer"}
         )
     
+    if not payload.get("sid"):
+        raise HTTPException(status_code=401, detail="Session must be renewed. Please log in again.")
+    session = SessionRepository.get_active_session_by_id(payload["sid"])
+    if not session or session.get("user_id") != user["id"] or session.get("device_id") != payload.get("device_id"):
+        raise HTTPException(status_code=401, detail="This session is no longer active on this device.")
     return user
 
 def require_admin(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
@@ -95,14 +107,21 @@ def require_workspace_writer(
 def get_user_quota_limits(user: Optional[Dict[str, Any]]) -> Dict[str, int]:
     """Calculate daily limits and remaining quota based on user role."""
     if not user:
-        # Anonymous limit
-        return {"limit": 5, "used": 0, "remaining": 5}
+        return {
+            "limit": ANONYMOUS_DAILY_CONSULTATION_LIMIT,
+            "used": 0,
+            "remaining": ANONYMOUS_DAILY_CONSULTATION_LIMIT,
+        }
     
     role = user.get("role", "USER")
     if role in ["ADMIN", "SUPERADMIN"]:
-        return {"limit": 999999, "used": 0, "remaining": 999999}
+        return {
+            "limit": ADMIN_DAILY_CONSULTATION_LIMIT,
+            "used": 0,
+            "remaining": ADMIN_DAILY_CONSULTATION_LIMIT,
+        }
     
     used = UsageRepository.get_user_daily_query_count(user["id"])
-    limit = 100
+    limit = FREE_DAILY_CONSULTATION_LIMIT
     remaining = max(0, limit - used)
     return {"limit": limit, "used": used, "remaining": remaining}

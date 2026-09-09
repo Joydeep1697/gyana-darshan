@@ -10,6 +10,7 @@
 import asyncio
 import hmac
 import json
+import logging
 import secrets
 
 from fastapi import APIRouter, HTTPException, Depends, Request, status
@@ -22,12 +23,13 @@ from api.auth.schemas import (
 )
 from api.auth.service import AuthService
 from api.auth.google_oauth import (
-    exchange_google_code, google_authorization_url, google_oauth_enabled,
+    GoogleOAuthError, exchange_google_code, google_authorization_url, google_oauth_enabled,
 )
 from api.auth.dependencies import get_current_user, get_user_quota_limits
-from database.repository import AuditRepository, UserRepository
+from database.repository import AuditRepository, UserRepository, SessionRepository
 
 router = APIRouter(prefix="/api/auth", tags=["User Authentication & Accounts"])
+logger = logging.getLogger("nyaya-darshan.auth")
 
 @router.post("/register", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED)
 async def register(req: UserRegisterRequest, request: Request):
@@ -61,7 +63,7 @@ async def login(req: UserLoginRequest, request: Request):
     client_ip = request.client.host if request.client else "127.0.0.1"
     user, tokens, error = AuthService.authenticate_user(
         email=req.email,
-        password=req.password
+        password=req.password, device_id=req.device_id, remember_me=req.remember_me
     )
     if error:
         AuditRepository.log_audit(
@@ -92,11 +94,14 @@ async def start_google_sign_in(request: Request):
     if not google_oauth_enabled():
         raise HTTPException(status_code=503, detail="Google sign-in is not configured yet.")
     state = secrets.token_urlsafe(32)
+    device_id = request.query_params.get("device_id", "")
+    remember_me = request.query_params.get("remember_me", "0") == "1"
     response = RedirectResponse(google_authorization_url(state), status_code=302)
     response.set_cookie(
         "nyaya_google_oauth_state", state, max_age=600, httponly=True,
         secure=request.url.scheme == "https", samesite="lax", path="/api/auth/google",
     )
+    response.set_cookie("nyaya_google_oauth_device", json.dumps({"device_id": device_id, "remember_me": remember_me}), max_age=600, httponly=True, secure=request.url.scheme == "https", samesite="lax", path="/api/auth/google")
     return response
 
 
@@ -109,7 +114,11 @@ async def google_sign_in_callback(request: Request, code: str = "", state: str =
         raise HTTPException(status_code=400, detail="Invalid or expired Google sign-in state.")
     try:
         profile = await asyncio.to_thread(exchange_google_code, code)
+    except GoogleOAuthError as exc:
+        logger.warning("Google sign-in verification failed: %s", exc)
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
     except Exception as exc:
+        logger.warning("Google sign-in verification failed with unexpected error: %s", type(exc).__name__)
         raise HTTPException(status_code=401, detail="Google sign-in could not be verified.") from exc
 
     email = profile["email"].strip().lower()
@@ -122,7 +131,16 @@ async def google_sign_in_callback(request: Request, code: str = "", state: str =
         )
         if registration_error or not user:
             raise HTTPException(status_code=400, detail=registration_error or "Account creation failed.")
-    tokens = AuthService.issue_tokens_for_user(user)
+    try:
+        session_data = json.loads(request.cookies.get("nyaya_google_oauth_device", "{}"))
+    except json.JSONDecodeError:
+        session_data = {}
+    device_id = session_data.get("device_id", "")
+    if len(device_id) < 16:
+        raise HTTPException(status_code=400, detail="Google sign-in device could not be verified.")
+    if SessionRepository.has_active_other_device_session(user["id"], device_id):
+        raise HTTPException(status_code=409, detail="This account is already signed in on another device. Sign out there before continuing.")
+    tokens = AuthService.issue_tokens_for_user(user, device_id, bool(session_data.get("remember_me")))
     AuditRepository.log_audit(
         event_type="GOOGLE_AUTH_SUCCESS", user_id=user["id"],
         client_ip=request.client.host if request.client else "127.0.0.1",
@@ -131,22 +149,25 @@ async def google_sign_in_callback(request: Request, code: str = "", state: str =
     payload = json.dumps({
         "access_token": tokens["access_token"],
         "refresh_token": tokens["refresh_token"],
+        "remember_me": bool(session_data.get("remember_me")),
     }).replace("</", "<\\/")
     html = (
         "<!doctype html><html><head><meta name=\"referrer\" content=\"no-referrer\"></head>"
         "<body><script>const session=" + payload + ";"
-        "localStorage.setItem('nyaya_access_token',session.access_token);"
-        "localStorage.setItem('nyaya_refresh_token',session.refresh_token);"
+        "const storage=session.remember_me?localStorage:sessionStorage;"
+        "storage.setItem('nyaya_access_token',session.access_token);"
+        "storage.setItem('nyaya_refresh_token',session.refresh_token);"
         "window.location.replace('/');</script></body></html>"
     )
     response = HTMLResponse(html, headers={"Cache-Control": "no-store", "Referrer-Policy": "no-referrer"})
     response.delete_cookie("nyaya_google_oauth_state", path="/api/auth/google")
+    response.delete_cookie("nyaya_google_oauth_device", path="/api/auth/google")
     return response
 
 @router.post("/refresh", response_model=Dict[str, Any])
 async def refresh_token(req: RefreshTokenRequest):
     """Obtain a fresh access token using a valid refresh token."""
-    new_access_token, error = AuthService.refresh_access_token(req.refresh_token)
+    new_access_token, error = AuthService.refresh_access_token(req.refresh_token, req.device_id)
     if error:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=error)
     
@@ -159,7 +180,7 @@ async def refresh_token(req: RefreshTokenRequest):
 @router.post("/logout", response_model=Dict[str, Any])
 async def logout(req: LogoutRequest, current_user: Dict[str, Any] = Depends(get_current_user)):
     """Revoke active session refresh token."""
-    revoked = AuthService.logout(req.refresh_token)
+    revoked = AuthService.logout(req.refresh_token, req.device_id)
     AuditRepository.log_audit(
         event_type="USER_LOGOUT",
         user_id=current_user["id"],

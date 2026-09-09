@@ -1,4 +1,4 @@
-"""Deterministic KPI analytics for Legal Ops workspace records."""
+"""Deterministic KPI analytics for Nyaya Ops workspace records."""
 
 from __future__ import annotations
 
@@ -132,7 +132,7 @@ def build_legal_ops_analytics(workspace: dict[str, Any]) -> dict[str, Any]:
     paid_spend_total = _amount(summary.get("paid_spend_total"))
 
     return {
-        "title": "Legal Ops KPI Analytics",
+        "title": "Nyaya Ops KPI Analytics",
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "limits": LIMITS,
         "workload": {
@@ -269,7 +269,7 @@ def compare_legal_ops_snapshots(current: dict[str, Any], previous: dict[str, Any
             "direction": "up" if delta > 0 else "down" if delta < 0 else "flat",
         })
     return {
-        "title": "Legal Ops KPI Trend Comparison",
+        "title": "Nyaya Ops KPI Trend Comparison",
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "limits": LIMITS,
         "current_snapshot_id": (current or {}).get("id", ""),

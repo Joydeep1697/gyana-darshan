@@ -222,7 +222,7 @@ class GraphNetwork(BaseModel):
 
 
 
-# ── Legal Operations ──────────────────────────────────────────────
+# ── Nyaya Ops ──────────────────────────────────────────────
 
 class LegalMatterCreate(BaseModel):
     title: str = Field(..., min_length=2, max_length=160)
@@ -711,6 +711,71 @@ class LegalOpsNotificationDigestResponse(BaseModel):
     title: str
     digest: str
     generated_from: dict[str, int]
+
+
+class LegalNotificationRuleUpdate(BaseModel):
+    enabled: Optional[bool] = None
+    threshold_days: Optional[int] = Field(default=None, ge=0, le=365)
+    severity: Optional[str] = Field(default=None, max_length=30)
+
+
+class LegalNotificationRuleResponse(BaseModel):
+    id: str
+    organization_id: str
+    rule_type: str
+    enabled: bool = True
+    threshold_days: int = 0
+    severity: str = "medium"
+    created_by_user_id: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
+class LegalDigestPreferencesUpdate(BaseModel):
+    frequency: Optional[str] = Field(default=None, max_length=30)
+    include_tasks: Optional[bool] = None
+    include_deadlines: Optional[bool] = None
+    include_contracts: Optional[bool] = None
+    include_spend: Optional[bool] = None
+    include_alerts: Optional[bool] = None
+
+
+class LegalDigestPreferencesResponse(BaseModel):
+    organization_id: str
+    frequency: str = "weekly"
+    include_tasks: bool = True
+    include_deadlines: bool = True
+    include_contracts: bool = True
+    include_spend: bool = True
+    include_alerts: bool = True
+    updated_by_user_id: Optional[str] = None
+    updated_at: str
+
+
+class LegalNotificationResponse(BaseModel):
+    id: str
+    organization_id: str
+    rule_type: str
+    source_kind: str
+    source_id: str
+    matter_id: Optional[str] = None
+    title: str
+    message: str = ""
+    severity: str = "medium"
+    status: str = "unread"
+    created_at: str
+    read_at: Optional[str] = None
+
+
+class LegalNotificationGenerateResponse(BaseModel):
+    created: list[LegalNotificationResponse]
+    created_count: int
+    candidate_count: int
+    notifications: list[LegalNotificationResponse]
+
+
+class LegalNotificationStatusUpdate(BaseModel):
+    status: str = Field(default="read", max_length=30)
 
 
 class LegalMatterDeadlineTaskCreateResponse(BaseModel):

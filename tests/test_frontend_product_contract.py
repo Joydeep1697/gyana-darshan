@@ -103,7 +103,7 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="contractView"' in source
     assert 'id="reviewContractButton"' in source
     assert "Obligation suggestions" in source
-    assert "Accept into Legal Ops" in source
+    assert "Accept into Nyaya Ops" in source
     assert "data-obligation-suggestion" in source
     assert "activeContractReviewDocumentId" in source
     assert "Human legal review recommended" in source
@@ -268,6 +268,23 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "generateLegalOpsDigest" in source
     assert "downloadLegalOpsDigest" in source
     assert "downloadLegalOpsCalendar" in source
+    assert 'id="notificationAutomationPanel"' in source
+    assert 'id="notificationRuleList"' in source
+    assert 'id="notificationFrequency"' in source
+    assert 'id="includeTasks"' in source
+    assert 'id="includeDeadlines"' in source
+    assert 'id="includeContracts"' in source
+    assert 'id="includeSpend"' in source
+    assert 'id="includeAlerts"' in source
+    assert 'id="saveNotificationSettingsButton"' in source
+    assert 'id="generateNotificationsButton"' in source
+    assert 'id="loadNotificationInboxButton"' in source
+    assert 'id="notificationInboxList"' in source
+    assert "/api/legal-ops/notifications/rules" in source
+    assert "/api/legal-ops/notifications/preferences" in source
+    assert "/api/legal-ops/notifications/generate" in source
+    assert "/api/legal-ops/notifications/inbox" in source
+    assert "renderNotificationInbox" in source
     assert "refreshLegalOpsAnalytics" in source
     assert "downloadLegalOpsAnalytics" in source
     assert "/api/legal-ops/notifications/digest" in source
@@ -370,3 +387,11 @@ def test_frontend_does_not_reintroduce_mock_operational_claims_or_reasoning_thea
         assert phrase.casefold() not in source.casefold()
     assert not re.search(r"Nyaya Darshan(?!a)", source)
     assert "corpus" not in source.casefold()
+
+
+def test_public_header_has_single_auth_entry_point():
+    source, _ = _parsed()
+    header = source.split("</header>", 1)[0]
+    assert header.count("data-auth-open=") == 1
+    assert "Sign in" in header
+    assert "Begin consultation" not in header

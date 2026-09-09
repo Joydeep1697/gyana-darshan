@@ -58,6 +58,9 @@ class TestAuthAndConversations(unittest.TestCase):
         self.assertEqual(me_res.status_code, 200)
         profile = me_res.json()
         self.assertEqual(profile["email"], email)
+        self.assertEqual(profile["daily_quota_limit"], 10)
+        self.assertEqual(profile["daily_quota_used"], 0)
+        self.assertEqual(profile["daily_quota_remaining"], 10)
         self.assertGreaterEqual(profile["daily_quota_remaining"], 0)
 
         # 5. Refresh token

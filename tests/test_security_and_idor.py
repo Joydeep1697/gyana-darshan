@@ -110,9 +110,9 @@ class TestSecurityAndIDOR(unittest.TestCase):
         conv = self.client.post("/api/conversations", json={"title": "Quota Test"}, headers=headers_c).json()
         conv_id = conv["id"]
 
-        # Fetch user ID and simulate 100 queries consumed
+        # Fetch user ID and simulate the free-plan daily allowance consumed
         user_record = UserRepository.get_by_email(user_c_email)
-        for _ in range(100):
+        for _ in range(10):
             UsageRepository.record_usage(user_record["id"], endpoint="/api/conversations/messages", tokens=1)
 
         # Next query must be rejected with 429

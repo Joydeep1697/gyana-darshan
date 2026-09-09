@@ -1,4 +1,4 @@
-"""Workspace legal operations routes for matters, intake, tasks, contracts, and reports."""
+"""Workspace nyaya ops routes for matters, intake, tasks, contracts, and reports."""
 
 from __future__ import annotations
 
@@ -54,6 +54,13 @@ from app.models import (
     LegalOpsKpiTrendResponse,
     LegalOpsReportResponse,
     LegalOpsNotificationDigestResponse,
+    LegalNotificationGenerateResponse,
+    LegalNotificationResponse,
+    LegalNotificationRuleResponse,
+    LegalNotificationRuleUpdate,
+    LegalNotificationStatusUpdate,
+    LegalDigestPreferencesResponse,
+    LegalDigestPreferencesUpdate,
     LegalOpsSearchResponse,
     LegalPlaybookCreate,
     LegalPlaybookResponse,
@@ -83,7 +90,7 @@ def _user_id(workspace: dict) -> str:
 
 
 def _not_found() -> HTTPException:
-    return HTTPException(status_code=404, detail="Legal operations record not found")
+    return HTTPException(status_code=404, detail="Nyaya Ops record not found")
 
 
 def _require_workspace_admin(workspace: dict) -> None:
@@ -349,12 +356,108 @@ async def get_legal_ops_analytics(
     return build_legal_ops_analytics(_workspace_payload(db, _org_id(workspace)))
 
 
+@router.get("/notifications/rules", response_model=list[LegalNotificationRuleResponse])
+async def list_legal_notification_rules(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return db.list_legal_notification_rules(_org_id(workspace))
+
+
+@router.patch("/notifications/rules/{rule_id}", response_model=LegalNotificationRuleResponse)
+async def update_legal_notification_rule(
+    rule_id: str,
+    payload: LegalNotificationRuleUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    _require_workspace_admin(workspace)
+    organization_id = _org_id(workspace)
+    rule = db.update_legal_notification_rule(organization_id, rule_id, **payload.model_dump(exclude_unset=True))
+    if not rule:
+        raise _not_found()
+    AuditRepository.log_audit(
+        "LEGAL_NOTIFICATION_RULE_UPDATED",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"rule_id": rule_id, "rule_type": rule.get("rule_type")},
+    )
+    return rule
+
+
+@router.get("/notifications/preferences", response_model=LegalDigestPreferencesResponse)
+async def get_legal_digest_preferences(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return db.get_legal_digest_preferences(_org_id(workspace))
+
+
+@router.put("/notifications/preferences", response_model=LegalDigestPreferencesResponse)
+async def update_legal_digest_preferences(
+    payload: LegalDigestPreferencesUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    _require_workspace_admin(workspace)
+    organization_id = _org_id(workspace)
+    preferences = db.update_legal_digest_preferences(organization_id, _user_id(workspace), **payload.model_dump(exclude_unset=True))
+    AuditRepository.log_audit(
+        "LEGAL_DIGEST_PREFERENCES_UPDATED",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"frequency": preferences.get("frequency")},
+    )
+    return preferences
+
+
+@router.post("/notifications/generate", response_model=LegalNotificationGenerateResponse)
+async def generate_legal_notifications(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    _require_workspace_admin(workspace)
+    organization_id = _org_id(workspace)
+    result = db.generate_legal_notifications(organization_id, _user_id(workspace))
+    AuditRepository.log_audit(
+        "LEGAL_NOTIFICATIONS_GENERATED",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"created_count": result.get("created_count"), "candidate_count": result.get("candidate_count")},
+    )
+    return result
+
+
+@router.get("/notifications/inbox", response_model=list[LegalNotificationResponse])
+async def list_legal_notification_inbox(
+    status_filter: str | None = Query(default=None, alias="status"),
+    limit: int = 100,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    return db.list_legal_notifications(_org_id(workspace), status=status_filter, limit=limit)
+
+
+@router.patch("/notifications/inbox/{notification_id}", response_model=LegalNotificationResponse)
+async def update_legal_notification_status(
+    notification_id: str,
+    payload: LegalNotificationStatusUpdate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    notification = db.update_legal_notification_status(_org_id(workspace), notification_id, status=payload.status)
+    if not notification:
+        raise _not_found()
+    return notification
+
+
 @router.get("/notifications/digest", response_model=LegalOpsNotificationDigestResponse)
 async def get_legal_ops_notification_digest(
     db: Database = Depends(get_db),
     workspace: dict = Depends(get_workspace_context),
 ):
-    return build_legal_ops_notification_digest(_workspace_payload(db, _org_id(workspace)))
+    organization_id = _org_id(workspace)
+    return build_legal_ops_notification_digest(_workspace_payload(db, organization_id), db.get_legal_digest_preferences(organization_id))
 
 
 @router.get("/deadlines/calendar.ics")

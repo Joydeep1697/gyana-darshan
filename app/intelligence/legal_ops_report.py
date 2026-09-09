@@ -1,4 +1,4 @@
-"""Deterministic Legal Ops reporting from workspace records."""
+"""Deterministic Nyaya Ops reporting from workspace records."""
 
 from __future__ import annotations
 
@@ -99,7 +99,7 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
     paid_spend = float(summary.get("paid_spend_total") or 0)
 
     report = "\n\n".join([
-        "Legal Ops Report",
+        "Nyaya Ops Report",
         f"Generated: {datetime.now(timezone.utc).isoformat(timespec='seconds')}",
         "Executive Snapshot\n"
         + "\n".join([
@@ -155,7 +155,7 @@ def build_legal_ops_report(workspace: dict[str, Any]) -> dict[str, Any]:
     ])
 
     return {
-        "title": "Legal Ops Report",
+        "title": "Nyaya Ops Report",
         "report": report,
         "generated_from": {
             "matters": len(matters),

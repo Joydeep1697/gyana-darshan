@@ -289,7 +289,7 @@ Restore the helper's call to `deterministic_grounded_answer`, return its guardra
 ## Draft review migration index ran before column migration
 
 ### Problem
-Focused Legal Ops tests failed while initializing the app database after adding draft review lifecycle fields.
+Focused Nyaya Ops tests failed while initializing the app database after adding draft review lifecycle fields.
 
 ### Evidence
 `sqlite3.OperationalError: no such column: review_status` occurred inside `conn.executescript(_SCHEMA)` before compatibility migrations ran.

@@ -74,7 +74,16 @@ async def lifespan(application: FastAPI) -> AsyncGenerator[None, None]:
             # The statutory engine and authenticated workspace can still boot.
             # /ready and AI-backed endpoints expose the degraded state honestly.
             logger.error("AI provider startup probe failed; application is starting in degraded mode")
-    logger.info("Nyaya Darshana ready — serving on http://%s:%s", config.HOST, config.PORT)
+    local_url = f"http://127.0.0.1:{config.PORT}"
+    if config.HOST in {"0.0.0.0", "::"}:
+        logger.info(
+            "Nyaya Darshana ready — listening on %s:%s; open %s in this browser",
+            config.HOST,
+            config.PORT,
+            local_url,
+        )
+    else:
+        logger.info("Nyaya Darshana ready — serving on http://%s:%s", config.HOST, config.PORT)
     yield
     logger.info("Nyaya Darshana shutting down...")
 
@@ -191,7 +200,7 @@ app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"]
 app.include_router(knowledge_graph.router, prefix="/api/graph", tags=["Knowledge Graph"], dependencies=_private_workspace)
 app.include_router(proactive.router, prefix="/api/proactive", tags=["Proactive Intelligence"], dependencies=_private_workspace)
 app.include_router(billing.router, prefix="/api/billing", tags=["Billing"])
-app.include_router(legal_ops.router, prefix="/api/legal-ops", tags=["Legal Operations"])
+app.include_router(legal_ops.router, prefix="/api/legal-ops", tags=["Nyaya Ops"])
 
 from app.routers.public_site import router as public_site_router
 app.include_router(public_site_router)

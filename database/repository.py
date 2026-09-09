@@ -150,18 +150,36 @@ class OrganizationRepository:
 
 class SessionRepository:
     @staticmethod
-    def create_session(user_id: str, token_hash: str, expires_at: str) -> Dict[str, Any]:
+    def create_session(user_id: str, token_hash: str, expires_at: str, device_id: str) -> Dict[str, Any]:
         session_id = str(uuid.uuid4())
         created_at = now_iso()
         with get_db_connection() as conn:
             conn.execute(
                 """
-                INSERT INTO sessions (id, user_id, token_hash, expires_at, created_at, revoked_at)
-                VALUES (?, ?, ?, ?, ?, NULL)
+                INSERT INTO sessions (id, user_id, token_hash, device_id, expires_at, created_at, revoked_at)
+                VALUES (?, ?, ?, ?, ?, ?, NULL)
                 """,
-                (session_id, user_id, token_hash, expires_at, created_at)
+                (session_id, user_id, token_hash, device_id, expires_at, created_at)
             )
-        return {"id": session_id, "user_id": user_id, "token_hash": token_hash, "expires_at": expires_at}
+        return {"id": session_id, "user_id": user_id, "token_hash": token_hash, "device_id": device_id, "expires_at": expires_at}
+
+    @staticmethod
+    def get_active_user_device_session(user_id: str, device_id: str) -> Optional[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            row = conn.execute("SELECT * FROM sessions WHERE user_id = ? AND device_id = ? AND revoked_at IS NULL AND expires_at > ? ORDER BY created_at DESC LIMIT 1", (user_id, device_id, now_iso())).fetchone()
+            return dict(row) if row else None
+
+    @staticmethod
+    def has_active_other_device_session(user_id: str, device_id: str) -> bool:
+        with get_db_connection() as conn:
+            row = conn.execute("SELECT 1 FROM sessions WHERE user_id = ? AND device_id <> ? AND device_id <> 'legacy' AND revoked_at IS NULL AND expires_at > ? LIMIT 1", (user_id, device_id, now_iso())).fetchone()
+            return row is not None
+
+    @staticmethod
+    def get_active_session_by_id(session_id: str) -> Optional[Dict[str, Any]]:
+        with get_db_connection() as conn:
+            row = conn.execute("SELECT * FROM sessions WHERE id = ? AND revoked_at IS NULL AND expires_at > ?", (session_id, now_iso())).fetchone()
+            return dict(row) if row else None
 
     @staticmethod
     def get_active_session(token_hash: str) -> Optional[Dict[str, Any]]:

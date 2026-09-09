@@ -1,4 +1,4 @@
-"""Exports for saved Legal Ops KPI snapshot history."""
+"""Exports for saved Nyaya Ops KPI snapshot history."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ def build_kpi_snapshot_history_export(
     previous = snapshots[1] if len(snapshots) > 1 else None
     return {
         "export_version": "1.0",
-        "title": "Legal Ops KPI Snapshot History",
+        "title": "Nyaya Ops KPI Snapshot History",
         "exported_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "exported_by_user_id": exported_by,
         "organization_id": organization_id,
@@ -48,7 +48,7 @@ def _metric_value(snapshot: dict[str, Any], section: str, key: str, default: Any
 
 def kpi_snapshot_history_markdown(payload: dict[str, Any]) -> str:
     sections = [
-        "# Legal Ops KPI Snapshot History",
+        "# Nyaya Ops KPI Snapshot History",
         "",
         f"- Organization ID: `{payload.get('organization_id') or ''}`",
         f"- Exported at: {payload.get('exported_at') or ''}",

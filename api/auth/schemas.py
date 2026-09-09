@@ -19,12 +19,16 @@ class UserRegisterRequest(BaseModel):
 class UserLoginRequest(BaseModel):
     email: str = Field(..., description="User email address")
     password: str = Field(..., description="User password")
+    device_id: str = Field("legacy-client-device", min_length=16, max_length=128)
+    remember_me: bool = False
 
 class RefreshTokenRequest(BaseModel):
     refresh_token: str = Field(..., description="Refresh token issued upon login")
+    device_id: str = Field("legacy-client-device", min_length=16, max_length=128)
 
 class LogoutRequest(BaseModel):
     refresh_token: str = Field(..., description="Refresh token to revoke")
+    device_id: str = Field("legacy-client-device", min_length=16, max_length=128)
 
 class TokenResponse(BaseModel):
     access_token: str
