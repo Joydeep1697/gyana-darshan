@@ -21,7 +21,6 @@ A release is approved only when every applicable item has current evidence.
 - [ ] Either provide both rotated Razorpay credentials or leave both unset.
 - [ ] Set `NYAYA_CREDENTIAL_ROTATION_CONFIRMED=true` only after exposed or possibly exposed credentials have been rotated and recorded outside Git.
 - [ ] Provision persistent storage for database, uploads, and logs; Render disks require a paid eligible service.
-- [ ] If deploying on Render's free tier, follow `docs/deployment/FREE_RENDER_DEMO.md` and treat the service as an ephemeral demo, not durable production storage.
 - [ ] Run `python scripts/release_preflight.py --environment-only` in production.
 - [ ] Keep `NYAYA_LOG_QUERY_TEXT=false` unless a reviewed retention policy authorizes logging legal questions.
 

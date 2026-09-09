@@ -39,12 +39,16 @@ services:
       - key: NYAYA_CREDENTIAL_ROTATION_CONFIRMED
         sync: false
       - key: NYAYA_DATA_DIR
-        value: /tmp/nyaya
+        value: /var/data
       - key: RAW_DIR
-        value: /tmp/nyaya/uploads
+        value: /var/data/uploads
       - key: NYAYA_LOG_DIR
-        value: /tmp/nyaya/logs
+        value: /var/data/logs
       - key: NYAYA_LOG_QUERY_TEXT
         value: "false"
       - key: ALLOWED_ORIGINS
         sync: false
+    disk:
+      name: nyaya-darshan-data
+      mountPath: /var/data
+      sizeGB: 5
