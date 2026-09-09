@@ -2,7 +2,7 @@
 
 ## Release verdict
 
-**Deployment infrastructure is prepared; production approval remains blocked until real hosting, rotated credentials, CI, and live end-to-end checks succeed.** This report does not certify historical benchmark values, unpublished test counts, provider availability, or payment processing.
+**Deployment infrastructure is prepared; production approval remains blocked until real hosting, rotated credentials, external legal validation, CI, and live end-to-end checks succeed.** This report does not certify historical benchmark values, unpublished test counts, provider availability, legal accuracy, or payment processing.
 
 Benchmark numbers in this repository are self-reported by project-owned scripts unless a report explicitly cites an external, independent auditor and reproducible validation package.
 
@@ -18,6 +18,7 @@ Benchmark numbers in this repository are self-reported by project-owned scripts 
 | Automated verification | GitHub Actions runs statutory, deployment, authentication, authorization, and application regressions. | Confirm workflow passes for the production commit. |
 | Privacy | Query-text logging disabled in production configuration by default. | Inspect deployed logs and retention controls. |
 | Payments | Billing credentials supplied together; no false payment success. | Verify test-mode payment before live transactions. |
+| Legal quality | Generated propositions fail closed to insufficient evidence without independent proof. | Complete `docs/operations/LEGAL_VALIDATION_PROTOCOL.md` with external reviewers before making public accuracy claims. |
 
 ## External launch prerequisites
 
@@ -25,6 +26,7 @@ Benchmark numbers in this repository are self-reported by project-owned scripts 
 2. Add the rotated NVIDIA key and exact HTTPS origins to the deployment platform.
 3. Provision paid persistent hosting and configure the public domain/TLS.
 4. Configure Razorpay only if billing is required and verify signatures in test mode.
-5. Complete `RELEASE_CHECKLIST.md` and preserve current evidence.
+5. Complete the external legal validation protocol and preserve the reviewer ledger.
+6. Complete `RELEASE_CHECKLIST.md` and preserve current evidence.
 
 This report guarantees neither legal accuracy nor completed deployment.

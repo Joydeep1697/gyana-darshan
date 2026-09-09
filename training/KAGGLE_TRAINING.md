@@ -1,77 +1,14 @@
-# Nyaya Darshana: recoverable Kaggle model training
+# Kaggle Training Notes
 
-The original notebook trained a 235 MB LoRA adapter and then exhausted GPU
-memory while loading a second 8B model for a checkpoint sweep. The notebook
-failed, and its final adapter was not present in the saved Kaggle outputs.
+Kaggle training is optional research work and is not part of the deployed product path.
 
-## What the repaired pipeline changes
+Use Kaggle only with private inputs for `train.jsonl`, `validation.jsonl`, optional `test.jsonl`, and any existing adapter archive. Generated notebooks, adapters, zipped releases, and reports must stay in private storage or Kaggle outputs; they are ignored by this repository.
 
-- Audits non-empty train, validation, and optional test datasets before using a GPU.
-- Blocks malformed records, known fabricated statute names, and split leakage.
-- Uses one visible GPU and one 4-bit base model throughout training and evaluation.
-- Saves rolling checkpoints and automatically resumes from the newest checkpoint.
-- Uses evaluation-based early stopping and restores the best validation checkpoint.
-- Saves `adapter_model.safetensors`, adapter configuration, and tokenizer before
-  running any legal evaluation.
-- Writes a downloadable `/kaggle/working/nyaya_model_release_r3.zip` immediately
-  after saving the adapter and refreshes it with the final evaluation report.
-- Checks actual statutory meaning, rejects invented laws, and blocks deployment
-  unless every critical legal probe passes and total accuracy reaches 90%.
-- Never repeats the previous checkpoint sweep or loads a second base model.
+Before any adapter is considered for product use:
 
-## Kaggle execution
+- run the dataset audits in this directory
+- run legal probe evaluation against the current retrieval-grounded baseline
+- keep the full output package outside Git
+- complete external legal validation before making accuracy or launch claims
 
-1. Download `training/nyaya_kaggle_recovery.ipynb` from this repository.
-2. Open Kaggle and import that notebook, or replace the code in the existing
-   `NYAYA MODEL` notebook.
-3. Attach the original private dataset containing `train.jsonl` and
-   `validation.jsonl`. Attach `test.jsonl` when available.
-4. Enable a GPU accelerator. Enable internet access if dependencies or the base
-   model must be downloaded.
-5. Add `HF_TOKEN` as a Kaggle secret if the selected base model requires it.
-6. Run all cells and save the notebook version.
-7. Download `nyaya_model_release_r3.zip` from the Output tab.
-8. Inspect `reports/legal_evaluation.json`. Connect the adapter to production
-   only when `release_ready` is `true`.
-
-The expected release contents are:
-
-```text
-nyaya_model_release/
-  adapter/
-    adapter_model.safetensors
-    adapter_config.json
-    tokenizer files
-  reports/
-    dataset_audit.json
-    training_report.json
-    legal_evaluation.json
-```
-
-Optional environment variables include `NYAYA_BASE_MODEL`, `NYAYA_MAX_STEPS`,
-`NYAYA_MAX_LENGTH`, `NYAYA_MINIMUM_ACCURACY`, `NYAYA_TRAIN_FILE`,
-`NYAYA_VALIDATION_FILE`, `NYAYA_TEST_FILE`, `NYAYA_RUN_ID`,
-`NYAYA_CORRECTION_REPEATS`, `NYAYA_REFINE_EXISTING`, and
-`NYAYA_INIT_ADAPTER`.
-
-To refine a preserved R2 adapter in the same Kaggle session, run this before
-the training cell:
-
-```python
-import os
-os.environ["NYAYA_REFINE_EXISTING"] = "1"
-os.environ["NYAYA_RUN_ID"] = "r3"
-os.environ["NYAYA_MAX_STEPS"] = "150"
-os.environ["NYAYA_CORRECTION_REPEATS"] = "8"
-```
-
-The default initial adapter path is
-`/kaggle/working/nyaya_model_release/adapter`. The refined adapter and reports
-are written separately under `nyaya_model_release_r3`, preserving R2.
-
-For a fresh Kaggle session, first attach `nyaya_model_release.zip` from the R2
-run as a private input. The recovery notebook automatically finds and extracts
-that archive. It also detects an already-extracted adapter attached as input.
-
-For a fast infrastructure smoke test, set `NYAYA_MAX_STEPS=10`. A smoke-test
-adapter is not deployment-ready unless it independently passes the legal gate.
+No adapter is deployment-ready merely because a training run finishes or a local score passes.

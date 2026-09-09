@@ -27,6 +27,7 @@ class TestDeploymentPreflight(unittest.TestCase):
             "ALLOWED_ORIGINS": "https://nyayadarshana.com",
             "RAZORPAY_KEY_ID": "", "RAZORPAY_KEY_SECRET": "",
             "GOOGLE_CLIENT_ID": "", "GOOGLE_CLIENT_SECRET": "", "GOOGLE_REDIRECT_URI": "",
+            "NYAYA_CREDENTIAL_ROTATION_CONFIRMED": "true",
         }
         self.environment_patch = patch.dict(os.environ, environment)
         self.environment_patch.start()
@@ -73,6 +74,25 @@ class TestDeploymentPreflight(unittest.TestCase):
 
     def test_repository_configuration_is_complete(self):
         self.assertEqual(preflight.check_repository(), [])
+
+    def test_production_requires_credential_rotation_confirmation(self):
+        with patch.dict(os.environ, {"NYAYA_CREDENTIAL_ROTATION_CONFIRMED": ""}):
+            self.assertTrue(any("CREDENTIAL_ROTATION" in issue for issue in preflight.check_environment()))
+
+    def test_repository_rejects_tracked_product_hygiene_artifacts(self):
+        self.assertTrue(any(pattern.search("evaluation/phase_8_report.json") for pattern in preflight.TRACKED_ARTIFACT_PATTERNS))
+        self.assertTrue(any(pattern.search("training/train.jsonl") for pattern in preflight.TRACKED_ARTIFACT_PATTERNS))
+        self.assertTrue(any(pattern.search("scratch_debug.py") for pattern in preflight.TRACKED_ARTIFACT_PATTERNS))
+        self.assertTrue(any(pattern.search("retrieval/experimental/prototype.py") for pattern in preflight.TRACKED_ARTIFACT_PATTERNS))
+
+    def test_repository_secret_scan_detects_high_confidence_patterns(self):
+        examples = {
+            "NVIDIA API key": "NVIDIA_API_KEY=nvapi-" + "a" * 32,
+            "Razorpay live key": "RAZORPAY_KEY_ID=" + "rzp_" + "live_" + "1234567890",
+        }
+        for label, value in examples.items():
+            with self.subTest(label=label):
+                self.assertTrue(preflight.HIGH_CONFIDENCE_SECRET_PATTERNS[label].search(value))
 
 
 if __name__ == "__main__":

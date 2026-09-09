@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
@@ -16,11 +17,44 @@ RETIRED_NVIDIA_HOSTED_MODELS = {
     "nvidia/llama-3.3-nemotron-super-49b-v1",
     "nvidia/llama-3.3-nemotron-super-49b-v1.5",
 }
+HIGH_CONFIDENCE_SECRET_PATTERNS = {
+    "NVIDIA API key": re.compile(r"nvapi-[A-Za-z0-9_\-]{20,}"),
+    "Razorpay live key": re.compile(r"rzp_live_[A-Za-z0-9]{8,}"),
+    "Google API key": re.compile(r"AIza[0-9A-Za-z_\-]{20,}"),
+    "AWS access key": re.compile(r"AKIA[0-9A-Z]{16}"),
+    "Stripe live secret": re.compile(r"sk_live_[0-9A-Za-z]{20,}"),
+    "private key block": re.compile(r"BEGIN [A-Z ]*PRIVATE KEY"),
+}
+TRACKED_ARTIFACT_PATTERNS = (
+    re.compile(r"^evaluation/(?!README\.md$|\.gitkeep$)"),
+    re.compile(r"^audit/.*\.(json|jsonl)$"),
+    re.compile(r"^training/.*\.(jsonl|ipynb)$"),
+    re.compile(r"^training/(source_audit|dataset_forensic_report|experiment_results|dataset_manifest|nyaya_darshan_dataset_manifest)\.json$"),
+    re.compile(r"^(scratch_|trace_|inspect_|run_test|audit_phase_).*"),
+    re.compile(r"^experimental_phase_"),
+    re.compile(r"^retrieval/experimental"),
+    re.compile(r"^tests/debug_"),
+)
 
 
 def is_placeholder(value: str) -> bool:
     lowered = value.strip().lower()
     return not lowered or any(marker in lowered for marker in PLACEHOLDERS)
+
+
+def _git_tracked_files() -> list[str]:
+    try:
+        result = subprocess.run(
+            ["git", "ls-files"],
+            cwd=ROOT,
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return []
+    return [line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()]
 
 
 def check_environment() -> list[str]:
@@ -32,6 +66,11 @@ def check_environment() -> list[str]:
         value = os.getenv(name, "").strip()
         if is_placeholder(value) or len(value) < 32:
             failures.append(f"{name} must be a non-placeholder secret of at least 32 characters")
+
+    if os.getenv("NYAYA_CREDENTIAL_ROTATION_CONFIRMED", "").strip().lower() != "true":
+        failures.append(
+            "NYAYA_CREDENTIAL_ROTATION_CONFIRMED must be true after rotating any credentials that may have been exposed"
+        )
 
     provider = os.getenv("AI_PROVIDER", os.getenv("LLM_PROVIDER", "nvidia")).strip().lower()
     if provider != "nvidia":
@@ -121,6 +160,35 @@ def check_repository() -> list[str]:
         for retired_model in RETIRED_NVIDIA_HOSTED_MODELS:
             if retired_model in candidate_text:
                 failures.append(f"{relative} contains retired NVIDIA model {retired_model}")
+
+    tracked_files = _git_tracked_files()
+    if ".env" in tracked_files:
+        failures.append(".env must not be tracked")
+    noisy_artifacts = [
+        path
+        for path in tracked_files
+        if any(pattern.search(path) for pattern in TRACKED_ARTIFACT_PATTERNS)
+    ]
+    if noisy_artifacts:
+        failures.append(
+            "Tracked generated/debug artifacts must be removed from the product repo: "
+            + ", ".join(noisy_artifacts[:8])
+            + (" ..." if len(noisy_artifacts) > 8 else "")
+        )
+    for path in tracked_files:
+        candidate = ROOT / path
+        if not candidate.is_file() or candidate.stat().st_size > 1_000_000:
+            continue
+        try:
+            text = candidate.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        for line in text.splitlines():
+            if is_placeholder(line):
+                continue
+            for label, pattern in HIGH_CONFIDENCE_SECRET_PATTERNS.items():
+                if pattern.search(line):
+                    failures.append(f"Tracked file contains high-confidence {label} pattern: {path}")
 
     return failures
 

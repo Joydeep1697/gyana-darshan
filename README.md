@@ -1,12 +1,13 @@
 # Nyaya Darshana
 
-Source-grounded Indian legal intelligence for statutory research, transition analysis, and private PDF work.
+Source-grounded Indian legal intelligence for statutory research, transition analysis, legal operations, and private PDF work.
 
 Nyaya Darshana retrieves relevant statutory provisions before generation, separates substantive, procedural, and evidence-law timelines, and checks material legal claims against the retrieved evidence. It is a research-support product, not a substitute for professional legal advice.
 
 ## What is implemented
 
 - Authenticated, persistent legal consultations with claim-linked source cards, answer feedback, and professional Markdown/DOCX exports.
+- Nyaya Ops matter workflows for intake, tasks, contracts, obligations, spend, playbooks, deadlines, KPI snapshots, notifications, audit exports, and matter record exports.
 - Transition-aware analysis across the IPC/BNS, CrPC/BNSS, and IEA/BSA commencement boundaries.
 - A claim-verification firewall that blocks or corrects unsupported material assertions.
 - A tenant-isolated Knowledge Vault for PDF upload, classification, metadata search, cached summaries, and page-cited questions across up to three documents.
@@ -16,7 +17,7 @@ Nyaya Darshana retrieves relevant statutory provisions before generation, separa
 - Validated backup/restore tooling, guarded retention enforcement, administrative operational status, and operator-owned runbooks.
 - Production health/readiness checks, explicit CORS policy, secret validation, persistent SQLite storage, and a non-root Docker image.
 
-The repository also contains research and experimental training material. No fine-tuned production model is claimed unless its weights and evaluation results are independently verified.
+Research and experimental training outputs are excluded from the product repository. No fine-tuned production model or legal-accuracy percentage is claimed unless its weights, benchmark set, reviewer ledger, and evaluation results are independently verified.
 
 ## Run locally
 
@@ -90,6 +91,7 @@ python -m pytest -q tests app/test_app_endpoints.py
 GitHub Actions runs the same release gates on pull requests and pushes to `main`.
 
 Operational ownership, backup recovery, retention, incident response, access controls, and legal-content release procedures are documented in [`docs/operations/RUNBOOK.md`](docs/operations/RUNBOOK.md).
+External legal validation requirements are documented in [`docs/operations/LEGAL_VALIDATION_PROTOCOL.md`](docs/operations/LEGAL_VALIDATION_PROTOCOL.md).
 
 ## Production deployment
 
@@ -108,12 +110,15 @@ Optional integrations are configured directly in the production environment:
 - Razorpay requires both `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET`. Leave both unset to disable checkout.
 
 Production startup fails closed when required secrets are absent, origins are insecure, or an optional integration is only partially configured. The container runs as an unprivileged user and checks `/health` automatically.
+Production preflight also requires `NYAYA_CREDENTIAL_ROTATION_CONFIRMED=true`. Set it only after NVIDIA, Razorpay, OAuth, JWT/API, and deployment secrets that may have been exposed have been rotated and recorded outside the repository without secret values.
 
 ## Product truth
 
 Nyaya Darshana presents retrieved sources, the claims they support, and verification results. Source-version metadata is retained internally for auditability without adding implementation jargon to the workspace. The product does not expose private chain-of-thought, invent customer activity, or imply that a procedural defect automatically determines innocence or acquittal without supporting authority.
 
 Legal consultations, legacy `/api/chat/ask`, and both `/api/v1/query` entry points report insufficient evidence for generated propositions unless an evidence conflict is detected. Independent proposition verification is not yet implemented: a template match, firewall pass, retrieved citation, or matching quote cannot establish a legal conclusion. Source identity, quote/pinpoint, jurisdiction, and lifecycle checks remain separate diagnostics. Generated answers retain their citations and receive a human-review recommendation; this does not mean a reviewer has been assigned. History responses conservatively project old verification labels and restore review guidance, while retaining `recorded_grounding_status` and leaving the original database record unchanged. This projection is not retroactive legal verification. Source cards show citation associations rather than claiming support. Public APIs leave `provenance_verified` false until a verifiable provenance chain exists.
+
+Internal benchmark reports in older development history are not public legal-quality claims. Use only externally reviewed results produced under the legal validation protocol for launch, sales, investor, or customer-facing accuracy statements.
 
 ## License
 

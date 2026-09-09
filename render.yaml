@@ -36,6 +36,8 @@ services:
         generateValue: true
       - key: NYAYA_JWT_SECRET
         generateValue: true
+      - key: NYAYA_CREDENTIAL_ROTATION_CONFIRMED
+        sync: false
       - key: NYAYA_DATA_DIR
         value: /var/data
       - key: RAW_DIR

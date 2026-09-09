@@ -6,6 +6,7 @@ A release is approved only when every applicable item has current evidence.
 
 - [ ] Confirm `.env`, browser profiles, SQLite databases, private uploads, and excluded download metadata are absent from the release commit and container context.
 - [ ] Confirm public git history has no known live credentials or personal artifacts; rotate first, then rewrite history when any exposure is found.
+- [ ] Confirm tracked generated benchmarks, debug scripts, screenshots, notebooks, and large training datasets are absent from the product repo.
 - [ ] Run `python scripts/release_preflight.py --repository-only` successfully.
 - [ ] Install production dependencies and run `pip check`.
 - [ ] Require the GitHub Actions **Release verification** workflow to pass for the release commit.
@@ -18,6 +19,7 @@ A release is approved only when every applicable item has current evidence.
 - [ ] Store a freshly rotated `NVIDIA_API_KEY` only in the hosting platform secret manager.
 - [ ] Set `ALLOWED_ORIGINS` to exact HTTPS frontend origins; wildcards and HTTP are forbidden.
 - [ ] Either provide both rotated Razorpay credentials or leave both unset.
+- [ ] Set `NYAYA_CREDENTIAL_ROTATION_CONFIRMED=true` only after exposed or possibly exposed credentials have been rotated and recorded outside Git.
 - [ ] Provision persistent storage for database, uploads, and logs; Render disks require a paid eligible service.
 - [ ] Run `python scripts/release_preflight.py --environment-only` in production.
 - [ ] Keep `NYAYA_LOG_QUERY_TEXT=false` unless a reviewed retention policy authorizes logging legal questions.
@@ -30,6 +32,7 @@ A release is approved only when every applicable item has current evidence.
 - [ ] Submit a legal question and verify a real NVIDIA-generated response with traceable statutory citations.
 - [ ] Upload a valid PDF, reject malformed uploads, and confirm documents survive a service restart.
 - [ ] If billing is enabled, complete a Razorpay test-mode payment and verify signature rejection before switching to live keys.
+- [ ] Complete the external legal validation protocol and preserve the reviewer ledger before publishing legal-accuracy claims.
 - [ ] Check logs for absence of secrets, raw legal queries, internal paths, and stack traces.
 - [ ] Verify domain/TLS, backups, restore procedure, incident ownership, and rollback instructions.
 
