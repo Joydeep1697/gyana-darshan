@@ -404,6 +404,17 @@ CREATE INDEX IF NOT EXISTS idx_legal_playbooks_org ON legal_playbooks(organizati
 CREATE INDEX IF NOT EXISTS idx_legal_playbooks_type ON legal_playbooks(playbook_type);
 CREATE INDEX IF NOT EXISTS idx_legal_playbooks_status ON legal_playbooks(status);
 
+-- Saved Legal Ops KPI snapshots
+CREATE TABLE IF NOT EXISTS legal_ops_kpi_snapshots (
+    id                  TEXT PRIMARY KEY,
+    organization_id     TEXT NOT NULL,
+    created_by_user_id  TEXT,
+    label               TEXT DEFAULT '',
+    analytics_json      TEXT NOT NULL,
+    created_at          TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_legal_ops_kpi_snapshots_org_created ON legal_ops_kpi_snapshots(organization_id, created_at DESC);
+
 -- Search analytics
 CREATE TABLE IF NOT EXISTS search_analytics (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1388,7 +1399,7 @@ class Database:
         }
 
     def _get_org_row(self, table: str, item_id: str, organization_id: str) -> Optional[dict]:
-        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_contract_obligations", "legal_vendors", "legal_spend_entries", "legal_playbooks"}
+        allowed = {"legal_matters", "legal_intake_requests", "legal_tasks", "legal_contracts", "legal_contract_obligations", "legal_vendors", "legal_spend_entries", "legal_playbooks", "legal_ops_kpi_snapshots"}
         if table not in allowed:
             raise ValueError("Unsupported legal operations table")
         with self.connect() as conn:
@@ -1442,6 +1453,55 @@ class Database:
             if cur.rowcount == 0:
                 return None
         return self.get_matter(matter_id, organization_id)
+
+    def _decode_legal_ops_kpi_snapshot(self, row: dict[str, Any]) -> dict[str, Any]:
+        try:
+            analytics = json.loads(row.get("analytics_json") or "{}")
+        except (TypeError, json.JSONDecodeError):
+            analytics = {}
+        return {
+            "id": row.get("id") or "",
+            "organization_id": row.get("organization_id") or "",
+            "created_by_user_id": row.get("created_by_user_id"),
+            "label": row.get("label") or "",
+            "analytics": analytics,
+            "created_at": row.get("created_at") or "",
+        }
+
+    def create_legal_ops_kpi_snapshot(
+        self,
+        organization_id: str,
+        created_by_user_id: str,
+        analytics: dict[str, Any],
+        label: str = "",
+    ) -> dict[str, Any]:
+        item_id = self.new_id()
+        created_at = self.now()
+        clean_label = " ".join((label or "").split())[:120]
+        encoded = json.dumps(analytics or {}, ensure_ascii=False, sort_keys=True)
+        with self.connect() as conn:
+            conn.execute(
+                """INSERT INTO legal_ops_kpi_snapshots
+                   (id, organization_id, created_by_user_id, label, analytics_json, created_at)
+                   VALUES (?, ?, ?, ?, ?, ?)""",
+                (item_id, organization_id, created_by_user_id, clean_label, encoded, created_at),
+            )
+        return self.get_legal_ops_kpi_snapshot(organization_id, item_id) or {}
+
+    def get_legal_ops_kpi_snapshot(self, organization_id: str, snapshot_id: str) -> Optional[dict[str, Any]]:
+        row = self._get_org_row("legal_ops_kpi_snapshots", snapshot_id, organization_id)
+        return self._decode_legal_ops_kpi_snapshot(row) if row else None
+
+    def list_legal_ops_kpi_snapshots(self, organization_id: str, limit: int = 50) -> list[dict[str, Any]]:
+        capped = max(1, min(limit, 100))
+        with self.connect() as conn:
+            rows = conn.execute(
+                """SELECT * FROM legal_ops_kpi_snapshots
+                   WHERE organization_id = ?
+                   ORDER BY created_at DESC LIMIT ?""",
+                (organization_id, capped),
+            ).fetchall()
+        return [self._decode_legal_ops_kpi_snapshot(dict(row)) for row in rows]
 
 
     def link_document_to_matter(self, organization_id: str, matter_id: str, document_id: str) -> dict:

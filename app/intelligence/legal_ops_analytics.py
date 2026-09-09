@@ -216,3 +216,65 @@ def build_legal_ops_analytics(workspace: dict[str, Any]) -> dict[str, Any]:
             "action_alerts": len(alerts),
         },
     }
+
+
+TREND_METRICS = (
+    ("workload", "open_matters", "Open matters"),
+    ("workload", "open_tasks", "Open tasks"),
+    ("workload", "overdue_tasks", "Overdue tasks"),
+    ("intake_conversion", "conversion_rate_percent", "Intake conversion rate"),
+    ("deadline_health", "overdue_deadlines", "Overdue deadlines"),
+    ("deadline_health", "due_14_days", "Deadlines due in 14 days"),
+    ("contract_health", "high_risk_contracts", "High-risk contracts"),
+    ("contract_health", "pending_signature_contracts", "Pending signature contracts"),
+    ("spend", "open_spend_total", "Open spend"),
+    ("spend", "paid_spend_total", "Paid spend"),
+    ("team_throughput", "completion_rate_percent", "Task completion rate"),
+    ("risk_queue", "open_action_alerts", "Open action alerts"),
+)
+
+
+def _snapshot_analytics(snapshot: dict[str, Any] | None) -> dict[str, Any]:
+    if not snapshot:
+        return {}
+    if "analytics" in snapshot:
+        return snapshot.get("analytics") or {}
+    return snapshot
+
+
+def _metric(snapshot: dict[str, Any] | None, section: str, key: str) -> float:
+    value = (_snapshot_analytics(snapshot).get(section) or {}).get(key, 0)
+    try:
+        return round(float(value or 0), 2)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def compare_legal_ops_snapshots(current: dict[str, Any], previous: dict[str, Any] | None) -> dict[str, Any]:
+    """Compare two saved KPI snapshots with deterministic numeric deltas."""
+    current_analytics = _snapshot_analytics(current)
+    previous_analytics = _snapshot_analytics(previous)
+    deltas = []
+    for section, key, label in TREND_METRICS:
+        current_value = _metric(current, section, key)
+        previous_value = _metric(previous, section, key)
+        delta = round(current_value - previous_value, 2)
+        deltas.append({
+            "section": section,
+            "key": key,
+            "label": label,
+            "current": current_value,
+            "previous": previous_value,
+            "delta": delta,
+            "direction": "up" if delta > 0 else "down" if delta < 0 else "flat",
+        })
+    return {
+        "title": "Legal Ops KPI Trend Comparison",
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "limits": LIMITS,
+        "current_snapshot_id": (current or {}).get("id", ""),
+        "previous_snapshot_id": (previous or {}).get("id", ""),
+        "current_generated_at": current_analytics.get("generated_at") or (current or {}).get("created_at", ""),
+        "previous_generated_at": previous_analytics.get("generated_at") or (previous or {}).get("created_at", ""),
+        "deltas": deltas,
+    }

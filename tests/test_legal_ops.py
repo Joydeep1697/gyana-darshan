@@ -706,3 +706,108 @@ def test_legal_ops_intake_can_be_triaged_into_a_matter_once():
     assert any(task["title"] == "Triage intake: Employee data request" for task in workspace["tasks"])
 
     assert client.post("/api/legal-ops/intake/missing/task", headers=owner_workspace).status_code == 422
+
+
+
+def test_legal_ops_kpi_snapshots_persist_compare_and_export_history():
+    client = TestClient(app)
+    owner_headers, _ = _account(client, "kpi-owner")
+    viewer_headers, viewer_email = _account(client, "kpi-viewer")
+    outsider_headers, _ = _account(client, "kpi-outsider")
+
+    created = client.post(
+        "/api/organizations",
+        json={"name": "KPI Snapshot Team", "slug": f"kpi-snapshot-{uuid.uuid4().hex[:8]}"},
+        headers=owner_headers,
+    )
+    assert created.status_code == 201
+    organization_id = created.json()["id"]
+    assert client.post(
+        f"/api/organizations/{organization_id}/members",
+        json={"email": viewer_email, "role": "VIEWER"},
+        headers=owner_headers,
+    ).status_code == 201
+
+    owner_workspace = {**owner_headers, "X-Organization-ID": organization_id}
+    viewer_workspace = {**viewer_headers, "X-Organization-ID": organization_id}
+    outsider_workspace = {**outsider_headers, "X-Organization-ID": organization_id}
+
+    matter = client.post(
+        "/api/legal-ops/matters",
+        json={"title": "Quarterly compliance review", "matter_type": "compliance", "priority": "high"},
+        headers=owner_workspace,
+    )
+    assert matter.status_code == 201
+    first = client.post(
+        "/api/legal-ops/analytics/snapshots",
+        json={"label": "Week 1 baseline"},
+        headers=owner_workspace,
+    )
+    assert first.status_code == 201
+    first_payload = first.json()
+    assert first_payload["label"] == "Week 1 baseline"
+    assert first_payload["organization_id"] == organization_id
+    assert first_payload["created_by_user_id"]
+    assert first_payload["analytics"]["workload"]["open_matters"] == 1
+    assert "not legal advice" in first_payload["analytics"]["limits"]
+
+    assert client.post(
+        "/api/legal-ops/analytics/snapshots",
+        json={"label": "Viewer attempt"},
+        headers=viewer_workspace,
+    ).status_code == 403
+
+    task = client.post(
+        "/api/legal-ops/tasks",
+        json={"title": "Collect evidence", "priority": "critical", "matter_id": matter.json()["id"]},
+        headers=owner_workspace,
+    )
+    assert task.status_code == 201
+    second = client.post(
+        "/api/legal-ops/analytics/snapshots",
+        json={"label": "Week 2 after intake"},
+        headers=owner_workspace,
+    )
+    assert second.status_code == 201
+
+    listed = client.get("/api/legal-ops/analytics/snapshots", headers=viewer_workspace)
+    assert listed.status_code == 200
+    snapshots = listed.json()["snapshots"]
+    assert listed.json()["total"] == 2
+    assert [snapshot["label"] for snapshot in snapshots] == ["Week 2 after intake", "Week 1 baseline"]
+    assert snapshots[0]["analytics"]["workload"]["open_tasks"] == 1
+
+    comparison = client.get("/api/legal-ops/analytics/snapshots/compare", headers=viewer_workspace)
+    assert comparison.status_code == 200
+    deltas = {(item["section"], item["key"]): item for item in comparison.json()["deltas"]}
+    assert deltas[("workload", "open_tasks")]["delta"] == 1
+    assert deltas[("workload", "open_tasks")]["direction"] == "up"
+    assert comparison.json()["current_snapshot_id"] == second.json()["id"]
+    assert comparison.json()["previous_snapshot_id"] == first_payload["id"]
+
+    explicit_comparison = client.get(
+        "/api/legal-ops/analytics/snapshots/compare",
+        params={"current_id": second.json()["id"], "previous_id": first_payload["id"]},
+        headers=viewer_workspace,
+    )
+    assert explicit_comparison.status_code == 200
+    assert explicit_comparison.json()["deltas"] == comparison.json()["deltas"]
+
+    exported_json = client.get("/api/legal-ops/analytics/snapshots/export?format=json", headers=viewer_workspace)
+    assert exported_json.status_code == 200
+    assert exported_json.headers["content-type"].startswith("application/json")
+    assert exported_json.json()["snapshot_count"] == 2
+    assert exported_json.json()["comparison"]["title"] == "Legal Ops KPI Trend Comparison"
+    assert "not legal advice" in exported_json.json()["limits"]
+
+    exported_markdown = client.get("/api/legal-ops/analytics/snapshots/export?format=markdown", headers=viewer_workspace)
+    assert exported_markdown.status_code == 200
+    assert exported_markdown.headers["content-type"].startswith("text/markdown")
+    assert "# Legal Ops KPI Snapshot History" in exported_markdown.text
+    assert "Week 2 after intake" in exported_markdown.text
+    assert "Latest trend comparison" in exported_markdown.text
+    assert "not legal advice" in exported_markdown.text
+
+    assert client.get("/api/legal-ops/analytics/snapshots", headers=outsider_workspace).status_code == 404
+    assert client.post("/api/legal-ops/analytics/snapshots", json={"label": "outsider"}, headers=outsider_workspace).status_code == 404
+    assert client.get("/api/legal-ops/analytics/snapshots/export?format=json", headers=outsider_workspace).status_code == 404

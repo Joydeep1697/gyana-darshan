@@ -678,6 +678,35 @@ class LegalOpsAnalyticsResponse(BaseModel):
     generated_from: dict[str, int]
 
 
+class LegalOpsKpiSnapshotCreate(BaseModel):
+    label: str = Field(default="", max_length=120)
+
+
+class LegalOpsKpiSnapshotResponse(BaseModel):
+    id: str
+    organization_id: str
+    created_by_user_id: Optional[str] = None
+    label: str = ""
+    analytics: dict[str, Any]
+    created_at: str
+
+
+class LegalOpsKpiSnapshotListResponse(BaseModel):
+    snapshots: list[LegalOpsKpiSnapshotResponse]
+    total: int
+
+
+class LegalOpsKpiTrendResponse(BaseModel):
+    title: str
+    generated_at: str
+    limits: str
+    current_snapshot_id: str = ""
+    previous_snapshot_id: str = ""
+    current_generated_at: str = ""
+    previous_generated_at: str = ""
+    deltas: list[dict[str, Any]] = []
+
+
 class LegalOpsNotificationDigestResponse(BaseModel):
     title: str
     digest: str

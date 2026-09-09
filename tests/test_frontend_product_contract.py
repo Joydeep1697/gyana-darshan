@@ -92,6 +92,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "/api/vault/documents/${encodeURIComponent(doc.id)}/summary" in source
     assert "/api/conversations/${encodeURIComponent(state.activeConversation.id)}/messages" in source
     assert "/api/auth/google/config" in source
+    assert 'id="googleButton"' in source
+    assert 'id="googleStatus"' in source
+    assert "Google sign-in is not configured for this deployment yet." in source
     assert "application/pdf,.pdf" in source
     assert "/api/vault/documents/ask" in source
     assert "/api/vault/documents/${encodeURIComponent(selected)}/contract-review" in source
@@ -127,7 +130,16 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="opsReportResult"' in source
     assert 'id="refreshOpsAnalyticsButton"' in source
     assert 'id="downloadOpsAnalyticsButton"' in source
+    assert 'id="saveOpsAnalyticsSnapshotButton"' in source
+    assert 'id="loadOpsAnalyticsSnapshotsButton"' in source
+    assert 'id="downloadOpsKpiSnapshotsJsonButton"' in source
+    assert 'id="downloadOpsKpiSnapshotsMarkdownButton"' in source
+    assert 'id="opsAnalyticsSnapshotLabel"' in source
     assert 'id="opsAnalyticsResult"' in source
+    assert 'id="opsAnalyticsSnapshots"' in source
+    assert "/api/legal-ops/analytics/snapshots" in source
+    assert "/api/legal-ops/analytics/snapshots/compare" in source
+    assert "/api/legal-ops/analytics/snapshots/export" in source
     assert 'id="auditCenterPanel"' in source
     assert 'id="auditFilterForm"' in source
     assert 'id="auditEventList"' in source

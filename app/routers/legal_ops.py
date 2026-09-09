@@ -9,11 +9,12 @@ from api.auth.dependencies import get_workspace_context, require_workspace_write
 from app.database import Database, get_db
 from app.intelligence.matter_brief import build_matter_brief
 from app.intelligence.legal_brief import build_grounded_matter_draft
-from app.intelligence.legal_ops_analytics import build_legal_ops_analytics
+from app.intelligence.legal_ops_analytics import build_legal_ops_analytics, compare_legal_ops_snapshots
 from app.intelligence.legal_ops_report import build_legal_ops_report
 from app.intelligence.legal_ops_notifications import build_legal_ops_calendar_ics, build_legal_ops_notification_digest
 from app.exports.legal_memo import matter_draft_docx, matter_draft_markdown
 from app.exports.legal_ops_matter import build_matter_export, matter_export_json, matter_export_markdown
+from app.exports.legal_ops_kpis import build_kpi_snapshot_history_export, kpi_snapshot_history_json, kpi_snapshot_history_markdown
 from app.models import (
     LegalContractCreate,
     LegalContractObligationCreate,
@@ -47,6 +48,10 @@ from app.models import (
     LegalMatterNoteResponse,
     LegalMatterUpdate,
     LegalOpsAnalyticsResponse,
+    LegalOpsKpiSnapshotCreate,
+    LegalOpsKpiSnapshotListResponse,
+    LegalOpsKpiSnapshotResponse,
+    LegalOpsKpiTrendResponse,
     LegalOpsReportResponse,
     LegalOpsNotificationDigestResponse,
     LegalOpsSearchResponse,
@@ -253,6 +258,87 @@ async def get_legal_ops_report(
     workspace: dict = Depends(get_workspace_context),
 ):
     return build_legal_ops_report(_workspace_payload(db, _org_id(workspace)))
+
+
+@router.get("/analytics/snapshots", response_model=LegalOpsKpiSnapshotListResponse)
+async def list_legal_ops_kpi_snapshots(
+    limit: int = 50,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    snapshots = db.list_legal_ops_kpi_snapshots(_org_id(workspace), limit=limit)
+    return {"snapshots": snapshots, "total": len(snapshots)}
+
+
+@router.post("/analytics/snapshots", response_model=LegalOpsKpiSnapshotResponse, status_code=status.HTTP_201_CREATED)
+async def create_legal_ops_kpi_snapshot(
+    payload: LegalOpsKpiSnapshotCreate,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    organization_id = _org_id(workspace)
+    analytics = build_legal_ops_analytics(_workspace_payload(db, organization_id))
+    snapshot = db.create_legal_ops_kpi_snapshot(
+        organization_id,
+        _user_id(workspace),
+        analytics,
+        label=payload.label,
+    )
+    AuditRepository.log_audit(
+        "LEGAL_OPS_KPI_SNAPSHOT_CREATED",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"snapshot_id": snapshot.get("id"), "label": snapshot.get("label")},
+    )
+    return snapshot
+
+
+@router.get("/analytics/snapshots/compare", response_model=LegalOpsKpiTrendResponse)
+async def compare_legal_ops_kpi_snapshots(
+    current_id: str | None = None,
+    previous_id: str | None = None,
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    snapshots = db.list_legal_ops_kpi_snapshots(organization_id, limit=2)
+    current = db.get_legal_ops_kpi_snapshot(organization_id, current_id) if current_id else (snapshots[0] if snapshots else None)
+    previous = db.get_legal_ops_kpi_snapshot(organization_id, previous_id) if previous_id else (snapshots[1] if len(snapshots) > 1 else None)
+    if current_id and not current:
+        raise _not_found()
+    if previous_id and not previous:
+        raise _not_found()
+    if not current or not previous:
+        raise HTTPException(status_code=404, detail="At least two KPI snapshots are required for comparison")
+    return compare_legal_ops_snapshots(current, previous)
+
+
+@router.get("/analytics/snapshots/export")
+async def export_legal_ops_kpi_snapshots(
+    format: str = Query(default="json", pattern="^(json|markdown)$"),
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    organization_id = _org_id(workspace)
+    snapshots = db.list_legal_ops_kpi_snapshots(organization_id, limit=100)
+    payload = build_kpi_snapshot_history_export(organization_id, snapshots, exported_by=_user_id(workspace))
+    AuditRepository.log_audit(
+        "LEGAL_OPS_KPI_SNAPSHOT_HISTORY_EXPORTED",
+        user_id=_user_id(workspace),
+        organization_id=organization_id,
+        metadata={"format": format, "snapshot_count": len(snapshots)},
+    )
+    if format == "markdown":
+        return Response(
+            content=kpi_snapshot_history_markdown(payload),
+            media_type="text/markdown",
+            headers={"Content-Disposition": 'attachment; filename="nyaya-legal-ops-kpi-snapshots.md"'},
+        )
+    return Response(
+        content=kpi_snapshot_history_json(payload),
+        media_type="application/json",
+        headers={"Content-Disposition": 'attachment; filename="nyaya-legal-ops-kpi-snapshots.json"'},
+    )
 
 
 @router.get("/analytics", response_model=LegalOpsAnalyticsResponse)
