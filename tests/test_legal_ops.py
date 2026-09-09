@@ -224,6 +224,12 @@ def test_legal_ops_workspace_covers_matter_intake_tasks_contracts_and_reports():
     moved_matter = client.patch(f"/api/legal-ops/matters/{matter_id}", json={"status": "in_review"}, headers=owner_workspace)
     assert moved_matter.status_code == 200
     assert moved_matter.json()["status"] == "in_review"
+    matter_audit = client.get(f"/api/legal-ops/matters/{matter_id}/audit-events", headers=owner_workspace)
+    assert matter_audit.status_code == 200
+    assert {event["event_type"] for event in matter_audit.json()["events"]} >= {"LEGAL_MATTER_CREATED", "LEGAL_MATTER_UPDATED", "LEGAL_TASK_CREATED", "LEGAL_CONTRACT_CREATED"}
+    assert all(event["metadata"].get("matter_id") == matter_id for event in matter_audit.json()["events"])
+    assert client.get(f"/api/legal-ops/matters/{matter_id}/audit-events", headers=viewer_workspace).status_code == 403
+    assert client.get(f"/api/legal-ops/matters/{matter_id}/audit-events", headers=outsider_workspace).status_code == 404
     assert detail.json()["obligations"][0]["title"] == "Return confidential material after termination"
     assert detail.json()["spend_entries"][0]["invoice_number"] == "INV-001"
     assert detail.json()["playbooks"][0]["title"] == "NDA review checklist"

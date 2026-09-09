@@ -128,6 +128,10 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert 'id="refreshOpsAnalyticsButton"' in source
     assert 'id="downloadOpsAnalyticsButton"' in source
     assert 'id="opsAnalyticsResult"' in source
+    assert 'id="auditCenterPanel"' in source
+    assert 'id="auditFilterForm"' in source
+    assert 'id="auditEventList"' in source
+    assert 'id="downloadAuditCsvButton"' in source
     assert 'id="vendorForm"' in source
     assert 'id="spendForm"' in source
     assert 'id="vendorList"' in source
@@ -262,6 +266,9 @@ def test_frontend_uses_real_product_routes_and_current_response_shapes():
     assert "Export matter JSON" in source
     assert "Export matter .md" in source
     assert "/api/legal-ops/matters/" in source and "matter-export" in source
+    assert "/audit-events/export" in source
+    assert "/audit-events?limit=25" in source
+    assert "renderMatterAuditEvents" in source
     assert "action_alerts" in source
     assert "renderActionAlert" in source
     assert "open_action_alerts" in source

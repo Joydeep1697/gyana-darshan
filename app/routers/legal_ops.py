@@ -81,6 +81,11 @@ def _not_found() -> HTTPException:
     return HTTPException(status_code=404, detail="Legal operations record not found")
 
 
+def _require_workspace_admin(workspace: dict) -> None:
+    if workspace.get("role") not in {"OWNER", "ADMIN"}:
+        raise HTTPException(status_code=403, detail="Workspace administrator privileges required")
+
+
 def _workspace_members(organization_id: str) -> list[dict]:
     return OrganizationRepository.list_members(organization_id)
 
@@ -375,6 +380,28 @@ async def export_matter_record(
     return Response(content=matter_export_json(payload), media_type="application/json", headers={"Content-Disposition": 'attachment; filename="nyaya-matter-export.json"'})
 
 
+@router.get("/matters/{matter_id}/audit-events")
+async def get_matter_audit_events(
+    matter_id: str,
+    limit: int = Query(default=50, ge=1, le=200),
+    event_type: str | None = Query(default=None, max_length=120),
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    _require_workspace_admin(workspace)
+    organization_id = _org_id(workspace)
+    if not db.get_matter(matter_id, organization_id):
+        raise _not_found()
+    return {
+        "events": AuditRepository.list_for_organization(
+            organization_id,
+            limit,
+            event_type=event_type,
+            matter_id=matter_id,
+        )
+    }
+
+
 @router.get("/matters/{matter_id}/deadlines", response_model=list[LegalMatterDeadlineResponse])
 async def get_matter_deadlines(
     matter_id: str,
@@ -601,7 +628,7 @@ async def update_intake(
         raise _bad_reference(error)
     if not intake:
         raise _not_found()
-    AuditRepository.log_audit("LEGAL_INTAKE_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"intake_id": intake_id})
+    AuditRepository.log_audit("LEGAL_INTAKE_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"intake_id": intake_id, "matter_id": intake.get("matter_id") or ""})
     return intake
 
 
@@ -636,7 +663,7 @@ async def create_task_from_intake(
         intake, task = db.create_task_from_intake(organization_id, intake_id, assignee_user_id=_user_id(workspace))
     except ValueError as error:
         raise _bad_reference(error)
-    AuditRepository.log_audit("LEGAL_INTAKE_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"intake_id": intake_id, "task_id": task.get("id")})
+    AuditRepository.log_audit("LEGAL_INTAKE_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"intake_id": intake_id, "task_id": task.get("id"), "matter_id": task.get("matter_id") or intake.get("matter_id") or ""})
     return {"intake": intake, "task": _enrich_task(task, _member_map(_workspace_members(organization_id)))}
 
 
@@ -654,7 +681,7 @@ async def create_task(
         task = db.create_task(organization_id, payload.title, **task_payload)
     except ValueError as error:
         raise _bad_reference(error)
-    AuditRepository.log_audit("LEGAL_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task["id"], "title": task["title"]})
+    AuditRepository.log_audit("LEGAL_TASK_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task["id"], "title": task["title"], "matter_id": task.get("matter_id") or ""})
     return _enrich_task(task, _member_map(_workspace_members(organization_id)))
 
 
@@ -674,7 +701,7 @@ async def update_task(
         raise _bad_reference(error)
     if not task:
         raise _not_found()
-    AuditRepository.log_audit("LEGAL_TASK_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task_id})
+    AuditRepository.log_audit("LEGAL_TASK_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"task_id": task_id, "matter_id": task.get("matter_id") or ""})
     return _enrich_task(task, _member_map(_workspace_members(organization_id)))
 
 
@@ -761,7 +788,7 @@ async def update_spend_entry(
         raise _bad_reference(error)
     if not spend:
         raise _not_found()
-    AuditRepository.log_audit("LEGAL_SPEND_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"spend_id": spend_id, "status": spend.get("status")})
+    AuditRepository.log_audit("LEGAL_SPEND_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"spend_id": spend_id, "status": spend.get("status"), "matter_id": spend.get("matter_id") or "", "vendor_id": spend.get("vendor_id") or ""})
     return spend
 
 
@@ -777,7 +804,7 @@ async def create_contract(
         contract = db.create_contract_record(organization_id, payload.title, **payload.model_dump(exclude={"title"}))
     except ValueError as error:
         raise _bad_reference(error)
-    AuditRepository.log_audit("LEGAL_CONTRACT_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"contract_id": contract["id"], "title": contract["title"]})
+    AuditRepository.log_audit("LEGAL_CONTRACT_CREATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"contract_id": contract["id"], "title": contract["title"], "matter_id": contract.get("matter_id") or ""})
     return contract
 
 
@@ -796,7 +823,7 @@ async def update_contract(
         raise _bad_reference(error)
     if not contract:
         raise _not_found()
-    AuditRepository.log_audit("LEGAL_CONTRACT_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"contract_id": contract_id})
+    AuditRepository.log_audit("LEGAL_CONTRACT_UPDATED", user_id=_user_id(workspace), organization_id=organization_id, metadata={"contract_id": contract_id, "matter_id": contract.get("matter_id") or ""})
     return contract
 
 
@@ -838,6 +865,6 @@ async def update_contract_obligation(
         "LEGAL_CONTRACT_OBLIGATION_UPDATED",
         user_id=_user_id(workspace),
         organization_id=organization_id,
-        metadata={"obligation_id": obligation_id, "status": obligation.get("status")},
+        metadata={"obligation_id": obligation_id, "status": obligation.get("status"), "contract_id": obligation.get("contract_id") or "", "matter_id": obligation.get("matter_id") or ""},
     )
     return obligation

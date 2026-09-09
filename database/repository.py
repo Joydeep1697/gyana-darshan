@@ -503,18 +503,51 @@ class AuditRepository:
             )
 
     @staticmethod
-    def list_for_organization(organization_id: str, limit: int = 100) -> List[Dict[str, Any]]:
+    def list_for_organization(
+        organization_id: str,
+        limit: int = 100,
+        *,
+        event_type: Optional[str] = None,
+        user_id: Optional[str] = None,
+        matter_id: Optional[str] = None,
+        record_id: Optional[str] = None,
+        date_from: Optional[str] = None,
+        date_to: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
+        capped = max(1, min(limit, 500))
+        filters = ["ae.organization_id = ?"]
+        params: List[Any] = [organization_id]
+        if event_type:
+            filters.append("ae.event_type = ?")
+            params.append(event_type.strip()[:120])
+        if user_id:
+            filters.append("ae.user_id = ?")
+            params.append(user_id.strip()[:80])
+        if date_from:
+            filters.append("DATE(ae.created_at) >= DATE(?)")
+            params.append(date_from[:10])
+        if date_to:
+            filters.append("DATE(ae.created_at) <= DATE(?)")
+            params.append(date_to[:10])
+        where = " AND ".join(filters)
         with get_db_connection() as conn:
             rows = conn.execute(
                 """SELECT ae.id, ae.user_id, u.email AS actor_email, ae.event_type,
                           ae.request_id, ae.client_ip, ae.metadata_json, ae.created_at
                    FROM audit_events ae LEFT JOIN users u ON u.id = ae.user_id
-                   WHERE ae.organization_id = ? ORDER BY ae.created_at DESC LIMIT ?""",
-                (organization_id, limit),
+                   WHERE """ + where + " ORDER BY ae.created_at DESC LIMIT ?",
+                (*params, 2000),
             ).fetchall()
         events = []
         for row in rows:
             event = dict(row)
             event["metadata"] = json.loads(event.pop("metadata_json") or "{}")
+            metadata_values = {str(value) for value in event["metadata"].values() if value is not None}
+            if matter_id and str(matter_id) not in metadata_values:
+                continue
+            if record_id and str(record_id) not in metadata_values and str(record_id) != event["id"]:
+                continue
             events.append(event)
+            if len(events) >= capped:
+                break
         return events

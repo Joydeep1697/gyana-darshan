@@ -1,7 +1,7 @@
 import sqlite3
 from typing import Any, Dict, List
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
 
 from api.auth.dependencies import get_current_user
 from api.organizations.schemas import (
@@ -10,6 +10,7 @@ from api.organizations.schemas import (
     OrganizationCreateRequest,
     RetentionPolicyRequest,
 )
+from app.exports.audit_events import audit_export_csv, audit_export_json, audit_export_markdown, build_audit_export
 from database.repository import AuditRepository, OrganizationRepository, UserRepository
 
 router = APIRouter(prefix="/api/organizations", tags=["Organization Workspaces"])
@@ -147,7 +148,74 @@ async def set_retention_policy(
 async def list_audit_events(
     organization_id: str,
     limit: int = Query(default=100, ge=1, le=500),
+    event_type: str | None = Query(default=None, max_length=120),
+    user_id: str | None = Query(default=None, max_length=80),
+    matter_id: str | None = Query(default=None, max_length=80),
+    record_id: str | None = Query(default=None, max_length=80),
+    date_from: str | None = Query(default=None, max_length=10),
+    date_to: str | None = Query(default=None, max_length=10),
     user: Dict[str, Any] = Depends(get_current_user),
 ):
     _organization_for_admin(organization_id, user)
-    return {"events": AuditRepository.list_for_organization(organization_id, limit)}
+    return {
+        "events": AuditRepository.list_for_organization(
+            organization_id,
+            limit,
+            event_type=event_type,
+            user_id=user_id,
+            matter_id=matter_id,
+            record_id=record_id,
+            date_from=date_from,
+            date_to=date_to,
+        )
+    }
+
+
+@router.get("/{organization_id}/audit-events/export")
+async def export_audit_events(
+    organization_id: str,
+    format: str = Query(default="json", pattern="^(json|markdown|csv)$"),
+    limit: int = Query(default=500, ge=1, le=500),
+    event_type: str | None = Query(default=None, max_length=120),
+    user_id: str | None = Query(default=None, max_length=80),
+    matter_id: str | None = Query(default=None, max_length=80),
+    record_id: str | None = Query(default=None, max_length=80),
+    date_from: str | None = Query(default=None, max_length=10),
+    date_to: str | None = Query(default=None, max_length=10),
+    user: Dict[str, Any] = Depends(get_current_user),
+):
+    _organization_for_admin(organization_id, user)
+    events = AuditRepository.list_for_organization(
+        organization_id,
+        limit,
+        event_type=event_type,
+        user_id=user_id,
+        matter_id=matter_id,
+        record_id=record_id,
+        date_from=date_from,
+        date_to=date_to,
+    )
+    payload = build_audit_export(events, organization_id=organization_id, exported_by=user["id"])
+    AuditRepository.log_audit(
+        "AUDIT_EVENTS_EXPORTED",
+        user_id=user["id"],
+        organization_id=organization_id,
+        metadata={"format": format, "event_count": len(events), "event_type": event_type or "", "matter_id": matter_id or "", "record_id": record_id or ""},
+    )
+    if format == "markdown":
+        return Response(
+            content=audit_export_markdown(payload),
+            media_type="text/markdown",
+            headers={"Content-Disposition": 'attachment; filename="nyaya-workspace-audit.md"'},
+        )
+    if format == "csv":
+        return Response(
+            content=audit_export_csv(events),
+            media_type="text/csv",
+            headers={"Content-Disposition": 'attachment; filename="nyaya-workspace-audit.csv"'},
+        )
+    return Response(
+        content=audit_export_json(payload),
+        media_type="application/json",
+        headers={"Content-Disposition": 'attachment; filename="nyaya-workspace-audit.json"'},
+    )

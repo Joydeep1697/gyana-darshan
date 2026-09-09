@@ -76,6 +76,42 @@ def test_organization_roles_scope_shared_consultations_and_audit_events():
     assert {event["event_type"] for event in events} >= {
         "ORGANIZATION_CREATED", "ORGANIZATION_MEMBER_ADDED", "RETENTION_POLICY_CHANGED"
     }
+    assert client.get(f"/api/organizations/{organization_id}/audit-events", headers=viewer_headers).status_code == 403
+    assert client.get(f"/api/organizations/{organization_id}/audit-events", headers=outsider_headers).status_code == 404
+    filtered = client.get(
+        f"/api/organizations/{organization_id}/audit-events",
+        params={"event_type": "RETENTION_POLICY_CHANGED", "date_from": datetime.now(timezone.utc).date().isoformat()},
+        headers=owner_headers,
+    )
+    assert filtered.status_code == 200
+    assert [event["event_type"] for event in filtered.json()["events"]] == ["RETENTION_POLICY_CHANGED"]
+    markdown_export = client.get(
+        f"/api/organizations/{organization_id}/audit-events/export",
+        params={"format": "markdown", "event_type": "RETENTION_POLICY_CHANGED"},
+        headers=owner_headers,
+    )
+    assert markdown_export.status_code == 200
+    assert markdown_export.headers["content-type"].startswith("text/markdown")
+    assert "Workspace Audit Export" in markdown_export.text
+    assert "not legal advice" in markdown_export.text
+    csv_export = client.get(
+        f"/api/organizations/{organization_id}/audit-events/export",
+        params={"format": "csv", "event_type": "RETENTION_POLICY_CHANGED"},
+        headers=owner_headers,
+    )
+    assert csv_export.status_code == 200
+    assert csv_export.headers["content-type"].startswith("text/csv")
+    assert "event_type" in csv_export.text
+    assert "RETENTION_POLICY_CHANGED" in csv_export.text
+    json_export = client.get(
+        f"/api/organizations/{organization_id}/audit-events/export",
+        params={"format": "json", "event_type": "RETENTION_POLICY_CHANGED"},
+        headers=owner_headers,
+    )
+    assert json_export.status_code == 200
+    assert json_export.headers["content-type"].startswith("application/json")
+    assert json_export.json()["organization_id"] == organization_id
+    assert json_export.json()["events"][0]["metadata"]["retention_days"] == 365
 
 
 def test_workspace_intelligence_routes_are_organization_scoped():
