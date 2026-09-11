@@ -430,7 +430,26 @@ async def resolve_human_review_task(
     user = workspace["user"]
     doc_id = db.create_document(original_filename, total_size, str(destination), owner_id=user["id"], organization_id=organization_id)
     db.update_document(doc_id, status="indexed", category="judgment", domain="case_law")
-    updated = db.update_task(task_id, organization_id, status="done")
+    from app.ingestion.matter_extractor import extract_matter_data
+    from verification.matter_validator import validate_matter_data
+    matter_id = task.get("matter_id")
+    if not matter_id:
+        matter = db.create_matter(organization_id, f"Judgment review: {case_no or original_filename}", matter_type="case_law", owner_user_id=user["id"])
+        matter_id = matter["id"]
+        db.update_task(task_id, organization_id, matter_id=matter_id)
+    extracted = extract_matter_data(destination)
+    extracted.update({"matter_id": matter_id, "source_pdf": str(destination), "provenance_verified": False, "validation": validate_matter_data(extracted)})
+    matter_root = (Path("app") / "storage" / "vault" / _safe_storage_name(organization_id, "tenant") / "matters" / _safe_storage_name(matter_id, "matter")).resolve()
+    if not matter_root.is_relative_to(expected_root):
+        raise HTTPException(500, "Matter storage path is invalid")
+    matter_root.mkdir(parents=True, exist_ok=True)
+    (matter_root / "extracted.json").write_text(json.dumps(extracted, indent=2, ensure_ascii=True), encoding="utf-8")
+    db.link_document_to_matter(organization_id, matter_id, doc_id)
+    for obligation in extracted.get("obligations", []):
+        db.create_task(organization_id, f"Extracted obligation: {obligation.get('description', 'Review obligation')}", matter_id=matter_id, due_date=obligation.get("due_date"), priority="high", metadata={"source": "matter_extractor", "provenance_verified": False})
+    if extracted.get("next_hearing_date"):
+        db.create_task(organization_id, f"Next hearing: {extracted['next_hearing_date']}", matter_id=matter_id, due_date=extracted["next_hearing_date"], priority="high", metadata={"source": "matter_extractor", "kind": "next_hearing", "provenance_verified": False})
+    updated = db.update_task(task_id, organization_id, status="done", metadata={"matter_id": matter_id, "document_id": doc_id, "extracted_json": str(matter_root / "extracted.json"), "provenance_verified": False})
     evidence = _human_task_evidence(task_id)
     AuditRepository.log_audit(
         "INGESTION_HUMAN_REVIEW_RESOLVED",

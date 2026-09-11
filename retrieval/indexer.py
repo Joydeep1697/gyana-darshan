@@ -91,6 +91,11 @@ def _read_pdf(path: Path) -> str:
 def _read_text(path: Path) -> str:
     if path.suffix.lower() == ".pdf":
         return _read_pdf(path)
+    if path.suffix.lower() == ".json":
+        try:
+            return json.dumps(json.loads(path.read_text(encoding="utf-8")), ensure_ascii=True, indent=2)
+        except (OSError, json.JSONDecodeError):
+            return ""
     try:
         return path.read_text(encoding="utf-8", errors="ignore")
     except Exception:
@@ -163,12 +168,12 @@ def _tenant_files(tenant_id: str) -> list[Path]:
         corpus_dir = CORPUS_ROOT / folder
         if corpus_dir.exists():
             for path in corpus_dir.rglob("*"):
-                if path.is_file() and path.suffix.lower() in {".md", ".txt", ".html"}:
+                if path.is_file() and path.suffix.lower() in {".md", ".txt", ".html", ".json"}:
                     files.append(path)
     tenant_root = (VAULT_ROOT / safe).resolve()
     if tenant_root.exists() and tenant_root.is_relative_to(VAULT_ROOT.resolve()):
         for path in tenant_root.rglob("*"):
-            if path.is_file() and path.suffix.lower() in {".pdf", ".md", ".txt"}:
+            if path.is_file() and path.suffix.lower() in {".pdf", ".md", ".txt", ".json"}:
                 files.append(path)
     return files
 

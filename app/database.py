@@ -298,6 +298,7 @@ CREATE TABLE IF NOT EXISTS legal_tasks (
     priority        TEXT DEFAULT 'medium',
     assignee_user_id TEXT,
     due_date        TEXT,
+    metadata_json   TEXT DEFAULT '{}',
     created_at      TEXT NOT NULL,
     updated_at      TEXT NOT NULL
 );
@@ -519,6 +520,9 @@ class Database:
                 if column not in note_columns:
                     conn.execute(statement)
             contract_columns = {row["name"] for row in conn.execute("PRAGMA table_info(legal_contracts)")}
+            task_columns = {row["name"] for row in conn.execute("PRAGMA table_info(legal_tasks)")}
+            if "metadata_json" not in task_columns:
+                conn.execute("ALTER TABLE legal_tasks ADD COLUMN metadata_json TEXT DEFAULT '{}'")
             contract_migrations = {
                 "signature_owner_user_id": "ALTER TABLE legal_contracts ADD COLUMN signature_owner_user_id TEXT",
                 "signature_sent_at": "ALTER TABLE legal_contracts ADD COLUMN signature_sent_at TEXT",
@@ -2145,21 +2149,33 @@ class Database:
         priority = self._bounded(kwargs.get("priority"), "medium", {"low", "medium", "high", "critical"})
         with self.connect() as conn:
             conn.execute(
-                """INSERT INTO legal_tasks (id, organization_id, matter_id, title, status, priority, assignee_user_id, due_date, created_at, updated_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (item_id, organization_id, matter_id, title.strip()[:180], status, priority, kwargs.get("assignee_user_id"), kwargs.get("due_date"), now, now),
+                """INSERT INTO legal_tasks (id, organization_id, matter_id, title, status, priority, assignee_user_id, due_date, metadata_json, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (item_id, organization_id, matter_id, title.strip()[:180], status, priority, kwargs.get("assignee_user_id"), kwargs.get("due_date"), json.dumps(kwargs.get("metadata") or {}, ensure_ascii=True), now, now),
             )
         return self.get_task(item_id, organization_id) or {}
 
     def get_task(self, task_id: str, organization_id: str) -> Optional[dict]:
-        return self._get_org_row("legal_tasks", task_id, organization_id)
+        row = self._get_org_row("legal_tasks", task_id, organization_id)
+        return self._decode_task(row) if row else None
 
     def list_tasks(self, organization_id: str, limit: int = 100) -> list[dict]:
         with self.connect() as conn:
-            return [dict(row) for row in conn.execute("SELECT * FROM legal_tasks WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+            return [self._decode_task(dict(row)) for row in conn.execute("SELECT * FROM legal_tasks WHERE organization_id = ? ORDER BY updated_at DESC LIMIT ?", (organization_id, max(1, min(limit, 200)))).fetchall()]
+
+    @staticmethod
+    def _decode_task(row: dict) -> dict:
+        value = row.get("metadata_json", "{}")
+        try:
+            row["metadata"] = json.loads(value or "{}")
+        except (TypeError, json.JSONDecodeError):
+            row["metadata"] = {}
+        return row
 
     def update_task(self, task_id: str, organization_id: str, **kwargs: Any) -> Optional[dict]:
-        permitted = {"matter_id", "title", "status", "priority", "assignee_user_id", "due_date"}
+        permitted = {"matter_id", "title", "status", "priority", "assignee_user_id", "due_date", "metadata_json"}
+        if "metadata" in kwargs:
+            kwargs["metadata_json"] = json.dumps(kwargs["metadata"] or {}, ensure_ascii=True)
         fields = {k: v for k, v in kwargs.items() if k in permitted and v is not None}
         if "matter_id" in fields and fields["matter_id"] and not self.get_matter(fields["matter_id"], organization_id):
             raise ValueError("Matter not found in workspace")

@@ -195,7 +195,7 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 # ── Mount Routers ─────────────────────────────────────────────────
 
-from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive, billing, legal_ops, retrieval as retrieval_router  # noqa: E402
+from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive, billing, legal_ops, matters, retrieval as retrieval_router  # noqa: E402
 from api.auth.router import router as auth_router
 from api.auth.dependencies import get_current_user
 from api.conversations.router import router as conversations_router
@@ -220,6 +220,7 @@ app.include_router(knowledge_graph.router, prefix="/api/graph", tags=["Knowledge
 app.include_router(proactive.router, prefix="/api/proactive", tags=["Proactive Intelligence"], dependencies=_private_workspace)
 app.include_router(billing.router, prefix="/api/billing", tags=["Billing"])
 app.include_router(legal_ops.router, prefix="/api/legal-ops", tags=["Nyaya Ops"])
+app.include_router(matters.router, prefix="/api/matters", tags=["Matters"])
 
 from app.routers.public_site import router as public_site_router
 app.include_router(public_site_router)
