@@ -7,6 +7,13 @@ websockets>=12.0,<17.0
 # Grounded generation and external services
 openai>=1.40,<3.0
 requests>=2.32,<3.0
+firecrawl-py>=2.16,<3.0
+curl_cffi>=0.7,<1.0
+crawl4ai>=0.7,<1.0
+scrapling>=0.2,<1.0
+browser-use[core]>=0.2,<1.0
+crawlee>=0.5,<1.0
+playwright>=1.49,<2.0
 
 # Document processing (classifier & corpus builder)
 PyMuPDF>=1.24,<2.0

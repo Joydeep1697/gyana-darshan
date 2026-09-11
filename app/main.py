@@ -17,10 +17,11 @@ from typing import AsyncGenerator, Dict, List, Any, Optional
 
 from fastapi import FastAPI, HTTPException, Request, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel, Field, field_validator
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 # Cloud-hosted legal generation and statutory retrieval do not require PyTorch.
 # Keep optional numerical libraries restrained without making a broken or
@@ -128,6 +129,17 @@ app.add_middleware(
 )
 
 
+@app.middleware("http")
+async def static_cache_headers(request: Request, call_next):
+    response = await call_next(request)
+    path = request.url.path
+    if path.startswith("/static/"):
+        response.headers.setdefault("Cache-Control", "public, max-age=604800")
+    if path in {"/favicon.ico", "/robots.txt", "/sitemap.xml"}:
+        response.headers.setdefault("Cache-Control", "public, max-age=3600")
+    return response
+
+
 # ── Global Exception Handlers ─────────────────────────────────────
 
 @app.exception_handler(RequestValidationError)
@@ -150,8 +162,14 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         }
     )
 
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request: Request, exc: HTTPException):
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404 and not request.url.path.startswith("/api/"):
+        return HTMLResponse(
+            status_code=404,
+            content="""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Page not found | Nyaya Darshana</title><link rel="stylesheet" href="/static/public-site.css"><style>body{margin:0;background:#fffaf2;color:#241313;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.not-found{min-height:100vh;display:grid;place-items:center;padding:24px}.not-found-card{max-width:620px}.not-found-card h1{font:500 clamp(44px,7vw,76px)/1.02 Georgia,serif;margin:0 0 18px}.not-found-card p{color:#533738;line-height:1.7}.button{min-height:44px;display:inline-flex;align-items:center;border-radius:999px;padding:0 18px;background:#641d25;color:white;text-decoration:none;font-weight:700}</style></head><body><main class="not-found"><section class="not-found-card"><p>404</p><h1>This page is not in the record.</h1><p>The link may be outdated, private to a workspace, or not published. Return home to continue with consultation, Vault, or Nyaya Ops.</p><a class="button" href="/">Return home</a></section></main></body></html>""",
+            headers={"Cache-Control": "no-store"},
+        )
     return JSONResponse(
         status_code=exc.status_code,
         headers=exc.headers,
@@ -177,7 +195,7 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 # ── Mount Routers ─────────────────────────────────────────────────
 
-from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive, billing, legal_ops  # noqa: E402
+from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive, billing, legal_ops, retrieval as retrieval_router  # noqa: E402
 from api.auth.router import router as auth_router
 from api.auth.dependencies import get_current_user
 from api.conversations.router import router as conversations_router
@@ -193,6 +211,7 @@ app.include_router(conversations_router)
 app.include_router(organizations_router)
 app.include_router(operations_router)
 app.include_router(vault.router, prefix="/api/vault", tags=["Knowledge Vault"])
+app.include_router(retrieval_router.router, prefix="/api/retrieval", tags=["Retrieval"])
 app.include_router(chat.router, prefix="/api/chat", tags=["AI Chat"])
 _private_workspace = [Depends(get_current_user)]
 app.include_router(classifier.router, prefix="/api/classifier", tags=["Classifier"], dependencies=_private_workspace)
@@ -204,6 +223,56 @@ app.include_router(legal_ops.router, prefix="/api/legal-ops", tags=["Nyaya Ops"]
 
 from app.routers.public_site import router as public_site_router
 app.include_router(public_site_router)
+
+
+def _public_base_url(request: Request) -> str:
+    configured = os.getenv("PUBLIC_SITE_URL", "").strip().rstrip("/")
+    if configured.startswith("https://") or configured.startswith("http://"):
+        return configured
+    return str(request.base_url).rstrip("/")
+
+
+@app.get("/robots.txt", include_in_schema=False)
+async def robots_txt():
+    robots = STATIC_DIR / "robots.txt"
+    if robots.exists():
+        return FileResponse(str(robots), media_type="text/plain; charset=utf-8")
+    return Response("User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n", media_type="text/plain; charset=utf-8")
+
+
+@app.get("/sitemap.xml", include_in_schema=False)
+async def sitemap_xml(request: Request):
+    base = _public_base_url(request)
+    public_paths = ["/", "/about", "/services", "/use-cases", "/pricing", "/contact", "/faq", "/privacy", "/terms"]
+    app_paths = ["/#consultation", "/#vault", "/#ops", "/#account"]
+    urls = "\n".join(
+        f"  <url><loc>{base}{path}</loc><changefreq>weekly</changefreq><priority>{'1.0' if path == '/' else '0.7'}</priority></url>"
+        for path in [*public_paths, *app_paths]
+    )
+    return Response(
+        f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n',
+        media_type="application/xml; charset=utf-8",
+    )
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon_ico():
+    icon = STATIC_DIR / "favicon.ico"
+    if icon.exists():
+        return FileResponse(str(icon), media_type="image/x-icon")
+    return FileResponse(str(STATIC_DIR / "favicon-scales.png"), media_type="image/png")
+
+
+@app.get("/api/public/analytics-config", include_in_schema=False)
+async def public_analytics_config():
+    enabled = os.getenv("PUBLIC_ANALYTICS_ENABLED", "").strip().lower() in {"1", "true", "yes", "on"}
+    plausible_domain = os.getenv("PLAUSIBLE_DOMAIN", "").strip()
+    ga4_id = os.getenv("GA4_MEASUREMENT_ID", "").strip()
+    return {
+        "enabled": enabled and bool(plausible_domain or ga4_id),
+        "plausible_domain": plausible_domain if enabled else "",
+        "ga4_measurement_id": ga4_id if enabled and not plausible_domain else "",
+    }
 
 # ── Production Dual-Panel Evidence API ────────────────────────────
 

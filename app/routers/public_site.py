@@ -19,6 +19,7 @@ PAGES = {
     "use-cases": ("Use Cases", "Illustrative workflows for Indian legal research and document review."),
     "pricing": ("Pricing", "Understand workspace access, payment availability and usage limits."),
     "contact": ("Contact & Support", "Find product help, contact information and official profiles."),
+    "faq": ("FAQ", "Answers to common questions about Nyaya Darshana, Vault, Nyaya Ops, privacy and legal review."),
     "privacy": ("Privacy Information", "How this application handles accounts, research and uploaded documents."),
     "terms": ("Terms of Use", "Understand the scope and limitations of this legal research tool."),
 }
@@ -69,6 +70,7 @@ def pricing_html() -> str:
 @router.get("/use-cases", response_class=HTMLResponse, include_in_schema=False)
 @router.get("/pricing", response_class=HTMLResponse, include_in_schema=False)
 @router.get("/contact", response_class=HTMLResponse, include_in_schema=False)
+@router.get("/faq", response_class=HTMLResponse, include_in_schema=False)
 @router.get("/privacy", response_class=HTMLResponse, include_in_schema=False)
 @router.get("/terms", response_class=HTMLResponse, include_in_schema=False)
 def public_page(request: Request) -> HTMLResponse:
@@ -87,4 +89,15 @@ def public_page(request: Request) -> HTMLResponse:
     result = re.sub(r"<title>.*?</title>", f"<title>{escape(title)} | Nyaya Darshana</title>", result, count=1)
     result = re.sub(r'<meta name="description" content="[^"]*">',
                     f'<meta name="description" content="{escape(description, quote=True)}">', result, count=1)
+    canonical = str(request.url.replace(fragment="", query=""))
+    result = re.sub(r'<link rel="canonical" href="[^"]*">',
+                    f'<link rel="canonical" href="{escape(canonical, quote=True)}">', result, count=1)
+    result = re.sub(r'<meta property="og:title" content="[^"]*">',
+                    f'<meta property="og:title" content="{escape(title + " | Nyaya Darshana", quote=True)}">', result, count=1)
+    result = re.sub(r'<meta property="og:description" content="[^"]*">',
+                    f'<meta property="og:description" content="{escape(description, quote=True)}">', result, count=1)
+    result = re.sub(r'<meta name="twitter:title" content="[^"]*">',
+                    f'<meta name="twitter:title" content="{escape(title + " | Nyaya Darshana", quote=True)}">', result, count=1)
+    result = re.sub(r'<meta name="twitter:description" content="[^"]*">',
+                    f'<meta name="twitter:description" content="{escape(description, quote=True)}">', result, count=1)
     return HTMLResponse(result, headers={"Cache-Control": "no-store"})

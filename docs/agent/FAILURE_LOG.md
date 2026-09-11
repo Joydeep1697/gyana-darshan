@@ -1,5 +1,38 @@
 # Agent Failure Log
 
+## Phase 2 eCourts Crawlee import failed after installation
+
+### Problem
+The eCourts judgment-ingestion CLI crashed while checking whether Crawlee was available.
+
+### Evidence
+`python scripts/ingest_judgments.py --source ecourts --query "BNS 103" --limit 10` raised `TypeError: cannot specify both default and default_factory` during `import crawlee` inside Crawlee's Pydantic model construction.
+
+### Hypothesis
+The installed Crawlee package is incompatible with the current Pydantic/runtime combination in this workspace.
+
+### Attempt
+Installed `browser-use[core]`, `crawlee`, and `playwright`, then reran the eCourts CLI to confirm optional integration availability.
+
+### Result
+The CLI crashed before it could return the safe `needs_human_action` result.
+
+### Why it failed
+The availability probe caught only `ImportError`; an installed-but-incompatible optional dependency can fail with a runtime exception during import.
+
+### New information learned
+Optional ingestion integrations must be isolated from app and CLI control flow because dependency import failures are possible even after successful installation.
+
+### Do not repeat
+Do not treat a successful `pip install crawlee` as proof that Crawlee can be imported in this environment, and do not import Crawlee at module import time.
+
+### Correct resolution
+Catch broad exceptions around optional Crawlee and Browser Use import probes, log the exact reason, and keep eCourts ingestion in `needs_human_action` state without bypassing CAPTCHA or claiming downloaded judgments.
+
+### Relevant files
+- `app/ingestion/ecourts_crawler.py`
+- `scripts/ingest_judgments.py`
+
 ## Cycle 9 — saved verdicts and alternate presentations bypassed truth-state protections
 
 ### Problem

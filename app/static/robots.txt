@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /app/storage/
+Disallow: /corpus_integrity/
+
+Sitemap: /sitemap.xml

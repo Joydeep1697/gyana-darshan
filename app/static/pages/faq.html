@@ -1,0 +1,23 @@
+<div class="site-page container">
+  <nav class="site-breadcrumb" aria-label="Breadcrumb"><a href="/#top">Home</a><span aria-hidden="true">/</span><span aria-current="page">FAQ</span></nav>
+  <div class="eyebrow">Launch FAQ</div><h1>Questions before<br>you start.</h1>
+  <p class="site-intro">Short answers for teams evaluating Nyaya Darshana for research support, Vault document work, and Nyaya Ops matter workflows.</p>
+  <div class="site-grid">
+    <section class="site-card site-wide" id="product">
+      <h2>Product and legal review</h2>
+      <details open><summary>Is this legal advice?</summary><p>No. Nyaya Darshana is research and workflow software. It can retrieve sources, summarize documents, and structure work, but legal conclusions require independent professional review.</p></details>
+      <details><summary>What does "source-grounded" mean?</summary><p>Answers are designed to cite retrieved statutory or document evidence where available. A cited source still needs human review for currency, applicability, facts, and legal strategy.</p></details>
+      <details><summary>Can the system verify eCourts or India Code pages live?</summary><p>Only when the source allows access. If a source blocks automated access or requires CAPTCHA, the system records that human action is required and keeps provenance unverified.</p></details>
+    </section>
+    <section class="site-card" id="vault">
+      <h2>Vault</h2>
+      <details open><summary>Are Vault documents public?</summary><p>No. Vault operations are scoped to the authenticated workspace and organization ID. Public SEO files do not expose private document URLs.</p></details>
+      <details><summary>What file type is supported?</summary><p>The launch upload flow accepts PDFs up to the displayed limit and validates file type before upload.</p></details>
+    </section>
+    <section class="site-card" id="ops">
+      <h2>Nyaya Ops</h2>
+      <details open><summary>What are human-action tasks?</summary><p>They are workspace tasks created when ingestion hits a boundary such as CAPTCHA, source blocking, or manual court selection. They preserve audit evidence without bypassing access controls.</p></details>
+      <details><summary>Which tenant is used by browser checks?</summary><p>Authenticated API ingestion uses the active organization ID. Standalone browser checks use NYAYA_BROWSER_CHECK_TENANT_ID when set, otherwise default_tenant.</p></details>
+    </section>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import asyncio
 import os
 import re
 import uuid
+import json
 from pathlib import Path
 from typing import Optional
 from fastapi import APIRouter, Depends, UploadFile, File, BackgroundTasks, HTTPException, WebSocket, WebSocketDisconnect, Query
@@ -23,11 +24,14 @@ from app.intelligence.contract_review import review_contract
 from api.auth.dependencies import get_workspace_context, require_workspace_writer
 from api.auth.service import decode_jwt_token
 from database.repository import AuditRepository, OrganizationRepository
+from app.ingestion.base import IngestionLogger
+from retrieval.indexer import index_tenant_files
 
 logger = logging.getLogger("nyaya-darshan-app")
 router = APIRouter()
 MAX_UPLOAD_BYTES = int(os.getenv("NYAYA_MAX_UPLOAD_BYTES", str(25 * 1024 * 1024)))
 UPLOAD_CHUNK_BYTES = 1024 * 1024
+INGESTION_LOGGER = IngestionLogger(Path("app") / "ingestion" / "ingestion_log.jsonl")
 
 
 def _public_document(document: dict) -> dict:
@@ -43,6 +47,30 @@ def _workspace_document(db: Database, doc_id: str, organization_id: str) -> dict
 
 def _compact_text(value: str) -> str:
     return re.sub(r"\s+", " ", value or "").strip()
+
+
+def _safe_storage_name(value: str, fallback: str) -> str:
+    cleaned = re.sub(r"[^A-Za-z0-9_.-]+", "_", (value or "").strip()).strip("._")
+    return (cleaned[:120] or fallback).lower()
+
+
+def _human_task_evidence(task_id: str) -> dict:
+    log_path = Path("app") / "ingestion" / "ingestion_log.jsonl"
+    if not log_path.exists():
+        return {}
+    for line in reversed(log_path.read_text(encoding="utf-8", errors="ignore").splitlines()):
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if (item.get("file") or item.get("file_path")) == task_id and item.get("status") == "HUMAN_TASK_CREATED":
+            return {
+                "source_url": item.get("source_url") or "",
+                "evidence_html_path": item.get("evidence_html") or "",
+                "evidence_screenshot_path": item.get("evidence_screenshot") or "",
+                "reason": item.get("reason") or "",
+            }
+    return {}
 
 # WebSocket connections tracking
 _ws_connections: dict[str, list[WebSocket]] = {}
@@ -234,6 +262,200 @@ async def search_precedents(
         query=q.strip(),
         filters={"court": court, "year_from": year_from, "year_to": year_to},
     )
+
+
+@router.post("/ingest/ecourts")
+async def ingest_ecourts_judgments(
+    q: str = Query(default="BNS 103", min_length=2, max_length=300),
+    limit: int = Query(default=10, ge=1, le=10),
+    state: str = Query(default="", max_length=120),
+    court: str = Query(default="", max_length=200),
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    """Start a tenant-scoped eCourts ingestion attempt without bypassing CAPTCHA."""
+    from app.ingestion.ecourts_crawler import ingest_ecourts
+    from app.ingestion.ops_integration import create_human_review_task
+
+    organization_id = workspace["organization"]["id"]
+    result = await ingest_ecourts(
+        query=q.strip(),
+        tenant_id=organization_id,
+        limit=limit,
+        state=state.strip(),
+        court=court.strip(),
+        db=db,
+        owner_id=workspace["user"]["id"],
+    )
+    human_review_task_id = None
+    if result.status == "needs_human_action":
+        human_review_task_id = create_human_review_task(
+            tenant_id=organization_id,
+            source="ecourts",
+            url=result.source_url,
+            html_path=Path("corpus_integrity") / "judgments" / "browser_check_ecourts.html",
+            png_path=Path("corpus_integrity") / "judgments" / "browser_check_ecourts.png",
+            reason=result.message or "CAPTCHA/manual court selection detected",
+            metadata={
+                "query": q.strip(),
+                "limit": limit,
+                "state": state.strip(),
+                "court": court.strip(),
+                "ingestion_status": result.status,
+                "ingestion_files": result.files,
+            },
+            db=db,
+            user_id=workspace["user"]["id"],
+        )
+    AuditRepository.log_audit(
+        "VAULT_ECOURTS_INGESTION_REQUESTED",
+        user_id=workspace["user"]["id"],
+        organization_id=organization_id,
+        metadata={
+            "query": q.strip(),
+            "limit": limit,
+            "status": result.status,
+            "files": result.files,
+            "human_review_task_id": human_review_task_id,
+        },
+    )
+    return {
+        "status": result.status,
+        "source_url": result.source_url,
+        "tenant_id": result.tenant_id,
+        "query": result.query,
+        "files": result.files,
+        "ingestion_log": result.entries,
+        "message": result.message,
+        "human_review_task_id": human_review_task_id,
+    }
+
+
+@router.post("/ingest/indiankanoon")
+async def ingest_indiankanoon_judgments(
+    q: str = Query(default="BNS 103", min_length=2, max_length=300),
+    limit: int = Query(default=10, ge=1, le=25),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    """Ingest free public IndianKanoon judgment pages into the audited corpus."""
+    from app.ingestion.indiankanoon_crawler import ingest_indiankanoon
+
+    result = await ingest_indiankanoon(query=q.strip(), limit=limit)
+    AuditRepository.log_audit(
+        "VAULT_INDIANKANOON_INGESTION_REQUESTED",
+        user_id=workspace["user"]["id"],
+        organization_id=workspace["organization"]["id"],
+        metadata={"query": q.strip(), "limit": limit, "status": result.status, "files": result.files},
+    )
+    return {
+        "status": result.status,
+        "query": result.query,
+        "files": result.files,
+        "ingestion_log": result.entries,
+    }
+
+
+@router.get("/ops/human-review-pending")
+async def list_human_review_pending(
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(get_workspace_context),
+):
+    """List pending ingestion human-action tasks for the active workspace."""
+    organization_id = workspace["organization"]["id"]
+    tasks = [
+        task
+        for task in db.list_tasks(organization_id, limit=200)
+        if task.get("status") != "done" and (task.get("title") or "").startswith("[Human Action Required]")
+    ]
+    return {
+        "tasks": [
+            {
+                "id": task["id"],
+                "title": task["title"],
+                "status": task["status"],
+                "priority": task.get("priority") or "medium",
+                "created_at": task["created_at"],
+                "updated_at": task["updated_at"],
+                **_human_task_evidence(task["id"]),
+            }
+            for task in tasks
+        ],
+        "total": len(tasks),
+    }
+
+
+@router.post("/ops/human-review/{task_id}/resolve")
+async def resolve_human_review_task(
+    task_id: str,
+    file: UploadFile = File(...),
+    case_no: str = Query(default="", max_length=120),
+    db: Database = Depends(get_db),
+    workspace: dict = Depends(require_workspace_writer),
+):
+    """Resolve a human-action ingestion task by uploading a public judgment PDF."""
+    organization_id = workspace["organization"]["id"]
+    task = db.get_task(task_id, organization_id)
+    if not task or not (task.get("title") or "").startswith("[Human Action Required]"):
+        raise HTTPException(404, "Human review task not found")
+    if task.get("status") == "done":
+        raise HTTPException(409, "Human review task is already done")
+    original_filename = Path(file.filename or "").name
+    if not original_filename or Path(original_filename).suffix.lower() != ".pdf":
+        raise HTTPException(400, "Only PDF judgment uploads are supported")
+    storage_root = (Path("app") / "storage" / "vault" / _safe_storage_name(organization_id, "tenant") / "ecourts").resolve()
+    expected_root = (Path("app") / "storage" / "vault").resolve()
+    if not storage_root.is_relative_to(expected_root):
+        raise HTTPException(500, "Tenant storage path is invalid")
+    storage_root.mkdir(parents=True, exist_ok=True)
+    stem = _safe_storage_name(case_no, Path(original_filename).stem or "judgment")
+    destination = storage_root / f"{stem}_{uuid.uuid4().hex[:10]}.pdf"
+    total_size = 0
+    try:
+        with destination.open("xb") as handle:
+            while chunk := await file.read(UPLOAD_CHUNK_BYTES):
+                total_size += len(chunk)
+                if total_size > MAX_UPLOAD_BYTES:
+                    raise HTTPException(413, "The uploaded PDF exceeds the permitted size")
+                if total_size == len(chunk) and not chunk.startswith(b"%PDF-"):
+                    raise HTTPException(400, "The uploaded file is not a valid PDF")
+                handle.write(chunk)
+        if total_size < 5:
+            raise HTTPException(400, "The uploaded file is not a valid PDF")
+    except Exception:
+        destination.unlink(missing_ok=True)
+        raise
+    finally:
+        await file.close()
+
+    user = workspace["user"]
+    doc_id = db.create_document(original_filename, total_size, str(destination), owner_id=user["id"], organization_id=organization_id)
+    db.update_document(doc_id, status="indexed", category="judgment", domain="case_law")
+    updated = db.update_task(task_id, organization_id, status="done")
+    evidence = _human_task_evidence(task_id)
+    AuditRepository.log_audit(
+        "INGESTION_HUMAN_REVIEW_RESOLVED",
+        user_id=user["id"],
+        organization_id=organization_id,
+        metadata={"task_id": task_id, "document_id": doc_id, "file": str(destination), "case_no": case_no},
+    )
+    INGESTION_LOGGER.log(
+        "OPS_TASK",
+        "ecourts",
+        evidence.get("source_url") or "",
+        "HUMAN_TASK_RESOLVED",
+        file_path=str(destination),
+        tenant_id=organization_id,
+        task_id=task_id,
+        resolved_by=user["id"],
+        document_id=doc_id,
+    )
+    await asyncio.to_thread(index_tenant_files, organization_id)
+    return {
+        "task": updated,
+        "document_id": doc_id,
+        "file": str(destination),
+        "status": "indexed",
+    }
 
 
 @router.post("/documents/ask", response_model=DocumentQuestionResponse)
