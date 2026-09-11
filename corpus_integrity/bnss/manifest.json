@@ -1,0 +1,5717 @@
+{
+  "source": "bnss",
+  "sections": [
+    {
+      "act": "BNSS",
+      "section": "1",
+      "file": "corpus_integrity/bnss/section_001.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "4",
+      "file": "corpus_integrity/bnss/section_004.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "6",
+      "file": "corpus_integrity/bnss/section_006.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "9",
+      "file": "corpus_integrity/bnss/section_009.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "12",
+      "file": "corpus_integrity/bnss/section_012.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "15",
+      "file": "corpus_integrity/bnss/section_015.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "18",
+      "file": "corpus_integrity/bnss/section_018.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "21",
+      "file": "corpus_integrity/bnss/section_021.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "24",
+      "file": "corpus_integrity/bnss/section_024.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "27",
+      "file": "corpus_integrity/bnss/section_027.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "30",
+      "file": "corpus_integrity/bnss/section_030.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "33",
+      "file": "corpus_integrity/bnss/section_033.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "35",
+      "file": "corpus_integrity/bnss/section_035.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "38",
+      "file": "corpus_integrity/bnss/section_038.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "41",
+      "file": "corpus_integrity/bnss/section_041.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "44",
+      "file": "corpus_integrity/bnss/section_044.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "47",
+      "file": "corpus_integrity/bnss/section_047.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "50",
+      "file": "corpus_integrity/bnss/section_050.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "53",
+      "file": "corpus_integrity/bnss/section_053.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "56",
+      "file": "corpus_integrity/bnss/section_056.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "59",
+      "file": "corpus_integrity/bnss/section_059.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "62",
+      "file": "corpus_integrity/bnss/section_062.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "63",
+      "file": "corpus_integrity/bnss/section_063.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "66",
+      "file": "corpus_integrity/bnss/section_066.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "69",
+      "file": "corpus_integrity/bnss/section_069.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "72",
+      "file": "corpus_integrity/bnss/section_072.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "75",
+      "file": "corpus_integrity/bnss/section_075.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "78",
+      "file": "corpus_integrity/bnss/section_078.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "81",
+      "file": "corpus_integrity/bnss/section_081.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "84",
+      "file": "corpus_integrity/bnss/section_084.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "87",
+      "file": "corpus_integrity/bnss/section_087.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "90",
+      "file": "corpus_integrity/bnss/section_090.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "93",
+      "file": "corpus_integrity/bnss/section_093.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "94",
+      "file": "corpus_integrity/bnss/section_094.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "96",
+      "file": "corpus_integrity/bnss/section_096.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "99",
+      "file": "corpus_integrity/bnss/section_099.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "102",
+      "file": "corpus_integrity/bnss/section_102.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "105",
+      "file": "corpus_integrity/bnss/section_105.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "108",
+      "file": "corpus_integrity/bnss/section_108.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "111",
+      "file": "corpus_integrity/bnss/section_111.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "114",
+      "file": "corpus_integrity/bnss/section_114.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "117",
+      "file": "corpus_integrity/bnss/section_117.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "120",
+      "file": "corpus_integrity/bnss/section_120.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "123",
+      "file": "corpus_integrity/bnss/section_123.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "125",
+      "file": "corpus_integrity/bnss/section_125.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "128",
+      "file": "corpus_integrity/bnss/section_128.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "131",
+      "file": "corpus_integrity/bnss/section_131.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "134",
+      "file": "corpus_integrity/bnss/section_134.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "137",
+      "file": "corpus_integrity/bnss/section_137.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "140",
+      "file": "corpus_integrity/bnss/section_140.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "143",
+      "file": "corpus_integrity/bnss/section_143.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "144",
+      "file": "corpus_integrity/bnss/section_144.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "147",
+      "file": "corpus_integrity/bnss/section_147.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "148",
+      "file": "corpus_integrity/bnss/section_148.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "151",
+      "file": "corpus_integrity/bnss/section_151.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "153",
+      "file": "corpus_integrity/bnss/section_153.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "156",
+      "file": "corpus_integrity/bnss/section_156.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "159",
+      "file": "corpus_integrity/bnss/section_159.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "162",
+      "file": "corpus_integrity/bnss/section_162.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "164",
+      "file": "corpus_integrity/bnss/section_164.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "167",
+      "file": "corpus_integrity/bnss/section_167.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "168",
+      "file": "corpus_integrity/bnss/section_168.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "171",
+      "file": "corpus_integrity/bnss/section_171.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "173",
+      "file": "corpus_integrity/bnss/section_173.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "176",
+      "file": "corpus_integrity/bnss/section_176.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "179",
+      "file": "corpus_integrity/bnss/section_179.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "182",
+      "file": "corpus_integrity/bnss/section_182.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "185",
+      "file": "corpus_integrity/bnss/section_185.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "188",
+      "file": "corpus_integrity/bnss/section_188.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "191",
+      "file": "corpus_integrity/bnss/section_191.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "193",
+      "file": "corpus_integrity/bnss/section_193.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "196",
+      "file": "corpus_integrity/bnss/section_196.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "197",
+      "file": "corpus_integrity/bnss/section_197.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "200",
+      "file": "corpus_integrity/bnss/section_200.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "203",
+      "file": "corpus_integrity/bnss/section_203.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "206",
+      "file": "corpus_integrity/bnss/section_206.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "209",
+      "file": "corpus_integrity/bnss/section_209.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "210",
+      "file": "corpus_integrity/bnss/section_210.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "213",
+      "file": "corpus_integrity/bnss/section_213.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "216",
+      "file": "corpus_integrity/bnss/section_216.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "219",
+      "file": "corpus_integrity/bnss/section_219.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "222",
+      "file": "corpus_integrity/bnss/section_222.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "223",
+      "file": "corpus_integrity/bnss/section_223.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "226",
+      "file": "corpus_integrity/bnss/section_226.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "227",
+      "file": "corpus_integrity/bnss/section_227.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "230",
+      "file": "corpus_integrity/bnss/section_230.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "233",
+      "file": "corpus_integrity/bnss/section_233.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "234",
+      "file": "corpus_integrity/bnss/section_234.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "237",
+      "file": "corpus_integrity/bnss/section_237.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "240",
+      "file": "corpus_integrity/bnss/section_240.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "242",
+      "file": "corpus_integrity/bnss/section_242.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "245",
+      "file": "corpus_integrity/bnss/section_245.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "248",
+      "file": "corpus_integrity/bnss/section_248.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "251",
+      "file": "corpus_integrity/bnss/section_251.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "254",
+      "file": "corpus_integrity/bnss/section_254.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "257",
+      "file": "corpus_integrity/bnss/section_257.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "260",
+      "file": "corpus_integrity/bnss/section_260.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "261",
+      "file": "corpus_integrity/bnss/section_261.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "264",
+      "file": "corpus_integrity/bnss/section_264.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "267",
+      "file": "corpus_integrity/bnss/section_267.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "270",
+      "file": "corpus_integrity/bnss/section_270.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "272",
+      "file": "corpus_integrity/bnss/section_272.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "274",
+      "file": "corpus_integrity/bnss/section_274.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "277",
+      "file": "corpus_integrity/bnss/section_277.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "280",
+      "file": "corpus_integrity/bnss/section_280.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "283",
+      "file": "corpus_integrity/bnss/section_283.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "286",
+      "file": "corpus_integrity/bnss/section_286.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "289",
+      "file": "corpus_integrity/bnss/section_289.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "292",
+      "file": "corpus_integrity/bnss/section_292.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "295",
+      "file": "corpus_integrity/bnss/section_295.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "298",
+      "file": "corpus_integrity/bnss/section_298.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "301",
+      "file": "corpus_integrity/bnss/section_301.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "304",
+      "file": "corpus_integrity/bnss/section_304.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "307",
+      "file": "corpus_integrity/bnss/section_307.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "310",
+      "file": "corpus_integrity/bnss/section_310.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "311",
+      "file": "corpus_integrity/bnss/section_311.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "314",
+      "file": "corpus_integrity/bnss/section_314.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "317",
+      "file": "corpus_integrity/bnss/section_317.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "319",
+      "file": "corpus_integrity/bnss/section_319.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "322",
+      "file": "corpus_integrity/bnss/section_322.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "325",
+      "file": "corpus_integrity/bnss/section_325.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "328",
+      "file": "corpus_integrity/bnss/section_328.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "331",
+      "file": "corpus_integrity/bnss/section_331.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "334",
+      "file": "corpus_integrity/bnss/section_334.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "337",
+      "file": "corpus_integrity/bnss/section_337.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "340",
+      "file": "corpus_integrity/bnss/section_340.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "343",
+      "file": "corpus_integrity/bnss/section_343.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "346",
+      "file": "corpus_integrity/bnss/section_346.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "349",
+      "file": "corpus_integrity/bnss/section_349.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "352",
+      "file": "corpus_integrity/bnss/section_352.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "355",
+      "file": "corpus_integrity/bnss/section_355.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "358",
+      "file": "corpus_integrity/bnss/section_358.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "361",
+      "file": "corpus_integrity/bnss/section_361.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "363",
+      "file": "corpus_integrity/bnss/section_363.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "366",
+      "file": "corpus_integrity/bnss/section_366.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "367",
+      "file": "corpus_integrity/bnss/section_367.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "370",
+      "file": "corpus_integrity/bnss/section_370.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "373",
+      "file": "corpus_integrity/bnss/section_373.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "376",
+      "file": "corpus_integrity/bnss/section_376.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "379",
+      "file": "corpus_integrity/bnss/section_379.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "382",
+      "file": "corpus_integrity/bnss/section_382.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "385",
+      "file": "corpus_integrity/bnss/section_385.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "388",
+      "file": "corpus_integrity/bnss/section_388.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "391",
+      "file": "corpus_integrity/bnss/section_391.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "392",
+      "file": "corpus_integrity/bnss/section_392.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "395",
+      "file": "corpus_integrity/bnss/section_395.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "398",
+      "file": "corpus_integrity/bnss/section_398.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "401",
+      "file": "corpus_integrity/bnss/section_401.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "404",
+      "file": "corpus_integrity/bnss/section_404.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "407",
+      "file": "corpus_integrity/bnss/section_407.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "410",
+      "file": "corpus_integrity/bnss/section_410.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "413",
+      "file": "corpus_integrity/bnss/section_413.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "415",
+      "file": "corpus_integrity/bnss/section_415.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "418",
+      "file": "corpus_integrity/bnss/section_418.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "421",
+      "file": "corpus_integrity/bnss/section_421.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "424",
+      "file": "corpus_integrity/bnss/section_424.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "427",
+      "file": "corpus_integrity/bnss/section_427.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "430",
+      "file": "corpus_integrity/bnss/section_430.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "433",
+      "file": "corpus_integrity/bnss/section_433.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "436",
+      "file": "corpus_integrity/bnss/section_436.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "439",
+      "file": "corpus_integrity/bnss/section_439.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "442",
+      "file": "corpus_integrity/bnss/section_442.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "445",
+      "file": "corpus_integrity/bnss/section_445.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "446",
+      "file": "corpus_integrity/bnss/section_446.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "449",
+      "file": "corpus_integrity/bnss/section_449.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "452",
+      "file": "corpus_integrity/bnss/section_452.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "453",
+      "file": "corpus_integrity/bnss/section_453.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "456",
+      "file": "corpus_integrity/bnss/section_456.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "458",
+      "file": "corpus_integrity/bnss/section_458.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "461",
+      "file": "corpus_integrity/bnss/section_461.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "464",
+      "file": "corpus_integrity/bnss/section_464.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "466",
+      "file": "corpus_integrity/bnss/section_466.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "469",
+      "file": "corpus_integrity/bnss/section_469.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "472",
+      "file": "corpus_integrity/bnss/section_472.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "475",
+      "file": "corpus_integrity/bnss/section_475.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "478",
+      "file": "corpus_integrity/bnss/section_478.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "481",
+      "file": "corpus_integrity/bnss/section_481.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "484",
+      "file": "corpus_integrity/bnss/section_484.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "487",
+      "file": "corpus_integrity/bnss/section_487.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "490",
+      "file": "corpus_integrity/bnss/section_490.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "493",
+      "file": "corpus_integrity/bnss/section_493.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "496",
+      "file": "corpus_integrity/bnss/section_496.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "497",
+      "file": "corpus_integrity/bnss/section_497.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "499",
+      "file": "corpus_integrity/bnss/section_499.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "502",
+      "file": "corpus_integrity/bnss/section_502.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "505",
+      "file": "corpus_integrity/bnss/section_505.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "506",
+      "file": "corpus_integrity/bnss/section_506.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "509",
+      "file": "corpus_integrity/bnss/section_509.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "512",
+      "file": "corpus_integrity/bnss/section_512.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "513",
+      "file": "corpus_integrity/bnss/section_513.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "516",
+      "file": "corpus_integrity/bnss/section_516.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "519",
+      "file": "corpus_integrity/bnss/section_519.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "520",
+      "file": "corpus_integrity/bnss/section_520.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "523",
+      "file": "corpus_integrity/bnss/section_523.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "526",
+      "file": "corpus_integrity/bnss/section_526.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "529",
+      "file": "corpus_integrity/bnss/section_529.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "1",
+      "file": "corpus_integrity/bnss/section_001.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "2",
+      "file": "corpus_integrity/bnss/section_002.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "3",
+      "file": "corpus_integrity/bnss/section_003.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "4",
+      "file": "corpus_integrity/bnss/section_004.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "5",
+      "file": "corpus_integrity/bnss/section_005.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "6",
+      "file": "corpus_integrity/bnss/section_006.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "7",
+      "file": "corpus_integrity/bnss/section_007.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "8",
+      "file": "corpus_integrity/bnss/section_008.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "9",
+      "file": "corpus_integrity/bnss/section_009.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "10",
+      "file": "corpus_integrity/bnss/section_010.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "11",
+      "file": "corpus_integrity/bnss/section_011.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "12",
+      "file": "corpus_integrity/bnss/section_012.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "13",
+      "file": "corpus_integrity/bnss/section_013.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "14",
+      "file": "corpus_integrity/bnss/section_014.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "15",
+      "file": "corpus_integrity/bnss/section_015.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "16",
+      "file": "corpus_integrity/bnss/section_016.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "17",
+      "file": "corpus_integrity/bnss/section_017.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "18",
+      "file": "corpus_integrity/bnss/section_018.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "19",
+      "file": "corpus_integrity/bnss/section_019.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "20",
+      "file": "corpus_integrity/bnss/section_020.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "21",
+      "file": "corpus_integrity/bnss/section_021.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "22",
+      "file": "corpus_integrity/bnss/section_022.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "23",
+      "file": "corpus_integrity/bnss/section_023.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "24",
+      "file": "corpus_integrity/bnss/section_024.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "25",
+      "file": "corpus_integrity/bnss/section_025.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "26",
+      "file": "corpus_integrity/bnss/section_026.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "27",
+      "file": "corpus_integrity/bnss/section_027.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "28",
+      "file": "corpus_integrity/bnss/section_028.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "29",
+      "file": "corpus_integrity/bnss/section_029.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "30",
+      "file": "corpus_integrity/bnss/section_030.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "31",
+      "file": "corpus_integrity/bnss/section_031.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "32",
+      "file": "corpus_integrity/bnss/section_032.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "33",
+      "file": "corpus_integrity/bnss/section_033.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "34",
+      "file": "corpus_integrity/bnss/section_034.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "35",
+      "file": "corpus_integrity/bnss/section_035.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "36",
+      "file": "corpus_integrity/bnss/section_036.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "37",
+      "file": "corpus_integrity/bnss/section_037.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "38",
+      "file": "corpus_integrity/bnss/section_038.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "39",
+      "file": "corpus_integrity/bnss/section_039.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "40",
+      "file": "corpus_integrity/bnss/section_040.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "41",
+      "file": "corpus_integrity/bnss/section_041.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "42",
+      "file": "corpus_integrity/bnss/section_042.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "43",
+      "file": "corpus_integrity/bnss/section_043.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "44",
+      "file": "corpus_integrity/bnss/section_044.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "45",
+      "file": "corpus_integrity/bnss/section_045.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "47",
+      "file": "corpus_integrity/bnss/section_047.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "48",
+      "file": "corpus_integrity/bnss/section_048.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "49",
+      "file": "corpus_integrity/bnss/section_049.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "50",
+      "file": "corpus_integrity/bnss/section_050.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "51",
+      "file": "corpus_integrity/bnss/section_051.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "52",
+      "file": "corpus_integrity/bnss/section_052.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "53",
+      "file": "corpus_integrity/bnss/section_053.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "54",
+      "file": "corpus_integrity/bnss/section_054.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "55",
+      "file": "corpus_integrity/bnss/section_055.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "56",
+      "file": "corpus_integrity/bnss/section_056.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "58",
+      "file": "corpus_integrity/bnss/section_058.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "59",
+      "file": "corpus_integrity/bnss/section_059.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "60",
+      "file": "corpus_integrity/bnss/section_060.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "62",
+      "file": "corpus_integrity/bnss/section_062.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "63",
+      "file": "corpus_integrity/bnss/section_063.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "64",
+      "file": "corpus_integrity/bnss/section_064.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "65",
+      "file": "corpus_integrity/bnss/section_065.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "66",
+      "file": "corpus_integrity/bnss/section_066.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "67",
+      "file": "corpus_integrity/bnss/section_067.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "68",
+      "file": "corpus_integrity/bnss/section_068.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "69",
+      "file": "corpus_integrity/bnss/section_069.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "70",
+      "file": "corpus_integrity/bnss/section_070.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "71",
+      "file": "corpus_integrity/bnss/section_071.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "72",
+      "file": "corpus_integrity/bnss/section_072.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "73",
+      "file": "corpus_integrity/bnss/section_073.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "74",
+      "file": "corpus_integrity/bnss/section_074.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "75",
+      "file": "corpus_integrity/bnss/section_075.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "76",
+      "file": "corpus_integrity/bnss/section_076.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "77",
+      "file": "corpus_integrity/bnss/section_077.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "78",
+      "file": "corpus_integrity/bnss/section_078.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "79",
+      "file": "corpus_integrity/bnss/section_079.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "81",
+      "file": "corpus_integrity/bnss/section_081.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "82",
+      "file": "corpus_integrity/bnss/section_082.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "83",
+      "file": "corpus_integrity/bnss/section_083.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "84",
+      "file": "corpus_integrity/bnss/section_084.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "85",
+      "file": "corpus_integrity/bnss/section_085.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "86",
+      "file": "corpus_integrity/bnss/section_086.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "87",
+      "file": "corpus_integrity/bnss/section_087.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "88",
+      "file": "corpus_integrity/bnss/section_088.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "89",
+      "file": "corpus_integrity/bnss/section_089.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "90",
+      "file": "corpus_integrity/bnss/section_090.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "91",
+      "file": "corpus_integrity/bnss/section_091.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "92",
+      "file": "corpus_integrity/bnss/section_092.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "93",
+      "file": "corpus_integrity/bnss/section_093.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "94",
+      "file": "corpus_integrity/bnss/section_094.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "95",
+      "file": "corpus_integrity/bnss/section_095.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "96",
+      "file": "corpus_integrity/bnss/section_096.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "97",
+      "file": "corpus_integrity/bnss/section_097.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "98",
+      "file": "corpus_integrity/bnss/section_098.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "99",
+      "file": "corpus_integrity/bnss/section_099.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "100",
+      "file": "corpus_integrity/bnss/section_100.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "101",
+      "file": "corpus_integrity/bnss/section_101.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "102",
+      "file": "corpus_integrity/bnss/section_102.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "103",
+      "file": "corpus_integrity/bnss/section_103.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "104",
+      "file": "corpus_integrity/bnss/section_104.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "105",
+      "file": "corpus_integrity/bnss/section_105.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "106",
+      "file": "corpus_integrity/bnss/section_106.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "107",
+      "file": "corpus_integrity/bnss/section_107.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "108",
+      "file": "corpus_integrity/bnss/section_108.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "110",
+      "file": "corpus_integrity/bnss/section_110.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "111",
+      "file": "corpus_integrity/bnss/section_111.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "112",
+      "file": "corpus_integrity/bnss/section_112.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "113",
+      "file": "corpus_integrity/bnss/section_113.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "114",
+      "file": "corpus_integrity/bnss/section_114.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "115",
+      "file": "corpus_integrity/bnss/section_115.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "116",
+      "file": "corpus_integrity/bnss/section_116.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "117",
+      "file": "corpus_integrity/bnss/section_117.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "118",
+      "file": "corpus_integrity/bnss/section_118.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "119",
+      "file": "corpus_integrity/bnss/section_119.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "120",
+      "file": "corpus_integrity/bnss/section_120.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "121",
+      "file": "corpus_integrity/bnss/section_121.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "122",
+      "file": "corpus_integrity/bnss/section_122.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "123",
+      "file": "corpus_integrity/bnss/section_123.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "124",
+      "file": "corpus_integrity/bnss/section_124.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "125",
+      "file": "corpus_integrity/bnss/section_125.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "126",
+      "file": "corpus_integrity/bnss/section_126.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "127",
+      "file": "corpus_integrity/bnss/section_127.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "128",
+      "file": "corpus_integrity/bnss/section_128.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "129",
+      "file": "corpus_integrity/bnss/section_129.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "130",
+      "file": "corpus_integrity/bnss/section_130.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "131",
+      "file": "corpus_integrity/bnss/section_131.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "132",
+      "file": "corpus_integrity/bnss/section_132.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "133",
+      "file": "corpus_integrity/bnss/section_133.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "134",
+      "file": "corpus_integrity/bnss/section_134.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "135",
+      "file": "corpus_integrity/bnss/section_135.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "136",
+      "file": "corpus_integrity/bnss/section_136.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "137",
+      "file": "corpus_integrity/bnss/section_137.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "138",
+      "file": "corpus_integrity/bnss/section_138.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "139",
+      "file": "corpus_integrity/bnss/section_139.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "140",
+      "file": "corpus_integrity/bnss/section_140.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "141",
+      "file": "corpus_integrity/bnss/section_141.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "142",
+      "file": "corpus_integrity/bnss/section_142.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "143",
+      "file": "corpus_integrity/bnss/section_143.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "144",
+      "file": "corpus_integrity/bnss/section_144.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "145",
+      "file": "corpus_integrity/bnss/section_145.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "146",
+      "file": "corpus_integrity/bnss/section_146.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "147",
+      "file": "corpus_integrity/bnss/section_147.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "148",
+      "file": "corpus_integrity/bnss/section_148.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "149",
+      "file": "corpus_integrity/bnss/section_149.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "150",
+      "file": "corpus_integrity/bnss/section_150.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "151",
+      "file": "corpus_integrity/bnss/section_151.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "152",
+      "file": "corpus_integrity/bnss/section_152.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "153",
+      "file": "corpus_integrity/bnss/section_153.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "154",
+      "file": "corpus_integrity/bnss/section_154.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "155",
+      "file": "corpus_integrity/bnss/section_155.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "156",
+      "file": "corpus_integrity/bnss/section_156.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "157",
+      "file": "corpus_integrity/bnss/section_157.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "158",
+      "file": "corpus_integrity/bnss/section_158.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "159",
+      "file": "corpus_integrity/bnss/section_159.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "160",
+      "file": "corpus_integrity/bnss/section_160.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "161",
+      "file": "corpus_integrity/bnss/section_161.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "162",
+      "file": "corpus_integrity/bnss/section_162.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "163",
+      "file": "corpus_integrity/bnss/section_163.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "164",
+      "file": "corpus_integrity/bnss/section_164.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "165",
+      "file": "corpus_integrity/bnss/section_165.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "166",
+      "file": "corpus_integrity/bnss/section_166.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "167",
+      "file": "corpus_integrity/bnss/section_167.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "168",
+      "file": "corpus_integrity/bnss/section_168.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "170",
+      "file": "corpus_integrity/bnss/section_170.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "171",
+      "file": "corpus_integrity/bnss/section_171.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "172",
+      "file": "corpus_integrity/bnss/section_172.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "173",
+      "file": "corpus_integrity/bnss/section_173.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "174",
+      "file": "corpus_integrity/bnss/section_174.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "175",
+      "file": "corpus_integrity/bnss/section_175.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "176",
+      "file": "corpus_integrity/bnss/section_176.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "177",
+      "file": "corpus_integrity/bnss/section_177.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "178",
+      "file": "corpus_integrity/bnss/section_178.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "179",
+      "file": "corpus_integrity/bnss/section_179.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "180",
+      "file": "corpus_integrity/bnss/section_180.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "181",
+      "file": "corpus_integrity/bnss/section_181.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "182",
+      "file": "corpus_integrity/bnss/section_182.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "183",
+      "file": "corpus_integrity/bnss/section_183.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "184",
+      "file": "corpus_integrity/bnss/section_184.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "185",
+      "file": "corpus_integrity/bnss/section_185.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "186",
+      "file": "corpus_integrity/bnss/section_186.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "187",
+      "file": "corpus_integrity/bnss/section_187.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "188",
+      "file": "corpus_integrity/bnss/section_188.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "189",
+      "file": "corpus_integrity/bnss/section_189.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "190",
+      "file": "corpus_integrity/bnss/section_190.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "191",
+      "file": "corpus_integrity/bnss/section_191.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "192",
+      "file": "corpus_integrity/bnss/section_192.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "193",
+      "file": "corpus_integrity/bnss/section_193.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "194",
+      "file": "corpus_integrity/bnss/section_194.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "195",
+      "file": "corpus_integrity/bnss/section_195.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "196",
+      "file": "corpus_integrity/bnss/section_196.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "197",
+      "file": "corpus_integrity/bnss/section_197.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "199",
+      "file": "corpus_integrity/bnss/section_199.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "200",
+      "file": "corpus_integrity/bnss/section_200.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "201",
+      "file": "corpus_integrity/bnss/section_201.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "202",
+      "file": "corpus_integrity/bnss/section_202.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "203",
+      "file": "corpus_integrity/bnss/section_203.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "204",
+      "file": "corpus_integrity/bnss/section_204.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "205",
+      "file": "corpus_integrity/bnss/section_205.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "206",
+      "file": "corpus_integrity/bnss/section_206.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "207",
+      "file": "corpus_integrity/bnss/section_207.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "208",
+      "file": "corpus_integrity/bnss/section_208.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "209",
+      "file": "corpus_integrity/bnss/section_209.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "210",
+      "file": "corpus_integrity/bnss/section_210.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "211",
+      "file": "corpus_integrity/bnss/section_211.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "212",
+      "file": "corpus_integrity/bnss/section_212.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "213",
+      "file": "corpus_integrity/bnss/section_213.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "214",
+      "file": "corpus_integrity/bnss/section_214.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "215",
+      "file": "corpus_integrity/bnss/section_215.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "216",
+      "file": "corpus_integrity/bnss/section_216.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "218",
+      "file": "corpus_integrity/bnss/section_218.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "219",
+      "file": "corpus_integrity/bnss/section_219.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "220",
+      "file": "corpus_integrity/bnss/section_220.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "221",
+      "file": "corpus_integrity/bnss/section_221.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "222",
+      "file": "corpus_integrity/bnss/section_222.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "223",
+      "file": "corpus_integrity/bnss/section_223.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "224",
+      "file": "corpus_integrity/bnss/section_224.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "225",
+      "file": "corpus_integrity/bnss/section_225.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "226",
+      "file": "corpus_integrity/bnss/section_226.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "227",
+      "file": "corpus_integrity/bnss/section_227.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "228",
+      "file": "corpus_integrity/bnss/section_228.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "229",
+      "file": "corpus_integrity/bnss/section_229.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "230",
+      "file": "corpus_integrity/bnss/section_230.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "231",
+      "file": "corpus_integrity/bnss/section_231.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "232",
+      "file": "corpus_integrity/bnss/section_232.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "233",
+      "file": "corpus_integrity/bnss/section_233.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "234",
+      "file": "corpus_integrity/bnss/section_234.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "235",
+      "file": "corpus_integrity/bnss/section_235.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "236",
+      "file": "corpus_integrity/bnss/section_236.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "237",
+      "file": "corpus_integrity/bnss/section_237.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "238",
+      "file": "corpus_integrity/bnss/section_238.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "239",
+      "file": "corpus_integrity/bnss/section_239.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "240",
+      "file": "corpus_integrity/bnss/section_240.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "241",
+      "file": "corpus_integrity/bnss/section_241.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "242",
+      "file": "corpus_integrity/bnss/section_242.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "243",
+      "file": "corpus_integrity/bnss/section_243.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "2023",
+      "file": "corpus_integrity/bnss/section_2023.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "244",
+      "file": "corpus_integrity/bnss/section_244.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "245",
+      "file": "corpus_integrity/bnss/section_245.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "246",
+      "file": "corpus_integrity/bnss/section_246.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "247",
+      "file": "corpus_integrity/bnss/section_247.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "248",
+      "file": "corpus_integrity/bnss/section_248.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "250",
+      "file": "corpus_integrity/bnss/section_250.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "251",
+      "file": "corpus_integrity/bnss/section_251.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "252",
+      "file": "corpus_integrity/bnss/section_252.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "253",
+      "file": "corpus_integrity/bnss/section_253.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "254",
+      "file": "corpus_integrity/bnss/section_254.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "255",
+      "file": "corpus_integrity/bnss/section_255.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "256",
+      "file": "corpus_integrity/bnss/section_256.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "257",
+      "file": "corpus_integrity/bnss/section_257.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "258",
+      "file": "corpus_integrity/bnss/section_258.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "259",
+      "file": "corpus_integrity/bnss/section_259.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "260",
+      "file": "corpus_integrity/bnss/section_260.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "261",
+      "file": "corpus_integrity/bnss/section_261.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "262",
+      "file": "corpus_integrity/bnss/section_262.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "263",
+      "file": "corpus_integrity/bnss/section_263.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "264",
+      "file": "corpus_integrity/bnss/section_264.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "266",
+      "file": "corpus_integrity/bnss/section_266.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "267",
+      "file": "corpus_integrity/bnss/section_267.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "268",
+      "file": "corpus_integrity/bnss/section_268.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "269",
+      "file": "corpus_integrity/bnss/section_269.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "270",
+      "file": "corpus_integrity/bnss/section_270.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "271",
+      "file": "corpus_integrity/bnss/section_271.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "272",
+      "file": "corpus_integrity/bnss/section_272.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "273",
+      "file": "corpus_integrity/bnss/section_273.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "274",
+      "file": "corpus_integrity/bnss/section_274.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "275",
+      "file": "corpus_integrity/bnss/section_275.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "277",
+      "file": "corpus_integrity/bnss/section_277.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "278",
+      "file": "corpus_integrity/bnss/section_278.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "279",
+      "file": "corpus_integrity/bnss/section_279.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "280",
+      "file": "corpus_integrity/bnss/section_280.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "281",
+      "file": "corpus_integrity/bnss/section_281.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "282",
+      "file": "corpus_integrity/bnss/section_282.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "283",
+      "file": "corpus_integrity/bnss/section_283.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "284",
+      "file": "corpus_integrity/bnss/section_284.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "285",
+      "file": "corpus_integrity/bnss/section_285.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "286",
+      "file": "corpus_integrity/bnss/section_286.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "287",
+      "file": "corpus_integrity/bnss/section_287.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "288",
+      "file": "corpus_integrity/bnss/section_288.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "289",
+      "file": "corpus_integrity/bnss/section_289.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "290",
+      "file": "corpus_integrity/bnss/section_290.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "291",
+      "file": "corpus_integrity/bnss/section_291.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "292",
+      "file": "corpus_integrity/bnss/section_292.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "293",
+      "file": "corpus_integrity/bnss/section_293.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "294",
+      "file": "corpus_integrity/bnss/section_294.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "296",
+      "file": "corpus_integrity/bnss/section_296.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "297",
+      "file": "corpus_integrity/bnss/section_297.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "298",
+      "file": "corpus_integrity/bnss/section_298.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "299",
+      "file": "corpus_integrity/bnss/section_299.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "300",
+      "file": "corpus_integrity/bnss/section_300.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "301",
+      "file": "corpus_integrity/bnss/section_301.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "302",
+      "file": "corpus_integrity/bnss/section_302.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "303",
+      "file": "corpus_integrity/bnss/section_303.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "304",
+      "file": "corpus_integrity/bnss/section_304.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "305",
+      "file": "corpus_integrity/bnss/section_305.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "306",
+      "file": "corpus_integrity/bnss/section_306.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "307",
+      "file": "corpus_integrity/bnss/section_307.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "309",
+      "file": "corpus_integrity/bnss/section_309.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "310",
+      "file": "corpus_integrity/bnss/section_310.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "311",
+      "file": "corpus_integrity/bnss/section_311.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "312",
+      "file": "corpus_integrity/bnss/section_312.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "313",
+      "file": "corpus_integrity/bnss/section_313.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "314",
+      "file": "corpus_integrity/bnss/section_314.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "315",
+      "file": "corpus_integrity/bnss/section_315.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "316",
+      "file": "corpus_integrity/bnss/section_316.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "317",
+      "file": "corpus_integrity/bnss/section_317.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "318",
+      "file": "corpus_integrity/bnss/section_318.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "319",
+      "file": "corpus_integrity/bnss/section_319.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "320",
+      "file": "corpus_integrity/bnss/section_320.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "321",
+      "file": "corpus_integrity/bnss/section_321.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "322",
+      "file": "corpus_integrity/bnss/section_322.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "323",
+      "file": "corpus_integrity/bnss/section_323.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "324",
+      "file": "corpus_integrity/bnss/section_324.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "325",
+      "file": "corpus_integrity/bnss/section_325.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "326",
+      "file": "corpus_integrity/bnss/section_326.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "327",
+      "file": "corpus_integrity/bnss/section_327.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "328",
+      "file": "corpus_integrity/bnss/section_328.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "329",
+      "file": "corpus_integrity/bnss/section_329.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "330",
+      "file": "corpus_integrity/bnss/section_330.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "331",
+      "file": "corpus_integrity/bnss/section_331.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "332",
+      "file": "corpus_integrity/bnss/section_332.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "333",
+      "file": "corpus_integrity/bnss/section_333.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "334",
+      "file": "corpus_integrity/bnss/section_334.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "335",
+      "file": "corpus_integrity/bnss/section_335.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "336",
+      "file": "corpus_integrity/bnss/section_336.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "337",
+      "file": "corpus_integrity/bnss/section_337.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "338",
+      "file": "corpus_integrity/bnss/section_338.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "339",
+      "file": "corpus_integrity/bnss/section_339.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "340",
+      "file": "corpus_integrity/bnss/section_340.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "341",
+      "file": "corpus_integrity/bnss/section_341.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "342",
+      "file": "corpus_integrity/bnss/section_342.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "343",
+      "file": "corpus_integrity/bnss/section_343.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "344",
+      "file": "corpus_integrity/bnss/section_344.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "345",
+      "file": "corpus_integrity/bnss/section_345.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "346",
+      "file": "corpus_integrity/bnss/section_346.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "347",
+      "file": "corpus_integrity/bnss/section_347.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "348",
+      "file": "corpus_integrity/bnss/section_348.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "349",
+      "file": "corpus_integrity/bnss/section_349.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "350",
+      "file": "corpus_integrity/bnss/section_350.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "351",
+      "file": "corpus_integrity/bnss/section_351.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "352",
+      "file": "corpus_integrity/bnss/section_352.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "353",
+      "file": "corpus_integrity/bnss/section_353.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "354",
+      "file": "corpus_integrity/bnss/section_354.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "355",
+      "file": "corpus_integrity/bnss/section_355.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "356",
+      "file": "corpus_integrity/bnss/section_356.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "357",
+      "file": "corpus_integrity/bnss/section_357.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "358",
+      "file": "corpus_integrity/bnss/section_358.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "359",
+      "file": "corpus_integrity/bnss/section_359.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "360",
+      "file": "corpus_integrity/bnss/section_360.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "361",
+      "file": "corpus_integrity/bnss/section_361.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "362",
+      "file": "corpus_integrity/bnss/section_362.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "363",
+      "file": "corpus_integrity/bnss/section_363.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "364",
+      "file": "corpus_integrity/bnss/section_364.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "365",
+      "file": "corpus_integrity/bnss/section_365.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "366",
+      "file": "corpus_integrity/bnss/section_366.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "367",
+      "file": "corpus_integrity/bnss/section_367.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "368",
+      "file": "corpus_integrity/bnss/section_368.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "369",
+      "file": "corpus_integrity/bnss/section_369.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "370",
+      "file": "corpus_integrity/bnss/section_370.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "371",
+      "file": "corpus_integrity/bnss/section_371.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "372",
+      "file": "corpus_integrity/bnss/section_372.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "373",
+      "file": "corpus_integrity/bnss/section_373.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "374",
+      "file": "corpus_integrity/bnss/section_374.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "375",
+      "file": "corpus_integrity/bnss/section_375.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "376",
+      "file": "corpus_integrity/bnss/section_376.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "377",
+      "file": "corpus_integrity/bnss/section_377.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "378",
+      "file": "corpus_integrity/bnss/section_378.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "379",
+      "file": "corpus_integrity/bnss/section_379.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "380",
+      "file": "corpus_integrity/bnss/section_380.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "381",
+      "file": "corpus_integrity/bnss/section_381.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "382",
+      "file": "corpus_integrity/bnss/section_382.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "383",
+      "file": "corpus_integrity/bnss/section_383.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "384",
+      "file": "corpus_integrity/bnss/section_384.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "385",
+      "file": "corpus_integrity/bnss/section_385.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "386",
+      "file": "corpus_integrity/bnss/section_386.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "387",
+      "file": "corpus_integrity/bnss/section_387.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "388",
+      "file": "corpus_integrity/bnss/section_388.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "389",
+      "file": "corpus_integrity/bnss/section_389.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "390",
+      "file": "corpus_integrity/bnss/section_390.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "391",
+      "file": "corpus_integrity/bnss/section_391.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "392",
+      "file": "corpus_integrity/bnss/section_392.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "393",
+      "file": "corpus_integrity/bnss/section_393.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "394",
+      "file": "corpus_integrity/bnss/section_394.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "395",
+      "file": "corpus_integrity/bnss/section_395.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "396",
+      "file": "corpus_integrity/bnss/section_396.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "397",
+      "file": "corpus_integrity/bnss/section_397.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "398",
+      "file": "corpus_integrity/bnss/section_398.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "400",
+      "file": "corpus_integrity/bnss/section_400.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "401",
+      "file": "corpus_integrity/bnss/section_401.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "402",
+      "file": "corpus_integrity/bnss/section_402.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "403",
+      "file": "corpus_integrity/bnss/section_403.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "404",
+      "file": "corpus_integrity/bnss/section_404.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "405",
+      "file": "corpus_integrity/bnss/section_405.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "406",
+      "file": "corpus_integrity/bnss/section_406.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "407",
+      "file": "corpus_integrity/bnss/section_407.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "408",
+      "file": "corpus_integrity/bnss/section_408.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "409",
+      "file": "corpus_integrity/bnss/section_409.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "410",
+      "file": "corpus_integrity/bnss/section_410.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "411",
+      "file": "corpus_integrity/bnss/section_411.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "412",
+      "file": "corpus_integrity/bnss/section_412.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "413",
+      "file": "corpus_integrity/bnss/section_413.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "414",
+      "file": "corpus_integrity/bnss/section_414.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "415",
+      "file": "corpus_integrity/bnss/section_415.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "416",
+      "file": "corpus_integrity/bnss/section_416.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "417",
+      "file": "corpus_integrity/bnss/section_417.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "418",
+      "file": "corpus_integrity/bnss/section_418.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "419",
+      "file": "corpus_integrity/bnss/section_419.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "420",
+      "file": "corpus_integrity/bnss/section_420.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "421",
+      "file": "corpus_integrity/bnss/section_421.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "422",
+      "file": "corpus_integrity/bnss/section_422.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "423",
+      "file": "corpus_integrity/bnss/section_423.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "424",
+      "file": "corpus_integrity/bnss/section_424.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "425",
+      "file": "corpus_integrity/bnss/section_425.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "426",
+      "file": "corpus_integrity/bnss/section_426.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "427",
+      "file": "corpus_integrity/bnss/section_427.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "428",
+      "file": "corpus_integrity/bnss/section_428.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "429",
+      "file": "corpus_integrity/bnss/section_429.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "430",
+      "file": "corpus_integrity/bnss/section_430.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "431",
+      "file": "corpus_integrity/bnss/section_431.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "432",
+      "file": "corpus_integrity/bnss/section_432.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "433",
+      "file": "corpus_integrity/bnss/section_433.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "434",
+      "file": "corpus_integrity/bnss/section_434.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "435",
+      "file": "corpus_integrity/bnss/section_435.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "436",
+      "file": "corpus_integrity/bnss/section_436.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "437",
+      "file": "corpus_integrity/bnss/section_437.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "438",
+      "file": "corpus_integrity/bnss/section_438.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "439",
+      "file": "corpus_integrity/bnss/section_439.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "440",
+      "file": "corpus_integrity/bnss/section_440.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "441",
+      "file": "corpus_integrity/bnss/section_441.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "442",
+      "file": "corpus_integrity/bnss/section_442.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "443",
+      "file": "corpus_integrity/bnss/section_443.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "444",
+      "file": "corpus_integrity/bnss/section_444.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "445",
+      "file": "corpus_integrity/bnss/section_445.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "446",
+      "file": "corpus_integrity/bnss/section_446.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "447",
+      "file": "corpus_integrity/bnss/section_447.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "448",
+      "file": "corpus_integrity/bnss/section_448.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "449",
+      "file": "corpus_integrity/bnss/section_449.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "450",
+      "file": "corpus_integrity/bnss/section_450.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "451",
+      "file": "corpus_integrity/bnss/section_451.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "452",
+      "file": "corpus_integrity/bnss/section_452.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "453",
+      "file": "corpus_integrity/bnss/section_453.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "454",
+      "file": "corpus_integrity/bnss/section_454.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "455",
+      "file": "corpus_integrity/bnss/section_455.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "456",
+      "file": "corpus_integrity/bnss/section_456.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "457",
+      "file": "corpus_integrity/bnss/section_457.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "458",
+      "file": "corpus_integrity/bnss/section_458.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "459",
+      "file": "corpus_integrity/bnss/section_459.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "460",
+      "file": "corpus_integrity/bnss/section_460.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "461",
+      "file": "corpus_integrity/bnss/section_461.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "462",
+      "file": "corpus_integrity/bnss/section_462.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "463",
+      "file": "corpus_integrity/bnss/section_463.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "464",
+      "file": "corpus_integrity/bnss/section_464.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "465",
+      "file": "corpus_integrity/bnss/section_465.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "467",
+      "file": "corpus_integrity/bnss/section_467.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "468",
+      "file": "corpus_integrity/bnss/section_468.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "469",
+      "file": "corpus_integrity/bnss/section_469.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "470",
+      "file": "corpus_integrity/bnss/section_470.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "471",
+      "file": "corpus_integrity/bnss/section_471.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "472",
+      "file": "corpus_integrity/bnss/section_472.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "473",
+      "file": "corpus_integrity/bnss/section_473.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "474",
+      "file": "corpus_integrity/bnss/section_474.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "475",
+      "file": "corpus_integrity/bnss/section_475.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "476",
+      "file": "corpus_integrity/bnss/section_476.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "477",
+      "file": "corpus_integrity/bnss/section_477.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "478",
+      "file": "corpus_integrity/bnss/section_478.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "479",
+      "file": "corpus_integrity/bnss/section_479.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "480",
+      "file": "corpus_integrity/bnss/section_480.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "481",
+      "file": "corpus_integrity/bnss/section_481.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "482",
+      "file": "corpus_integrity/bnss/section_482.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "483",
+      "file": "corpus_integrity/bnss/section_483.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "484",
+      "file": "corpus_integrity/bnss/section_484.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "485",
+      "file": "corpus_integrity/bnss/section_485.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "486",
+      "file": "corpus_integrity/bnss/section_486.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "487",
+      "file": "corpus_integrity/bnss/section_487.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "488",
+      "file": "corpus_integrity/bnss/section_488.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "489",
+      "file": "corpus_integrity/bnss/section_489.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "490",
+      "file": "corpus_integrity/bnss/section_490.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "491",
+      "file": "corpus_integrity/bnss/section_491.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "492",
+      "file": "corpus_integrity/bnss/section_492.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "493",
+      "file": "corpus_integrity/bnss/section_493.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "494",
+      "file": "corpus_integrity/bnss/section_494.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "496",
+      "file": "corpus_integrity/bnss/section_496.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "497",
+      "file": "corpus_integrity/bnss/section_497.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "498",
+      "file": "corpus_integrity/bnss/section_498.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "499",
+      "file": "corpus_integrity/bnss/section_499.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "500",
+      "file": "corpus_integrity/bnss/section_500.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "501",
+      "file": "corpus_integrity/bnss/section_501.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "502",
+      "file": "corpus_integrity/bnss/section_502.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "503",
+      "file": "corpus_integrity/bnss/section_503.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "504",
+      "file": "corpus_integrity/bnss/section_504.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "505",
+      "file": "corpus_integrity/bnss/section_505.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "506",
+      "file": "corpus_integrity/bnss/section_506.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "507",
+      "file": "corpus_integrity/bnss/section_507.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "508",
+      "file": "corpus_integrity/bnss/section_508.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "509",
+      "file": "corpus_integrity/bnss/section_509.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "510",
+      "file": "corpus_integrity/bnss/section_510.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "511",
+      "file": "corpus_integrity/bnss/section_511.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "512",
+      "file": "corpus_integrity/bnss/section_512.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "513",
+      "file": "corpus_integrity/bnss/section_513.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "515",
+      "file": "corpus_integrity/bnss/section_515.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "516",
+      "file": "corpus_integrity/bnss/section_516.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "517",
+      "file": "corpus_integrity/bnss/section_517.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "518",
+      "file": "corpus_integrity/bnss/section_518.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "520",
+      "file": "corpus_integrity/bnss/section_520.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "521",
+      "file": "corpus_integrity/bnss/section_521.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "522",
+      "file": "corpus_integrity/bnss/section_522.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "523",
+      "file": "corpus_integrity/bnss/section_523.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "524",
+      "file": "corpus_integrity/bnss/section_524.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "525",
+      "file": "corpus_integrity/bnss/section_525.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "526",
+      "file": "corpus_integrity/bnss/section_526.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "527",
+      "file": "corpus_integrity/bnss/section_527.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "528",
+      "file": "corpus_integrity/bnss/section_528.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "529",
+      "file": "corpus_integrity/bnss/section_529.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "530",
+      "file": "corpus_integrity/bnss/section_530.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "531",
+      "file": "corpus_integrity/bnss/section_531.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "2",
+      "file": "corpus_integrity/bnss/section_002.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "4",
+      "file": "corpus_integrity/bnss/section_004.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "5",
+      "file": "corpus_integrity/bnss/section_005.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNSS",
+      "section": "6",
+      "file": "corpus_integrity/bnss/section_006.md",
+      "source_url": "https://www.indiacode.nic.in/",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    }
+  ]
+}

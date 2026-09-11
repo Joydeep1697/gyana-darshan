@@ -27,6 +27,7 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from app.ingestion.base import IngestionLogger, save_with_provenance
+from app.ingestion.sources import SOURCES, IngestionSource
 
 BNS_SOURCE_URL = "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search"
 DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
@@ -244,6 +245,82 @@ def _extract_section_from_jsonl(section: str, source_url: str) -> Optional[Inges
     return None
 
 
+def _record_to_markdown(record: dict, source: IngestionSource) -> str:
+    short_name = (record.get("short_name") or source.key).upper()
+    section = str(record.get("section") or "").strip()
+    heading = _normalise_text(record.get("heading") or "")
+    body = _normalise_text(record.get("text") or "")
+    text = _normalise_text(f"{heading}\n\n{body}")
+    title = f"{short_name} Section {section}"
+    if heading:
+        title = f"{title}: {heading.split('.')[0].strip()[:160]}"
+    return (
+        f"# {title}\n\n"
+        f"- Statute: {record.get('statute') or source.label}\n"
+        f"- Short name: {short_name}\n"
+        f"- Section: {section}\n"
+        f"- Act number: {record.get('act_number') or ''}\n"
+        f"- Source: {record.get('source') or source.url}\n\n"
+        "## Text\n\n"
+        f"{text}\n"
+    )
+
+
+def export_statute_from_jsonl(source_key: str) -> list[Path]:
+    """Export one local statutory JSONL fallback into section Markdown files.
+
+    This does not claim live verification. It preserves the Phase 1/2 honesty
+    boundary by writing provenance_verified:false and fetched_with:jsonl_fallback.
+    """
+    source = SOURCES[source_key]
+    if not source.corpus_jsonl or not source.corpus_jsonl.exists():
+        raise IngestionError(f"No local JSONL fallback exists for {source_key}")
+    source.evidence_dir.mkdir(parents=True, exist_ok=True)
+    saved: list[Path] = []
+    manifest_rows: list[dict[str, str]] = []
+    with source.corpus_jsonl.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            if not line.strip():
+                continue
+            record = json.loads(line)
+            section = str(record.get("section") or "").strip()
+            if not section:
+                continue
+            markdown = _record_to_markdown(record, source)
+            output = source.evidence_dir / f"section_{int(section):03d}.md"
+            saved_path = save_with_provenance(
+                markdown,
+                output,
+                source.url,
+                source.key.upper(),
+                section,
+                "jsonl_fallback",
+                corpus=f"corpus_integrity/{source.key}",
+            )
+            saved.append(saved_path)
+            manifest_rows.append(
+                {
+                    "act": source.key.upper(),
+                    "section": section,
+                    "file": saved_path.as_posix(),
+                    "source_url": source.url,
+                    "fetched_with": "jsonl_fallback",
+                    "provenance_verified": "false",
+                }
+            )
+    manifest = source.evidence_dir / "manifest.json"
+    manifest.write_text(json.dumps({"source": source.key, "sections": manifest_rows}, indent=2), encoding="utf-8")
+    LOGGER.log(source.key.upper(), "ALL", source.url, "SAVED_FROM_LOCAL_FALLBACK", file_path=str(manifest), count=len(saved))
+    return saved
+
+
+def export_all_statutory_fallbacks() -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for key in ("bns", "bnss", "bsa"):
+        counts[key] = len(export_statute_from_jsonl(key))
+    return counts
+
+
 def extract_section(section: str, source_text: str, source_url: str, fetched_with: str) -> IngestedSection:
     section_number = re.escape(str(section))
     text = _normalise_text(source_text)
@@ -351,7 +428,11 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument("--section", default="103", help="BNS section number to extract.")
     parser.add_argument("--url", default=BNS_SOURCE_URL, help="Public India Code source URL.")
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="Directory for section Markdown files.")
+    parser.add_argument("--all-statutes", action="store_true", help="Export BNS, BNSS, and BSA from local JSONL fallbacks.")
     args = parser.parse_args(argv)
+    if args.all_statutes:
+        print(json.dumps(export_all_statutory_fallbacks(), indent=2))
+        return 0
     output = asyncio.run(ingest_bns_section(args.section, args.url, Path(args.output_dir)))
     print(output)
     return 0

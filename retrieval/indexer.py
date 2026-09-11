@@ -11,7 +11,9 @@ from pathlib import Path
 from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
-CORPUS_BNS = ROOT / "corpus_integrity" / "bns" / "section_103.md"
+CORPUS_ROOT = ROOT / "corpus_integrity"
+CORPUS_BNS = CORPUS_ROOT / "bns" / "section_103.md"
+PUBLIC_CORPUS_DIRS = ("bns", "bnss", "bsa", "egazette", "prs")
 VAULT_ROOT = ROOT / "app" / "storage" / "vault"
 INDEX_ROOT = ROOT / "app" / "storage" / "retrieval_index"
 INGESTION_LOG = ROOT / "app" / "ingestion" / "ingestion_log.jsonl"
@@ -117,16 +119,21 @@ def _human_task_evidence() -> dict[str, dict[str, str]]:
 def _metadata_for_path(path: Path, tenant_id: str) -> dict[str, Any]:
     rel = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else str(path)
     now = datetime.now(timezone.utc).isoformat()
-    if path == CORPUS_BNS:
+    if path.is_relative_to(CORPUS_ROOT):
         meta, _ = _frontmatter(_read_text(path))
+        source_folder = path.relative_to(CORPUS_ROOT).parts[0] if path.relative_to(CORPUS_ROOT).parts else ""
+        fetched_with = meta.get("fetched_with") or ("needs_human_action" if source_folder in {"egazette", "prs"} else "jsonl_fallback")
+        provenance_value = (meta.get("provenance_verified") or "false").strip().lower()
         return {
             "tenant_id": tenant_id,
             "source_url": meta.get("source_url", ""),
-            "fetched_with": "jsonl_fallback",
-            "provenance_verified": False,
+            "fetched_with": fetched_with,
+            "provenance_verified": provenance_value == "true",
             "ingestion_date": meta.get("fetched_at") or now,
             "file_path": rel,
             "matter_id": None,
+            "evidence_html_path": meta.get("evidence_html_path") or None,
+            "evidence_screenshot_path": meta.get("evidence_screenshot_path") or None,
         }
     parts = path.parts
     matter_id = None
@@ -152,8 +159,12 @@ def _metadata_for_path(path: Path, tenant_id: str) -> dict[str, Any]:
 def _tenant_files(tenant_id: str) -> list[Path]:
     safe = _safe_tenant(tenant_id)
     files: list[Path] = []
-    if CORPUS_BNS.exists():
-        files.append(CORPUS_BNS)
+    for folder in PUBLIC_CORPUS_DIRS:
+        corpus_dir = CORPUS_ROOT / folder
+        if corpus_dir.exists():
+            for path in corpus_dir.rglob("*"):
+                if path.is_file() and path.suffix.lower() in {".md", ".txt", ".html"}:
+                    files.append(path)
     tenant_root = (VAULT_ROOT / safe).resolve()
     if tenant_root.exists() and tenant_root.is_relative_to(VAULT_ROOT.resolve()):
         for path in tenant_root.rglob("*"):
@@ -170,8 +181,10 @@ def chunks_for_tenant(tenant_id: str) -> list[IndexedChunk]:
             continue
         frontmatter, body = _frontmatter(text)
         meta = _metadata_for_path(path, tenant_id)
-        if path == CORPUS_BNS:
-            body = f"Bharatiya Nyaya Sanhita BNS Section 103 murder\n{body}"
+        if path.is_relative_to(CORPUS_ROOT):
+            parts = path.relative_to(CORPUS_ROOT).parts
+            source_label = parts[0].upper() if parts else "CORPUS"
+            body = f"{source_label} statutory corpus public evidence\n{body}"
         for idx, chunk in enumerate(_chunk_text(body)):
             digest = hashlib.sha256(f"{tenant_id}:{path}:{idx}:{chunk[:80]}".encode("utf-8")).hexdigest()[:24]
             chunks.append(IndexedChunk(chunk_id=digest, text=chunk, **meta))

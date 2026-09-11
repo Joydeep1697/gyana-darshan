@@ -9,8 +9,14 @@ Authenticated user
   -> POST /api/retrieval/search
   -> retrieval.search.search(query, tenant_id)
   -> retrieval.indexer.load_tenant_index(tenant_id)
-       -> corpus_integrity/bns/section_103.md
+       -> corpus_integrity/bns/**/*.md
+       -> corpus_integrity/bnss/**/*.md
+       -> corpus_integrity/bsa/**/*.md
           fetched_with=jsonl_fallback
+          provenance_verified=false
+       -> corpus_integrity/egazette/**/*.md|html
+       -> corpus_integrity/prs/**/*.md|html
+          fetched_with=needs_human_action or robots_blocked
           provenance_verified=false
        -> app/storage/vault/{tenant_id}/**/*.pdf|md|txt
           fetched_with=live_upload
@@ -26,8 +32,8 @@ The indexer only walks `app/storage/vault/{tenant_id}` for that id. Files in
 `default_tenant`, another `personal-...` workspace, or another `org-...`
 workspace are not included in the active tenant index.
 
-The BNS fallback file is public statutory corpus and is included for each
-tenant search, but it is always marked:
+The BNS, BNSS, and BSA fallback files are public statutory corpus and are
+included for each tenant search, but they are always marked:
 
 ```text
 fetched_with=jsonl_fallback
@@ -36,6 +42,12 @@ provenance_verified=false
 
 That flag is deliberate: India Code live browser verification was blocked, so
 the UI must show the red fallback badge and must not imply live verification.
+
+eGazette and PRS evidence records are indexed as manual-action evidence until
+`app/ingestion/browser_check_egazette.py` or
+`app/ingestion/browser_check_prs.py` refreshes the HTML/PNG proof and a human
+reviewer verifies provenance. They should display as yellow
+`needs_human_action` badges, not verified legal authority.
 
 ## Human Review Loop
 

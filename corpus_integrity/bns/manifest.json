@@ -1,0 +1,2757 @@
+{
+  "source": "bns",
+  "sections": [
+    {
+      "act": "BNS",
+      "section": "1",
+      "file": "corpus_integrity/bns/section_001.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "2",
+      "file": "corpus_integrity/bns/section_002.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "3",
+      "file": "corpus_integrity/bns/section_003.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "4",
+      "file": "corpus_integrity/bns/section_004.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "5",
+      "file": "corpus_integrity/bns/section_005.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "6",
+      "file": "corpus_integrity/bns/section_006.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "8",
+      "file": "corpus_integrity/bns/section_008.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "9",
+      "file": "corpus_integrity/bns/section_009.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "10",
+      "file": "corpus_integrity/bns/section_010.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "11",
+      "file": "corpus_integrity/bns/section_011.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "12",
+      "file": "corpus_integrity/bns/section_012.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "13",
+      "file": "corpus_integrity/bns/section_013.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "14",
+      "file": "corpus_integrity/bns/section_014.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "15",
+      "file": "corpus_integrity/bns/section_015.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "17",
+      "file": "corpus_integrity/bns/section_017.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "18",
+      "file": "corpus_integrity/bns/section_018.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "19",
+      "file": "corpus_integrity/bns/section_019.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "20",
+      "file": "corpus_integrity/bns/section_020.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "22",
+      "file": "corpus_integrity/bns/section_022.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "23",
+      "file": "corpus_integrity/bns/section_023.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "24",
+      "file": "corpus_integrity/bns/section_024.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "25",
+      "file": "corpus_integrity/bns/section_025.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "26",
+      "file": "corpus_integrity/bns/section_026.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "27",
+      "file": "corpus_integrity/bns/section_027.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "28",
+      "file": "corpus_integrity/bns/section_028.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "29",
+      "file": "corpus_integrity/bns/section_029.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "30",
+      "file": "corpus_integrity/bns/section_030.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "31",
+      "file": "corpus_integrity/bns/section_031.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "32",
+      "file": "corpus_integrity/bns/section_032.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "33",
+      "file": "corpus_integrity/bns/section_033.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "34",
+      "file": "corpus_integrity/bns/section_034.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "36",
+      "file": "corpus_integrity/bns/section_036.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "37",
+      "file": "corpus_integrity/bns/section_037.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "38",
+      "file": "corpus_integrity/bns/section_038.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "39",
+      "file": "corpus_integrity/bns/section_039.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "40",
+      "file": "corpus_integrity/bns/section_040.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "41",
+      "file": "corpus_integrity/bns/section_041.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "42",
+      "file": "corpus_integrity/bns/section_042.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "43",
+      "file": "corpus_integrity/bns/section_043.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "44",
+      "file": "corpus_integrity/bns/section_044.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "45",
+      "file": "corpus_integrity/bns/section_045.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "46",
+      "file": "corpus_integrity/bns/section_046.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "47",
+      "file": "corpus_integrity/bns/section_047.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "48",
+      "file": "corpus_integrity/bns/section_048.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "49",
+      "file": "corpus_integrity/bns/section_049.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "50",
+      "file": "corpus_integrity/bns/section_050.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "51",
+      "file": "corpus_integrity/bns/section_051.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "52",
+      "file": "corpus_integrity/bns/section_052.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "53",
+      "file": "corpus_integrity/bns/section_053.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "54",
+      "file": "corpus_integrity/bns/section_054.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "55",
+      "file": "corpus_integrity/bns/section_055.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "56",
+      "file": "corpus_integrity/bns/section_056.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "57",
+      "file": "corpus_integrity/bns/section_057.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "58",
+      "file": "corpus_integrity/bns/section_058.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "59",
+      "file": "corpus_integrity/bns/section_059.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "60",
+      "file": "corpus_integrity/bns/section_060.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "61",
+      "file": "corpus_integrity/bns/section_061.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "62",
+      "file": "corpus_integrity/bns/section_062.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "63",
+      "file": "corpus_integrity/bns/section_063.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "64",
+      "file": "corpus_integrity/bns/section_064.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "65",
+      "file": "corpus_integrity/bns/section_065.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "66",
+      "file": "corpus_integrity/bns/section_066.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "67",
+      "file": "corpus_integrity/bns/section_067.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "68",
+      "file": "corpus_integrity/bns/section_068.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "69",
+      "file": "corpus_integrity/bns/section_069.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "70",
+      "file": "corpus_integrity/bns/section_070.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "71",
+      "file": "corpus_integrity/bns/section_071.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "72",
+      "file": "corpus_integrity/bns/section_072.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "73",
+      "file": "corpus_integrity/bns/section_073.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "74",
+      "file": "corpus_integrity/bns/section_074.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "75",
+      "file": "corpus_integrity/bns/section_075.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "76",
+      "file": "corpus_integrity/bns/section_076.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "77",
+      "file": "corpus_integrity/bns/section_077.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "78",
+      "file": "corpus_integrity/bns/section_078.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "79",
+      "file": "corpus_integrity/bns/section_079.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "80",
+      "file": "corpus_integrity/bns/section_080.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "81",
+      "file": "corpus_integrity/bns/section_081.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "82",
+      "file": "corpus_integrity/bns/section_082.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "83",
+      "file": "corpus_integrity/bns/section_083.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "84",
+      "file": "corpus_integrity/bns/section_084.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "85",
+      "file": "corpus_integrity/bns/section_085.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "86",
+      "file": "corpus_integrity/bns/section_086.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "87",
+      "file": "corpus_integrity/bns/section_087.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "88",
+      "file": "corpus_integrity/bns/section_088.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "89",
+      "file": "corpus_integrity/bns/section_089.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "90",
+      "file": "corpus_integrity/bns/section_090.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "91",
+      "file": "corpus_integrity/bns/section_091.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "92",
+      "file": "corpus_integrity/bns/section_092.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "93",
+      "file": "corpus_integrity/bns/section_093.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "94",
+      "file": "corpus_integrity/bns/section_094.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "95",
+      "file": "corpus_integrity/bns/section_095.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "96",
+      "file": "corpus_integrity/bns/section_096.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "97",
+      "file": "corpus_integrity/bns/section_097.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "98",
+      "file": "corpus_integrity/bns/section_098.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "99",
+      "file": "corpus_integrity/bns/section_099.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "100",
+      "file": "corpus_integrity/bns/section_100.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "101",
+      "file": "corpus_integrity/bns/section_101.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "102",
+      "file": "corpus_integrity/bns/section_102.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "103",
+      "file": "corpus_integrity/bns/section_103.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "105",
+      "file": "corpus_integrity/bns/section_105.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "106",
+      "file": "corpus_integrity/bns/section_106.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "107",
+      "file": "corpus_integrity/bns/section_107.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "108",
+      "file": "corpus_integrity/bns/section_108.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "109",
+      "file": "corpus_integrity/bns/section_109.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "110",
+      "file": "corpus_integrity/bns/section_110.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "111",
+      "file": "corpus_integrity/bns/section_111.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "112",
+      "file": "corpus_integrity/bns/section_112.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "113",
+      "file": "corpus_integrity/bns/section_113.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "114",
+      "file": "corpus_integrity/bns/section_114.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "116",
+      "file": "corpus_integrity/bns/section_116.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "117",
+      "file": "corpus_integrity/bns/section_117.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "118",
+      "file": "corpus_integrity/bns/section_118.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "119",
+      "file": "corpus_integrity/bns/section_119.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "120",
+      "file": "corpus_integrity/bns/section_120.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "121",
+      "file": "corpus_integrity/bns/section_121.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "122",
+      "file": "corpus_integrity/bns/section_122.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "123",
+      "file": "corpus_integrity/bns/section_123.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "124",
+      "file": "corpus_integrity/bns/section_124.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "125",
+      "file": "corpus_integrity/bns/section_125.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "126",
+      "file": "corpus_integrity/bns/section_126.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "127",
+      "file": "corpus_integrity/bns/section_127.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "128",
+      "file": "corpus_integrity/bns/section_128.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "129",
+      "file": "corpus_integrity/bns/section_129.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "130",
+      "file": "corpus_integrity/bns/section_130.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "131",
+      "file": "corpus_integrity/bns/section_131.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "132",
+      "file": "corpus_integrity/bns/section_132.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "133",
+      "file": "corpus_integrity/bns/section_133.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "134",
+      "file": "corpus_integrity/bns/section_134.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "135",
+      "file": "corpus_integrity/bns/section_135.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "136",
+      "file": "corpus_integrity/bns/section_136.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "137",
+      "file": "corpus_integrity/bns/section_137.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "138",
+      "file": "corpus_integrity/bns/section_138.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "140",
+      "file": "corpus_integrity/bns/section_140.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "141",
+      "file": "corpus_integrity/bns/section_141.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "142",
+      "file": "corpus_integrity/bns/section_142.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "143",
+      "file": "corpus_integrity/bns/section_143.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "144",
+      "file": "corpus_integrity/bns/section_144.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "145",
+      "file": "corpus_integrity/bns/section_145.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "146",
+      "file": "corpus_integrity/bns/section_146.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "147",
+      "file": "corpus_integrity/bns/section_147.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "148",
+      "file": "corpus_integrity/bns/section_148.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "149",
+      "file": "corpus_integrity/bns/section_149.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "150",
+      "file": "corpus_integrity/bns/section_150.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "151",
+      "file": "corpus_integrity/bns/section_151.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "152",
+      "file": "corpus_integrity/bns/section_152.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "153",
+      "file": "corpus_integrity/bns/section_153.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "154",
+      "file": "corpus_integrity/bns/section_154.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "155",
+      "file": "corpus_integrity/bns/section_155.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "156",
+      "file": "corpus_integrity/bns/section_156.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "157",
+      "file": "corpus_integrity/bns/section_157.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "158",
+      "file": "corpus_integrity/bns/section_158.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "159",
+      "file": "corpus_integrity/bns/section_159.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "160",
+      "file": "corpus_integrity/bns/section_160.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "161",
+      "file": "corpus_integrity/bns/section_161.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "162",
+      "file": "corpus_integrity/bns/section_162.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "163",
+      "file": "corpus_integrity/bns/section_163.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "164",
+      "file": "corpus_integrity/bns/section_164.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "165",
+      "file": "corpus_integrity/bns/section_165.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "166",
+      "file": "corpus_integrity/bns/section_166.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "167",
+      "file": "corpus_integrity/bns/section_167.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "169",
+      "file": "corpus_integrity/bns/section_169.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "170",
+      "file": "corpus_integrity/bns/section_170.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "171",
+      "file": "corpus_integrity/bns/section_171.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "172",
+      "file": "corpus_integrity/bns/section_172.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "173",
+      "file": "corpus_integrity/bns/section_173.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "174",
+      "file": "corpus_integrity/bns/section_174.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "175",
+      "file": "corpus_integrity/bns/section_175.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "176",
+      "file": "corpus_integrity/bns/section_176.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "177",
+      "file": "corpus_integrity/bns/section_177.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "178",
+      "file": "corpus_integrity/bns/section_178.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "179",
+      "file": "corpus_integrity/bns/section_179.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "180",
+      "file": "corpus_integrity/bns/section_180.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "181",
+      "file": "corpus_integrity/bns/section_181.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "182",
+      "file": "corpus_integrity/bns/section_182.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "183",
+      "file": "corpus_integrity/bns/section_183.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "184",
+      "file": "corpus_integrity/bns/section_184.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "185",
+      "file": "corpus_integrity/bns/section_185.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "186",
+      "file": "corpus_integrity/bns/section_186.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "187",
+      "file": "corpus_integrity/bns/section_187.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "188",
+      "file": "corpus_integrity/bns/section_188.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "189",
+      "file": "corpus_integrity/bns/section_189.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "190",
+      "file": "corpus_integrity/bns/section_190.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "191",
+      "file": "corpus_integrity/bns/section_191.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "193",
+      "file": "corpus_integrity/bns/section_193.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "194",
+      "file": "corpus_integrity/bns/section_194.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "195",
+      "file": "corpus_integrity/bns/section_195.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "196",
+      "file": "corpus_integrity/bns/section_196.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "197",
+      "file": "corpus_integrity/bns/section_197.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "198",
+      "file": "corpus_integrity/bns/section_198.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "199",
+      "file": "corpus_integrity/bns/section_199.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "200",
+      "file": "corpus_integrity/bns/section_200.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "201",
+      "file": "corpus_integrity/bns/section_201.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "202",
+      "file": "corpus_integrity/bns/section_202.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "203",
+      "file": "corpus_integrity/bns/section_203.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "204",
+      "file": "corpus_integrity/bns/section_204.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "205",
+      "file": "corpus_integrity/bns/section_205.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "206",
+      "file": "corpus_integrity/bns/section_206.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "207",
+      "file": "corpus_integrity/bns/section_207.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "208",
+      "file": "corpus_integrity/bns/section_208.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "209",
+      "file": "corpus_integrity/bns/section_209.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "210",
+      "file": "corpus_integrity/bns/section_210.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "211",
+      "file": "corpus_integrity/bns/section_211.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "212",
+      "file": "corpus_integrity/bns/section_212.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "213",
+      "file": "corpus_integrity/bns/section_213.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "214",
+      "file": "corpus_integrity/bns/section_214.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "215",
+      "file": "corpus_integrity/bns/section_215.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "216",
+      "file": "corpus_integrity/bns/section_216.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "217",
+      "file": "corpus_integrity/bns/section_217.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "218",
+      "file": "corpus_integrity/bns/section_218.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "219",
+      "file": "corpus_integrity/bns/section_219.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "220",
+      "file": "corpus_integrity/bns/section_220.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "221",
+      "file": "corpus_integrity/bns/section_221.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "222",
+      "file": "corpus_integrity/bns/section_222.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "223",
+      "file": "corpus_integrity/bns/section_223.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "224",
+      "file": "corpus_integrity/bns/section_224.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "225",
+      "file": "corpus_integrity/bns/section_225.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "226",
+      "file": "corpus_integrity/bns/section_226.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "227",
+      "file": "corpus_integrity/bns/section_227.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "228",
+      "file": "corpus_integrity/bns/section_228.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "229",
+      "file": "corpus_integrity/bns/section_229.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "230",
+      "file": "corpus_integrity/bns/section_230.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "231",
+      "file": "corpus_integrity/bns/section_231.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "232",
+      "file": "corpus_integrity/bns/section_232.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "233",
+      "file": "corpus_integrity/bns/section_233.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "234",
+      "file": "corpus_integrity/bns/section_234.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "235",
+      "file": "corpus_integrity/bns/section_235.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "236",
+      "file": "corpus_integrity/bns/section_236.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "237",
+      "file": "corpus_integrity/bns/section_237.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "238",
+      "file": "corpus_integrity/bns/section_238.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "239",
+      "file": "corpus_integrity/bns/section_239.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "240",
+      "file": "corpus_integrity/bns/section_240.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "241",
+      "file": "corpus_integrity/bns/section_241.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "242",
+      "file": "corpus_integrity/bns/section_242.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "243",
+      "file": "corpus_integrity/bns/section_243.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "244",
+      "file": "corpus_integrity/bns/section_244.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "245",
+      "file": "corpus_integrity/bns/section_245.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "246",
+      "file": "corpus_integrity/bns/section_246.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "247",
+      "file": "corpus_integrity/bns/section_247.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "248",
+      "file": "corpus_integrity/bns/section_248.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "249",
+      "file": "corpus_integrity/bns/section_249.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "250",
+      "file": "corpus_integrity/bns/section_250.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "251",
+      "file": "corpus_integrity/bns/section_251.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "252",
+      "file": "corpus_integrity/bns/section_252.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "253",
+      "file": "corpus_integrity/bns/section_253.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "254",
+      "file": "corpus_integrity/bns/section_254.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "255",
+      "file": "corpus_integrity/bns/section_255.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "256",
+      "file": "corpus_integrity/bns/section_256.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "257",
+      "file": "corpus_integrity/bns/section_257.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "258",
+      "file": "corpus_integrity/bns/section_258.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "259",
+      "file": "corpus_integrity/bns/section_259.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "260",
+      "file": "corpus_integrity/bns/section_260.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "261",
+      "file": "corpus_integrity/bns/section_261.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "262",
+      "file": "corpus_integrity/bns/section_262.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "263",
+      "file": "corpus_integrity/bns/section_263.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "264",
+      "file": "corpus_integrity/bns/section_264.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "265",
+      "file": "corpus_integrity/bns/section_265.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "266",
+      "file": "corpus_integrity/bns/section_266.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "267",
+      "file": "corpus_integrity/bns/section_267.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "268",
+      "file": "corpus_integrity/bns/section_268.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "269",
+      "file": "corpus_integrity/bns/section_269.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "270",
+      "file": "corpus_integrity/bns/section_270.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "271",
+      "file": "corpus_integrity/bns/section_271.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "272",
+      "file": "corpus_integrity/bns/section_272.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "273",
+      "file": "corpus_integrity/bns/section_273.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "274",
+      "file": "corpus_integrity/bns/section_274.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "275",
+      "file": "corpus_integrity/bns/section_275.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "276",
+      "file": "corpus_integrity/bns/section_276.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "277",
+      "file": "corpus_integrity/bns/section_277.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "278",
+      "file": "corpus_integrity/bns/section_278.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "279",
+      "file": "corpus_integrity/bns/section_279.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "280",
+      "file": "corpus_integrity/bns/section_280.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "281",
+      "file": "corpus_integrity/bns/section_281.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "282",
+      "file": "corpus_integrity/bns/section_282.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "283",
+      "file": "corpus_integrity/bns/section_283.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "284",
+      "file": "corpus_integrity/bns/section_284.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "285",
+      "file": "corpus_integrity/bns/section_285.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "286",
+      "file": "corpus_integrity/bns/section_286.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "288",
+      "file": "corpus_integrity/bns/section_288.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "290",
+      "file": "corpus_integrity/bns/section_290.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "291",
+      "file": "corpus_integrity/bns/section_291.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "292",
+      "file": "corpus_integrity/bns/section_292.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "294",
+      "file": "corpus_integrity/bns/section_294.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "295",
+      "file": "corpus_integrity/bns/section_295.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "296",
+      "file": "corpus_integrity/bns/section_296.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "297",
+      "file": "corpus_integrity/bns/section_297.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "298",
+      "file": "corpus_integrity/bns/section_298.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "300",
+      "file": "corpus_integrity/bns/section_300.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "302",
+      "file": "corpus_integrity/bns/section_302.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "303",
+      "file": "corpus_integrity/bns/section_303.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "304",
+      "file": "corpus_integrity/bns/section_304.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "305",
+      "file": "corpus_integrity/bns/section_305.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "306",
+      "file": "corpus_integrity/bns/section_306.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "307",
+      "file": "corpus_integrity/bns/section_307.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "308",
+      "file": "corpus_integrity/bns/section_308.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "309",
+      "file": "corpus_integrity/bns/section_309.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "310",
+      "file": "corpus_integrity/bns/section_310.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "311",
+      "file": "corpus_integrity/bns/section_311.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "312",
+      "file": "corpus_integrity/bns/section_312.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "313",
+      "file": "corpus_integrity/bns/section_313.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "314",
+      "file": "corpus_integrity/bns/section_314.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "315",
+      "file": "corpus_integrity/bns/section_315.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "316",
+      "file": "corpus_integrity/bns/section_316.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "317",
+      "file": "corpus_integrity/bns/section_317.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "318",
+      "file": "corpus_integrity/bns/section_318.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "319",
+      "file": "corpus_integrity/bns/section_319.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "320",
+      "file": "corpus_integrity/bns/section_320.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "321",
+      "file": "corpus_integrity/bns/section_321.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "322",
+      "file": "corpus_integrity/bns/section_322.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "323",
+      "file": "corpus_integrity/bns/section_323.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "324",
+      "file": "corpus_integrity/bns/section_324.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "325",
+      "file": "corpus_integrity/bns/section_325.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "326",
+      "file": "corpus_integrity/bns/section_326.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "327",
+      "file": "corpus_integrity/bns/section_327.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "328",
+      "file": "corpus_integrity/bns/section_328.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "329",
+      "file": "corpus_integrity/bns/section_329.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "330",
+      "file": "corpus_integrity/bns/section_330.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "332",
+      "file": "corpus_integrity/bns/section_332.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "333",
+      "file": "corpus_integrity/bns/section_333.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "334",
+      "file": "corpus_integrity/bns/section_334.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "335",
+      "file": "corpus_integrity/bns/section_335.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "336",
+      "file": "corpus_integrity/bns/section_336.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "337",
+      "file": "corpus_integrity/bns/section_337.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "338",
+      "file": "corpus_integrity/bns/section_338.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "339",
+      "file": "corpus_integrity/bns/section_339.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "340",
+      "file": "corpus_integrity/bns/section_340.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "341",
+      "file": "corpus_integrity/bns/section_341.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "338",
+      "file": "corpus_integrity/bns/section_338.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "342",
+      "file": "corpus_integrity/bns/section_342.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "343",
+      "file": "corpus_integrity/bns/section_343.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "344",
+      "file": "corpus_integrity/bns/section_344.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "345",
+      "file": "corpus_integrity/bns/section_345.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "346",
+      "file": "corpus_integrity/bns/section_346.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "347",
+      "file": "corpus_integrity/bns/section_347.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "348",
+      "file": "corpus_integrity/bns/section_348.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "349",
+      "file": "corpus_integrity/bns/section_349.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "350",
+      "file": "corpus_integrity/bns/section_350.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "351",
+      "file": "corpus_integrity/bns/section_351.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "352",
+      "file": "corpus_integrity/bns/section_352.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "353",
+      "file": "corpus_integrity/bns/section_353.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "354",
+      "file": "corpus_integrity/bns/section_354.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "355",
+      "file": "corpus_integrity/bns/section_355.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "356",
+      "file": "corpus_integrity/bns/section_356.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "357",
+      "file": "corpus_integrity/bns/section_357.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    },
+    {
+      "act": "BNS",
+      "section": "358",
+      "file": "corpus_integrity/bns/section_358.md",
+      "source_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/20062?col=123456789%2F1362&view_type=search",
+      "fetched_with": "jsonl_fallback",
+      "provenance_verified": "false"
+    }
+  ]
+}

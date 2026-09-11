@@ -47,7 +47,15 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def save_with_provenance(content: str, output_path: Path, source_url: str, act: str, section: str, fetched_with: str) -> Path:
+def save_with_provenance(
+    content: str,
+    output_path: Path,
+    source_url: str,
+    act: str,
+    section: str,
+    fetched_with: str,
+    corpus: str = "corpus_integrity/bns",
+) -> Path:
     """Save Markdown with frontmatter for audit and source verification."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fetched_at = utc_now()
@@ -59,7 +67,7 @@ def save_with_provenance(content: str, output_path: Path, source_url: str, act: 
         f"fetched_at: {fetched_at}\n"
         f"fetched_with: {fetched_with}\n"
         "provenance_verified: false\n"
-        "corpus: corpus_integrity/bns\n"
+        f"corpus: {corpus}\n"
         "---\n\n"
         f"> Source: {source_url}\n"
         f"> Fetched: {fetched_at}\n\n"
