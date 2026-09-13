@@ -72,4 +72,4 @@ def extract_matter_data(pdf_path: str | Path) -> dict[str, Any]:
     if not any(parties.values()): risk_flags.append("party_names_missing")
     if not case_no: risk_flags.append("case_number_missing")
     if not court: risk_flags.append("court_missing")
-    return {"parties": parties, "case_no": case_no, "court": court, "next_hearing_date": next_hearing_date, "obligations": obligations, "risk_flags": risk_flags}
+    return {"parties": parties, "case_no": case_no, "court": court, "next_hearing_date": next_hearing_date, "obligations": obligations, "risk_flags": risk_flags, "provenance_verified": False}
