@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ChatPanel from "../components/ChatPanel";
 import DiffView from "../components/DiffView";
+import RedlineView from "../components/RedlineView";
+import ReExtractDiff from "../components/ReExtractDiff";
 import RiskBadge, { Risk } from "../components/RiskBadge";
+import RiskScoreGauge from "../components/RiskScoreGauge";
 import Timeline, { TimelineEvent } from "../components/Timeline";
 import { apiFetch } from "../utils/api";
+import { getMatterFromIDB, queueOfflineRequest, saveMatterToIDB } from "../pwa/db";
 
 type Obligation = { obligation_id?: string; due_date?: string; description?: string; status?: string };
 type Matter = {
@@ -18,7 +22,7 @@ type Matter = {
   timeline?: TimelineEvent[];
   provenance_verified: false;
 };
-type RiskScan = { risks: Risk[]; risk_score: number; provenance_verified: false };
+type RiskScan = { risks?: Risk[]; combined_risks?: Risk[]; risk_score?: number; risk_score_combined?: number; risk_tier?: string; provenance_verified: false };
 type Diff = { added?: string[]; removed?: string[]; changed?: { old: string; new: string; similarity: number }[] };
 
 export default function MatterDetail() {
@@ -29,15 +33,23 @@ export default function MatterDetail() {
   const [riskScan, setRiskScan] = useState<RiskScan | null>(null);
   const [compareTarget, setCompareTarget] = useState("");
   const [diff, setDiff] = useState<Diff | null>(null);
+  const [redlines, setRedlines] = useState<{ redlines: [] } | null>(null);
+  const [reextract, setReextract] = useState(null);
   const [error, setError] = useState("");
 
   async function loadMatter() {
     try {
       const [current, all] = await Promise.all([apiFetch<Matter>(`/api/matters/${matter_id}`), apiFetch<Matter[]>("/api/matters")]);
       setMatter(current);
+      await saveMatterToIDB(current);
       setMatters(all.filter((item) => item.id !== matter_id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to load matter");
+      const cached = await getMatterFromIDB(matter_id);
+      if (cached) {
+        setMatter(cached as Matter);
+      } else {
+        setError(err instanceof Error ? err.message : "Unable to load matter");
+      }
     }
   }
 
@@ -47,12 +59,17 @@ export default function MatterDetail() {
 
   async function updateStatus(obligation: Obligation, status: string) {
     if (!obligation.obligation_id) return;
+    if (!navigator.onLine) {
+      await queueOfflineRequest({ url: `/api/obligations/${matter_id}/${obligation.obligation_id}/status`, method: "POST", body: { status } });
+      setMatter((current) => current ? { ...current, obligations: current.obligations?.map((item) => item.obligation_id === obligation.obligation_id ? { ...item, status } : item) } : current);
+      return;
+    }
     await apiFetch(`/api/obligations/${matter_id}/${obligation.obligation_id}/status`, { method: "POST", body: JSON.stringify({ status }) });
     await loadMatter();
   }
 
   async function scanRisks() {
-    setRiskScan(await apiFetch<RiskScan>(`/api/matters/${matter_id}/risk-scan`, { method: "POST" }));
+    setRiskScan(await apiFetch<RiskScan>(`/api/intelligence/matter/${matter_id}/analyze`, { method: "POST", body: JSON.stringify({ use_llm: true }) }));
   }
 
   async function compare() {
@@ -63,7 +80,15 @@ export default function MatterDetail() {
   if (error) return <main className="mx-auto max-w-4xl px-4 py-8 text-red-700">{error}</main>;
   if (!matter) return <main className="mx-auto max-w-4xl px-4 py-8 text-slate-600">Loading matter...</main>;
 
-  const tabs = ["Overview", "Timeline", "Obligations", "Risks", "Compare", "Chat"];
+  async function generateRedlines() {
+    setRedlines(await apiFetch<{ redlines: [] }>(`/api/intelligence/matter/${matter_id}/redline`, { method: "POST" }));
+  }
+
+  async function runReextract() {
+    setReextract(await apiFetch(`/api/intelligence/matter/${matter_id}/reextract`, { method: "POST", body: JSON.stringify({ use_llm: false }) }));
+  }
+
+  const tabs = ["Overview", "Timeline", "Obligations", "Risks", "Compare", "Redline", "Re-extract", "Chat"];
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
       <a className="text-sm font-medium text-blue-700" href="/matters">Back to matters</a>
@@ -116,7 +141,8 @@ export default function MatterDetail() {
         {tab === "Risks" ? (
           <div className="rounded border border-slate-200 bg-white p-5">
             <button onClick={scanRisks} className="rounded bg-blue-700 px-4 py-2 text-sm font-semibold text-white">Run risk scan</button>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">{(riskScan?.risks ?? []).map((risk, index) => <RiskBadge key={`${risk.type}-${index}`} risk={risk} />)}</div>
+            {riskScan ? <div className="mt-4"><RiskScoreGauge score={riskScan.risk_score_combined ?? riskScan.risk_score ?? 0} /></div> : null}
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">{(riskScan?.combined_risks ?? riskScan?.risks ?? []).map((risk, index) => <RiskBadge key={`${risk.type}-${index}`} risk={risk} />)}</div>
           </div>
         ) : null}
         {tab === "Compare" ? (
@@ -129,6 +155,18 @@ export default function MatterDetail() {
               <button onClick={compare} className="rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Compare</button>
             </div>
             <div className="mt-4"><DiffView diff={diff} /></div>
+          </div>
+        ) : null}
+        {tab === "Redline" ? (
+          <div className="rounded border border-slate-200 bg-white p-5">
+            <button onClick={generateRedlines} className="rounded bg-blue-700 px-4 py-2 text-sm font-semibold text-white">Generate redlines</button>
+            <div className="mt-4"><RedlineView redlines={redlines?.redlines ?? []} /></div>
+          </div>
+        ) : null}
+        {tab === "Re-extract" ? (
+          <div className="rounded border border-slate-200 bg-white p-5">
+            <button onClick={runReextract} className="rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white">Run v2 extraction</button>
+            <div className="mt-4"><ReExtractDiff result={reextract} /></div>
           </div>
         ) : null}
         {tab === "Chat" ? <ChatPanel matter_id={matter.id} /> : null}

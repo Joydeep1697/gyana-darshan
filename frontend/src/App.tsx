@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ChatPanel from "./components/ChatPanel";
+import OfflineBanner from "./components/OfflineBanner";
 import Login from "./pages/Login";
+import IntelligenceDashboard from "./pages/IntelligenceDashboard";
 import MatterDetail from "./pages/MatterDetail";
 import MatterList from "./pages/MatterList";
+import Offline from "./pages/Offline";
+import { setupPushNotifications } from "./pwa/push";
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { user } = useAuth();
@@ -16,11 +21,13 @@ function Shell() {
   const { user, logout } = useAuth();
   return (
     <div>
+      <OfflineBanner />
       <header className="border-b border-slate-200 bg-white">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
           <a className="text-sm font-bold text-slate-950" href="/">Gyana Darshan</a>
           <div className="flex items-center gap-4 text-sm font-medium text-slate-600">
             <a className="hover:text-blue-700" href="/matters">Matters</a>
+            <a className="hover:text-blue-700" href="/intelligence">Intelligence</a>
             <a className="hover:text-blue-700" href="/api/calendar/ics">Calendar</a>
             {user ? <span className="text-xs text-slate-500">{user.tenant_id} - {user.role}</span> : null}
             {user ? <button onClick={logout} className="text-slate-600 hover:text-blue-700">Logout</button> : null}
@@ -30,6 +37,8 @@ function Shell() {
       <Routes>
         <Route path="/matters" element={<ProtectedRoute><MatterList /></ProtectedRoute>} />
         <Route path="/matters/:matter_id" element={<ProtectedRoute><MatterDetail /></ProtectedRoute>} />
+        <Route path="/intelligence" element={<ProtectedRoute><IntelligenceDashboard /></ProtectedRoute>} />
+        <Route path="/offline" element={<ProtectedRoute><Offline /></ProtectedRoute>} />
         <Route
           path="/"
           element={
@@ -54,6 +63,11 @@ function Shell() {
 }
 
 export default function App() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/service-worker.js").then(() => setupPushNotifications()).catch(() => undefined);
+    }
+  }, []);
   return (
     <BrowserRouter>
       <AuthProvider>

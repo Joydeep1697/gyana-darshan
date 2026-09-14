@@ -7,6 +7,7 @@ from api.auth.dependencies import get_workspace_context
 from app.auth.rbac import require_permission
 from app.services.clause_risk import get_risk_summary, scan_matter_for_risks
 from app.services.doc_compare import compare_matters
+from app.services.redline_service import generate_redline_for_matter
 
 router = APIRouter()
 
@@ -32,3 +33,9 @@ def risk_scan(matter_id: str, workspace: dict = Depends(get_workspace_context), 
 @router.get("/risks/summary")
 def risks_summary(workspace: dict = Depends(get_workspace_context), _user=Depends(require_permission("risk:read"))):
     return get_risk_summary(workspace["organization"]["id"])
+
+
+@router.get("/matters/{matter_id}/redline/diff")
+def redline_diff(matter_id: str, workspace: dict = Depends(get_workspace_context), _user=Depends(require_permission("risk:read"))):
+    redlines = generate_redline_for_matter(workspace["organization"]["id"], matter_id)
+    return {"matter_id": matter_id, "redlines": redlines.get("redlines", []), "view": "side_by_side", "provenance_verified": False}

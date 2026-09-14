@@ -207,8 +207,10 @@ from app.api.routes.auth import router as phase8_auth_router  # noqa: E402
 from app.api.routes.chat import router as matter_chat_router  # noqa: E402
 from app.api.routes.compare import router as compare_router  # noqa: E402
 from app.api.routes.health import router as phase9_health_router  # noqa: E402
+from app.api.routes.intelligence import router as intelligence_router  # noqa: E402
 from app.api.routes.notifications import router as notifications_router  # noqa: E402
 from app.api.routes.obligations import router as obligations_router  # noqa: E402
+from app.api.routes.pwa import router as pwa_router  # noqa: E402
 from app.api.routes.search import router as matter_search_router  # noqa: E402
 from api.auth.router import router as auth_router
 from api.auth.dependencies import get_current_user
@@ -243,6 +245,8 @@ app.include_router(calendar_router, prefix="/api", tags=["Calendar"])
 app.include_router(matter_chat_router, prefix="/api", tags=["Matter RAG Chat"])
 app.include_router(notifications_router, prefix="/api", tags=["Notifications"])
 app.include_router(compare_router, prefix="/api", tags=["Matter Compare"])
+app.include_router(intelligence_router, prefix="/api", tags=["Matter Intelligence"])
+app.include_router(pwa_router, prefix="/api", tags=["PWA"])
 
 from app.routers.public_site import router as public_site_router
 app.include_router(public_site_router)
