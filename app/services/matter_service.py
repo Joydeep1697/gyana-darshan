@@ -148,6 +148,10 @@ async def upload_matter_pdf(db: Database, tenant_id: str, user_id: str, upload: 
 def get_matter(db: Database, tenant_id: str, matter_id: str) -> Matter:
     matter = db.get_matter(matter_id, tenant_id)
     if not matter:
+        vault_root = Path("app/storage/vault").resolve()
+        for extracted_path in vault_root.glob(f"*/matters/{matter_id}/extracted.json"):
+            if extracted_path.parts[-4] != tenant_id:
+                raise HTTPException(status_code=403, detail="Cross-tenant access denied")
         raise HTTPException(status_code=404, detail="Matter not found")
     return _matter_payload(matter, _read_extracted(tenant_id, matter_id))
 

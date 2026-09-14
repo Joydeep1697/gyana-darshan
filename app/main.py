@@ -118,6 +118,8 @@ if _is_wildcard:
     )
 else:
     ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+    if not config.IS_PRODUCTION and "http://localhost:5173" not in ALLOWED_ORIGINS:
+        ALLOWED_ORIGINS.append("http://localhost:5173")
     _allow_credentials = True
 
 app.add_middleware(
@@ -197,7 +199,10 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 from app.routers import vault, chat, classifier, dashboard, knowledge_graph, proactive, billing, legal_ops, matters, retrieval as retrieval_router  # noqa: E402
 from app.api.routes.calendar import router as calendar_router  # noqa: E402
+from app.api.routes.auth import router as phase8_auth_router  # noqa: E402
 from app.api.routes.chat import router as matter_chat_router  # noqa: E402
+from app.api.routes.compare import router as compare_router  # noqa: E402
+from app.api.routes.notifications import router as notifications_router  # noqa: E402
 from app.api.routes.obligations import router as obligations_router  # noqa: E402
 from app.api.routes.search import router as matter_search_router  # noqa: E402
 from api.auth.router import router as auth_router
@@ -210,6 +215,7 @@ from database.connection import init_db
 # Initialize Relational Database Schema
 init_db()
 
+app.include_router(phase8_auth_router)
 app.include_router(auth_router)
 app.include_router(conversations_router)
 app.include_router(organizations_router)
@@ -229,6 +235,8 @@ app.include_router(matter_search_router, prefix="/api", tags=["Matter Search"])
 app.include_router(obligations_router, prefix="/api", tags=["Obligations"])
 app.include_router(calendar_router, prefix="/api", tags=["Calendar"])
 app.include_router(matter_chat_router, prefix="/api", tags=["Matter RAG Chat"])
+app.include_router(notifications_router, prefix="/api", tags=["Notifications"])
+app.include_router(compare_router, prefix="/api", tags=["Matter Compare"])
 
 from app.routers.public_site import router as public_site_router
 app.include_router(public_site_router)

@@ -6,6 +6,8 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from api.auth.service import decode_jwt_token
 from database.repository import OrganizationRepository, UserRepository, UsageRepository, SessionRepository
+from app.auth.jwt import verify_token as verify_phase8_token
+from app.auth.middleware import load_users, sanitize_tenant_id
 
 http_bearer = HTTPBearer(auto_error=False)
 FREE_DAILY_CONSULTATION_LIMIT = 10
@@ -22,7 +24,17 @@ def get_current_user_optional(
     token = credentials.credentials.strip()
     payload = decode_jwt_token(token)
     if not payload or not payload.get("sub"):
-        return None
+        try:
+            phase8_payload = verify_phase8_token(token)
+        except HTTPException:
+            return None
+        return {
+            "id": phase8_payload.get("user_id"),
+            "email": phase8_payload.get("email"),
+            "tenant_id": phase8_payload.get("tenant_id"),
+            "role": str(phase8_payload.get("role") or "viewer").upper(),
+            "_phase8_auth": True,
+        }
     
     user = UserRepository.get_by_id(payload["sub"])
     if payload.get("sid"):
@@ -45,11 +57,26 @@ def get_current_user(
     token = credentials.credentials.strip()
     payload = decode_jwt_token(token)
     if not payload or not payload.get("sub"):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired session token. Please log in again.",
-            headers={"WWW-Authenticate": "Bearer"}
-        )
+        try:
+            phase8_payload = verify_phase8_token(token)
+        except HTTPException as exc:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired session token. Please log in again.",
+                headers={"WWW-Authenticate": "Bearer"}
+            ) from exc
+        tenant_id = sanitize_tenant_id(str(phase8_payload.get("tenant_id") or ""))
+        user_id = str(phase8_payload.get("user_id") or "")
+        for stored_user in load_users():
+            if stored_user.get("user_id") == user_id and sanitize_tenant_id(str(stored_user.get("tenant_id") or "")) == tenant_id:
+                return {
+                    "id": user_id,
+                    "email": stored_user.get("email"),
+                    "tenant_id": tenant_id,
+                    "role": str(stored_user.get("role") or "viewer").upper(),
+                    "_phase8_auth": True,
+                }
+        raise HTTPException(status_code=401, detail="User account not found or deactivated.")
     
     user = UserRepository.get_by_id(payload["sub"])
     if not user:
@@ -90,6 +117,17 @@ def get_workspace_context(
     user: Dict[str, Any] = Depends(get_current_user),
 ) -> Dict[str, Any]:
     """Resolve an authenticated organization scope; default to the private workspace."""
+    if user.get("_phase8_auth"):
+        selected_id = sanitize_tenant_id(organization_id or user["tenant_id"])
+        token_tenant = sanitize_tenant_id(user["tenant_id"])
+        if selected_id != token_tenant:
+            raise HTTPException(status_code=403, detail="Cross-tenant access denied")
+        role = str(user.get("role") or "VIEWER").upper()
+        return {
+            "user": user,
+            "organization": {"id": token_tenant, "name": token_tenant, "membership_role": role},
+            "role": role,
+        }
     selected_id = organization_id or OrganizationRepository.personal_organization_id(user["id"])
     organization = OrganizationRepository.get_for_member(selected_id, user["id"])
     if not organization:

@@ -1,0 +1,18 @@
+[
+  {
+    "created_at": "2025-12-01T00:00:00Z",
+    "email": "admin@test.com",
+    "password_hash": "pbkdf2_sha256$SwsIFwnZz_OZ03m1sIP7Vw$w-YIoO9B8tNHtOHKxTuwwDCPev5S_XKT7OmoIe1IMsI",
+    "role": "admin",
+    "tenant_id": "personal-test",
+    "user_id": "u_admin_001"
+  },
+  {
+    "created_at": "2025-12-01T00:00:00Z",
+    "email": "viewer@test.com",
+    "password_hash": "pbkdf2_sha256$12Pn4lZ2O0MRM3wX8CiBJw$GBlUNJ51O9EPq5a_SPClRRXnM-fqXtgfOjv7AEY0sbI",
+    "role": "viewer",
+    "tenant_id": "personal-test",
+    "user_id": "u_viewer_001"
+  }
+]
