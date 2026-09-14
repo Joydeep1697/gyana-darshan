@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import shutil
 import tempfile
+import json
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -42,26 +44,59 @@ def _title_from_extracted(extracted: dict[str, Any], fallback: str) -> str:
 
 
 def _matter_payload(db_matter: dict[str, Any], extracted: dict[str, Any]) -> Matter:
+    tenant_id = db_matter["organization_id"]
+    matter_id = db_matter["id"]
+    statuses = _read_statuses(tenant_id, matter_id)
     return Matter(
-        id=db_matter["id"],
+        id=matter_id,
         title=db_matter.get("title") or "Matter",
-        organization_id=db_matter["organization_id"],
+        organization_id=tenant_id,
         case_no=extracted.get("case_no"),
         court=extracted.get("court"),
         parties=extracted.get("parties") or {},
         next_hearing_date=extracted.get("next_hearing_date"),
-        obligations=extracted.get("obligations") or [],
+        obligations=_enrich_obligations(extracted.get("obligations") or [], statuses),
         risk_flags=extracted.get("risk_flags") or [],
         timeline=[TimelineEvent(**event) for event in build_timeline(extracted)],
         provenance_verified=False,
     )
 
 
+def _obligation_id(obligation: dict[str, Any], index: int) -> str:
+    payload = json.dumps(obligation, ensure_ascii=False, sort_keys=True)
+    digest = hashlib.sha256(f"{index}:{payload}".encode("utf-8")).hexdigest()[:16]
+    return f"obl-{digest}"
+
+
+def _read_statuses(tenant_id: str, matter_id: str) -> dict[str, str]:
+    path = Path("app/storage/vault") / tenant_id / "matters" / matter_id / "obligation_status.json"
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return {str(key): str(value) for key, value in data.items()} if isinstance(data, dict) else {}
+
+
+def _enrich_obligations(obligations: list[dict[str, Any]], statuses: dict[str, str]) -> list[dict[str, Any]]:
+    enriched: list[dict[str, Any]] = []
+    for index, obligation in enumerate(obligations):
+        if not isinstance(obligation, dict):
+            continue
+        item = dict(obligation)
+        obligation_id = str(item.get("id") or _obligation_id(item, index))
+        item["obligation_id"] = obligation_id
+        item["status"] = statuses.get(obligation_id, "pending")
+        item["provenance_verified"] = False
+        enriched.append(item)
+    return enriched
+
+
 def _read_extracted(tenant_id: str, matter_id: str) -> dict[str, Any]:
     path = Path("app/storage/vault") / tenant_id / "matters" / matter_id / "extracted.json"
     if not path.is_file():
         return {"provenance_verified": False}
-    import json
 
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
