@@ -112,6 +112,38 @@ Optional integrations are configured directly in the production environment:
 Production startup fails closed when required secrets are absent, origins are insecure, or an optional integration is only partially configured. The container runs as an unprivileged user and checks `/health` automatically.
 Production preflight also requires `NYAYA_CREDENTIAL_ROTATION_CONFIRMED=true`. Set it only after NVIDIA, Razorpay, OAuth, JWT/API, and deployment secrets that may have been exposed have been rotated and recorded outside the repository without secret values.
 
+### Phase 9 Docker Compose Deployment
+
+For VPS, Fly-style Docker hosts, or local production rehearsal:
+
+```powershell
+copy .env.example .env
+docker compose up --build
+```
+
+The backend runs as a non-root user, exposes `/health` and `/health/detailed`, and writes persistent vault state under `app/storage`. The compose file mounts that path to a named `storage` volume and keeps the React/Vite cockpit behind nginx with SPA fallback and `/api/` proxying to the backend.
+
+Required production environment:
+
+```dotenv
+JWT_SECRET=generate-a-unique-secret-with-at-least-32-characters
+NYAYA_JWT_SECRET=generate-a-unique-secret-with-at-least-32-characters
+ALLOWED_ORIGINS=https://your-domain.example
+CORS_ORIGINS=https://your-domain.example
+TENANT_ENCRYPTION_KEY=replace-with-provider-managed-key
+NYAYA_CREDENTIAL_ROTATION_CONFIRMED=true
+```
+
+Backup and restore:
+
+```powershell
+python scripts\backup_vault.py --tenant personal-test --backup
+python scripts\restore_verify.py app\storage\backups\backup-personal-test-YYYYMMDDTHHMMSSZ.zip
+python scripts\backup_vault.py --restore app\storage\backups\backup-personal-test-YYYYMMDDTHHMMSSZ.zip
+```
+
+Backups include tenant vault files, `users.json`, notification logs, and a manifest with SHA-256 checksums. They never include `.env`; `extracted.json` provenance flags are verified to remain `false`.
+
 ## Product truth
 
 Nyaya Darshana presents retrieved sources, the claims they support, and verification results. Source-version metadata is retained internally for auditability without adding implementation jargon to the workspace. The product does not expose private chain-of-thought, invent customer activity, or imply that a procedural defect automatically determines innocence or acquittal without supporting authority.

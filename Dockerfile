@@ -10,6 +10,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     NYAYA_DATA_DIR=/var/lib/nyaya \
     RAW_DIR=/var/lib/nyaya/uploads \
     NYAYA_LOG_DIR=/var/lib/nyaya/logs \
+    PYTHONPATH=/app \
     HF_HUB_OFFLINE=1 \
     TRANSFORMERS_OFFLINE=1
 
@@ -41,4 +42,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
     CMD curl --fail --silent "http://127.0.0.1:${PORT:-8000}/health" > /dev/null || exit 1
 
 # Start server
-CMD ["sh", "-c", "python scripts/release_preflight.py --environment-only && exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers ${WEB_CONCURRENCY:-1} --proxy-headers --forwarded-allow-ips=${FORWARDED_ALLOW_IPS:-127.0.0.1}"]
+CMD ["sh", "-c", "python scripts/release_preflight.py --environment-only && exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers ${WEB_CONCURRENCY:-2} --proxy-headers --forwarded-allow-ips=${FORWARDED_ALLOW_IPS:-127.0.0.1}"]

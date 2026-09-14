@@ -37,6 +37,8 @@ from app.intelligence.grounding_verdict import assess_grounding
 from app.intelligence.human_review import recommend_human_review
 from app.intelligence.query_safety import assess_legal_intake
 from app.source_presenter import format_cited_evidence, format_retrieved_evidence
+from app.core.logging import request_logging_middleware
+from app.core.rate_limit import login_rate_limit_middleware
 
 from retrieval.hybrid_retriever import AuthoritativeLegalRetriever
 from verification.claim_firewall import LegalVerificationFirewall
@@ -100,6 +102,8 @@ app = FastAPI(
 # ── Rate Limiting & CORS ──────────────────────────────────────────
 
 app.add_middleware(RateLimitMiddleware)
+app.middleware("http")(login_rate_limit_middleware)
+app.middleware("http")(request_logging_middleware)
 
 _raw_origins = os.environ.get("ALLOWED_ORIGINS", "")
 _is_wildcard = not _raw_origins or _raw_origins.strip() == "*"
@@ -202,6 +206,7 @@ from app.api.routes.calendar import router as calendar_router  # noqa: E402
 from app.api.routes.auth import router as phase8_auth_router  # noqa: E402
 from app.api.routes.chat import router as matter_chat_router  # noqa: E402
 from app.api.routes.compare import router as compare_router  # noqa: E402
+from app.api.routes.health import router as phase9_health_router  # noqa: E402
 from app.api.routes.notifications import router as notifications_router  # noqa: E402
 from app.api.routes.obligations import router as obligations_router  # noqa: E402
 from app.api.routes.search import router as matter_search_router  # noqa: E402
@@ -215,6 +220,7 @@ from database.connection import init_db
 # Initialize Relational Database Schema
 init_db()
 
+app.include_router(phase9_health_router)
 app.include_router(phase8_auth_router)
 app.include_router(auth_router)
 app.include_router(conversations_router)

@@ -1,0 +1,55 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Python checks
+        run: |
+          python -m compileall -q app api database retrieval verification scripts tests
+          python -m pytest tests/test_statutory_release.py tests/test_clean_environment.py tests/test_matter_extraction.py tests/test_obligations_api.py -q
+          python scripts/smoke_phase8.py
+      - name: Frontend build
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+      - name: Backup smoke
+        run: |
+          python scripts/backup_vault.py --tenant personal-test --backup
+          python scripts/restore_verify.py "$(ls -t app/storage/backups/backup-personal-test-*.zip | head -n 1)"
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker build backend
+        run: docker build -t gyana-backend:test .
+      - name: Docker build frontend
+        run: docker build -t gyana-frontend:test ./frontend
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test, docker]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - run: echo "Ready to deploy after environment-specific approval."
